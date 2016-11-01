@@ -1,0 +1,110 @@
+Merchants
+	/dashboard/merchants
+		- GET Request
+		- Get all the merchants
+	/dashboard/merchants/{merchant}
+		- GET Request
+		- Get the selected merchant
+	/dashboard/merchants/{merchant}/search/{key}
+		- GET Request
+		- Search merchant
+	/dashboard/merchants
+		- POST Request
+		- Store new merchant
+	/dashboard/merchants/{merchant}
+		- PUT Request
+		- Update merchant information
+	/dashboard/merchants/{merchant}
+		- DELETE Request
+		- Delete merchant
+
+Merchant Outlets
+	/dashboard/merchants/{merchant}/outlets
+		- GET Request
+		- Get all the Merchant Outlets
+	/dashboard/merchants/{merchant}/outlets/{outlet}
+		- GET Request
+		- Get outlet information
+	/dashboard/merchants/{merchant}/outlets/search/{key}
+		- GET Request
+		- Search Outlets from the Merchant
+	/dashboard/merchants/{merchant}/outlets
+		- POST Request
+		- Store new outlet on the Merchant
+	/dashboard/merchants/{merchant}/outlets/{outlet}
+		- PUT Request
+		- Update an outlet information
+	/dashboard/merchants/{merchant}/outlets/{outlet}
+		- DELETE Request
+		- Delete an outlet from the Merchant
+
+Merchant Clerks
+	/dashboard/merchants/{merchant}/clerks
+		- GET Request
+		- GET all the clerks from the Merchant
+	/dashboard/merchants/{merchant}/clerks/{clerk}
+		- GET Request
+		- GET clerk information
+	/dashboard/merchants/{merchant}/clerks/search/{key}
+		- GET Request
+		- Search clerks from the Merchant
+	/dashboard/merchants/{merchant}/clerks
+		- POST Request
+		- Store new Clerk on the Merchant
+	/dashboard/merchants/{merchant}/clerks/{clerk}
+		- PUT Request
+		- Update clerk information
+	/dashboard/merchants/{merchant}/clerks/{clerk}
+		- DELETE Request
+		- Delete clerk from the Merchant
+
+Merchant Promotions
+	/dashboard/merchants/{merchant}/promos
+		- GET Request
+		- Get all the promotions of the Merchant
+	/dashboard/merchants/{merchant}/promos/{promo}
+		- GET Request
+		- Get promo information from the Merchant
+	/dashboard/merchants/{merchant}/promos/search/{key}
+		- GET Request
+		- Search promos from the Merchant
+	/dashboard/merchants/{merchant}/promos
+		- POST Request
+		- Store promo to the Merchant
+	/dashboard/merchants/{merchant}/promos/{promo}
+		- PUT Request
+		- Update the promo information of the Merchant
+	/dashboard/merchants/{merchant}/promos/{promo}
+		- DELETE Request
+		- Delete a promo from the Merchant
+
+Manage Outlet Clerks
+
+	/dashboard/merchants/{merchant}/outlets/{outlet}/clerks
+		- POST Request
+		- Add a Clerk to an Outlet
+	/dashboard/merchants/{merchant}/outlets/{outlet}/clerks/{clerk}
+		- DELETE Request
+		- Remove a Clerk from the Outlet
+
+	/dashboard/merchants/{merchant}/clerks/{clerk}/outlets
+		- POST Request
+		- Attach (Add) outlets to a Clerk
+	/dashboard/merchants/{merchant}/clerks/{clerk}/outlets/{outlet}
+		- DELETE Request
+		- Detach (Remove) outlet from a Clerk
+
+Manage Outlet Promotions
+
+	/dashboard/merchants/{merchant}/outlets/{outlet}/promos
+		- POST Request
+		- Add a Promotion to an Outlet
+	/dashboard/merchants/{merchant}/outlets/{outlet}/promos/{promo}
+		- DELETE Request
+		- Remove a Promotion from the Outlet
+	/dashboard/merchants/{merchant}/promos/{promo}/outlets
+		- POST Request
+		- Attach (Add) outlets to a Promotion
+	/dashboard/merchants/{merchant}/promos/{promo}/outlets/{outlet}
+		- DELETE Request
+		- Detach (Remove) outlet from a Promotion

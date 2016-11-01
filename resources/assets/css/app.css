@@ -1,0 +1,21 @@
+body {
+  font-family: 'Lato', sans-serif; }
+
+h1, h2, h3, h4, h5, h6 {
+  font-weight: 300; }
+
+.Heading {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  justify-content: space-between; }
+
+.search-form {
+  width: 30%; }
+
+.table {
+  background: white; }
+
+/*# sourceMappingURL=app.css.map */

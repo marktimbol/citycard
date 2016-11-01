@@ -1,0 +1,45 @@
+Merchant View
+	View as mobile app
+
+	Followers => people who follow the merchant, added in their favourite lists, also receive posts on the timeline
+
+	Members => people who join the merchant loyalty program
+
+	Post
+
+	Users
+		Do you want to receive birthday offers? yes/no
+		Receive offers by email? yes/no
+		Receive offers by SMS? yes/no
+
+	Add Social media links (Facebook, Instagram, Twitter, LinkedIn)
+
+Sidebar
+	Home
+	Merchants
+	Users
+	Transactions
+	CRM
+		Followers
+		Members
+		Activity
+			Birthday Promotion
+				Automatically send an email happy birthday message to a member
+				Create daily offers for birthday
+	Reports
+		Followers
+		Members
+		Promotions
+			Number of views, clicks, etc.
+
+	Accounting
+			Billable Merchant Promotions
+	Settings
+		Country, City, Area
+		Admin Users & Roles
+		Roles
+			Can manage merchant?
+			Transactions?
+			Users?
+			Promotions
+			Accounting

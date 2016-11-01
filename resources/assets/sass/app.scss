@@ -1,0 +1,22 @@
+
+body {
+	font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
+
+.Heading {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.search-form {
+	width: 30%;
+}
+
+.table {
+	background: white;
+}
