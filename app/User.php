@@ -27,9 +27,9 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function setNameAttribute($name)
+    public function setEmailAttribute($email)
     {
-        $this->attributes['name'] = $name;
+        $this->attributes['email'] = $email;
         $this->attributes['api_token'] = str_random(60);
     }
 }

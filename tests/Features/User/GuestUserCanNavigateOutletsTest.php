@@ -76,11 +76,10 @@ class GuestUserCanNavigateOutletsTest extends TestCase
 
     	$url = sprintf('/api/posts/%s/purchase', $post->id);
     	
-    	$response = $this->json('POST', $url, []);
-    	dd($response);
-
-    	
-
+    	$this->json('POST', $url, [])
+            ->seeJson([
+                'error' => 'Unauthenticated.'
+            ]);
     }
 
 }

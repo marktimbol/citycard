@@ -18,7 +18,8 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:user_api');
 
 Route::group(['as' => 'api.'], function() {
-	Route::post('register', 'Api\RegisterController@register');
+	Route::post('login', 'Api\Auth\LoginController@login');
+	Route::post('register', 'Api\Auth\RegisterController@register');
 	Route::resource('outlets', 'Api\OutletsController');
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');

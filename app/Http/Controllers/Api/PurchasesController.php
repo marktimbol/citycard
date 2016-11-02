@@ -11,7 +11,7 @@ class PurchasesController extends Controller
 {
 	public function __construct()
 	{
-		$this->middleware('auth');
+		$this->middleware('auth:user_api');
 	}
 
     public function store(Request $request, Post $post)
