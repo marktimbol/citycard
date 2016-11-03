@@ -21,54 +21,54 @@ class DatabaseSeeder extends Seeder
         ]);
 
         // We will start with 5 merchants
-        // $merchants = factory(App\Merchant::class, 5)->create();
+        $merchants = factory(App\Merchant::class, 5)->create();
 
-        // $excel = App::make('excel');
+        $excel = App::make('excel');
 
-        // $excel->load('merchants.xls', function($reader) {
-        //     $merchants = $reader->all();
-        //     foreach( $merchants as $merchant )
-        //     {
-        //         Merchant::create([
-        //             'name'  => $merchant->name,
-        //             'phone' => $merchant->phone,
-        //             'city'  => $merchant->city,
-        //             'country'   => $merchant->country,
-        //             'email' => $merchant->email,
-        //             'password'  => bcrypt($merchant->password)
-        //         ]);
-        //     }
+        $excel->load('merchants.xls', function($reader) {
+            $merchants = $reader->all();
+            foreach( $merchants as $merchant )
+            {
+                Merchant::create([
+                    'name'  => $merchant->name,
+                    'phone' => $merchant->phone,
+                    'city'  => $merchant->city,
+                    'country'   => $merchant->country,
+                    'email' => $merchant->email,
+                    'password'  => bcrypt($merchant->password)
+                ]);
+            }
 
-        //     return 'Done';
-        // })->get();
+            return 'Done';
+        })->get();
 
-        // $merchants = Merchant::all();
+        $merchants = Merchant::all();
 
-        // foreach( $merchants as $merchant )
-        // {
-        //     // Each merchant has 5 outlets
-        // 	$outlets = factory(App\Outlet::class, 5)->create([
-        // 		'merchant_id'	=> $merchant->id
-        // 	]);
+        foreach( $merchants as $merchant )
+        {
+            // Each merchant has 5 outlets
+        	$outlets = factory(App\Outlet::class, 5)->create([
+        		'merchant_id'	=> $merchant->id
+        	]);
             
-        //     // Each merchant has 5 clerks
-        // 	$clerks = factory(App\Clerk::class, 5)->create([
-        // 		'merchant_id'	=> $merchant->id
-        // 	]);
+            // Each merchant has 5 clerks
+        	$clerks = factory(App\Clerk::class, 5)->create([
+        		'merchant_id'	=> $merchant->id
+        	]);
 
-        // 	foreach( $outlets as $outlet )
-        // 	{
-        //         // In each Merchant's outlet, we have 5 clerks
-        //         $outlet->clerks()->attach($clerks);
+        	foreach( $outlets as $outlet )
+        	{
+                // In each Merchant's outlet, we have 5 clerks
+                $outlet->clerks()->attach($clerks);
                 
-        //         // In each outlet, we have 5 promotions
-        //         $promos = factory(App\Promo::class, 5)->create([
-        //             'merchant_id'   => $merchant->id
-        //         ]);
+                // In each outlet, we have 5 promotions
+                $promos = factory(App\Promo::class, 5)->create([
+                    'merchant_id'   => $merchant->id
+                ]);
 
-        //         // We will attach the promos in outlet
-        //         $outlet->promos()->attach($promos);
-        // 	}
-        // }
+                // We will attach the promos in outlet
+                $outlet->promos()->attach($promos);
+        	}
+        }
     }
 }
