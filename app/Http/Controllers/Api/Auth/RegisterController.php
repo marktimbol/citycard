@@ -78,6 +78,7 @@ class RegisterController extends Controller
         $this->guard()->login($user);
         
         return response()->json([
+            'authenticated' => true,
             'user'  => $user
         ]);
     }
