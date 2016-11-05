@@ -40,6 +40,14 @@
 					</textarea>	
 				</div>
 				<div class="form-group">
+					<label for="link">External Link</label>
+					<input type="text"
+						name="link"
+						id="link"
+						value="{{ old('link') }}"
+						class="form-control" />
+				</div>
+				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Save Post</button>
 				</div>
 			</form>	

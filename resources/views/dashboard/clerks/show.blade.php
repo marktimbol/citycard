@@ -5,7 +5,9 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Clerk: {{ sprintf('%s %s', $clerk->first_name, $clerk->last_name) }}</h1>
-		<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-warning">Cancel</a>
+		<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">
+			<i class="fa fa-long-arrow-left"></i> Go Back
+		</a>
 	</div>
 	
 	<ul class="list-group">

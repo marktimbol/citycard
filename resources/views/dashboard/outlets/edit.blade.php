@@ -6,9 +6,9 @@
 	<div class="Heading">
 		<h1 class="Heading__title">Update Outlet</h1>
 		<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
-			class="btn btn-warning"
+			class="btn btn-link"
 		>
-			Cancel
+			<i class="fa fa-long-arrow-left"></i> Go Back
 		</a>
 	</div>
 
@@ -16,6 +16,11 @@
 		{{ csrf_field() }}
 		{!! method_field('PUT') !!}
 	
+		<div class="form-group">
+			<label for="merchant">Merchant Name</label>
+			<input type="text" value="{{ $merchant->name }}" class="form-control" disabled />
+		</div>
+
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text"
@@ -136,7 +141,12 @@
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-lg">Update</button>
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
+				class="btn btn-link"
+			>
+				Cancel
+			</a>
 		</div>
 	</form>
 @endsection

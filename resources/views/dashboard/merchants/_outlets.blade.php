@@ -1,4 +1,10 @@
-<h2>Outlets</h2>
+<h2>Outlets
+	<small>
+		<a href="{{ route('dashboard.merchants.outlets.create', $merchant->id) }}" class="btn btn-sm btn-default">
+			Add New
+		</a>
+	</small>
+</h2>
 
 <table class="table table-bordered">
 	<thead>
@@ -18,7 +24,7 @@
 				</a>
 			</td>
 			<td></td>
-			<td><label class="label label-success">Open</label></td>
+			<td><label class="label label-danger">Close</label></td>
 			<td>
 				<a href="{{ route('dashboard.merchants.outlets.edit', [$merchant->id, $outlet->id]) }}" 
 					class="btn btn-sm btn-default"

@@ -5,15 +5,14 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Add Outlet</h1>
-		<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
-			class="btn btn-warning"
-		>
-			Cancel
-		</a>
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.outlets.store', $merchant->id) }}">
 		{{ csrf_field() }}
+		<div class="form-group">
+			<label for="merchant">Merchant Name</label>
+			<input type="text" value="{{ $merchant->name }}" class="form-control" disabled />
+		</div>
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input type="text"
@@ -155,7 +154,12 @@
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-lg">Save</button>
+			<button type="submit" class="btn btn-primary">Save</button>
+			<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
+				class="btn btn-link"
+			>
+				Cancel
+			</a>
 		</div>
 	</form>
 @endsection

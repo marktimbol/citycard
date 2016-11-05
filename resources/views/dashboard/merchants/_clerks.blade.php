@@ -1,4 +1,10 @@
-<h2>Clerks</h2>
+<h2>Clerks
+	<small>
+		<a href="{{ route('dashboard.merchants.clerks.create', $merchant->id) }}" class="btn btn-sm btn-default">
+			Add New
+		</a>
+	</small>
+</h2>
 
 <table class="table table-bordered">
 	<thead>

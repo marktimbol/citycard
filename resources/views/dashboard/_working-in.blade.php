@@ -21,7 +21,7 @@
 			<td>{{ $outlet->email }}</td>
 			<td>{{ $outlet->phone }}</td>
 			<td>
-				<label class="label label-success">Open</label>
+				<label class="label label-danger">Close</label>
 			</td>
 			<td>
 				<a href="{{ route('dashboard.merchants.outlets.edit', [$merchant->id, $outlet->id]) }}" 

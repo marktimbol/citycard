@@ -6,7 +6,7 @@
 	<div class="Heading">
 		<h1 class="Heading__title">Clerks
 			<smal>
-				<a href="{{ route('dashboard.merchants.clerks.create', $merchant->id) }}" class="btn btn-primary">Add New</a>
+				<a href="{{ route('dashboard.merchants.clerks.create', $merchant->id) }}" class="btn btn-sm btn-primary">Add New</a>
 			</smal>
 		</h1>
 		@include('dashboard._search-form')

@@ -24,10 +24,10 @@
 			</td>
 			<td></td>
 			<td>
-				<label class="label label-success">Active</label>
+				<label class="label label-danger">Offline</label>
 			</td>
 			<td>
-				<label class="label label-success">Online</label>
+
 			</td>
 			<td>
 				<a href="{{ route('dashboard.merchants.clerks.edit', [$merchant->id, $clerk->id]) }}" 

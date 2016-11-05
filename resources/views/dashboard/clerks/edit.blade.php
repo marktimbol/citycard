@@ -5,7 +5,9 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Clerk</h1>
-		<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-warning">Cancel</a>
+		<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">
+			<i class="fa fa-long-arrow-left"></i> Go Back
+		</a>
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.clerks.update', [$merchant->id, $clerk->id]) }}">
@@ -78,7 +80,10 @@
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-lg">Update</button>
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">
+				Cancel
+			</a>
 		</div>
 	</form>
 @endsection

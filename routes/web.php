@@ -25,7 +25,7 @@ Route::get('/import', function() {
     	$merchants = $reader->all();
     	foreach( $merchants as $merchant )
     	{
-    		Merchant::create([
+    		$merchant = Merchant::create([
     			'name'	=> $merchant->name,
     			'phone'	=> $merchant->phone,
     			'city'	=> $merchant->city,
@@ -33,6 +33,21 @@ Route::get('/import', function() {
     			'email'	=> $merchant->email,
     			'password'	=> bcrypt($merchant->password)
     		]);
+
+            $merchant->outlets()->create([
+                'name'  => $merchant->name,
+                'email'  => $merchant->email,
+                'password'  => $merchant->email,
+                'phone'  => $merchant->phone,
+                'address1'  => '',
+                'address2'  => '',
+                'latitude'  => '',
+                'longitude'  => '',
+                'type'  => '',
+                'country'  => $merchant->country,
+                'city'  => $merchant->city,
+                'area'  => '',
+            ]);
     	}
 
     	return 'Done';

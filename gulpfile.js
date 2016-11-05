@@ -1,5 +1,6 @@
 const elixir = require('laravel-elixir');
 const bowersPath = '../../../bower_components/';
+const modulesPath = '../../../node_modules/';
 
 /*
  |--------------------------------------------------------------------------
@@ -15,16 +16,14 @@ const bowersPath = '../../../bower_components/';
 elixir(mix => {
     mix.sass('app.scss', 'resources/assets/css/app.css')
    		.styles([
-   			bowersPath + 'bootstrap/dist/css/bootstrap.css',
-   			bowersPath + 'sweetalert/dist/sweetalert.css',
+        modulesPath + 'font-awesome/css/font-awesome.css',
+   			modulesPath + 'sweetalert/dist/sweetalert.css',
    			'app.css'
    		], 'public/css/app.css')
 
-    	.scripts([
-    		bowersPath + 'jquery/dist/jquery.js',
-    		bowersPath + 'bootstrap/dist/js/bootstrap.js',
-    		bowersPath + 'sweetalert/dist/sweetalert-dev.js',
-    	], 'public/js/app.js')
+    	.webpack('app.js')
+
+      .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
 
     	.version([
     		'public/css/app.css',

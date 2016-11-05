@@ -103,6 +103,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence,
         'slug'  => $faker->slug,
         'description'   => $faker->paragraph,
+        'link'   => $faker->url,
         'photo'   => $faker->url,
         'approved'  => 0,
     ];

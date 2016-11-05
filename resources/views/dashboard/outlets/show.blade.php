@@ -6,9 +6,9 @@
 	<div class="Heading">
 		<h1 class="Heading__title">Outlet: {{ $outlet->name }}</h1>
 		<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
-			class="btn btn-sm btn-warning"
+			class="btn btn-link"
 		>
-			Cancel
+			<i class="fa fa-long-arrow-left" aria-hidden="true"></i> Go Back
 		</a>
 	</div>
 
@@ -35,7 +35,7 @@
 			Area:  {{ sprintf('%s, %s, %s', $outlet->area, $outlet->city, $outlet->country) }}
 		</li>
 		<li class="list-group-item">
-			Status: <label class="label label-success">Open</label>
+			Status: <label class="label label-danger">Close</label>
 		</li>
 	</ul>
 

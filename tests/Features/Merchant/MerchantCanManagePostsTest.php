@@ -43,6 +43,7 @@ class MerchantCanManagePostsTest extends TestCase
             ->select('notification', 'type')
             ->type('The Title', 'title')
             ->type('The description', 'description')
+            ->type('http://google.com', 'link')
             ->press('Save Post')
 
             ->seeInDatabase('posts', [
@@ -51,6 +52,7 @@ class MerchantCanManagePostsTest extends TestCase
                 'title' => 'The Title',
                 'slug'  => 'the-title',
                 'description'=> 'The description',
+                'link'  => 'http://google.com',
                 'approved'  => 0
             ])
 

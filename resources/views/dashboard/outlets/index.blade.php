@@ -7,7 +7,7 @@
 		<h1 class="Heading__title">Outlets
 			<smal>
 				<a href="{{ route('dashboard.merchants.outlets.create', $merchant->id) }}" 
-					class="btn btn-primary"
+					class="btn btn-sm btn-primary"
 				>
 					Add New
 				</a>

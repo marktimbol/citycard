@@ -43,13 +43,15 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     		->select('1', 'outlet_ids')
     		->type('Post Title', 'title')
     		->type('Post description', 'description')
+            ->type('http://google.com', 'link')
     		->press('Save')
 
     		->seeInDatabase('posts', [
     			'merchant_id'	=> $merchant->id,
                 'type'  => 'notification',
                 'title' => 'Post Title',
-                'description'   => 'Post description'
+                'description'   => 'Post description',
+                'link'  => 'http://google.com',
     		])
 
     		->seeInDatabase('outlet_posts', [

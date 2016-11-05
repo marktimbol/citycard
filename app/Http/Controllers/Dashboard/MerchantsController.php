@@ -25,8 +25,9 @@ class MerchantsController extends Controller
     {
         $outlets = $merchant->outlets;
         $clerks = $merchant->clerks;
+        $posts = $merchant->posts;
 
-        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks'));
+        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts'));
     }
 
     public function create()
