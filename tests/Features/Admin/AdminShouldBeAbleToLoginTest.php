@@ -13,7 +13,7 @@ class AdminShouldBeAbleToLoginTest extends TestCase
     	$admin = $this->createAdmin([
 			'name'	=> 'Admin',
 			'email'	=> 'email@admin.com',
-			'password'	=> 'secret'
+			'password'	=> bcrypt('secret')
     	]);
 
     	$this->visit('/admin/login')

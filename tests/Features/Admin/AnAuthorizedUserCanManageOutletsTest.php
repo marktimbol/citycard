@@ -74,7 +74,6 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
 				'city'	=> 'Dubai',
 				'area'	=> 'Al Rigga',
 				'email'	=> 'email@citycard.me',
-				'password'	=> '123456'
 			]);
     }
 

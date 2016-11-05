@@ -19,6 +19,7 @@ Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard', 'middleware' => 'au
 	Route::resource('merchants.outlets', 'Dashboard\OutletsController');
 	Route::resource('merchants.clerks', 'Dashboard\ClerksController');
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
+	Route::resource('merchants.posts', 'Dashboard\PostsController');
 	
 	Route::post('merchants/{merchant}/outlets/{outlet}/promos', [
 		'as' => 'merchants.outlets.promos.store',

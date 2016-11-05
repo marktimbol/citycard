@@ -5,7 +5,7 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Merchant: {{ $merchant->name }}</h1>
-		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-warning">Back</a>
+		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-sm btn-warning">Back</a>
 	</div>
 
 	<ul class="list-group">

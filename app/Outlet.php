@@ -30,12 +30,17 @@ class Outlet extends Authenticatable
 	    'password', 'remember_token',
 	];
 
-	protected $with = ['clerks', 'posts'];
+	// protected $with = ['clerks', 'posts'];
 
     public function setEmailAttribute($email)
     {
         $this->attributes['email'] = $email;
         $this->attributes['api_token'] = str_random(60);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+    	$this->attributes['password'] = bcrypt($password);
     }
     
 	public function merchant()

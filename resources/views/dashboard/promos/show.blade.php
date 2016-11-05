@@ -5,7 +5,7 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Promo: {{ $promo->title }}</h1>
-		<a href="{{ route('dashboard.merchants.promos.index', $merchant->id) }}" class="btn btn-warning">Back</a>
+		<a href="{{ route('dashboard.merchants.promos.index', $merchant->id) }}" class="btn btn-sm btn-warning">Back</a>
 	</div>
 
 	<p>

@@ -6,7 +6,7 @@
 	<div class="Heading">
 		<h1 class="Heading__title">Outlet: {{ $outlet->name }}</h1>
 		<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
-			class="btn btn-warning"
+			class="btn btn-sm btn-warning"
 		>
 			Cancel
 		</a>

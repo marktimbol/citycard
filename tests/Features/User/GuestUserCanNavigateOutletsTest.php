@@ -8,6 +8,18 @@ class GuestUserCanNavigateOutletsTest extends TestCase
 {
 	use DatabaseMigrations;
 
+    public function test_guest_user_can_view_all_the_posts()
+    {
+        $post = $this->createPost([
+            'title' => 'Post Title'
+        ]);
+        
+        $this->json('GET', '/api/posts')
+            ->seeJson([
+                'title' => 'Post Title'
+            ]);
+    }
+
     public function test_guest_user_can_view_all_the_available_outlets()
     {
 		$outlets = $this->createOutlets(3);

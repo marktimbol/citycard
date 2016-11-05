@@ -36,8 +36,22 @@ class MerchantsController extends Controller
 
     public function store(Request $request)
     {
-        Merchant::create($request->all());
-
+        $merchant = Merchant::create($request->all());
+        $merchant->outlets()->create([
+            'name'  => $request->name,
+            'email'  => $request->email,
+            'password'  => $request->password,
+            'phone'  => $request->phone,
+            'address1'  => '',
+            'address2'  => '',
+            'latitude'  => '',
+            'longitude'  => '',
+            'type'  => '',
+            'country'  => $request->country,
+            'city'  => $request->city,
+            'area'  => '',
+        ]);
+        
         flash()->success('A new merchant has been successfully saved.');
 
         return back();

@@ -5,7 +5,7 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Add Merchant</h1>
-		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-warning">Cancel</a>
+		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-sm btn-warning">Cancel</a>
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.store') }}">
@@ -85,7 +85,7 @@
 		</div>
 		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary btn-lg">Save</button>
+			<button type="submit" class="btn btn-primary">Save</button>
 		</div>
 	</form>
 @endsection

@@ -22,5 +22,6 @@ Route::group(['as' => 'api.'], function() {
 	Route::post('register', 'Api\Auth\RegisterController@register');
 	Route::resource('outlets', 'Api\OutletsController');
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
+	Route::resource('posts', 'Api\PostsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');
 });

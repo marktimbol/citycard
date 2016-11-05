@@ -34,8 +34,4 @@ class Admin extends Authenticatable
         $this->attributes['api_token'] = str_random(60);
     }
 
-	public function setPasswordAttribute($password)
-	{
-		$this->attributes['password'] = bcrypt($password);
-	}
 }

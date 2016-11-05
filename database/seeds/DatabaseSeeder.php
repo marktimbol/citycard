@@ -20,6 +20,11 @@ class DatabaseSeeder extends Seeder
         	'password'	=> bcrypt('marktimbol')
         ]);
 
+        factory(App\User::class)->create([
+            'email' => 'mark@timbol.com',
+            'password'  => bcrypt('marktimbol')
+        ]);
+
         // We will start with 5 merchants
         $merchants = factory(App\Merchant::class, 5)->create();
 
@@ -60,7 +65,15 @@ class DatabaseSeeder extends Seeder
         	{
                 // In each Merchant's outlet, we have 5 clerks
                 $outlet->clerks()->attach($clerks);
-                
+
+                // In each outlet, we have 5 posts
+                $posts = factory(App\Post::class, 5)->create([
+                    'merchant_id'   => $merchant->id
+                ]);
+
+                // We will attach the posts in outlet
+                $outlet->posts()->attach($posts);
+
                 // In each outlet, we have 5 promotions
                 $promos = factory(App\Promo::class, 5)->create([
                     'merchant_id'   => $merchant->id

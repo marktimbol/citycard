@@ -38,7 +38,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
             ->see($outlet->name);
     }
 
-    public function test_an_authorized_user_can_add_a_merchant()
+    public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well()
     {
     	$this->visit('/dashboard/merchants/create')
     		->see('Add Merchant')
@@ -58,7 +58,16 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 				'country'	=> 'United Arab Emirates',
 				'city'	=> 'Dubai',
 				'email'	=> 'email@citycard.me',
-			]);
+			])
+
+            ->seeInDatabase('outlets', [
+                'merchant_id'   => 1,
+                'name'  => 'Merchant Name',
+                'email' => 'email@citycard.me',
+                'phone' => '0563759865',
+                'country'   => 'United Arab Emirates',
+                'city'  => 'Dubai',
+            ]);
     }
 
     public function test_an_authorized_user_can_edit_a_merchant_information()

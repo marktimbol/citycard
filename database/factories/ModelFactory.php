@@ -99,7 +99,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'merchant_id'   => function() {
             return factory(App\Merchant::class)->create()->id;
         },
-        'type'  => $faker->word,
+        'type'  => 'notification',
         'title' => $faker->sentence,
         'slug'  => $faker->slug,
         'description'   => $faker->paragraph,
