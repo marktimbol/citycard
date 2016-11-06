@@ -36,7 +36,6 @@
                         <ul class="list-group">
                             <a href="{{ route('dashboard.index') }}" class="list-group-item">Home</a>
                             <a href="{{ route('dashboard.merchants.index') }}" class="list-group-item">Merchants</a>
-                            <a href="#" class="list-group-item">Transactions</a>
                         </ul>
                     </aside>
                 </div>

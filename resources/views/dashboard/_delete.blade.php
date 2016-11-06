@@ -1,4 +1,4 @@
-<hr />
+<p>&nbsp;</p>
 
 <div class="panel panel-danger">
 	<div class="panel-heading">Danger Zone</div>

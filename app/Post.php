@@ -19,6 +19,11 @@ class Post extends Model
     	return $this->belongsToMany(Outlet::class, 'outlet_posts', 'post_id', 'outlet_id');
     }
 
+    public function merchant()
+    {
+        return $this->belongsTo(Merchant::class);
+    }
+
     public function photos()
     {
         return $this->morphMany(Photo::class, 'imageable');

@@ -18,7 +18,10 @@ class PostsController extends Controller
 
     public function show(Merchant $merchant, Post $post)
     {
-        return view('dashboard.posts.show', compact('merchant', 'post'));
+        $post->load('photos');
+        $photos = $post->photos;
+        
+        return view('dashboard.posts.show', compact('merchant', 'post', 'photos'));
     }
 
     public function create(Merchant $merchant)
@@ -38,7 +41,9 @@ class PostsController extends Controller
 
     public function edit(Merchant $merchant, Post $post)
     {
+        $post->load('outlets');
         $outlets = $merchant->outlets;
+
         return view('dashboard.posts.edit', compact('merchant', 'outlets', 'post'));
     }
 

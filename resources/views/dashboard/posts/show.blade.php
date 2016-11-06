@@ -19,6 +19,19 @@
 	{{ $post->description }}
 
 	<h3>Upload Photos</h3>
+
+	@forelse( $photos->chunk(4) as $chunks )
+		<div class="row">
+			@foreach($chunks as $photo )
+				<div class="col-md-3">
+					<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
+				</div>
+			@endforeach
+		</div>
+	@empty
+
+	@endforelse
+
 	<form method="POST" class="dropzone" action="{{ route('dashboard.posts.photos.store', $post->id) }}">
 		{{ csrf_field() }}
 	</form>	

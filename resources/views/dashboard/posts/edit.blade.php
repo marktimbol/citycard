@@ -4,6 +4,7 @@
 
 @section('header_styles')
 	<link href="{{ elixir('css/editor.css') }}" rel="stylesheet">
+	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -27,16 +28,18 @@
 			<label for="type">Post Type</label>
 			<select name="type" id="type" class="form-control">
 				<option value=""></option>
-				<option value="notification">Notification</option>
-				<option value="offer">Offer</option>
-				<option value="ticket">Ticket</option>
+				<option value="notification" {{ $post->type == 'notification' ? 'selected' : '' }}>Notification</option>
+				<option value="offer" {{ $post->type == 'offer' ? 'selected' : '' }}>Offer</option>
+				<option value="ticket" {{ $post->type == 'ticket' ? 'selected' : '' }}>Ticket</option>
 			</select>
 		</div>		
 		<div class="form-group">
 			<label for="outlet_ids">Select Outlets</label>
 			<select name="outlet_ids" id="outlet_ids" class="form-control" multiple>
 				@foreach( $outlets as $outlet )
-					<option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+					<option value="{{ $outlet->id }}" {{ $post->outlets->contains($outlet->id) ? 'selected' : '' }}>
+						{{ $outlet->name }}
+					</option>
 				@endforeach
 			</select>
 		</div>
@@ -77,4 +80,5 @@
 
 @section('footer_scripts')
 	<script src="{{ elixir('js/editor.js') }}"></script>
+	<script src="{{ elixir('js/select.js') }}"></script>
 @endsection

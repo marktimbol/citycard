@@ -37,12 +37,23 @@ elixir(mix => {
         'editor.js'
       ], 'public/js/editor.js')
 
+      .styles([
+        modulesPath + 'select2/dist/css/select2.css'
+      ], 'public/css/select.css')
+
+      .scripts([
+        modulesPath + 'select2/dist/js/select2.js',
+        'select2.js'
+      ], 'public/js/select.js')
+
       .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
 
     	.version([
         'public/css/app.css',
         'public/js/app.js',
-    		'public/css/editor.css',
-    		'public/js/editor.js'
+        'public/css/editor.css',
+        'public/js/editor.js', 		
+        'public/css/select.css',
+    		'public/js/select.js'
     	]);
 });

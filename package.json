@@ -16,6 +16,7 @@
     "dropzone": "^4.3.0",
     "font-awesome": "^4.7.0",
     "froala-editor": "^2.3.5",
+    "select2": "^4.0.3",
     "sweetalert": "^1.1.3"
   }
 }

@@ -9323,6 +9323,7 @@ h1, h2, h3, h4, h5, h6 {
 .dropzone {
   display: -webkit-box;
   display: flex;
+  margin-top: 20px;
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: center;
