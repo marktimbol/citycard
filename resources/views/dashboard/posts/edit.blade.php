@@ -52,8 +52,8 @@
 
 		<div class="form-group">
 			<label for="editor">Description</label>
-			<textarea name="description" id="editor" class="form-control">
-				{{ old('description', $post->description) }}
+			<textarea name="desc" id="editor" class="form-control">
+				{{ old('desc', $post->desc) }}
 			</textarea>
 		</div>
 

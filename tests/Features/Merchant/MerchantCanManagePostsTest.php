@@ -42,7 +42,7 @@ class MerchantCanManagePostsTest extends TestCase
             ->select(['1', '2'], 'outlet_ids')
             ->select('notification', 'type')
             ->type('The Title', 'title')
-            ->type('The description', 'description')
+            ->type('The description', 'desc')
             ->type('http://google.com', 'link')
             ->press('Save Post')
 
@@ -51,7 +51,7 @@ class MerchantCanManagePostsTest extends TestCase
                 'type'  => 'notification',
                 'title' => 'The Title',
                 'slug'  => 'the-title',
-                'description'=> 'The description',
+                'desc'=> 'The description',
                 'link'  => 'http://google.com',
                 'approved'  => 0
             ])

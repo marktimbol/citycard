@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Post extends Model
 {
-    protected $fillable = ['type', 'title', 'slug', 'description', 'link', 'photo'];
+    protected $fillable = ['type', 'title', 'slug', 'desc', 'link', 'photo'];
     
     public function setTitleAttribute($title)
     {

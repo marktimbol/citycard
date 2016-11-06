@@ -34,9 +34,9 @@
 					<input type="text" name="title" id="title" class="form-control" value="{{ old('title') }}" />
 				</div>
 				<div class="form-group">
-					<label for="description" class="control-label">Description</label>
-					<textarea name="description" id="description" rows="10">
-						{{ old('description') }}
+					<label for="desc" class="control-label">Description</label>
+					<textarea name="desc" id="desc" rows="10">
+						{{ old('desc') }}
 					</textarea>	
 				</div>
 				<div class="form-group">

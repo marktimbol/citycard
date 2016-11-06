@@ -102,7 +102,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'type'  => 'notification',
         'title' => $faker->sentence,
         'slug'  => $faker->slug,
-        'description'   => $faker->paragraph,
+        'desc'   => $faker->paragraph,
         'link'   => $faker->url,
         'photo'   => $faker->url,
         'approved'  => 0,
