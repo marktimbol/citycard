@@ -18,4 +18,9 @@ class Post extends Model
     {
     	return $this->belongsToMany(Outlet::class, 'outlet_posts', 'post_id', 'outlet_id');
     }
+
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'imageable');
+    }
 }

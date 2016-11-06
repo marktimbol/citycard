@@ -21,7 +21,7 @@ class AdminShouldBeAbleToLoginTest extends TestCase
     		->type('secret', 'password')
     		->press('Login')
 
-    		->seePageIs('/admin/dashboard');
+    		->seePageIs('/dashboard');
     }
 
     public function test_an_admin_should_not_be_able_to_login_with_incorrect_credentials()

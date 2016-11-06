@@ -13,13 +13,18 @@ Route::get('/admin/dashboard', function() {
 	return 'Admin Dashboard';
 });
 
-Route::group(['as' => 'dashboard.', 'prefix' => 'dashboard', 'middleware' => 'auth:admin'], function() {
+Route::group([
+	'as' => 'dashboard.', 
+	'prefix' => 'dashboard', 
+	'middleware' => 'auth:admin'
+], function() {
 	Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
 	Route::resource('merchants', 'Dashboard\MerchantsController');
 	Route::resource('merchants.outlets', 'Dashboard\OutletsController');
 	Route::resource('merchants.clerks', 'Dashboard\ClerksController');
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
 	Route::resource('merchants.posts', 'Dashboard\PostsController');
+	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
 	
 	Route::post('merchants/{merchant}/outlets/{outlet}/promos', [
 		'as' => 'merchants.outlets.promos.store',

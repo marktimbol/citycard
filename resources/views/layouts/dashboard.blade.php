@@ -10,14 +10,16 @@
 
     <title>@yield('pageTitle', config('app.name', 'Laravel') )</title>
 
-{{--     <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet"> --}}
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet">
+
     <!-- Styles -->
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 
+    @yield('header_styles')
+
     <!-- Scripts -->
     <script>
-        window.Laravel = <?php echo json_encode([
+        window.App = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
@@ -48,6 +50,8 @@
     <!-- Scripts -->
     <script src="{{ elixir('js/app.js') }}"></script>
 
+    @yield('footer_scripts')
+    
     @include('dashboard._flash')
     
 </body>

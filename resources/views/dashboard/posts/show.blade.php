@@ -1,0 +1,29 @@
+@extends('layouts.dashboard')
+
+@section('pageTitle', $post->title)
+
+@section('content')
+	<div class="Heading">
+		<h1 class="Heading__title">{{ $post->title }}
+			<small>
+				<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}">
+					<i class="fa fa-pencil"></i>
+				</a>
+			</small>
+		</h1>
+		<a href="{{ route('dashboard.merchants.posts.index', $merchant->id) }}" class="btn btn-link">
+			<i class="fa fa-long-arrow-left"></i> Go Back
+		</a>
+	</div>
+	
+	{{ $post->description }}
+
+	<h3>Upload Photos</h3>
+	<form method="POST" class="dropzone" action="{{ route('dashboard.posts.photos.store', $post->id) }}">
+		{{ csrf_field() }}
+	</form>	
+
+	@include('dashboard._delete', [
+		'route'	=> route('dashboard.merchants.posts.destroy', [$merchant->id, $post->id])
+	])
+@endsection

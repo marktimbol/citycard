@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Add New Post')
+@section('pageTitle', 'Edit Post - '. $post->title)
 
 @section('header_styles')
 	<link href="{{ elixir('css/editor.css') }}" rel="stylesheet">
@@ -8,15 +8,21 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Add Post</h1>
+		<h1 class="Heading__title">Update Post</h1>
+		<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}" class="btn btn-link">
+			<i class="fa fa-long-arrow-left"></i> Go Back
+		</a>
 	</div>
 
-	<form method="POST" action="{{ route('dashboard.merchants.posts.store', $merchant->id) }}">
+	<form method="POST" action="{{ route('dashboard.merchants.posts.update', [$merchant->id, $post->id]) }}">
 		{{ csrf_field() }}
+		{!! method_field('PUT') !!}
+
 		<div class="form-group">
 			<label for="merchant">Merchant Name</label>
 			<input type="text" name="merchant" id="merchant" class="form-control" value="{{ $merchant->name }}" disabled />
 		</div>
+
 		<div class="form-group">
 			<label for="type">Post Type</label>
 			<select name="type" id="type" class="form-control">
@@ -30,7 +36,7 @@
 			<label for="outlet_ids">Select Outlets</label>
 			<select name="outlet_ids" id="outlet_ids" class="form-control" multiple>
 				@foreach( $outlets as $outlet )
-				<option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
+					<option value="{{ $outlet->id }}">{{ $outlet->name }}</option>
 				@endforeach
 			</select>
 		</div>
@@ -40,14 +46,14 @@
 			<input type="text"
 				name="title"
 				id="title"
-				value="{{ old('title') }}"
+				value="{{ old('title', $post->title) }}"
 				class="form-control" />
 		</div>
 
 		<div class="form-group">
 			<label for="editor">Description</label>
 			<textarea name="description" id="editor" class="form-control">
-				{{ old('description') }}
+				{{ old('description', $post->description) }}
 			</textarea>
 		</div>
 
@@ -56,13 +62,13 @@
 			<input type="text"
 				name="link"
 				id="link"
-				value="{{ old('link') }}"
+				value="{{ old('link', $post->link) }}"
 				class="form-control" />
 		</div>
-
+		
 		<div class="form-group">
-			<button type="submit" class="btn btn-primary">Save</button>
-			<a href="{{ route('dashboard.merchants.posts.index', $merchant->id) }}" class="btn btn-link">
+			<button type="submit" class="btn btn-primary">Update</button>
+			<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}" class="btn btn-link">
 				Cancel
 			</a>
 		</div>

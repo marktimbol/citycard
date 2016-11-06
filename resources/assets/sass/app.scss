@@ -4,6 +4,9 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+// Dropzone
+@import "node_modules/dropzone/src/dropzone";
+
 body {
 	font-family: 'Lato', sans-serif;
 }
@@ -20,6 +23,15 @@ h1, h2, h3, h4, h5, h6 {
 
 .search-form {
 	width: 30%;
+}
+
+// Overwrite
+
+.dropzone {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	border: 2px dashed rgba(0, 0, 0, 0.3);
 }
 
 .table {

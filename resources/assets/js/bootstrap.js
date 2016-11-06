@@ -11,6 +11,7 @@ window.$ = window.jQuery = require('jquery');
 
 require('bootstrap-sass');
 require('sweetalert');
+require('./dropzone');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

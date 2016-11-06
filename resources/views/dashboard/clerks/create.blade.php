@@ -105,7 +105,7 @@
 		
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Save</button>
-			<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn link">Cancel</a>
+			<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">Cancel</a>
 		</div>
 	</form>
 @endsection
