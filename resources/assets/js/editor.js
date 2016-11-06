@@ -1,5 +1,5 @@
 $(function() {
 	$('#editor').froalaEditor({
-		height: '600px'
+		height: '300px'
 	})
 });

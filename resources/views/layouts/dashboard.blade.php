@@ -24,7 +24,7 @@
         ]); ?>
     </script>
 </head>
-<body>
+<body class="Dashboard">
     @include('layouts._nav')
 
     <div class="container-fluid">
