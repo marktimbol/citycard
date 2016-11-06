@@ -34,6 +34,7 @@ class MerchantPostsController extends Controller
     public function store(Request $request)
     {
     	$post = Merchant::createPost($request->all());
+        $post->load('merchant');
 
         if( $request->has('outlet_ids') )
         {
@@ -46,6 +47,6 @@ class MerchantPostsController extends Controller
 
         flash()->success('A new post has been successfully saved.');
 
-        return redirect()->route('dashboard.merchants.show', $merchant->id);
+        return redirect()->route('dashboard.merchants.posts.show', [$post->merchant->id, $post->id]);
     }
 }

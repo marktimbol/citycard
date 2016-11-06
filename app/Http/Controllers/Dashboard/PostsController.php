@@ -37,6 +37,10 @@ class PostsController extends Controller
     	if( $request->has('outlet_ids') ) {
     		$post->outlets()->attach(request('outlet_ids'));    		
     	}
+
+        flash()->success('A new post has been successfully saved.');
+
+        return redirect()->route('dashboard.merchants.posts.show', [$post->merchant->id, $post->id]);
     }
 
     public function edit(Merchant $merchant, Post $post)

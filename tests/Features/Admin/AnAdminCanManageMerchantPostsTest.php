@@ -60,7 +60,9 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     		->seeInDatabase('outlet_posts', [
     			'outlet_id'	=> $outlet->id,
     			'post_id'	=> 1,
-    		]);
+    		])
+
+            ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }
 
     public function test_an_admin_can_view_the_post_of_a_merchant()
