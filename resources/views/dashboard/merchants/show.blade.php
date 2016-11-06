@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Merchant - '. $merchant->name)
+@section('pageTitle', $merchant->name)
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Merchant: {{ $merchant->name }}</h1>
+		<h1 class="Heading__title">{{ $merchant->name }}</h1>
 		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-link">
 			<i class="fa fa-long-arrow-left"></i> Go Back
 		</a>
@@ -22,7 +22,7 @@
 		</li>
 	</ul>
 
-	<a href="" class="btn btn-default">
+	<a href="#" class="btn btn-primary">
 		Change Password
 	</a>
 

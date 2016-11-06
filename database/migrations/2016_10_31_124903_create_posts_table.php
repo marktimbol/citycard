@@ -19,9 +19,9 @@ class CreatePostsTable extends Migration
             $table->string('type');
             $table->string('title');
             $table->string('slug');
+            $table->float('price')->default(0);
             $table->text('desc');
             $table->string('link');
-            $table->string('photo')->nullable();
             $table->boolean('approved')->default(0);
             $table->timestamps();
         });

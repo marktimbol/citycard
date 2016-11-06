@@ -11,6 +11,6 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	return Post::with('outlets')->latest()->get();
+    	return Post::with('outlets', 'photos')->latest()->get();
     }
 }

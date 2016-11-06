@@ -41,7 +41,8 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     	$this->visit($url)
             ->select('notification', 'type')
     		->select('1', 'outlet_ids')
-    		->type('Post Title', 'title')
+            ->type('Post Title', 'title')
+    		->type('49', 'price')
     		->type('Post description', 'desc')
             ->type('http://google.com', 'link')
     		->press('Save')
@@ -51,6 +52,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
                 'type'  => 'notification',
                 'title' => 'Post Title',
                 'slug'  => 'post-title',
+                'price'  => '49',
                 'desc'   => 'Post description',
                 'link'  => 'http://google.com',
     		])
@@ -80,6 +82,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         $post = $this->createPost([
             'merchant_id'   => $merchant->id,
             'title' => 'Buy 1 take 1',
+            'price' => 49
         ]);
 
         $marinaBranch = $this->createOutlet([
@@ -102,6 +105,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ->type('Buy 2 take 1', 'title')
             ->select('offer', 'type')
             ->select($marinaBranch->id, 'outlet_ids')
+            ->type('59', 'price')
             ->type('The new description', 'desc')
             ->type('http://google.com', 'link')
             ->press('Update')
@@ -111,6 +115,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
                 'merchant_id'   => $merchant->id,
                 'type'  => 'offer',
                 'title' => 'Buy 2 take 1',
+                'price' => 59,
                 'desc'   => 'The new description',
                 'link'  => 'http://google.com'
             ])

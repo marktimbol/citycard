@@ -53,6 +53,22 @@
 				class="form-control" />
 		</div>
 
+		<div class="row">
+			<div class="col-md-4">
+				<div class="form-group">
+					<label for="price">Price</label>
+					<div class="input-group">
+						<span class="input-group-addon">AED</span>			
+						<input type="text"
+							name="price"
+							id="price"
+							value="{{ old('price', $post->price) }}"
+							class="form-control" />
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<div class="form-group">
 			<label for="editor">Description</label>
 			<textarea name="desc" id="editor" class="form-control">

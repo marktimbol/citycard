@@ -13,7 +13,7 @@ class PostPhotosController extends Controller
     {
     	$merchant = $post->load('merchant');
 
-	    $uploadPath = sprintf('merchants/%s/posts', str_slug($post->merchant->name));
+	    $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($post->merchant->name), $post->id);
 	    $file = $request->file->store($uploadPath, 's3');
 
     	$photo = $post->photos()->create([

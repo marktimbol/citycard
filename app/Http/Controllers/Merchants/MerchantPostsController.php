@@ -44,5 +44,8 @@ class MerchantPostsController extends Controller
             }
         }
 
+        flash()->success('A new post has been successfully saved.');
+
+        return redirect()->route('dashboard.merchants.show', $merchant->id);
     }
 }

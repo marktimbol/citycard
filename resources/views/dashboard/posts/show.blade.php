@@ -16,7 +16,9 @@
 		</a>
 	</div>
 	
-	{{ $post->description }}
+	{!! $post->desc !!}
+
+	<p>External Link: <a href="{{ $post->link }}" target="_blank">{{ $post->link }}</a></p>
 
 	<h3>Upload Photos</h3>
 

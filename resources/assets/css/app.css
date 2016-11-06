@@ -6049,6 +6049,9 @@ h1, h2, h3, h4, h5, h6 {
 .search-form {
   width: 30%; }
 
+footer {
+  height: 300px; }
+
 .dropzone {
   display: -webkit-box;
   display: flex;

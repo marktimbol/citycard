@@ -9,6 +9,7 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
+			<th>Type</th>
 			<th>Title</th>
 			<th>&nbsp;</th>
 		</tr>
@@ -16,6 +17,7 @@
 	<tbody>
 		@forelse( $posts as $post )
 		<tr>
+			<td>{{ ucfirst($post->type) }}</td>
 			<td>
 				<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}">
 					{{ $post->title }}

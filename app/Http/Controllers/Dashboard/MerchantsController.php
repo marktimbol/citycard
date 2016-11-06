@@ -55,7 +55,7 @@ class MerchantsController extends Controller
         
         flash()->success('A new merchant has been successfully saved.');
 
-        return back();
+        return redirect()->route('dashboard.merchants.show', $merchant->id);
     }
 
     public function edit(Merchant $merchant)

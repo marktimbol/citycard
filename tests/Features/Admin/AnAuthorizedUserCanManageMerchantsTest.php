@@ -67,7 +67,9 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
                 'phone' => '0563759865',
                 'country'   => 'United Arab Emirates',
                 'city'  => 'Dubai',
-            ]);
+            ])
+
+            ->seePageIs('/dashboard/merchants/1');
     }
 
     public function test_an_authorized_user_can_edit_a_merchant_information()
