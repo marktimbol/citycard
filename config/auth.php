@@ -65,6 +65,11 @@ return [
             'driver'    => 'token',
             'provider'  => 'merchants'
         ],
+
+        'clerk_api' => [
+            'driver' => 'token',
+            'provider' => 'clerks',
+        ],
     ],
 
     /*
@@ -99,6 +104,11 @@ return [
             'driver' => 'eloquent',
             'model' => App\Merchant::class,
         ],
+
+        'clerks' => [
+            'driver' => 'eloquent',
+            'model' => App\Clerk::class,
+        ],
     ],
 
     /*
@@ -131,6 +141,12 @@ return [
 
         'merchants' => [
             'provider' => 'merchants',
+            'table' => 'password_resets',
+            'expire' => 60,
+        ],
+
+        'clerks' => [
+            'provider' => 'clerks',
             'table' => 'password_resets',
             'expire' => 60,
         ],

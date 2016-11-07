@@ -53,8 +53,7 @@ class LoginController extends Controller
         $credentials = $this->credentials($request);
         $attempt = Auth::attempt($credentials);
         
-        if( $attempt )
-        {
+        if( $attempt ) {
             return response()->json([
                 'authenticated' => true,
                 'user'  => auth()->user()

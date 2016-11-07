@@ -13,9 +13,13 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:user_api');
+Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
+	Route::resource('clerks.messages', 'Api\User\MessagesController');
+});
+
+Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
+	Route::resource('users.messages', 'Api\Clerk\MessagesController');
+});
 
 Route::group(['as' => 'api.'], function() {
 	Route::post('login', 'Api\Auth\LoginController@login');

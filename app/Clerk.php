@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class Clerk extends Authenticatable
 {
-	use Notifiable;
+	use CanReplyToAMessage, Notifiable;
 
 	/**
 	 * The attributes that are mass assignable.
