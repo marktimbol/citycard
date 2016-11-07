@@ -18,12 +18,14 @@ class ClerkTest extends TestCase
             'first_name'    => 'Clerk'
         ]);
 
-    	// User
+    	// User sends message to clerk
     	$user->send('Hi')->to($clerk);
 
-    	// Clerk
+    	// Login as clerk
     	$this->actingAs($clerk, 'clerk_api');
 
+        // Clerk replied to the conversation with the ID of 1.
+        // TODO: The to() method should accept an instance of Thread
         $clerk->reply('Hello')->to(1);
 
         $this->seeInDatabase('replies', [
