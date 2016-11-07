@@ -15,9 +15,23 @@
 			<i class="fa fa-long-arrow-left"></i> Go Back
 		</a>
 	</div>
+
+	<ul class="list-group">
+		<li class="list-group-item">
+			Price: AED {{ $post->price }}
+		</li>
+		<li class="list-group-item">
+			Payment Option: {{ $post->payment_option == 'both' ? 'Cashback & Points' : $post->payment_option }}
+		</li>
+		<li class="list-group-item">
+			Points will earn: {{ $post->points }}
+		</li>
+	</ul>
 	
 	{!! $post->desc !!}
 
+	<p>&nbsp;</p>
+	
 	<p>External Link: <a href="{{ $post->link }}" target="_blank">{{ $post->link }}</a></p>
 
 	<h3>Upload Photos</h3>

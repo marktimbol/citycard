@@ -37,30 +37,44 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-    	$url = sprintf('/dashboard/merchants/%s/posts/create', $merchant->id);
-    	$this->visit($url)
+        $outlet2 = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
+
+        $url = sprintf('/dashboard/merchants/%s/posts/create', $merchant->id);
+        $this->visit($url)
             ->select('notification', 'type')
-    		->select('1', 'outlet_ids')
-            ->type('Post Title', 'title')
-    		->type('49', 'price')
-    		->type('Post description', 'desc')
+            ->select(['1', '2'], 'outlet_ids')
+            ->type('The Title', 'title')
+            ->type('49', 'price')
+            ->type('The description', 'desc')
             ->type('http://google.com', 'link')
-    		->press('Save')
+            ->select('cashback', 'payment_option')
+            ->type('100', 'points')
+            ->press('Save')
 
-    		->seeInDatabase('posts', [
-    			'merchant_id'	=> $merchant->id,
+            ->seeInDatabase('posts', [
+                'merchant_id'   => $merchant->id,
                 'type'  => 'notification',
-                'title' => 'Post Title',
-                'slug'  => 'post-title',
-                'price'  => '49',
-                'desc'   => 'Post description',
+                'title' => 'The Title',
+                'slug'  => 'the-title',
+                'price'  => 49,
+                'desc'=> 'The description',
                 'link'  => 'http://google.com',
-    		])
+                'payment_option'  => 'cashback',
+                'points'  => 100,
+                'approved'  => 0
+            ])
 
-    		->seeInDatabase('outlet_posts', [
-    			'outlet_id'	=> $outlet->id,
-    			'post_id'	=> 1,
-    		])
+            ->seeInDatabase('outlet_posts', [
+                'outlet_id' => 1,
+                'post_id'   => 1
+            ])
+
+            ->seeInDatabase('outlet_posts', [
+                'outlet_id' => 2,
+                'post_id'   => 1
+            ])
 
             ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }
@@ -74,7 +88,12 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
         $this->visit($url)
-            ->see($post->title);
+            ->see($post->title)
+            ->see('AED ' . $post->price)
+            ->see($post->description)
+            ->see($post->link)
+            ->see('Cashback & Points')
+            ->see($post->points);
     }
 
     public function test_an_admin_can_update_a_post_information()
@@ -104,12 +123,14 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $url = sprintf('/dashboard/merchants/%s/posts/%s/edit', $merchant->id, $post->id);
         $this->visit($url)
-            ->type('Buy 2 take 1', 'title')
             ->select('offer', 'type')
             ->select($marinaBranch->id, 'outlet_ids')
+            ->type('Buy 2 take 1', 'title')
             ->type('59', 'price')
             ->type('The new description', 'desc')
             ->type('http://google.com', 'link')
+            ->select('cashback', 'payment_option')
+            ->type('200', 'points')
             ->press('Update')
 
             ->seeInDatabase('posts', [
@@ -119,7 +140,9 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
                 'title' => 'Buy 2 take 1',
                 'price' => 59,
                 'desc'   => 'The new description',
-                'link'  => 'http://google.com'
+                'link'  => 'http://google.com',
+                'payment_option'    => 'cashback',
+                'points'    => 200
             ])
 
             ->dontSeeInDatabase('outlet_posts', [

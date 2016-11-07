@@ -105,6 +105,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'price'  => $faker->randomNumber(2),
         'desc'   => $faker->paragraph,
         'link'   => $faker->url,
+        'payment_option'   => 'both',
+        'points'   => $faker->randomNumber(2),
         'approved'  => 0,
     ];
 });

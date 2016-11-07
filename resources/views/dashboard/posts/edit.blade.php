@@ -35,7 +35,7 @@
 		</div>		
 		<div class="form-group">
 			<label for="outlet_ids">Select Outlets</label>
-			<select name="outlet_ids" id="outlet_ids" class="form-control" multiple>
+			<select name="outlet_ids[]" id="outlet_ids" class="form-control" multiple>
 				@foreach( $outlets as $outlet )
 					<option value="{{ $outlet->id }}" {{ $post->outlets->contains($outlet->id) ? 'selected' : '' }}>
 						{{ $outlet->name }}
@@ -70,13 +70,6 @@
 		</div>
 
 		<div class="form-group">
-			<label for="editor">Description</label>
-			<textarea name="desc" id="editor" class="form-control">
-				{{ old('desc', $post->desc) }}
-			</textarea>
-		</div>
-
-		<div class="form-group">
 			<label for="link">External Link</label>
 			<input type="text"
 				name="link"
@@ -84,6 +77,47 @@
 				value="{{ old('link', $post->link) }}"
 				class="form-control" />
 		</div>
+
+		<div class="form-group">
+			<label for="editor">Description</label>
+			<textarea name="desc" id="editor" class="form-control">
+				{{ old('desc', $post->desc) }}
+			</textarea>
+		</div>
+
+		<h3>Payment Option</h3>
+		<div class="form-group">
+			<label for="type">The customer can pay using</label>
+			<div class="radio">
+				<label>
+					<input type="radio" name="payment_option" value="both" {{ $post->payment_option == 'both' ? 'checked' : '' }} /> Cashback &amp; Points
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="payment_option" value="cashback" {{ $post->payment_option == 'cashback' ? 'checked' : '' }} /> Cashback
+				</label>
+			</div>
+			<div class="radio">
+				<label>
+					<input type="radio" name="payment_option" value="points" {{ $post->payment_option == 'points' ? 'checked' : '' }} /> Points
+				</label>
+			</div>
+		</div>	
+		<div class="row">
+			<div class="col-md-5">
+				<div class="form-group">
+					<label for="points">How many points the customer will earn when they purchased this offer?</label>
+					<input type="text"
+						name="points"
+						id="points"
+						value="{{ old('points', $post->points) }}"
+						class="form-control" />
+				</div>
+
+			</div>
+		</div>
+		<hr />
 		
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Update</button>

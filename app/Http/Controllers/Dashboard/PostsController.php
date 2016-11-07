@@ -59,6 +59,8 @@ class PostsController extends Controller
             $post->outlets()->sync(request('outlet_ids'));            
         }
 
+        flash()->success('Post information has been successfully updated.');
+
         return back();
     }
 
