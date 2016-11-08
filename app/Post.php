@@ -28,4 +28,18 @@ class Post extends Model
     {
         return $this->morphMany(Photo::class, 'imageable');
     }
+
+    public static function getOffers()
+    {
+        return static::with('outlets', 'photos')
+            ->where('type', 'offer')
+            ->get();
+    }
+
+    public static function getEvents()
+    {
+        return static::with('outlets', 'photos')
+            ->where('type', 'ticket')
+            ->get();
+    }
 }
