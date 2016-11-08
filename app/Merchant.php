@@ -29,7 +29,7 @@ class Merchant extends Authenticatable
 	    'password', 'remember_token',
 	];
 
-	protected $with = ['outlets', 'clerks', 'promos', 'posts'];
+	protected $with = ['outlets', 'promos', 'posts'];
 	
 	public function setPasswordAttribute($password)
 	{
