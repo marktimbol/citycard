@@ -19,7 +19,9 @@ class ClerksController extends Controller
 
     public function show(Merchant $merchant, Clerk $clerk)
     {
+        $clerk->load('outlets');
         $outlets = $clerk->outlets;
+        
         return view('dashboard.clerks.show', compact('merchant', 'clerk', 'outlets'));
     }
 

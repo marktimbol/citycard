@@ -52,7 +52,6 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
 			->type('Address 2', 'address2')
 			->type('1', 'latitude')
 			->type('2', 'longitude')
-			->select('Branch', 'type')
 			->type('United Arab Emirates', 'country')
 			->type('Dubai', 'city')
 			->type('Al Rigga', 'area')
@@ -69,7 +68,6 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
 				'address2'	=> 'Address 2',
 				'latitude'	=> '1',
 				'longitude'	=> '2',
-				'type'	=> 'Branch',
 				'country'	=> 'United Arab Emirates',
 				'city'	=> 'Dubai',
 				'area'	=> 'Al Rigga',
@@ -92,7 +90,6 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
 			->type('Address 2', 'address2')
 			->type('1', 'latitude')
 			->type('2', 'longitude')
-			->select('Branch', 'type')
 			->type('United Arab Emirates', 'country')
 			->type('Dubai', 'city')
 			->type('Al Rigga', 'area')
@@ -108,7 +105,6 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
 				'address2'	=> 'Address 2',
 				'latitude'	=> '1',
 				'longitude'	=> '2',
-				'type'	=> 'Branch',
 				'country'	=> 'United Arab Emirates',
 				'city'	=> 'Dubai',
 				'area'	=> 'Al Rigga',

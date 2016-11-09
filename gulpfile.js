@@ -46,7 +46,17 @@ elixir(mix => {
         'select2.js'
       ], 'public/js/select.js')
 
+      .styles([
+        modulesPath + 'intl-tel-input/build/css/intlTelInput.css'
+      ], 'public/css/telephone.css')
+
+      .scripts([
+        modulesPath + 'intl-tel-input/build/js/intlTelInput.js',
+        'intlTelInput.js'
+      ], 'public/js/telephone.js')
+
       .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
+      .copy('node_modules/intl-tel-input/build/img', 'public/build/img')
 
     	.version([
         'public/css/app.css',
@@ -54,6 +64,8 @@ elixir(mix => {
         'public/css/editor.css',
         'public/js/editor.js', 		
         'public/css/select.css',
-    		'public/js/select.js'
+    		'public/js/select.js',
+        'public/css/telephone.css',
+        'public/js/telephone.js'
     	]);
 });

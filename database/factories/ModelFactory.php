@@ -66,7 +66,6 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         'address2'  => $faker->address,
         'latitude'  => $faker->latitude,
         'longitude'  => $faker->longitude,
-        'type'  => 'Branch',
         'country'   => $faker->country,
         'city'  => $faker->city,
         'area'  => $faker->city,

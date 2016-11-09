@@ -4,10 +4,10 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Clerk: {{ sprintf('%s %s', $clerk->first_name, $clerk->last_name) }}</h1>
-		<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">
-			<i class="fa fa-long-arrow-left"></i> Go Back
-		</a>
+		<h1 class="Heading__title">
+			Clerk: {{ sprintf('%s %s', $clerk->first_name, $clerk->last_name) }}
+		</h1>
+		@include('dashboard._go-back')
 	</div>
 	
 	<ul class="list-group">
@@ -22,11 +22,15 @@
 		</li>
 	</ul>
 
+	<a href="#" class="btn btn-primary">
+		Change Password
+	</a>
+
 	@include('dashboard._working-in', [
 		'outlets' => $outlets
 	])
 
-	@include('dashboard._change-password')
+	{{-- @include('dashboard._change-password') --}}
 
 	@include('dashboard._delete', [
 		'route'	=> route('dashboard.merchants.clerks.destroy', [$merchant->id, $clerk->id])

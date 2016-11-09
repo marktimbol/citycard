@@ -18,7 +18,7 @@ class Outlet extends Authenticatable
 	protected $fillable = [
 	    'merchant_id', 'name', 'email', 'password', 'phone',
 	    'address1', 'address2', 'latitude', 'longitude',
-	    'type', 'country', 'city', 'area',
+	    'country', 'city', 'area',
 	];
 
 	/**
@@ -29,8 +29,6 @@ class Outlet extends Authenticatable
 	protected $hidden = [
 	    'password', 'remember_token',
 	];
-
-	// protected $with = ['clerks', 'posts'];
 
     public function setEmailAttribute($email)
     {

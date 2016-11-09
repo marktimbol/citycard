@@ -23,9 +23,9 @@ class MerchantsController extends Controller
 
     public function show(Merchant $merchant)
     {
-        $outlets = $merchant->outlets;
-        $clerks = $merchant->clerks;
-        $posts = $merchant->posts;
+        $outlets = $merchant->outlets()->latest()->get();
+        $clerks = $merchant->clerks()->latest()->get();
+        $posts = $merchant->posts()->latest()->get();
 
         return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts'));
     }
@@ -36,7 +36,7 @@ class MerchantsController extends Controller
     }
 
     public function store(Request $request)
-    {
+    {        
         $merchant = Merchant::create($request->all());
         $merchant->outlets()->create([
             'name'  => $request->name,

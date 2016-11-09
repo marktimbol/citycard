@@ -5,9 +5,7 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">{{ $merchant->name }}</h1>
-		<a href="{{ route('dashboard.merchants.index') }}" class="btn btn-link">
-			<i class="fa fa-long-arrow-left"></i> Go Back
-		</a>
+		@include('dashboard._go-back')
 	</div>
 
 	<ul class="list-group">

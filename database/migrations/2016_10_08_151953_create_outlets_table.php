@@ -24,7 +24,6 @@ class CreateOutletsTable extends Migration
             $table->string('address2');
             $table->string('latitude');
             $table->string('longitude');
-            $table->string('type');
             $table->string('country');
             $table->string('city');
             $table->string('area');

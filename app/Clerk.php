@@ -42,7 +42,7 @@ class Clerk extends Authenticatable
 
 	public function outlets()
 	{
-		return $this->belongsToMany(Outlet::class, 'outlet_clerks', 'outlet_id', 'clerk_id');
+		return $this->belongsToMany(Outlet::class, 'outlet_clerks', 'clerk_id', 'outlet_id');
 	}
 
 }

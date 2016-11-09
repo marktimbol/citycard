@@ -65,8 +65,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 				'email'	=> 'email@citycard.me',
 				'phone'	=> '0563759865',
 				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai',
-				'password'	=> '123456'
+				'city'	=> 'Dubai'
 			]);
     }
 

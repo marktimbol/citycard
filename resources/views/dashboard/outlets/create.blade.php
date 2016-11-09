@@ -2,6 +2,10 @@
 
 @section('pageTitle', 'Add New Outlet')
 
+@section('header_styles')
+	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Add Outlet</h1>
@@ -23,8 +27,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="phone">Phone</label>
-			<input type="text"
+			<label for="phone" class="label-block">Phone</label>
+			<input type="tel"
 				name="phone"
 				id="phone"
 				class="form-control"
@@ -77,14 +81,6 @@
 						value="{{ old('longitude') }}" />
 				</div>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="type">Type</label>
-			<select name="type" class="form-control">
-				<option value="Main">Main</option>
-				<option value="Branch">Branch</option>
-			</select>
 		</div>
 		
 		<div class="row">
@@ -162,4 +158,8 @@
 			</a>
 		</div>
 	</form>
+@endsection
+
+@section('footer_scripts')
+	<script src="{{ elixir('js/telephone.js') }}"></script>
 @endsection

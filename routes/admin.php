@@ -13,6 +13,10 @@ Route::get('/admin/dashboard', function() {
 	return 'Admin Dashboard';
 });
 
+Route::get('/back', function() {
+	return back();
+});
+
 Route::group([
 	'as' => 'dashboard.', 
 	'prefix' => 'dashboard', 
@@ -23,8 +27,16 @@ Route::group([
 	Route::resource('merchants.outlets', 'Dashboard\OutletsController');
 	Route::resource('merchants.clerks', 'Dashboard\ClerksController');
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
-	Route::resource('merchants.posts', 'Dashboard\PostsController');
+	Route::resource('merchants.posts', 'Dashboard\MerchantPostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
+	
+	Route::resource('outlets.posts', 'Dashboard\OutletPostsController', [
+		'only'	=> ['index', 'create', 'store', 'destroy']
+	]);
+
+	Route::resource('outlets.clerks', 'Dashboard\OutletClerksController', [
+		'only'	=> ['index', 'create', 'store', 'destroy']
+	]);
 	
 	Route::post('merchants/{merchant}/outlets/{outlet}/promos', [
 		'as' => 'merchants.outlets.promos.store',

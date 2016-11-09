@@ -9336,6 +9336,9 @@ footer {
 .table {
   background: white; }
 
+.Dashboard .label-block {
+  display: block; }
+
 .Dashboard form h3 {
   margin: 30px 0px; }
 

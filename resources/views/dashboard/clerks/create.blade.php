@@ -2,6 +2,10 @@
 
 @section('pageTitle', 'Add New Clerk')
 
+@section('header_styles')
+	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Add Clerk</h1>
@@ -39,8 +43,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="phone">Phone</label>
-			<input type="text"
+			<label for="phone" class="label-block">Phone</label>
+			<input type="tel"
 				name="phone"
 				id="phone"
 				class="form-control"
@@ -108,4 +112,8 @@
 			<a href="{{ route('dashboard.merchants.clerks.index', $merchant->id) }}" class="btn btn-link">Cancel</a>
 		</div>
 	</form>
+@endsection
+
+@section('footer_scripts')
+	<script src="{{ elixir('js/telephone.js') }}"></script>
 @endsection

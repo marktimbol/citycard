@@ -2,14 +2,14 @@
 
 @section('pageTitle', 'Edit Outlet - '. $outlet->name)
 
+@section('header_styles')
+	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Outlet</h1>
-		<a href="{{ route('dashboard.merchants.outlets.index', $merchant->id) }}" 
-			class="btn btn-link"
-		>
-			<i class="fa fa-long-arrow-left"></i> Go Back
-		</a>
+		@include('dashboard._go-back')
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.outlets.update', [$merchant->id, $outlet->id]) }}">
@@ -31,8 +31,8 @@
 		</div>
 
 		<div class="form-group">
-			<label for="phone">Phone</label>
-			<input type="text"
+			<label for="phone" class="label-block">Phone</label>
+			<input type="tel"
 				name="phone"
 				id="phone"
 				class="form-control"
@@ -85,15 +85,6 @@
 						value="{{ old('longitude') ?: $outlet->longitude }}" />
 				</div>
 			</div>
-		</div>
-
-		<div class="form-group">
-			<label for="type">Type</label>
-			<input type="text"
-				name="type"
-				id="type"
-				class="form-control"
-				value="{{ old('type') ?: $outlet->type }}" />
 		</div>
 
 		<div class="row">
@@ -149,4 +140,8 @@
 			</a>
 		</div>
 	</form>
+@endsection
+
+@section('footer_scripts')
+	<script src="{{ elixir('js/telephone.js') }}"></script>
 @endsection

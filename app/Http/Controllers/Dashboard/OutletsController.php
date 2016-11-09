@@ -23,11 +23,13 @@ class OutletsController extends Controller
 
     public function show(Merchant $merchant, Outlet $outlet)
     {
-        $promos = $outlet->promos;
+        $outlet->load('posts', 'clerks');
+
+        $posts = $outlet->posts()->latest()->get();
         $clerks = $outlet->clerks;
         $merchantPromos = $merchant->promos;
         
-        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'promos', 'clerks', 'merchantPromos'));
+        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'clerks', 'merchantPromos'));
     }
 
     public function create(Merchant $merchant)

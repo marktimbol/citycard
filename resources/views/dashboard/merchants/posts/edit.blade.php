@@ -10,9 +10,7 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Post</h1>
-		<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}" class="btn btn-link">
-			<i class="fa fa-long-arrow-left"></i> Go Back
-		</a>
+		@include('dashboard._go-back')
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.posts.update', [$merchant->id, $post->id]) }}">

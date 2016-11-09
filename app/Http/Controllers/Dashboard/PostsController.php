@@ -13,7 +13,7 @@ class PostsController extends Controller
     public function index(Merchant $merchant)
     {
         $posts = $merchant->posts;
-        return view('dashboard.posts.index', compact('merchant', 'posts'));
+        return view('dashboard.merchants.posts.index', compact('merchant', 'posts'));
     }
 
     public function show(Merchant $merchant, Post $post)
@@ -21,13 +21,13 @@ class PostsController extends Controller
         $post->load('photos');
         $photos = $post->photos;
         
-        return view('dashboard.posts.show', compact('merchant', 'post', 'photos'));
+        return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));
     }
 
     public function create(Merchant $merchant)
     {    	
     	$outlets = $merchant->outlets;
-    	return view('dashboard.posts.create', compact('merchant', 'outlets'));
+    	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));
     }
 
     public function store(Request $request, Merchant $merchant)
@@ -48,7 +48,7 @@ class PostsController extends Controller
         $post->load('outlets');
         $outlets = $merchant->outlets;
 
-        return view('dashboard.posts.edit', compact('merchant', 'outlets', 'post'));
+        return view('dashboard.merchants.posts.edit', compact('merchant', 'outlets', 'post'));
     }
 
     public function update(Request $request, Merchant $merchant, Post $post)

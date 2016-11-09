@@ -1558,6 +1558,10 @@ interpret@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.1.tgz#d579fb7f693b858004947af39fa0db49f795602c"
 
+intl-tel-input:
+  version "9.2.4"
+  resolved "https://registry.yarnpkg.com/intl-tel-input/-/intl-tel-input-9.2.4.tgz#555d49e4d5e34be93973a1e73eaab7c18f1a3d6b"
+
 invert-kv@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/invert-kv/-/invert-kv-1.0.0.tgz#104a8e4aaca6d3d8cd157a8ef8bfab2d7a3ffdb6"

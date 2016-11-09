@@ -1,6 +1,6 @@
 <h2>Clerks
 	<small>
-		<a href="#" class="btn btn-sm btn-default">Add New</a>
+		<a href="{{ route('dashboard.outlets.clerks.create', $outlet->id) }}" class="btn btn-sm btn-default">Add New</a>
 	</small>
 </h2>
 

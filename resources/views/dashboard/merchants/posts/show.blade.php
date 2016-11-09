@@ -11,9 +11,7 @@
 				</a>
 			</small>
 		</h1>
-		<a href="{{ route('dashboard.merchants.posts.index', $merchant->id) }}" class="btn btn-link">
-			<i class="fa fa-long-arrow-left"></i> Go Back
-		</a>
+		@include('dashboard._go-back')
 	</div>
 
 	<ul class="list-group">
