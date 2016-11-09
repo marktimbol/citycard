@@ -44,6 +44,64 @@ footer {
 }
 
 .Dashboard {
+
+	.has-delete-icon {
+		position: relative;
+		form {
+			position: absolute;
+			top: 10px;
+			right: 20px;
+		}
+	}
+
+	.Mobile {
+		width: 100%;
+		height: 626px;
+		background: url('/images/apple-iphone6-gold-portrait.png') no-repeat;
+		background-position: center;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+
+	.Mobile--container {
+	    width: 81%;
+	    height: 73%;
+		top: 85px;
+		left: 46px;
+		background: white;
+		padding: 10px;
+		overflow-y: scroll;
+	}
+
+	.Mobile__Outlet__image {
+		margin-right: 10px;
+	}
+
+	.Mobile__Outlet__info {
+		h4 {
+			margin: 0;
+			font-size: 14px;
+		}
+	}
+
+	.Mobile__content {
+		margin-top: 10px;
+		img {
+			margin-bottom: 10px;
+		}
+		h4 {
+			font-size: 14px;
+		}
+		ul li {
+			font-size: 12px;
+		}
+		p {
+			font-size: 12px;
+		}
+	}
+
 	.label-block {
 		display: block;
 	}
@@ -54,3 +112,5 @@ footer {
 		}
 	}
 }
+
+@import 'components/Grid';

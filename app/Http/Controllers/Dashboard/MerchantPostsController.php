@@ -19,7 +19,7 @@ class MerchantPostsController extends Controller
 
     public function show(Merchant $merchant, Post $post)
     {
-        $post->load('photos');
+        $post->load('outlets', 'photos');
         $photos = $post->photos;
         
         return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));

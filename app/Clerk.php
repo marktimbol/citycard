@@ -45,4 +45,8 @@ class Clerk extends Authenticatable
 		return $this->belongsToMany(Outlet::class, 'outlet_clerks', 'clerk_id', 'outlet_id');
 	}
 
+	public function fullName()
+	{
+		return sprintf('%s %s', $this->first_name, $this->last_name);
+	}
 }

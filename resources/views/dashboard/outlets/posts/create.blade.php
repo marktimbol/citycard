@@ -104,9 +104,7 @@
 		<hr />
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Save</button>
-			<a href="{{ route('dashboard.outlets.posts.index', $outlet->id) }}" class="btn btn-link">
-				Cancel
-			</a>
+			@include('dashboard._cancel')
 		</div>
 	</form>
 @endsection

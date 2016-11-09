@@ -52,4 +52,28 @@ class AnAdminCanManageOutletClerksTest extends TestCase
 				'city'	=> 'Dubai'
 			]);	
     }
+
+    public function test_an_admin_can_remove_a_clerk_from_the_outlet()
+    {
+        $merchant = $this->createMerchant();
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
+        $clerk = $this->createClerk([
+            'merchant_id'   => $merchant->id
+        ]);
+        $outlet->clerks()->attach($clerk);
+
+        $this->seeInDatabase('outlet_clerks', [
+            'outlet_id' => $outlet->id,
+            'clerk_id'  => $clerk->id
+        ]);
+
+        $endpoint = sprintf('/dashboard/outlets/%s/clerks/%s', $outlet->id, $clerk->id);
+        $this->delete($endpoint)
+            ->dontSeeInDatabase('outlet_clerks', [
+                'outlet_id' => $outlet->id,
+                'clerk_id'   => $clerk->id
+            ]);
+    }
 }

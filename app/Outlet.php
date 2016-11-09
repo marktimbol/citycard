@@ -60,4 +60,9 @@ class Outlet extends Authenticatable
 	{
 		return $this->belongsToMany(Post::class, 'outlet_posts', 'outlet_id', 'post_id');
 	}
+
+	public function photos()
+	{
+	    return $this->morphMany(Photo::class, 'imageable');
+	}
 }

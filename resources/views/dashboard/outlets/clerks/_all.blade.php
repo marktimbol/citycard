@@ -1,6 +1,9 @@
 <h2>Clerks
 	<small>
 		<a href="{{ route('dashboard.outlets.clerks.create', $outlet->id) }}" class="btn btn-sm btn-default">Add New</a>
+		<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#SelectExistingClerks">
+			Select from existing
+		</button>
 	</small>
 </h2>
 
@@ -30,9 +33,7 @@
 
 			</td>
 			<td>
-				<form method="POST"
-					action="#"
-				>
+				<form method="POST" action="{{ route('dashboard.outlets.clerks.destroy', [$outlet->id, $clerk->id]) }}">
 					{{ csrf_field() }}
 					{!! method_field('DELETE') !!}
 					<button type="submit" class="btn btn-link">

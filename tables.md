@@ -1,3 +1,12 @@
+Photos
+    $table->string('url');
+    $table->integer('imageable_id');
+    $table->string('imageable_type');
+
+Outlet
+	Cover
+	Logo
+
 Notifications
 	id
 	notificationable_id

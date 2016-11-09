@@ -119,9 +119,7 @@
 		
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Update</button>
-			<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}" class="btn btn-link">
-				Cancel
-			</a>
+			@include('dashboard._cancel')
 		</div>
 	</form>
 @endsection

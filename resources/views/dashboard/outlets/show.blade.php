@@ -32,17 +32,23 @@
 		</li>
 	</ul>
 
-	<a href="#" class="btn btn-primary">
-		Change Password
-	</a>
+	<div class="btn-group">
+		<button class="btn btn-default" data-toggle="modal" data-target="#UploadOutletGallery">
+			<i class="fa fa-file-photo-o"></i> Manage Shop Front
+		</button>
+		<a href="#" class="btn btn-default">
+			Change Password
+		</a>
+	</div>
 
 	@include('dashboard._outlet-posts', [
 		'posts'	=> $posts,
 	])
 
-	@include('dashboard._clerks')
+	@include('dashboard.outlets.clerks._all')
 
-	{{-- @include('dashboard._change-password') --}}
+	@include('dashboard.outlets._upload-outlet-gallery')
+	@include('dashboard.outlets._select-existing-clerks')
 
 	@include('dashboard._delete', [
 		'route'	=> route('dashboard.merchants.outlets.destroy', [$merchant->id, $outlet->id])
