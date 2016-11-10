@@ -42,7 +42,16 @@
 				<div class="row">
 					@foreach($chunks as $photo )
 						<div class="col-md-3">
-							<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
+							<div class="has-delete-icon">
+								<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
+								<form method="POST" action="{{ route('dashboard.posts.photos.destroy', [$post->id, $photo->id]) }}">
+									{{ csrf_field() }}
+									{{ method_field('DELETE') }}
+									<button type="submit" class="btn btn-sm btn-danger">
+										<i class="fa fa-remove"></i>
+									</button>
+								</form>
+							</div>
 						</div>
 					@endforeach
 				</div>
@@ -63,7 +72,7 @@
 						<div class="Mobile__Outlet--container">
 							<div class="Flex">
 								<div class="Mobile__Outlet__image">
-									<img src="http://placehold.it/48x48" alt="" title="" class="img-responsive" />
+									<img src="/images/avatar.jpg" alt="" title="" width="60" height="60" class="img-responsive" />
 								</div>
 								<div class="Mobile__Outlet__info">
 									<h4>{{ $post->outlets()->first()->name }}</h4>

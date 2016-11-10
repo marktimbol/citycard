@@ -16,6 +16,24 @@ class AnAdminCanManagePostPhotosTest extends TestCase
 
     public function test_an_admin_can_delete_photo_from_a_post()
     {
-    	$this->assertTrue(true);
+        $post = $this->createPost();
+    	$photo = $post->photos()->create([
+    		'url'	=> 'http://google.com/cover.jpg'
+    	]);
+
+    	$this->seeInDatabase('photos', [
+    		'url'	=> 'http://google.com/cover.jpg',
+    		'imageable_id'	=> $post->id,
+    		'imageable_type'	=> 'App\Post'
+    	]);
+
+    	$endpoint = sprintf('/dashboard/posts/%s/photos/%s', $post->id, $photo->id);
+
+    	$this->delete($endpoint)
+    		->dontSeeInDatabase('photos', [
+    			'url'	=> $photo->url,
+    			'imageable_id'	=> $post->id,
+    			'imageable_type'	=> 'App\Post'
+    		]);
     }
 }

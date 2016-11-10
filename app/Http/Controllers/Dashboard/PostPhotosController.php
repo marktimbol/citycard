@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
+use App\Photo;
 use App\Post;
+use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class PostPhotosController extends Controller
 {
@@ -21,5 +23,13 @@ class PostPhotosController extends Controller
     	]);
 
     	return back();
+    }
+
+    public function destroy(Post $post, Photo $photo)
+    {       
+        Storage::delete($photo->url);
+        $photo->delete();
+
+        return back();
     }
 }
