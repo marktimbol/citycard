@@ -3,23 +3,26 @@
 @section('pageTitle', 'Dashboard')
 
 @section('content')
-	<h1>Welcome, {{ auth()->guard('admin')->user()->name }}</h1>
+	<h1>Welcome Admin!</h1>
 
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
-
-	<p>
-		Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-		tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-		quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-		consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-		cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-		proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-	</p>
+	<div class="Statistics">
+		<div class="Statistic">
+			<h4>{{ $totalMerchants }}<small>Total Merchants</small></h4>
+		</div>
+		<div class="Statistic">
+			<h4>{{ $totalOutlets }}<small>Total Outlets</small></h4>
+		</div>
+		<div class="Statistic">
+			<h4>{{ $totalClerks }}<small>Total Clerks</small></h4>
+		</div>
+		<div class="Statistic">
+			<h4>{{ $totalPosts }}<small>Total Posts</small></h4>
+		</div>
+		<div class="Statistic">
+			<h4>{{ $totalUsers }}<small>Total Users</small></h4>
+		</div>
+		<div class="Statistic">
+			<h4>0<small>Online Users</small></h4>
+		</div>
+	</div>
 @endsection

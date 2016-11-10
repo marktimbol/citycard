@@ -51,6 +51,34 @@ footer {
 }
 
 .Dashboard {
+
+	.Statistics {
+		display: flex;
+		flex-wrap: wrap;
+	}
+
+	.Statistic {
+		width: 300px;
+		height: 150px;
+		background: #ddd;
+
+		margin: 10px;
+
+		display: flex;
+		align-items: center;
+		justify-content: center;
+
+		h4 {
+			font-size: 4em;
+			text-align: center;
+			small {			
+				display: block;
+			    font-size: 16px;
+			    margin-top: 10px;
+			}
+		}
+	}
+
 	.has-delete-icon {
 	    display: flex;
 	    align-items: center;
