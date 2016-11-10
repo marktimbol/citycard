@@ -24,6 +24,9 @@
 		<div class="col-md-7">
 			<ul class="list-group">
 				<li class="list-group-item">
+					Post Type: {{ ucfirst($post->type) }}
+				</li>
+				<li class="list-group-item">
 					Price: AED {{ $post->price }}
 				</li>
 				<li class="list-group-item">
@@ -100,6 +103,10 @@
 							@endif
 
 							{!! $post->desc !!}
+
+							@if( $post->type != 'notification' )
+								<p class="text-center"><a href="#" class="btn btn-primary">Buy now</a></p>
+							@endif
 						</div>
 					</div>
 			    </div>
