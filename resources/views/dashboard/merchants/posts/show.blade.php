@@ -107,7 +107,9 @@
 							{!! $post->desc !!}
 
 							@if( $post->type != 'notification' )
-								<p class="text-center"><a href="#" class="btn btn-primary">Buy now</a></p>
+								<p class="text-center">
+									<a href="{{ $post->link }}" class="btn btn-primary" target="_blank">Buy now</a>
+								</p>
 							@endif
 						</div>
 					</div>
