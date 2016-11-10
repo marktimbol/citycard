@@ -55,6 +55,10 @@ elixir(mix => {
         'intlTelInput.js'
       ], 'public/js/telephone.js')
 
+      .styles([
+        'mobile.css'
+      ], 'public/css/mobile.css')
+
       .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
       .copy('node_modules/intl-tel-input/build/img', 'public/build/img')
 
@@ -66,6 +70,7 @@ elixir(mix => {
         'public/css/select.css',
     		'public/js/select.js',
         'public/css/telephone.css',
-        'public/js/telephone.js'
+        'public/js/telephone.js',
+        'public/css/mobile.css'
     	]);
 });

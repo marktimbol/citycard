@@ -6060,6 +6060,7 @@ footer {
   align-items: center;
   -webkit-box-pack: center;
   justify-content: center;
+  flex-wrap: wrap;
   border: 2px dashed rgba(0, 0, 0, 0.3); }
 
 .table {
@@ -6079,25 +6080,12 @@ footer {
     position: absolute; }
 
 .Dashboard .Mobile {
-  width: 100%;
-  height: 626px;
-  background: url("/images/apple-iphone6-gold-portrait.png") no-repeat;
-  background-position: center;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center; }
-
-.Dashboard .Mobile--container {
-  width: 81%;
-  height: 73%;
-  top: 85px;
-  left: 46px;
-  background: white;
   padding: 10px;
   overflow-y: scroll; }
+
+.Dashboard .Mobile__header {
+  display: -webkit-box;
+  display: flex; }
 
 .Dashboard .Mobile__Outlet__image {
   margin-right: 10px; }
@@ -6196,5 +6184,10 @@ footer {
 .Space-between {
   -webkit-box-pack: justify;
   justify-content: space-between; }
+
+.marvel-device .screen {
+  color: #333 !important;
+  text-align: left !important;
+  overflow-y: scroll; }
 
 /*# sourceMappingURL=app.css.map */

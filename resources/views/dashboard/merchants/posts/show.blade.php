@@ -2,6 +2,10 @@
 
 @section('pageTitle', $post->title)
 
+@section('header_styles')
+	<link rel="stylesheet" href="{{ elixir('css/mobile.css') }}" />
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">{{ $post->title }}
@@ -41,7 +45,7 @@
 			@forelse( $photos->chunk(4) as $chunks )
 				<div class="row">
 					@foreach($chunks as $photo )
-						<div class="col-md-3">
+						<div class="col-md-3 col-xs-3">
 							<div class="has-delete-icon">
 								<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
 								<form method="POST" action="{{ route('dashboard.posts.photos.destroy', [$post->id, $photo->id]) }}">
@@ -66,10 +70,16 @@
 
 		</div>
 		<div class="col-md-5">
-			<div class="Mobile">
-				<div class="Mobile--container">
-					<div class="Mobile__header">
-						<div class="Mobile__Outlet--container">
+			<div class="marvel-device iphone5s silver">
+			    <div class="top-bar"></div>
+			    <div class="sleep"></div>
+			    <div class="volume"></div>
+			    <div class="camera"></div>
+			    <div class="sensor"></div>
+			    <div class="speaker"></div>
+			    <div class="screen">
+					<div class="Mobile">
+						<div class="Mobile__header">
 							<div class="Flex">
 								<div class="Mobile__Outlet__image">
 									<img src="/images/avatar.jpg" alt="" title="" width="60" height="60" class="img-responsive" />
@@ -81,18 +91,20 @@
 								</div>
 							</div>
 						</div>
-					</div>
-					<div class="Mobile__content">
-						@if( count($post->photos) > 0 )
-							<?php $photo = $post->photos()->first(); ?>
-							<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
-						@else
-							<img src="http://placehold.it/700x600" alt="" title="" class="img-responsive" />
-						@endif
+						<div class="Mobile__content">
+							@if( count($post->photos) > 0 )
+								<?php $photo = $post->photos()->first(); ?>
+								<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
+							@else
+								<img src="http://placehold.it/700x600" alt="" title="" class="img-responsive" />
+							@endif
 
-						{!! $post->desc !!}
+							{!! $post->desc !!}
+						</div>
 					</div>
-				</div>
+			    </div>
+			    <div class="home"></div>
+			    <div class="bottom-bar"></div>
 			</div>
 		</div>
 	</div>

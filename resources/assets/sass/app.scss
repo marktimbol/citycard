@@ -36,6 +36,7 @@ footer {
 	margin-top: 20px;
 	align-items: center;
 	justify-content: center;
+    flex-wrap: wrap;
 	border: 2px dashed rgba(0, 0, 0, 0.3);
 }
 
@@ -60,24 +61,12 @@ footer {
 	}
 
 	.Mobile {
-		width: 100%;
-		height: 626px;
-		background: url('/images/apple-iphone6-gold-portrait.png') no-repeat;
-		background-position: center;
-
-		display: flex;
-		align-items: center;
-		justify-content: center;
-	}
-
-	.Mobile--container {
-	    width: 81%;
-	    height: 73%;
-		top: 85px;
-		left: 46px;
-		background: white;
 		padding: 10px;
 		overflow-y: scroll;
+	}
+
+	.Mobile__header {
+		display: flex;
 	}
 
 	.Mobile__Outlet__image {
@@ -119,3 +108,4 @@ footer {
 }
 
 @import 'components/Grid';
+@import 'components/Overwrite';
