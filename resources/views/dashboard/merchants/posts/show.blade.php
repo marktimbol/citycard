@@ -78,7 +78,7 @@
 							<?php $photo = $post->photos()->first(); ?>
 							<img src="{{ getPhotoPath($photo->url) }}" alt="" title="" class="img-responsive" />
 						@else
-							<img src="http://placehold.it/600x300" alt="" title="" class="img-responsive" />
+							<img src="http://placehold.it/700x600" alt="" title="" class="img-responsive" />
 						@endif
 
 						{!! $post->desc !!}

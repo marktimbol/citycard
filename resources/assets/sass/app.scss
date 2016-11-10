@@ -43,8 +43,13 @@ footer {
 	background: white;
 }
 
-.Dashboard {
+.btn-has-icon {
+	i {
+		margin-right: 5px;
+	}
+}
 
+.Dashboard {
 	.has-delete-icon {
 		position: relative;
 		form {

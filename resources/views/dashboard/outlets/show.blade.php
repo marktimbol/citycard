@@ -33,11 +33,11 @@
 	</ul>
 
 	<div class="btn-group">
-		<button class="btn btn-default" data-toggle="modal" data-target="#UploadOutletGallery">
+		<button class="btn btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
 			<i class="fa fa-file-photo-o"></i> Manage Shop Front
 		</button>
-		<a href="#" class="btn btn-default">
-			Change Password
+		<a href="#" class="btn btn-primary btn-has-icon">
+			<i class="fa fa-key"></i> Change Password
 		</a>
 	</div>
 
