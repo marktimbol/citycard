@@ -102,6 +102,8 @@
 								<img src="http://placehold.it/700x600" alt="" title="" class="img-responsive" />
 							@endif
 
+							<h2>{{ $post->title }}</h2>
+
 							{!! $post->desc !!}
 
 							@if( $post->type != 'notification' )
