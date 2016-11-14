@@ -82,9 +82,13 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     public function test_an_admin_can_view_the_post_of_a_merchant()
     {
         $merchant = $this->createMerchant();
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
         $post = $this->createPost([
             'merchant_id'   => $merchant->id
         ]);
+        $outlet->posts()->save($post);
 
         $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
         $this->visit($url)
@@ -159,9 +163,13 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     public function test_an_admin_can_remove_a_post_information()
     {
         $merchant = $this->createMerchant();
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
         $post = $this->createPost([
             'merchant_id'   => $merchant->id
         ]);
+        $outlet->posts()->save($post);
         
         $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
 
