@@ -118,3 +118,39 @@ $factory->define(App\Promo::class, function (Faker\Generator $faker) {
         'title' => $faker->sentence
     ];
 });
+
+$factory->define(App\Country::class, function (Faker\Generator $faker) {
+    $country = $faker->country;
+    $slug = str_slug($country);
+
+    return [
+        'name' => $country,
+        'slug'  => $slug
+    ];
+});
+
+$factory->define(App\City::class, function (Faker\Generator $faker) {
+    $city = $faker->city;
+    $slug = str_slug($city);
+
+    return [
+        'country_id'    => function() {
+            return factory(App\Country::class)->create()->id;
+        },
+        'name' => $city,
+        'slug'  => $slug
+    ];
+});
+
+$factory->define(App\Area::class, function (Faker\Generator $faker) {
+    $area = $faker->state;
+    $slug = str_slug($area);
+
+    return [
+        'city_id'    => function() {
+            return factory(App\City::class)->create()->id;
+        },
+        'name' => $area,
+        'slug'  => $slug
+    ];
+});

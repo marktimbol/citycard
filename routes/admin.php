@@ -13,10 +13,6 @@ Route::get('/admin/dashboard', function() {
 	return 'Admin Dashboard';
 });
 
-Route::get('/back', function() {
-	return back();
-});
-
 Route::group([
 	'as' => 'dashboard.', 
 	'prefix' => 'dashboard', 
@@ -30,15 +26,16 @@ Route::group([
 	Route::resource('merchants.posts', 'Dashboard\MerchantPostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
 	Route::resource('outlets.photos', 'Dashboard\OutletPhotosController');
-	
-	Route::resource('outlets.posts', 'Dashboard\OutletPostsController', [
-		'only'	=> ['index', 'create', 'store', 'destroy']
-	]);
+	Route::resource('outlets.posts', 'Dashboard\OutletPostsController');
+	Route::resource('outlets.clerks', 'Dashboard\OutletClerksController');
+	Route::resource('countries', 'Dashboard\CountriesController');
+	Route::resource('countries.cities', 'Dashboard\CountryCitiesController');
+	Route::resource('cities.areas', 'Dashboard\CityAreasController');
 
-	Route::resource('outlets.clerks', 'Dashboard\OutletClerksController', [
-		'only'	=> ['index', 'create', 'store', 'destroy']
-	]);
-	
+
+
+
+	//
 	Route::post('merchants/{merchant}/outlets/{outlet}/promos', [
 		'as' => 'merchants.outlets.promos.store',
 		'uses' => 'Dashboard\OutletPromosController@store'

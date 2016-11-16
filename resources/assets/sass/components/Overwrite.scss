@@ -3,3 +3,11 @@
 	text-align: left !important;
 	overflow-y: scroll;
 }
+
+.alert {
+	padding: 10px;
+	ul {
+		list-style: none;
+		padding-left: 0;
+	}
+}

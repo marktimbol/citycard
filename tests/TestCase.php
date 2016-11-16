@@ -90,4 +90,19 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         return factory(App\Post::class)->create($attributes);
     }
+
+    protected function createCountry($attributes = [])
+    {
+        return factory(App\Country::class)->create($attributes);
+    }
+
+    protected function createCity($attributes = [])
+    {
+        return factory(App\City::class)->create($attributes);
+    }
+
+    protected function createArea($attributes = [])
+    {
+        return factory(App\Area::class)->create($attributes);
+    }
 }
