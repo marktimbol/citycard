@@ -8,7 +8,7 @@ use App\Merchant;
 use App\Outlet;
 use Illuminate\Http\Request;
 
-class OutletsController extends Controller
+class MerchantOutletsController extends Controller
 {
 	public function __construct()
 	{
@@ -34,7 +34,7 @@ class OutletsController extends Controller
     }
 
     public function create(Merchant $merchant)
-    {
+    {        
     	return view('dashboard.outlets.create', compact('merchant'));
     }
 

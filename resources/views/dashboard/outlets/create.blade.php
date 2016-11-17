@@ -86,12 +86,12 @@
 		<div class="row">
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="area">Area</label>
+					<label for="country">Country</label>
 					<input type="text"
-						name="area"
-						id="area"
+						name="country"
+						id="country"
 						class="form-control"
-						value="{{ old('area') }}" />
+						value="{{ old('country') }}" />
 				</div>
 			</div>
 			<div class="col-md-4">
@@ -104,14 +104,15 @@
 						value="{{ old('city') }}" />
 				</div>
 			</div>
+
 			<div class="col-md-4">
 				<div class="form-group">
-					<label for="country">Country</label>
+					<label for="area">Area</label>
 					<input type="text"
-						name="country"
-						id="country"
+						name="area"
+						id="area"
 						class="form-control"
-						value="{{ old('country') }}" />
+						value="{{ old('area') }}" />
 				</div>
 			</div>
 		</div>
