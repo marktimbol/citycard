@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class AnAuthorizedUserCanManageOutletsTest extends TestCase
+class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 {
 	use DatabaseMigrations;
 
@@ -44,35 +44,44 @@ class AnAuthorizedUserCanManageOutletsTest extends TestCase
     {
     	$merchant = $this->createMerchant();
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets/create')
-    		->see('Add Outlet')
-			->type('Outlet Name', 'name')
-			->type('0563759865', 'phone')
-			->type('Address 1', 'address1')
-			->type('Address 2', 'address2')
-			->type('1', 'latitude')
-			->type('2', 'longitude')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
-			->type('Al Rigga', 'area')
-			->type('email@citycard.me', 'email')
-			->type('123456', 'password')
-			->type('123456', 'password_confirmation')
-			->press('Save')
+		$country = $this->createCountry();
+		$city = $this->createCity([
+			'country_id'	=> $country->id
+		]);
+		$area = $this->createArea([
+			'city_id'	=> $city->id
+		]);
 
-			->seeInDatabase('outlets', [
-				'merchant_id'	=> $merchant->id,
-				'name'	=> 'Outlet Name',
-				'phone'	=> '0563759865',
-				'address1'	=> 'Address 1',
-				'address2'	=> 'Address 2',
-				'latitude'	=> '1',
-				'longitude'	=> '2',
-				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai',
-				'area'	=> 'Al Rigga',
-				'email'	=> 'email@citycard.me',
-			]);
+		$endpoint = sprintf('/dashboard/merchants/%s/outlets', $merchant->id);
+		$response = $this->post($endpoint, [
+			'area'	=> $area->id,
+			'name'	=> 'Outlet Name',
+			'phone'	=> '0563759865',
+			'address1'	=> 'Address 1',
+			'address2'	=> 'Address 2',
+			'latitude'	=> '1',
+			'longitude'	=> '2',
+			'email'	=> 'john@example.com',
+			'password'	=> 'john123',
+			'password_confirmation'	=> 'john123',
+		]);
+
+		dd($response);
+
+		$this->seeInDatabase('outlets', [
+			'area_id'	=> $area->id,
+			'merchant_id'	=> $merchant->id,
+			'name'	=> 'Outlet Name',
+			'phone'	=> '0563759865',
+			'address1'	=> 'Address 1',
+			'address2'	=> 'Address 2',
+			'latitude'	=> '1',
+			'longitude'	=> '2',
+			'country'	=> 'United Arab Emirates',
+			'city'	=> 'Dubai',
+			'area'	=> 'Al Rigga',
+			'email'	=> 'email@citycard.me',
+		]);
     }
 
     public function test_an_authorized_user_can_edit_a_merchants_outlet_information()

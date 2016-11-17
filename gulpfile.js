@@ -48,11 +48,12 @@ elixir(mix => {
       ], 'public/js/select.js')
 
       .styles([
-        modulesPath + 'intl-tel-input/build/css/intlTelInput.css'
+        'intl-tel-input/build/css/intlTelInput.css'
       ], 'public/css/telephone.css')
 
       .scripts([
-        modulesPath + 'intl-tel-input/build/js/intlTelInput.js',
+        'intl-tel-input/build/js/intlTelInput.js',
+        'intl-tel-input/build/js/utils.js',
         'intlTelInput.js'
       ], 'public/js/telephone.js')
 
@@ -67,9 +68,9 @@ elixir(mix => {
         'public/css/app.css',
         'public/js/app.js',
         'public/css/editor.css',
-        'public/js/editor.js', 		
+        'public/js/editor.js',
         'public/css/select.css',
-    		'public/js/select.js',
+    	'public/js/select.js',
         'public/css/telephone.css',
         'public/js/telephone.js',
         'public/css/mobile.css'

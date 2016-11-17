@@ -7,6 +7,7 @@ use App\Outlet;
 use App\Merchant;
 use App\Country;
 use App\Http\Requests;
+use App\Http\Requests\CreateOutletRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -36,7 +37,7 @@ class MerchantOutletsController extends Controller
     }
 
     public function create(Merchant $merchant)
-    {        
+    {
         $countries = Country::orderBy('name', 'asc')->get();
         JavaScript::put([
             'merchant'  => $merchant,
@@ -46,13 +47,14 @@ class MerchantOutletsController extends Controller
     	return view('dashboard.outlets.create', compact('merchant'));
     }
 
-    public function store(Request $request, Merchant $merchant)
+    public function store(CreateOutletRequest $request, Merchant $merchant)
     {
-        $merchant->outlets()->create($request->all());
-        
-        flash()->success('A new outlet has been successfully saved.');
+		dd($request->all());
+		
+		$request['area_id'] = $request->area;
+        $outlet = $merchant->outlets()->create($request->all());
 
-        return redirect()->route('dashboard.merchants.outlets.index', $merchant->id);
+        return $outlet;
     }
 
     public function edit(Merchant $merchant, Outlet $outlet)

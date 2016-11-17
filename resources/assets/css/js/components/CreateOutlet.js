@@ -88,12 +88,50 @@ class CreateOutlet extends Component
 	onSubmit(e) {
 		e.preventDefault();
 
+		this.isSubmitting();
+
+		let url = '/dashboard/merchants/'+app.merchant.id+'/outlets';
+
+		$.ajax({
+		    url: url,
+		    type: 'POST',
+		    data: $('#CreateOutletForm').serialize(),
+		    headers: { 'X-CSRF-Token': App.csrfToken },
+		    success: function(response) {
+		        swal({
+		            title: "City Card",
+		            text: "You have successfully created a new Outlet",
+		            type: "success",
+		            showConfirmButton: true
+		        });
+
+		        this.setState({
+		            submitButtonText: 'Save',
+		            isSubmitted: false
+		        })
+
+		        // window.location = '/dashboard/merchants/' + app.merchant.id + '/outlets/' + response.id;
+		    }.bind(this),
+		    error: function(error) {
+				this.resetSubmitButton();
+		    }.bind(this)
+		});
+	}
+
+	isSubmitting()
+	{
 		this.setState({
 			isSubmitted: true,
 			submitButtonText: 'Saving',
 		});
+	}
 
-		console.log($('#CreateOutletForm').serialize());
+	resetSubmitButton()
+	{
+		this.setState({
+			isSubmitted: false,
+			submitButtonText: 'Save',
+		});
 	}
 
 	render()

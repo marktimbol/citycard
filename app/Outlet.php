@@ -16,7 +16,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'merchant_id', 'name', 'email', 'password', 'phone',
+	    'area_id', 'merchant_id', 'name', 'email', 'password', 'phone',
 	    'address1', 'address2', 'latitude', 'longitude',
 	    'country', 'city', 'area',
 	];
@@ -40,12 +40,12 @@ class Outlet extends Authenticatable
     {
     	$this->attributes['password'] = bcrypt($password);
     }
-    
+
 	public function merchant()
 	{
 		return $this->belongsTo(Merchant::class);
 	}
-	
+
 	public function promos()
 	{
 		return $this->belongsToMany(Promo::class, 'outlet_promos', 'outlet_id', 'promo_id');

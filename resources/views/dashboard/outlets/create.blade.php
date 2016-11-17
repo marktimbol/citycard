@@ -12,10 +12,10 @@
 	</div>
 
 	<div id="CreateOutlet"></div>
-	
+
 @endsection
 
 @section('footer_scripts')
-	<script src="{{ elixir('js/telephone.js') }}"></script>
+	<script src="/js/telephone.js"></script>
 	<script src="/js/CreateOutlet.js"></script>
 @endsection
