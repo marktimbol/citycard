@@ -21,7 +21,8 @@ elixir(mix => {
    			'app.css'
    		], 'public/css/app.css')
 
-    	.webpack('app.js')
+      .webpack('app.js')
+    	.webpack('components/CreateOutlet.js')
 
       .styles([
         modulesPath + 'froala-editor/css/froala_editor.min.css',

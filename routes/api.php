@@ -31,4 +31,8 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('offers', 'Api\OffersController');
 	Route::resource('events', 'Api\EventsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');
+
+	// Countries
+	Route::get('countries/{country}/cities', 'Api\CountryCitiesController@index');
+	Route::get('cities/{city}/areas', 'Api\CityAreasController@index');
 });

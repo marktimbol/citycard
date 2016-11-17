@@ -17,6 +17,8 @@
     "font-awesome": "^4.7.0",
     "froala-editor": "^2.3.5",
     "intl-tel-input": "^9.2.4",
+    "react": "^15.4.0",
+    "react-dom": "^15.4.0",
     "select2": "^4.0.3",
     "sweetalert": "^1.1.3"
   }

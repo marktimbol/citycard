@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Merchant;
+use JavaScript;
 use App\Outlet;
+use App\Merchant;
+use App\Country;
+use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class MerchantOutletsController extends Controller
 {
@@ -35,6 +37,12 @@ class MerchantOutletsController extends Controller
 
     public function create(Merchant $merchant)
     {        
+        $countries = Country::orderBy('name', 'asc')->get();
+        JavaScript::put([
+            'merchant'  => $merchant,
+            'countries' => $countries
+        ]);
+
     	return view('dashboard.outlets.create', compact('merchant'));
     }
 
