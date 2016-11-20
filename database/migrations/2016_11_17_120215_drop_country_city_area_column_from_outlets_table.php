@@ -14,7 +14,7 @@ class DropCountryCityAreaColumnFromOutletsTable extends Migration
     public function up()
     {
         Schema::table('outlets', function (Blueprint $table) {
-            //
+            $table->dropColumn(['country', 'city', 'area']);
         });
     }
 
@@ -26,7 +26,9 @@ class DropCountryCityAreaColumnFromOutletsTable extends Migration
     public function down()
     {
         Schema::table('outlets', function (Blueprint $table) {
-            //
+            $table->string('country')->nullable();
+            $table->string('city')->nullable();
+            $table->string('area')->nullable();
         });
     }
 }

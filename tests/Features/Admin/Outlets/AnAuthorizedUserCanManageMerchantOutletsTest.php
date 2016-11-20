@@ -17,7 +17,10 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     public function test_an_authorized_user_can_view_all_the_merchants_outlets()
     {
     	$merchant = $this->createMerchant();
+    	$area = $this->createArea();
+
     	$outlet = $this->createOutlet([
+			'area_id'	=> $area->id,
     		'merchant_id'	=> $merchant->id
     	]);
 
@@ -43,19 +46,12 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     public function test_an_authorized_user_can_add_an_outlet_to_a_merchant()
     {
     	$merchant = $this->createMerchant();
-
-		$country = $this->createCountry();
-		$city = $this->createCity([
-			'country_id'	=> $country->id
-		]);
-		$area = $this->createArea([
-			'city_id'	=> $city->id
-		]);
+		$area = $this->createArea();
 
 		$endpoint = sprintf('/dashboard/merchants/%s/outlets', $merchant->id);
 		$response = $this->post($endpoint, [
 			'area'	=> $area->id,
-			'name'	=> 'Outlet Name',
+			'name'	=> 'Outlet',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',
@@ -66,21 +62,20 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 			'password_confirmation'	=> 'john123',
 		]);
 
-		dd($response);
-
 		$this->seeInDatabase('outlets', [
-			'area_id'	=> $area->id,
 			'merchant_id'	=> $merchant->id,
-			'name'	=> 'Outlet Name',
+			'name'	=> 'Outlet',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',
 			'latitude'	=> '1',
 			'longitude'	=> '2',
-			'country'	=> 'United Arab Emirates',
-			'city'	=> 'Dubai',
-			'area'	=> 'Al Rigga',
-			'email'	=> 'email@citycard.me',
+			'email'	=> 'john@example.com',
+		]);
+
+		$this->seeInDatabase('area_outlets', [
+			'area_id'	=> $area->id,
+			'outlet_id'	=> 1,
 		]);
     }
 
@@ -114,9 +109,9 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 				'address2'	=> 'Address 2',
 				'latitude'	=> '1',
 				'longitude'	=> '2',
-				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai',
-				'area'	=> 'Al Rigga',
+				// 'country'	=> 'United Arab Emirates',
+				// 'city'	=> 'Dubai',
+				// 'area'	=> 'Al Rigga',
     			'email'	=> 'email@citycard.me'
     		]);
     }

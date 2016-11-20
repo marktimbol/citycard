@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAreaIdOnOutletsTable extends Migration
+class CreateAreaOutletsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,11 @@ class AddAreaIdOnOutletsTable extends Migration
      */
     public function up()
     {
-        Schema::table('outlets', function (Blueprint $table) {
-            $table->unsignedInteger('area_id')->default(0);
+        Schema::create('area_outlets', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('area_id')->unsigned();
+            $table->integer('outlet_id')->unsigned();
+            $table->timestamps();
         });
     }
 
@@ -25,8 +28,6 @@ class AddAreaIdOnOutletsTable extends Migration
      */
     public function down()
     {
-        Schema::table('outlets', function (Blueprint $table) {
-            $table->dropColumn('area_id');
-        });
+        Schema::dropIfExists('area_outlets');
     }
 }

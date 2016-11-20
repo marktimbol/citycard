@@ -66,9 +66,9 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         'address2'  => $faker->address,
         'latitude'  => $faker->latitude,
         'longitude'  => $faker->longitude,
-        'country'   => $faker->country,
-        'city'  => $faker->city,
-        'area'  => $faker->city,
+        // 'country'   => $faker->country,
+        // 'city'  => $faker->city,
+        // 'area'  => $faker->city,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
     ];

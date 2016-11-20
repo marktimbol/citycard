@@ -13,4 +13,9 @@ class Area extends Model
     	$this->attributes['name'] = $name;
     	$this->attributes['slug'] = str_slug($name);
     }
+
+    public function outlets()
+    {
+        return $this->belongsToMany(Outlet::class, 'area_outlets', 'area_id', 'outlet_id');
+    }
 }

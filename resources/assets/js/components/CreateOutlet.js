@@ -82,12 +82,11 @@ class CreateOutlet extends Component
 
 	handleAreaChange(e) {
 		let areaId = e.target.value;
-		this.setState({ areaId });
+		this.setState({ area: areaId });
 	}
 
 	onSubmit(e) {
 		e.preventDefault();
-
 		this.isSubmitting();
 
 		let url = '/dashboard/merchants/'+app.merchant.id+'/outlets';
@@ -161,7 +160,7 @@ class CreateOutlet extends Component
 		return (
 			<form method="POST" id="CreateOutletForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
-					<label htmlFor="merchant">Merchant Name</label>
+					<label htmlFor="merchant">Merchant Names</label>
 					<input
 						type="text"
 						value={merchant.name}
@@ -258,7 +257,12 @@ class CreateOutlet extends Component
 					<div className="col-md-4">
 						<div className="form-group">
 							<label htmlFor="city">City</label>
-							<select name="city" id="city" className="form-control" onChange={this.handleCityChange}>
+							<select
+								name="city"
+								id="city"
+								className="form-control"
+								onChange={this.handleCityChange}
+							>
 								<option value=""></option>
 								{ availableCities }
 							</select>
@@ -268,7 +272,12 @@ class CreateOutlet extends Component
 					<div className="col-md-4">
 						<div className="form-group">
 							<label htmlFor="area">Area</label>
-							<select name="area" className="form-control" onChange={this.handleAreaChange}>
+							<select
+								name="area"
+								id="area"
+								className="form-control"
+								onChange={this.handleAreaChange}
+							>
 								<option value=""></option>
 								{ availableAreas }
 							</select>

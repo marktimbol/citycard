@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use JavaScript;
+use App\Area;
 use App\Outlet;
 use App\Merchant;
 use App\Country;
@@ -49,12 +50,12 @@ class MerchantOutletsController extends Controller
 
     public function store(CreateOutletRequest $request, Merchant $merchant)
     {
-		dd($request->all());
-		
-		$request['area_id'] = $request->area;
-        $outlet = $merchant->outlets()->create($request->all());
+    	$outlet = $merchant->outlets()->create($request->all());
 
-        return $outlet;
+		$area = Area::findOrFail($request->area);
+		$area->outlets()->attach($outlet);
+
+		return $outlet;
     }
 
     public function edit(Merchant $merchant, Outlet $outlet)

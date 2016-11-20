@@ -65,8 +65,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
                 'name'  => 'Merchant Name',
                 'email' => 'email@citycard.me',
                 'phone' => '0563759865',
-                'country'   => 'United Arab Emirates',
-                'city'  => 'Dubai',
+                // 'country'   => 'United Arab Emirates',
+                // 'city'  => 'Dubai',
             ])
 
             ->seePageIs('/dashboard/merchants/1');

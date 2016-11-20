@@ -10,7 +10,8 @@
         "laracasts/flash": "^2.0",
         "maatwebsite/excel": "^2.1",
         "league/flysystem-aws-s3-v3": "^1.0",
-        "laracasts/utilities": "^2.1"
+        "laracasts/utilities": "^2.1",
+        "doctrine/dbal": "^2.5"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

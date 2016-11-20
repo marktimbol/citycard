@@ -24,12 +24,10 @@ class CreateOutletRequest extends FormRequest
     public function rules()
     {
         return [
+            'area' => 'required',
             'name'	=> 'required',
 			'email'	=> 'required|email',
 			'phone'	=> 'required',
-			'country'	=> 'required',
-			'city'	=> 'required',
-			'area' => 'required',
 			'password'	=> 'required|min:6|confirmed',
 			'password_confirmation'	=> 'required'
         ];
