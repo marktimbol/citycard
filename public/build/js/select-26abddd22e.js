@@ -5725,6 +5725,7 @@ S2.define('jquery.select2',[
 }));
 
 $(document).ready(function() {
-	$('select').select2();
+	$('.select2').select2();
 });
+
 //# sourceMappingURL=select.js.map

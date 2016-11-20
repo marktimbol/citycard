@@ -20,7 +20,7 @@
 						<option value="offer">Offer</option>
 						<option value="ticket">Ticket</option>
 					</select>
-				</div>		
+				</div>
 				<div class="form-group">
 					<label for="outlet_ids">Select Outlets</label>
 					<select name="outlet_ids" id="outlet_ids" class="form-control" multiple>
@@ -29,7 +29,7 @@
 						@endforeach
 					</select>
 				</div>
-			
+
 				<div class="form-group">
 					<label for="title">Title</label>
 					<input type="text"
@@ -44,7 +44,7 @@
 						<div class="form-group">
 							<label for="price">Price</label>
 							<div class="input-group">
-								<span class="input-group-addon">AED</span>			
+								<span class="input-group-addon">AED</span>
 								<input type="text"
 									name="price"
 									id="price
@@ -89,7 +89,7 @@
 							<input type="radio" name="payment_option" value="points" /> Points
 						</label>
 					</div>
-				</div>	
+				</div>
 				<div class="row">
 					<div class="col-md-5">
 						<div class="form-group">
@@ -107,7 +107,7 @@
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Save Post</button>
 				</div>
-			</form>	
+			</form>
 		</div>
 	</div>
 

@@ -27,13 +27,13 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ->see($post->title);
     }
 
-    public function test_an_admin_can_add_a_post_to_a_merchant()
+    public function test_an_admin_can_add_an_offer_to_a_merchant_with_a_citycard_source()
     {
     	$merchant = $this->createMerchant([
     		'name'	=> 'McDonalds'
     	]);
 
-    	$outlet = $this->createOutlet([
+    	$outlet1 = $this->createOutlet([
     		'merchant_id'	=> $merchant->id
     	]);
 
@@ -41,42 +41,44 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-        $url = sprintf('/dashboard/merchants/%s/posts/create', $merchant->id);
-        $this->visit($url)
-            ->select('notification', 'type')
-            ->select(['1', '2'], 'outlet_ids')
-            ->type('The Title', 'title')
-            ->type('49', 'price')
-            ->type('The description', 'desc')
-            ->type('http://google.com', 'link')
-            ->select('cashback', 'payment_option')
-            ->type('100', 'points')
-            ->press('Save')
+        $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
+		$response = $this->post($endpoint, [
+			'source'	=> 'citycard',
+			'type'	=> 'offer',
+			'outlet_ids'	=> ['1', '2'],
+			'title'	=> 'The Title',
+			'price'	=> 49,
+			'desc'	=> 'The description',
+			'link'	=> '',
+			'payment_option'	=> 'cashback',
+			'points'	=> 100,
+		]);
 
-            ->seeInDatabase('posts', [
-                'merchant_id'   => $merchant->id,
-                'type'  => 'notification',
-                'title' => 'The Title',
-                'slug'  => 'the-title',
-                'price'  => 49,
-                'desc'=> 'The description',
-                'link'  => 'http://google.com',
-                'payment_option'  => 'cashback',
-                'points'  => 100,
-                'approved'  => 0
-            ])
+        $this->seeInDatabase('posts', [
+            'merchant_id'   => $merchant->id,
+			'source'	=> 'citycard',
+            'type'  => 'offer',
+            'title' => 'The Title',
+            'slug'  => 'the-title',
+            'price'  => 49,
+            'desc'=> 'The description',
+            'link'  => '',
+            'payment_option'  => 'cashback',
+            'points'  => 100,
+            'approved'  => 0
+        ])
 
-            ->seeInDatabase('outlet_posts', [
-                'outlet_id' => 1,
-                'post_id'   => 1
-            ])
+        ->seeInDatabase('outlet_posts', [
+            'outlet_id' => 1,
+            'post_id'   => 1
+        ])
 
-            ->seeInDatabase('outlet_posts', [
-                'outlet_id' => 2,
-                'post_id'   => 1
-            ])
+        ->seeInDatabase('outlet_posts', [
+            'outlet_id' => 2,
+            'post_id'   => 1
+        ]);
 
-            ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
+        // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }
 
     public function test_an_admin_can_view_the_post_of_a_merchant()
@@ -170,7 +172,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
         $outlet->posts()->save($post);
-        
+
         $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
 
         $this->visit($url)

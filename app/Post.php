@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'merchant_id', 'type', 'title', 'slug', 'price', 'desc', 'link', 'payment_option', 'points'
+        'merchant_id', 'source', 'type', 'title', 'slug', 'price', 'desc', 'link', 'payment_option', 'points'
     ];
-    
+
     public function setTitleAttribute($title)
     {
     	$this->attributes['title'] = $title;

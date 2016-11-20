@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 
 use App\Post;
+use JavaScript;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -21,27 +22,31 @@ class MerchantPostsController extends Controller
     {
         $post->load('outlets', 'photos');
         $photos = $post->photos;
-        
+
         return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));
     }
 
     public function create(Merchant $merchant)
-    {    	
-    	$outlets = $merchant->outlets;
+    {
+        $merchant->load('outlets');
+
+        JavaScript::put([
+            'merchant'  => $merchant,
+            'outlets'   => $merchant->outlets
+        ]);
+
     	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));
     }
 
     public function store(Request $request, Merchant $merchant)
     {
     	$post = $merchant->posts()->create($request->all());
-    	
+
     	if( $request->has('outlet_ids') ) {
-    		$post->outlets()->attach(request('outlet_ids'));    		
+    		$post->outlets()->attach(request('outlet_ids'));
     	}
 
-        flash()->success('A new post has been successfully saved.');
-
-        return redirect()->route('dashboard.merchants.posts.show', [$post->merchant->id, $post->id]);
+        return $post;
     }
 
     public function edit(Merchant $merchant, Post $post)
@@ -57,7 +62,7 @@ class MerchantPostsController extends Controller
         $post->update($request->all());
 
         if( $request->has('outlet_ids') ) {
-            $post->outlets()->sync(request('outlet_ids'));            
+            $post->outlets()->sync(request('outlet_ids'));
         }
 
         flash()->success('Post information has been successfully updated.');
