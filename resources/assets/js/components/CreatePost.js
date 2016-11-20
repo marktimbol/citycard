@@ -9,9 +9,8 @@ class CreatePost extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
-			isExternal: false,
-			showPrice: false,
-			showPaymentOption: false,
+			source: '',
+			postType: '',
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -27,31 +26,12 @@ class CreatePost extends Component
 
 	handleSourceChange(e) {
 		let source = e.target.value;
-		if( source == 'external' ) {
-			this.setState({
-				isExternal: true
-			});
-		} else {
-			this.setState({
-				isExternal: false
-			})
-		}
+		this.setState({ source })
 	}
 
 	handleTypeChange(e) {
 		let postType = e.target.value;
-
-		if( postType == 'offer' || postType == 'ticket' ) {
-			this.setState({
-				showPrice: true,
-				showPaymentOption: true,
-			})
-		} else {
-			this.setState({
-				showPrice: false,
-				showPaymentOption: false
-			})
-		}
+		this.setState({ postType })
 	}
 
 	onSubmit(e) {
@@ -107,6 +87,22 @@ class CreatePost extends Component
 
 	}
 
+	isFromCityCard() {
+		return this.state.source == 'citycard' ? true : false
+	}
+
+	isNotFromCityCard() {
+		return this.state.source == 'external' ? true : false
+	}
+
+	isNotification() {
+		return this.state.postType == 'notification' ? true : false
+	}
+
+	isOffer() {
+		return ( this.state.postType == 'offer' || this.state.postType == 'ticket' ) ? true : false
+	}
+
 	render() {
 		let merchant = app.merchant;
 		let outlets = app.outlets;
@@ -141,25 +137,26 @@ class CreatePost extends Component
 								className="form-control"
 								onChange={this.handleSourceChange}
 							>
+								<option value=""></option>
 								<option value="citycard">City Card</option>
 								<option value="external">External</option>
 							</select>
 						</div>
 					</div>
 					<div className="col-md-8">
-						{ this.state.isExternal ?
+						{ this.isNotFromCityCard() ?
 							<div className="row">
 								<div className="col-md-6">
 									<div className="form-group">
-									<label htmlFor="source_from">From</label>
-									<select
-									name="source_from"
-									id="source_from"
-									className="form-control"
-									>
-									<option value="Cobone">Cobone</option>
-									<option value="Groupon">Groupon</option>
-									</select>
+										<label htmlFor="source_from">From</label>
+										<select
+											name="source_from"
+											id="source_from"
+											className="form-control"
+										>
+											<option value="Cobone">Cobone</option>
+											<option value="Groupon">Groupon</option>
+										</select>
 									</div>
 								</div>
 								<div className="col-md-6">
@@ -216,22 +213,24 @@ class CreatePost extends Component
 						className="form-control" />
 				</div>
 
-				{ this.state.showPrice ?
-					<div className="row">
-						<div className="col-md-4">
-							<div className="form-group">
-								<label htmlFor="price">Price</label>
-								<div className="input-group">
-									<span className="input-group-addon">AED</span>
-									<input type="text"
-									name="price"
-									id="price"
-									value={this.state.price}
-									className="form-control" />
+				{ this.isFromCityCard() ?
+					this.isOffer() ?
+						<div className="row">
+							<div className="col-md-4">
+								<div className="form-group">
+									<label htmlFor="price">Price</label>
+									<div className="input-group">
+										<span className="input-group-addon">AED</span>
+										<input type="text"
+										name="price"
+										id="price"
+										value={this.state.price}
+										className="form-control" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						: <div></div>
 					:
 					<div></div>
 				}
@@ -243,40 +242,42 @@ class CreatePost extends Component
 					</textarea>
 				</div>
 
-				{ this.state.showPaymentOption ?
-					<div>
-						<h3>Payment Option</h3>
-						<div className="form-group">
-							<label htmlFor="type">The customer can pay using</label>
-							<div className="radio">
-								<label>
-									<input type="radio" name="payment_option" value="both" /> Cashback &amp; Points
-								</label>
+				{ this.isFromCityCard() ?
+					this.isOffer() ?
+						<div>
+							<h3>Payment Option</h3>
+							<div className="form-group">
+								<label htmlFor="type">The customer can pay using</label>
+								<div className="radio">
+									<label>
+										<input type="radio" name="payment_option" value="both" /> Cashback &amp; Points
+									</label>
+								</div>
+								<div className="radio">
+									<label>
+										<input type="radio" name="payment_option" value="cashback" /> Cashback
+									</label>
+								</div>
+								<div className="radio">
+									<label>
+										<input type="radio" name="payment_option" value="points" /> Points
+									</label>
+								</div>
 							</div>
-							<div className="radio">
-								<label>
-									<input type="radio" name="payment_option" value="cashback" /> Cashback
-								</label>
-							</div>
-							<div className="radio">
-								<label>
-									<input type="radio" name="payment_option" value="points" /> Points
-								</label>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-md-5">
-								<div className="form-group">
-									<label htmlFor="points">How many points the customer will earn when they purchased this offer?</label>
-									<input type="text"
-									name="points"
-									id="points"
-									value={this.state.points}
-									className="form-control" />
+							<div className="row">
+								<div className="col-md-5">
+									<div className="form-group">
+										<label htmlFor="points">How many points the customer will earn when they purchased this offer?</label>
+										<input type="text"
+										name="points"
+										id="points"
+										value={this.state.points}
+										className="form-control" />
+									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+						: <div></div>
 					: <div></div>
 				}
 				<div className="form-group">
