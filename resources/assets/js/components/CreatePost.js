@@ -106,6 +106,15 @@ class CreatePost extends Component
 	render() {
 		let merchant = app.merchant;
 		let outlets = app.outlets;
+		let externals = app.externals;
+
+		let sourceFrom = externals.map(external => {
+			return (
+				<option value={external.id} key={external.id}>
+					{external.name}
+				</option>
+			)
+		})
 
 		let availableOutlets = outlets.map(outlet => {
 			return (
@@ -154,18 +163,16 @@ class CreatePost extends Component
 											id="source_from"
 											className="form-control"
 										>
-											<option value="Cobone">Cobone</option>
-											<option value="Groupon">Groupon</option>
+											{sourceFrom}
 										</select>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group">
-										<label htmlFor="link">Link</label>
+										<label htmlFor="source_link">Link</label>
 										<input type="text"
-											name="link"
-											id="link"
-											value={this.state.link}
+											name="source_link"
+											id="source_link"
 											placeholder="eg. http://google.com"
 											className="form-control" />
 									</div>
@@ -209,36 +216,31 @@ class CreatePost extends Component
 					<input type="text"
 						name="title"
 						id="title"
-						value={this.state.title}
 						className="form-control" />
 				</div>
 
-				{ this.isFromCityCard() ?
-					this.isOffer() ?
-						<div className="row">
-							<div className="col-md-4">
-								<div className="form-group">
-									<label htmlFor="price">Price</label>
-									<div className="input-group">
-										<span className="input-group-addon">AED</span>
-										<input type="text"
-										name="price"
-										id="price"
-										value={this.state.price}
-										className="form-control" />
-									</div>
+				{ this.isOffer() ?
+					<div className="row">
+						<div className="col-md-4">
+							<div className="form-group">
+								<label htmlFor="price">Price</label>
+								<div className="input-group">
+									<span className="input-group-addon">AED</span>
+									<input type="text"
+									name="price"
+									id="price"
+									className="form-control" />
 								</div>
 							</div>
 						</div>
-						: <div></div>
-					:
-					<div></div>
+					</div>
+					: <div></div>
 				}
 
 				<div className="form-group">
 					<label htmlFor="editor">Description</label>
 					<textarea name="desc" id="editor" className="form-control">
-						{this.state.desc}
+
 					</textarea>
 				</div>
 
@@ -271,7 +273,6 @@ class CreatePost extends Component
 										<input type="text"
 										name="points"
 										id="points"
-										value={this.state.points}
 										className="form-control" />
 									</div>
 								</div>

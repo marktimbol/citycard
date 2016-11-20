@@ -27,44 +27,43 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ->see($post->title);
     }
 
-    public function test_an_admin_can_add_an_offer_to_a_merchant_with_a_citycard_source()
+    public function test_an_admin_can_add_an_external_post_to_a_merchant()
     {
     	$merchant = $this->createMerchant([
     		'name'	=> 'McDonalds'
     	]);
 
-    	$outlet1 = $this->createOutlet([
+    	$outlet = $this->createOutlet([
     		'merchant_id'	=> $merchant->id
     	]);
 
-        $outlet2 = $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
+		$source = $this->createExternal([
+			'name'	=> 'Cobone'
+		]);
 
         $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
 		$response = $this->post($endpoint, [
-			'source'	=> 'citycard',
+			'source'	=> 'external',
+			'source_from'	=> $source->id,
+			'source_link'	=> 'http://google.com',
 			'type'	=> 'offer',
-			'outlet_ids'	=> ['1', '2'],
+			'outlet_ids'	=> ['1'],
 			'title'	=> 'The Title',
 			'price'	=> 49,
 			'desc'	=> 'The description',
-			'link'	=> '',
-			'payment_option'	=> 'cashback',
-			'points'	=> 100,
 		]);
+
+		dd($response);
 
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
-			'source'	=> 'citycard',
+			'source'	=> 'external',
+			'source_link'	=> 'http://google.com',
             'type'  => 'offer',
             'title' => 'The Title',
             'slug'  => 'the-title',
             'price'  => 49,
             'desc'=> 'The description',
-            'link'  => '',
-            'payment_option'  => 'cashback',
-            'points'  => 100,
             'approved'  => 0
         ])
 
@@ -73,10 +72,10 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'post_id'   => 1
         ])
 
-        ->seeInDatabase('outlet_posts', [
-            'outlet_id' => 2,
-            'post_id'   => 1
-        ]);
+		->seeInDatabase('external_posts', [
+			'external_id'	=> $source->id,
+			'post_id'	=> 1
+		]);
 
         // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }

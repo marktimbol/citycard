@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use JavaScript;
+use App\External;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -29,10 +30,12 @@ class MerchantPostsController extends Controller
     public function create(Merchant $merchant)
     {
         $merchant->load('outlets');
+        $externals = External::orderBy('name', 'asc')->latest()->get();
 
         JavaScript::put([
             'merchant'  => $merchant,
-            'outlets'   => $merchant->outlets
+            'outlets'   => $merchant->outlets,
+            'externals' => $externals
         ]);
 
     	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));

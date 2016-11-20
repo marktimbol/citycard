@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Post extends Model
 {
     protected $fillable = [
-        'merchant_id', 'source', 'type', 'title', 'slug', 'price', 'desc', 'link', 'payment_option', 'points'
+        'merchant_id',
+        'type', 'title', 'price', 'desc',
+        'payment_option', 'points',
     ];
 
     public function setTitleAttribute($title)
@@ -24,6 +26,11 @@ class Post extends Model
     public function merchant()
     {
         return $this->belongsTo(Merchant::class);
+    }
+
+    public function externals()
+    {
+        return $this->belongsToMany(External::class, 'external_posts', 'post_id', 'external_id');
     }
 
     public function photos()

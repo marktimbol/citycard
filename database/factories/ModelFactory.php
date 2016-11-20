@@ -154,3 +154,9 @@ $factory->define(App\Area::class, function (Faker\Generator $faker) {
         'slug'  => $slug
     ];
 });
+
+$factory->define(App\External::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});

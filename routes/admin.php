@@ -14,8 +14,8 @@ Route::get('/admin/dashboard', function() {
 });
 
 Route::group([
-	'as' => 'dashboard.', 
-	'prefix' => 'dashboard', 
+	'as' => 'dashboard.',
+	'prefix' => 'dashboard',
 	'middleware' => 'auth:admin'
 ], function() {
 	Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
@@ -31,6 +31,7 @@ Route::group([
 	Route::resource('countries', 'Dashboard\CountriesController');
 	Route::resource('countries.cities', 'Dashboard\CountryCitiesController');
 	Route::resource('cities.areas', 'Dashboard\CityAreasController');
+	Route::resource('externals', 'Dashboard\ExternalsController');
 
 
 

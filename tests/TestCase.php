@@ -42,7 +42,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function actingAsAdmin()
     {
         $this->admin = $this->createAdmin();
-        $this->actingAs($this->admin, 'admin'); 
+        $this->actingAs($this->admin, 'admin');
     }
 
     protected function actingAsMerchant()
@@ -104,5 +104,10 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function createArea($attributes = [])
     {
         return factory(App\Area::class)->create($attributes);
+    }
+
+    protected function createExternal($attributes = [])
+    {
+        return factory(App\External::class)->create($attributes);
     }
 }
