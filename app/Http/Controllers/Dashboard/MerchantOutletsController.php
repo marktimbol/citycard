@@ -28,7 +28,8 @@ class MerchantOutletsController extends Controller
     public function show(Merchant $merchant, Outlet $outlet)
     {
         $merchant->load('clerks');
-        $outlet->load('posts', 'clerks', 'photos');
+        $outlet->load('posts', 'clerks', 'photos', 'areas.city.country');
+		// dd($outlet->toArray());
 
         $posts = $outlet->posts()->latest()->get();
         $clerks = $outlet->clerks;
@@ -60,6 +61,16 @@ class MerchantOutletsController extends Controller
 
     public function edit(Merchant $merchant, Outlet $outlet)
     {
+		$outlet->load('areas.city.country');
+
+		$countries = Country::orderBy('name', 'asc')->get();
+
+		JavaScript::put([
+			'outlet'	=> $outlet,
+            'merchant'  => $merchant,
+            'countries' => $countries
+        ]);
+
         return view('dashboard.outlets.edit', compact('merchant', 'outlet'));
     }
 
@@ -67,9 +78,10 @@ class MerchantOutletsController extends Controller
     {
         $outlet->update($request->all());
 
-        flash()->success('An outlet information has been successfully updated.');
+		$outlet->areas()->detach();
+		$outlet->areas()->attach($request->area);
 
-        return back();
+		return $outlet;
     }
 
     public function destroy(Merchant $merchant, Outlet $outlet)

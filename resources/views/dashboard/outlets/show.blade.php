@@ -25,7 +25,7 @@
 			Latitude / Longitude: {{ sprintf('%s, %s', $outlet->latitude, $outlet->longitude) }}
 		</li>
 		<li class="list-group-item">
-			Area:  {{ sprintf('%s, %s, %s', $outlet->area, $outlet->city, $outlet->country) }}
+			Area:  {{ $outlet->getLocation() }}
 		</li>
 		<li class="list-group-item">
 			Status: <label class="label label-danger">Close</label>

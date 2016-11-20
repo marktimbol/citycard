@@ -86,34 +86,51 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id.'/edit')
-    		->see('Update Outlet')
-			->type('Updated Outlet Name', 'name')
-			->type('0563759865', 'phone')
-			->type('Address 1', 'address1')
-			->type('Address 2', 'address2')
-			->type('1', 'latitude')
-			->type('2', 'longitude')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
-			->type('Al Rigga', 'area')
-			->type('email@citycard.me', 'email')
+		// Areas
+		$alRigga = $this->createArea([
+			'name'	=> 'Al Rigga'
+		]);
+		$outlet->areas()->attach($alRigga);
 
-    		->press('Update')
+		$this->seeInDatabase('area_outlets', [
+			'area_id'	=> $alRigga->id,
+			'outlet_id'	=> $outlet->id
+		]);
 
-    		->seeInDatabase('outlets', [
-    			'id'	=> $outlet->id,
-    			'name'	=> 'Updated Outlet Name',
-				'phone'	=> '0563759865',
-				'address1'	=> 'Address 1',
-				'address2'	=> 'Address 2',
-				'latitude'	=> '1',
-				'longitude'	=> '2',
-				// 'country'	=> 'United Arab Emirates',
-				// 'city'	=> 'Dubai',
-				// 'area'	=> 'Al Rigga',
-    			'email'	=> 'email@citycard.me'
-    		]);
+		$burjuman = $this->createArea([
+			'name'	=> 'Burjuman'
+		]);
+		$endpoint = sprintf('/dashboard/merchants/%s/outlets/%s', $merchant->id, $outlet->id);
+
+		$response = $this->put($endpoint, [
+			'area'	=> $burjuman->id,
+			'name'	=> 'Updated Outlet Name',
+			'phone'	=> '0563759865',
+			'address1'	=> 'Address 1',
+			'address2'	=> 'Address 2',
+			'latitude'	=> '1',
+			'longitude'	=> '2',
+			'email'	=> 'john@example.com'
+		]);
+
+		$this->seeInDatabase('outlets', [
+			'id'	=> $outlet->id,
+			'name'	=> 'Updated Outlet Name',
+			'phone'	=> '0563759865',
+			'address1'	=> 'Address 1',
+			'address2'	=> 'Address 2',
+			'latitude'	=> '1',
+			'longitude'	=> '2',
+			'email'	=> 'john@example.com'
+		])
+		->seeInDatabase('area_outlets', [
+			'area_id'	=> $burjuman->id,
+			'outlet_id'	=> $outlet->id,
+		])
+		->dontSeeInDatabase('area_outlets', [
+			'area_id'	=> $alRigga->id,
+			'outlet_id'	=> $outlet->id
+		]);
     }
 
     public function test_an_authenticated_user_can_delete_an_outlet()

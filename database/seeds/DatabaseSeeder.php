@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
             'password'  => bcrypt('marktimbol')
         ]);
 
+
         // $this->call(MerchantsTableSeeder::class);
     }
 }

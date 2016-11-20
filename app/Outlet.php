@@ -16,8 +16,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'email', 'password', 'phone',
-	    'address1', 'address2', 'latitude', 'longitude',
+	    'name', 'email', 'password', 'phone', 'address1', 'address2', 'latitude', 'longitude',
 	];
 
 	/**
@@ -63,5 +62,18 @@ class Outlet extends Authenticatable
 	public function photos()
 	{
 	    return $this->morphMany(Photo::class, 'imageable');
+	}
+
+	public function areas()
+    {
+        return $this->belongsToMany(Area::class, 'area_outlets', 'outlet_id', 'area_id');
+    }
+
+	public function getLocation()
+	{
+		if( count($this->areas) > 0 ) {
+			return sprintf('%s - %s, %s', $this->areas[0]->name, $this->areas[0]->city->name, $this->areas[0]->city->country->name);
+		}
+		return '';
 	}
 }

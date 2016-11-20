@@ -1,28 +1,28 @@
-// CreateOutlet.js
+// EditOutlet.js
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class CreateOutlet extends Component
+class EditOutlet extends Component
 {
 	constructor(props)
 	{
 		super(props);
 
+		let outlet = app.outlet;
+
 		this.state = {
 			isSubmitted: false,
-			submitButtonText: 'Save',
-			name: '',
-			phone: '',
-			address1: '',
-			address2: '',
-			latitude: '',
-			longitude: '',
-			country: '',
-			city: '',
-			area: '',
-			email: '',
-			password: '',
-			password_confirmation: '',
+			submitButtonText: 'Update',
+			name: outlet.name,
+			phone: outlet.phone,
+			address1: outlet.address1,
+			address2: outlet.address2,
+			latitude: outlet.latitude,
+			longitude: outlet.longitude,
+			country: outlet.areas[0].city.country.id,
+			city: outlet.areas[0].city.id,
+			area: outlet.areas[0].id,
+			email: outlet.email,
 
 			availableCities: [],
 			availableAreas: [],
@@ -32,7 +32,6 @@ class CreateOutlet extends Component
 		this.handleCountryChange = this.handleCountryChange.bind(this);
 		this.handleCityChange = this.handleCityChange.bind(this);
 		this.handleAreaChange = this.handleAreaChange.bind(this);
-
 	}
 
 	handleChange(e) {
@@ -43,7 +42,6 @@ class CreateOutlet extends Component
 
 	handleCountryChange(e) {
 		let countryId = e.target.value;
-
 		this.fetchCities(countryId);
 	}
 
@@ -69,10 +67,8 @@ class CreateOutlet extends Component
 		this.fetchAreas(cityId);
 	}
 
-	fetchAreas(cityId)
-	{
+	fetchAreas(cityId) {
 		let url = '/api/cities/'+cityId+'/areas';
-
 		$.get(url, function(response) {
 			this.setState({
 				availableAreas: response
@@ -90,29 +86,30 @@ class CreateOutlet extends Component
 		this.isSubmitting();
 
 		let merchant = app.merchant;
-		let url = '/dashboard/merchants/' + merchant.id + '/outlets';
+		let outlet = app.outlet;
+		let url = '/dashboard/merchants/' + merchant.id + '/outlets/' + outlet.id;
 
 		$.ajax({
 		    url: url,
-		    type: 'POST',
-		    data: $('#CreateOutletForm').serialize(),
+		    type: 'PUT',
+		    data: $('#EditOutletForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
 				console.log(response);
 
 		        swal({
 		            title: "City Card",
-		            text: "You have successfully created a new Outlet",
+		            text: "You have successfully updated the Outlet information",
 		            type: "success",
 		            showConfirmButton: true
 		        });
 
 		        this.setState({
-		            submitButtonText: 'Save',
+		            submitButtonText: 'Update',
 		            isSubmitted: false
 		        })
 
-		        window.location = '/dashboard/merchants/' + merchant.id + '/outlets/' + response.id;
+		        window.location = '/dashboard/merchants/' + merchant.id + '/outlets/' + outlet.id;
 		    }.bind(this),
 		    error: function(error) {
 				console.log(error);
@@ -125,7 +122,7 @@ class CreateOutlet extends Component
 	{
 		this.setState({
 			isSubmitted: true,
-			submitButtonText: 'Saving',
+			submitButtonText: 'Updating',
 		});
 	}
 
@@ -137,13 +134,31 @@ class CreateOutlet extends Component
 		});
 	}
 
+	componentDidMount()
+	{
+		console.log('componentDidMount');
+
+		let outlet = app.outlet;
+		let country_id = outlet.areas[0].city.country.id;
+		let city_id = outlet.areas[0].city.id;
+
+		this.fetchCities(country_id);
+		this.fetchAreas(city_id)
+	}
+
 	render()
 	{
+		console.log('render');
+
 		let merchant = app.merchant;
+		let outlet = app.outlet;
 
 		let availableCountries = app.countries.map(country => {
 			return (
-				<option value={country.id} key={country.id}>
+				<option
+					key={country.id}
+					value={country.id}
+				>
 					{country.name}
 				</option>
 			)
@@ -161,8 +176,12 @@ class CreateOutlet extends Component
 			)
 		});
 
+		let outlet_country_id = outlet.areas[0].city.country.id;
+		let outlet_city_id = outlet.areas[0].city.id;
+		let outlet_area_id = outlet.areas[0].id;
+
 		return (
-			<form method="POST" id="CreateOutletForm" onSubmit={this.onSubmit.bind(this)}>
+			<form method="POST" id="EditOutletForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
 					<label htmlFor="merchant">Merchant Names</label>
 					<input
@@ -251,6 +270,7 @@ class CreateOutlet extends Component
 								name="country"
 								id="country"
 								className="form-control"
+								defaultValue={outlet_country_id}
 								onChange={this.handleCountryChange}
 							>
 								<option value=""></option>
@@ -265,6 +285,7 @@ class CreateOutlet extends Component
 								name="city"
 								id="city"
 								className="form-control"
+								defaultValue={outlet_city_id}
 								onChange={this.handleCityChange}
 							>
 								<option value=""></option>
@@ -280,6 +301,7 @@ class CreateOutlet extends Component
 								name="area"
 								id="area"
 								className="form-control"
+								defaultValue={outlet_area_id}
 								onChange={this.handleAreaChange}
 							>
 								<option value=""></option>
@@ -301,31 +323,6 @@ class CreateOutlet extends Component
 						className="form-control" />
 				</div>
 
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="password">Password</label>
-							<input type="password"
-								name="password"
-								id="password"
-								className="form-control"
-								value={this.state.password}
-								onChange={this.handleChange} />
-						</div>
-					</div>
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="password_confirmation">Password Confirmation</label>
-							<input type="password"
-								name="password_confirmation"
-								id="password_confirmation"
-								className="form-control"
-								value={this.state.password_confirmation}
-								onChange={this.handleChange} />
-						</div>
-					</div>
-				</div>
-
 				<div className="form-group">
 					<button
 						type="submit"
@@ -342,6 +339,6 @@ class CreateOutlet extends Component
 }
 
 ReactDOM.render(
-	<CreateOutlet />,
-	document.getElementById('CreateOutlet')
+	<EditOutlet />,
+	document.getElementById('EditOutlet')
 );
