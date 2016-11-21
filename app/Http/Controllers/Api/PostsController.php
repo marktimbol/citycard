@@ -11,6 +11,8 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	return Post::with('outlets', 'photos')->latest()->get();
+    	return Post::with('outlets.areas.city.country', 'photos', 'sources')
+                    ->latest()
+                    ->get();
     }
 }

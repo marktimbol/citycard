@@ -28,7 +28,8 @@ class Post extends Model
 
     public function sources()
     {
-        return $this->belongsToMany(Source::class, 'source_posts', 'post_id', 'source_id');
+        return $this->belongsToMany(Source::class, 'source_posts', 'post_id', 'source_id')
+                    ->withPivot('link');
     }
 
     public function photos()

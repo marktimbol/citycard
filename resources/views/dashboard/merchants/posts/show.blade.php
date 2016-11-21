@@ -26,13 +26,16 @@
 				<li class="list-group-item">
 					Post Type: {{ ucfirst($post->type) }}
 				</li>
+				@if( $post->isExternal )
+					<a class="list-group-item" href="{{ $post->sources->first()->pivot->link }}" target="_blank">
+						From {{ $post->sources->first()->name }}
+					</a>
+				@endif
 			</ul>
 
 			{!! $post->desc !!}
 
 			<p>&nbsp;</p>
-
-			<p>External Link: <a href="{{ $post->link }}" target="_blank">{{ $post->link }}</a></p>
 
 			<h3>Upload Photos</h3>
 

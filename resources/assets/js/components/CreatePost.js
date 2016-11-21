@@ -11,6 +11,7 @@ class CreatePost extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
+			isExternal: 0,
 			source: '',
 			source_from: '',
 			source_link: '',
@@ -36,6 +37,16 @@ class CreatePost extends Component
 
 	handleSourceChange(e) {
 		let source = e.target.value;
+		if( source == 'external' ) {
+			this.setState({
+				isExternal: 1
+			})
+		} else {
+			this.setState({
+				isExternal: 0
+			})
+		}
+
 		this.setState({ source })
 	}
 
@@ -150,6 +161,7 @@ class CreatePost extends Component
 
 		return (
 			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>
+				<input type="hidden" name="isExternal" id="isExternal" value={this.state.isExternal} />
 				<div className="form-group">
 					<label htmlFor="merchant">Merchant Name</label>
 					<input
