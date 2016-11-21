@@ -24,9 +24,6 @@ class CreateOutletsTable extends Migration
             $table->string('address2');
             $table->string('latitude');
             $table->string('longitude');
-            $table->string('country');
-            $table->string('city');
-            $table->string('area');
             $table->foreign('merchant_id')
                   ->references('id')->on('merchants')
                   ->onDelete('cascade');

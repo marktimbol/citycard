@@ -20,9 +20,10 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     	$area = $this->createArea();
 
     	$outlet = $this->createOutlet([
-			'area_id'	=> $area->id,
     		'merchant_id'	=> $merchant->id
     	]);
+
+		$area->outlets()->attach($outlet);
 
  		$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets')
  			->see($outlet->name);

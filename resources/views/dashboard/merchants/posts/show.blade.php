@@ -26,21 +26,12 @@
 				<li class="list-group-item">
 					Post Type: {{ ucfirst($post->type) }}
 				</li>
-				<li class="list-group-item">
-					Price: AED {{ $post->price }}
-				</li>
-				<li class="list-group-item">
-					Payment Option: {{ $post->payment_option == 'both' ? 'Cashback & Points' : $post->payment_option }}
-				</li>
-				<li class="list-group-item">
-					Points will earn: {{ $post->points }}
-				</li>
 			</ul>
-			
+
 			{!! $post->desc !!}
 
 			<p>&nbsp;</p>
-			
+
 			<p>External Link: <a href="{{ $post->link }}" target="_blank">{{ $post->link }}</a></p>
 
 			<h3>Upload Photos</h3>
@@ -68,7 +59,7 @@
 
 			<form method="POST" class="dropzone" action="{{ route('dashboard.posts.photos.store', $post->id) }}">
 				{{ csrf_field() }}
-			</form>	
+			</form>
 
 
 		</div>
@@ -89,7 +80,7 @@
 								</div>
 								<div class="Mobile__Outlet__info">
 									<h4>{{ $post->outlets()->first()->name }}</h4>
-									<small>Open now</small><br /> 
+									<small>Open now</small><br />
 									<small>{{ $post->created_at->diffForHumans() }}</small>
 								</div>
 							</div>

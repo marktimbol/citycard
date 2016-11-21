@@ -1,12 +1,12 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Externals')
+@section('pageTitle', 'Sources')
 
 @section('content')
 	<div class="row">
 		<div class="col-md-12">
 			<div class="Heading">
-				<h1 class="Heading__title">Externals</h1>
+				<h1 class="Heading__title">Sources</h1>
 				@include('dashboard._search-form')
 			</div>
 		</div>
@@ -17,7 +17,7 @@
 
 			@include('errors.list')
 
-			<form method="POST" action="{{ route('dashboard.externals.store') }}">
+			<form method="POST" action="{{ route('dashboard.sources.store') }}">
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="name">Name</label>
@@ -43,11 +43,11 @@
 					</tr>
 				</thead>
 				<tbody>
-					@forelse( $externals as $external )
+					@forelse( $sources as $source )
 					<tr>
 						<td width="250">
 							<a href="#">
-								{{ $external->name }}
+								{{ $source->name }}
 							</a>
 						</td>
 						<td>

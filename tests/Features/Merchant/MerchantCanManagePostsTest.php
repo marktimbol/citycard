@@ -42,11 +42,7 @@ class MerchantCanManagePostsTest extends TestCase
             ->select('notification', 'type')
             ->select(['1', '2'], 'outlet_ids')
             ->type('The Title', 'title')
-            ->type('49', 'price')
             ->type('The description', 'desc')
-            ->type('http://google.com', 'link')
-            ->select('cashback', 'payment_option')
-            ->type('100', 'points')
             ->press('Save')
 
             ->seeInDatabase('posts', [
@@ -54,11 +50,7 @@ class MerchantCanManagePostsTest extends TestCase
                 'type'  => 'notification',
                 'title' => 'The Title',
                 'slug'  => 'the-title',
-                'price'  => 49,
                 'desc'=> 'The description',
-                'link'  => 'http://google.com',
-                'payment_option'  => 'cashback',
-                'points'  => 100,
                 'approved'  => 0
             ])
 

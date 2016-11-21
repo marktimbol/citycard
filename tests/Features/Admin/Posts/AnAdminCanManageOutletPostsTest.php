@@ -14,11 +14,11 @@ class AnAdminCanManageOutletPostsTest extends TestCase
 
 		$this->actingAsAdmin();
 	}
-	
+
     public function test_an_admin_can_create_a_post_for_the_outlet()
     {
         $outlet = $this->createOutlet();
-        
+
         $url = sprintf('/dashboard/outlets/%s/posts/create', $outlet->id);
         $this->visit($url)
             ->see('Add New Post');
@@ -30,16 +30,12 @@ class AnAdminCanManageOutletPostsTest extends TestCase
         $outlet = $this->createOutlet([
             'merchant_id'   => $merchant->id
         ]);
-        
+
         $url = sprintf('/dashboard/outlets/%s/posts/create', $outlet->id);
         $this->visit($url)
             ->select('notification', 'type')
             ->type('The Title', 'title')
-            ->type('49', 'price')
             ->type('The description', 'desc')
-            ->type('http://google.com', 'link')
-            ->select('cashback', 'payment_option')
-            ->type('100', 'points')
             ->press('Save')
 
             ->seeInDatabase('posts', [
@@ -47,11 +43,7 @@ class AnAdminCanManageOutletPostsTest extends TestCase
                 'type'  => 'notification',
                 'title' => 'The Title',
                 'slug'  => 'the-title',
-                'price'  => 49,
                 'desc'=> 'The description',
-                'link'  => 'http://google.com',
-                'payment_option'  => 'cashback',
-                'points'  => 100,
                 'approved'  => 0
             ])
 

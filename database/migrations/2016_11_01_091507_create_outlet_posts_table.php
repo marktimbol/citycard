@@ -14,10 +14,8 @@ class CreateOutletPostsTable extends Migration
     public function up()
     {
         Schema::create('outlet_posts', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('outlet_id')->unsigned();
             $table->integer('post_id')->unsigned();
-            $table->timestamps();
         });
     }
 

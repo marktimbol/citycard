@@ -37,45 +37,42 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-		$source = $this->createExternal([
+		$source = $this->createSource([
 			'name'	=> 'Cobone'
 		]);
 
         $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
 		$response = $this->post($endpoint, [
-			'source'	=> 'external',
+			'isExternal'	=> true,
 			'source_from'	=> $source->id,
 			'source_link'	=> 'http://google.com',
-			'type'	=> 'offer',
+
+			'type'	=> 'notification',
 			'outlet_ids'	=> ['1'],
 			'title'	=> 'The Title',
-			'price'	=> 49,
 			'desc'	=> 'The description',
 		]);
 
-		dd($response);
-
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
-			'source'	=> 'external',
-			'source_link'	=> 'http://google.com',
-            'type'  => 'offer',
+            'type'  => 'notification',
             'title' => 'The Title',
             'slug'  => 'the-title',
-            'price'  => 49,
             'desc'=> 'The description',
-            'approved'  => 0
+			'isExternal'	=> true,
+            'approved'  => false
         ])
+
+		->seeInDatabase('source_posts', [
+			'source_id'	=> $source->id,
+			'post_id'	=> 1,
+			'link'	=> 'http://google.com'
+		])
 
         ->seeInDatabase('outlet_posts', [
             'outlet_id' => 1,
             'post_id'   => 1
-        ])
-
-		->seeInDatabase('external_posts', [
-			'external_id'	=> $source->id,
-			'post_id'	=> 1
-		]);
+        ]);
 
         // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }
@@ -87,18 +84,16 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
         $post = $this->createPost([
+			'type'	=> 'notification',
             'merchant_id'   => $merchant->id
         ]);
         $outlet->posts()->save($post);
 
         $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
         $this->visit($url)
+            ->see('Notification')
             ->see($post->title)
-            ->see('AED ' . $post->price)
-            ->see($post->description)
-            ->see($post->link)
-            ->see('Cashback & Points')
-            ->see($post->points);
+            ->see($post->desc);
     }
 
     public function test_an_admin_can_update_a_post_information()
@@ -108,7 +103,6 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         $post = $this->createPost([
             'merchant_id'   => $merchant->id,
             'title' => 'Buy 1 take 1',
-            'price' => 49
         ]);
 
         $marinaBranch = $this->createOutlet([
@@ -131,11 +125,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ->select('offer', 'type')
             ->select($marinaBranch->id, 'outlet_ids')
             ->type('Buy 2 take 1', 'title')
-            ->type('59', 'price')
             ->type('The new description', 'desc')
-            ->type('http://google.com', 'link')
-            ->select('cashback', 'payment_option')
-            ->type('200', 'points')
             ->press('Update')
 
             ->seeInDatabase('posts', [
@@ -143,11 +133,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
                 'merchant_id'   => $merchant->id,
                 'type'  => 'offer',
                 'title' => 'Buy 2 take 1',
-                'price' => 59,
                 'desc'   => 'The new description',
-                'link'  => 'http://google.com',
-                'payment_option'    => 'cashback',
-                'points'    => 200
             ])
 
             ->dontSeeInDatabase('outlet_posts', [

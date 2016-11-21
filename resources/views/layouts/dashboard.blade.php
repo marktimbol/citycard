@@ -12,7 +12,7 @@
                         <a href="{{ route('dashboard.countries.index') }}" class="list-group-item">
                             Manage Countries
                         </a>
-                        <a href="{{ route('dashboard.externals.index') }}" class="list-group-item">
+                        <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
                             Manage Externals
                         </a>
                     </ul>

@@ -106,8 +106,8 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         return factory(App\Area::class)->create($attributes);
     }
 
-    protected function createExternal($attributes = [])
+    protected function createSource($attributes = [])
     {
-        return factory(App\External::class)->create($attributes);
+        return factory(App\Source::class)->create($attributes);
     }
 }

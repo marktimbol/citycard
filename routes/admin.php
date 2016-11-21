@@ -31,7 +31,7 @@ Route::group([
 	Route::resource('countries', 'Dashboard\CountriesController');
 	Route::resource('countries.cities', 'Dashboard\CountryCitiesController');
 	Route::resource('cities.areas', 'Dashboard\CityAreasController');
-	Route::resource('externals', 'Dashboard\ExternalsController');
+	Route::resource('sources', 'Dashboard\SourcesController');
 
 
 

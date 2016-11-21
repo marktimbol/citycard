@@ -14,10 +14,8 @@ class CreateAreaOutletsPivotTable extends Migration
     public function up()
     {
         Schema::create('area_outlets', function (Blueprint $table) {
-            $table->increments('id');
             $table->integer('area_id')->unsigned();
             $table->integer('outlet_id')->unsigned();
-            $table->timestamps();
         });
     }
 

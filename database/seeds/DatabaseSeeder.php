@@ -20,12 +20,18 @@ class DatabaseSeeder extends Seeder
         	'password'	=> bcrypt('belle123')
         ]);
 
+        factory(App\Admin::class)->create([
+        	'email'	=> 'mark@timbol.com',
+        	'password'	=> bcrypt('marktimbol')
+        ]);
+
         factory(App\User::class)->create([
             'email' => 'user@timbol.com',
             'password'  => bcrypt('marktimbol')
         ]);
 
 
-        // $this->call(MerchantsTableSeeder::class);
+        $this->call(CountriesTableSeeder::class);
+        $this->call(SourcesTableSeeder::class);
     }
 }

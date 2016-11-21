@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use JavaScript;
+use App\Source;
 use App\External;
 use App\Merchant;
 use App\Http\Requests;
@@ -48,6 +49,12 @@ class MerchantPostsController extends Controller
     	if( $request->has('outlet_ids') ) {
     		$post->outlets()->attach(request('outlet_ids'));
     	}
+
+        if( $post->isExternal ) {
+            $post->sources()->attach($request->source_from, [
+                'link'  => $request->source_link
+            ]);
+        }
 
         return $post;
     }

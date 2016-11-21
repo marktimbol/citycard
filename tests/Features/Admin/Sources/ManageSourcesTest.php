@@ -4,7 +4,7 @@ use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class ManageExternalsTest extends TestCase
+class ManageSourcesTest extends TestCase
 {
     use DatabaseMigrations;
 
@@ -16,9 +16,9 @@ class ManageExternalsTest extends TestCase
 
     public function test_an_admin_can_manage_external_links()
     {
-        $external = $this->createExternal();
-        
-        $this->visit('/dashboard/externals')
-            ->see($external->name);
+        $source = $this->createSource();
+
+        $this->visit('/dashboard/sources')
+            ->see($source->name);
     }
 }

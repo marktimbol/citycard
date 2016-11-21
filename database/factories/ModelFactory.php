@@ -66,9 +66,6 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         'address2'  => $faker->address,
         'latitude'  => $faker->latitude,
         'longitude'  => $faker->longitude,
-        // 'country'   => $faker->country,
-        // 'city'  => $faker->city,
-        // 'area'  => $faker->city,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
     ];
@@ -101,11 +98,8 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'type'  => 'notification',
         'title' => $faker->sentence,
         'slug'  => $faker->slug,
-        'price'  => $faker->randomNumber(2),
         'desc'   => $faker->paragraph,
-        'link'   => $faker->url,
-        'payment_option'   => 'both',
-        'points'   => $faker->randomNumber(2),
+        'isExternal'   => 0,
         'approved'  => 0,
     ];
 });
@@ -155,7 +149,7 @@ $factory->define(App\Area::class, function (Faker\Generator $faker) {
     ];
 });
 
-$factory->define(App\External::class, function (Faker\Generator $faker) {
+$factory->define(App\Source::class, function (Faker\Generator $faker) {
     return [
         'name' => $faker->word,
     ];
