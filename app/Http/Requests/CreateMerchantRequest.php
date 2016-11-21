@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CreateOutletRequest extends FormRequest
+class CreateMerchantRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -25,8 +25,8 @@ class CreateOutletRequest extends FormRequest
     {
         return [
             'area' => 'required',
+            'name'	=> 'required',
 			'email'	=> 'required|email',
-			'phone'	=> 'required',
 			'password'	=> 'required|min:6|confirmed',
 			'password_confirmation'	=> 'required'
         ];

@@ -2,11 +2,15 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
+use JavaScript;
+use App\Country;
+use App\Area;
 use App\Merchant;
+use App\Http\Requests;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
+use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMerchantRequest;
 
 class MerchantsController extends Controller
 {
@@ -17,12 +21,14 @@ class MerchantsController extends Controller
 
     public function index()
     {
-    	$merchants = Merchant::latest()->get();
+    	$merchants = Merchant::with('areas.city.country')->latest()->get();
+		
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
     public function show(Merchant $merchant)
     {
+		$merchant->load('areas.city.country');
         $outlets = $merchant->outlets()->latest()->get();
         $clerks = $merchant->clerks()->latest()->get();
         $posts = $merchant->posts()->latest()->get();
@@ -32,14 +38,22 @@ class MerchantsController extends Controller
 
     public function create()
     {
+		$countries = Country::orderBy('name', 'asc')->get();
+        JavaScript::put([
+            'countries' => $countries
+        ]);
+
     	return view('dashboard.merchants.create');
     }
 
-    public function store(Request $request)
-    {        
+    public function store(CreateMerchantRequest $request)
+    {
         $merchant = Merchant::create($request->all());
-        $merchant->outlets()->create([
-            'name'  => $request->name,
+		$area = Area::findOrFail($request->area);
+		$area->merchants()->attach($merchant);
+
+        $outlet = $merchant->outlets()->create([
+            'name'  => sprintf('%s - %s', $request->name, $area->name),
             'email'  => $request->email,
             'password'  => $request->password,
             'phone'  => $request->phone,
@@ -47,15 +61,11 @@ class MerchantsController extends Controller
             'address2'  => '',
             'latitude'  => '',
             'longitude'  => '',
-            'type'  => '',
-            'country'  => $request->country,
-            'city'  => $request->city,
-            'area'  => '',
         ]);
-        
-        flash()->success('A new merchant has been successfully saved.');
 
-        return redirect()->route('dashboard.merchants.show', $merchant->id);
+		$outlet->areas()->attach($area);
+
+		return $merchant;
     }
 
     public function edit(Merchant $merchant)

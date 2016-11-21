@@ -19,6 +19,11 @@ class Area extends Model
         return $this->belongsToMany(Outlet::class, 'area_outlets', 'area_id', 'outlet_id');
     }
 
+    public function merchants()
+	{
+		return $this->belongsToMany(Merchant::class, 'area_merchants', 'area_id', 'merchant_id');
+	}
+
     public function city()
     {
         return $this->belongsTo(City::class);

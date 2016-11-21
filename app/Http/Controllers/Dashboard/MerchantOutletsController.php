@@ -9,6 +9,7 @@ use App\Merchant;
 use App\Country;
 use App\Http\Requests;
 use App\Http\Requests\CreateOutletRequest;
+use App\Http\Requests\UpdateOutletRequest;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -51,9 +52,10 @@ class MerchantOutletsController extends Controller
 
     public function store(CreateOutletRequest $request, Merchant $merchant)
     {
+		$area = Area::findOrFail($request->area);
+		$request['name'] = sprintf('%s - %s', $merchant->name, $area->name);
     	$outlet = $merchant->outlets()->create($request->all());
 
-		$area = Area::findOrFail($request->area);
 		$area->outlets()->attach($outlet);
 
 		return $outlet;
@@ -62,6 +64,7 @@ class MerchantOutletsController extends Controller
     public function edit(Merchant $merchant, Outlet $outlet)
     {
 		$outlet->load('areas.city.country');
+		$area = $outlet->areas->first();
 
 		$countries = Country::orderBy('name', 'asc')->get();
 
@@ -71,11 +74,13 @@ class MerchantOutletsController extends Controller
             'countries' => $countries
         ]);
 
-        return view('dashboard.outlets.edit', compact('merchant', 'outlet'));
+        return view('dashboard.outlets.edit', compact('merchant', 'outlet', 'area'));
     }
 
-    public function update(Request $request, Merchant $merchant, Outlet $outlet)
+    public function update(UpdateOutletRequest $request, Merchant $merchant, Outlet $outlet)
     {
+		$area = Area::findOrFail($request->area);
+		$request['name'] = sprintf('%s - %s', $merchant->name, $area->name);
         $outlet->update($request->all());
 
 		$outlet->areas()->detach();

@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Outlet: {{ $outlet->name }}</h1>
+		<h1 class="Heading__title">{{ $outlet->name }}</h1>
 		@include('dashboard._go-back')
 	</div>
 
@@ -33,10 +33,10 @@
 	</ul>
 
 	<div class="btn-group">
-		<button class="btn btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
+		<button class="btn btn-sm btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
 			<i class="fa fa-file-photo-o"></i> Manage Shop Front
 		</button>
-		<a href="#" class="btn btn-primary btn-has-icon">
+		<a href="#" class="btn btn-sm btn-primary btn-has-icon">
 			<i class="fa fa-key"></i> Change Password
 		</a>
 	</div>

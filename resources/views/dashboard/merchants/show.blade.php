@@ -3,6 +3,9 @@
 @section('pageTitle', $merchant->name)
 
 @section('content')
+	<?php
+		$area = $merchant->areas->first();
+	?>
 	<div class="Heading">
 		<h1 class="Heading__title">{{ $merchant->name }}</h1>
 		@include('dashboard._go-back')
@@ -16,7 +19,7 @@
 			Phone: {{ $merchant->phone }} <label class="label label-danger">Not Verified</label>
 		</li>
 		<li class="list-group-item">
-			Address:  {{ sprintf('%s, %s', $merchant->city, $merchant->country) }}
+			Address: {{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}
 		</li>
 	</ul>
 
@@ -28,7 +31,7 @@
 
 	@include('dashboard.merchants._outlets')
 
-	@include('dashboard.merchants._clerks')	
+	@include('dashboard.merchants._clerks')
 
 	@include('dashboard._delete', [
 		'route'	=> route('dashboard.merchants.destroy', $merchant->id)

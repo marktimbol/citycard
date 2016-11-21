@@ -11,7 +11,6 @@ class CreateOutlet extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
-			name: '',
 			phone: '',
 			address1: '',
 			address2: '',
@@ -164,23 +163,14 @@ class CreateOutlet extends Component
 		return (
 			<form method="POST" id="CreateOutletForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
-					<label htmlFor="merchant">Merchant Names</label>
+					<label htmlFor="merchant">Merchant Name</label>
 					<input
 						type="text"
 						value={merchant.name}
 						className="form-control"
 						disabled />
 				</div>
-				<div className="form-group">
-					<label htmlFor="name">Name</label>
-					<input type="text"
-						name="name"
-						id="name"
-						value={this.state.name}
-						onChange={this.handleChange}
-						className="form-control" />
-				</div>
-
+				
 				<div className="form-group">
 					<label htmlFor="phone" className="label-block">Phone</label>
 					<input type="tel"

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
+import Select from 'react-select';
+
 class CreatePost extends Component
 {
 	constructor(props) {
@@ -10,12 +12,20 @@ class CreatePost extends Component
 			isSubmitted: false,
 			submitButtonText: 'Save',
 			source: '',
-			postType: '',
+			source_from: '',
+			source_link: '',
+			type: '',
+			outlets: [],
+			title: '',
+			desc: '',
+			outlet_ids: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
 		this.handleSourceChange = this.handleSourceChange.bind(this);
+		this.handleSourceFromChange = this.handleSourceFromChange.bind(this);
 		this.handleTypeChange = this.handleTypeChange.bind(this);
+		this.handleSelectedOutletsChange = this.handleSelectedOutletsChange.bind(this);
 	}
 
 	handleChange(e) {
@@ -29,25 +39,39 @@ class CreatePost extends Component
 		this.setState({ source })
 	}
 
+	handleSourceFromChange(e) {
+		let source_from = e.target.value;
+		this.setState({
+			source_from
+		})
+	}
+
 	handleTypeChange(e) {
-		let postType = e.target.value;
-		this.setState({ postType })
+		let type = e.target.value;
+		this.setState({ type })
+	}
+
+	handleSelectedOutletsChange(value) {
+		this.setState({
+			outlet_ids: value
+		})
 	}
 
 	onSubmit(e) {
 		e.preventDefault();
 		this.isSubmitting();
+		console.log('CreatePostForm' + $('#CreatePostForm').serialize());
 
 		let merchant = app.merchant;
 		let url = '/dashboard/merchants/' + merchant.id + '/posts/';
+
 		$.ajax({
 		    url: url,
 		    type: 'POST',
-		    data: $('#CreatePost').serialize(),
+		    data: $('#CreatePostForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
 				console.log(response);
-
 		        swal({
 		            title: "City Card",
 		            text: "You have successfully created a post.",
@@ -106,26 +130,26 @@ class CreatePost extends Component
 	render() {
 		let merchant = app.merchant;
 		let outlets = app.outlets;
-		let externals = app.externals;
+		let sources = app.sources;
 
-		let sourceFrom = externals.map(external => {
+		let sourcesFrom = sources.map(source => {
 			return (
-				<option value={external.id} key={external.id}>
-					{external.name}
+				<option value={source.id} key={source.id}>
+					{source.name}
 				</option>
 			)
 		})
 
-		let availableOutlets = outlets.map(outlet => {
-			return (
-				<option value={outlet.id} key={outlet.id}>
-					{outlet.name}
-				</option>
-			)
+		let availableOutlets = []
+		outlets.map(outlet => {
+			availableOutlets.push({
+				value: outlet.id,
+				label: outlet.name
+			})
 		})
 
 		return (
-			<form method="POST" id="CreatePost" onSubmit={this.onSubmit.bind(this)}>
+			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
 					<label htmlFor="merchant">Merchant Name</label>
 					<input
@@ -144,6 +168,7 @@ class CreatePost extends Component
 								name="source"
 								id="source"
 								className="form-control"
+								defaultValue={this.state.source}
 								onChange={this.handleSourceChange}
 							>
 								<option value=""></option>
@@ -162,19 +187,24 @@ class CreatePost extends Component
 											name="source_from"
 											id="source_from"
 											className="form-control"
+											defaultValue={this.state.source_from}
+											onChange={this.handleSourceFromChange}
 										>
-											{sourceFrom}
+											{sourcesFrom}
 										</select>
 									</div>
 								</div>
 								<div className="col-md-6">
 									<div className="form-group">
 										<label htmlFor="source_link">Link</label>
-										<input type="text"
+										<input
+											type="text"
 											name="source_link"
 											id="source_link"
 											placeholder="eg. http://google.com"
-											className="form-control" />
+											className="form-control"
+											value={this.state.source_link}
+											onChange={this.handleChange} />
 									</div>
 								</div>
 							</div>
@@ -189,6 +219,7 @@ class CreatePost extends Component
 						name="type"
 						id="type"
 						className="form-control"
+						defaultValue={this.state.type}
 						onChange={this.handleTypeChange}
 					>
 						<option value=""></option>
@@ -200,15 +231,13 @@ class CreatePost extends Component
 
 				<div className="form-group">
 					<label htmlFor="outlet_ids">Select Outlets</label>
-					<select
-						name="outlet_ids[]"
-						id="outlet_ids"
-						className="form-control select2"
-						multiple
-					>
-						<option value=""></option>
-						{availableOutlets}
-					</select>
+					<Select
+						name="outlet_ids"
+						multi={true}
+						value={this.state.outlet_ids}
+						joinValues
+						options={availableOutlets}
+						onChange={this.handleSelectedOutletsChange} />
 				</div>
 
 				<div className="form-group">
@@ -216,71 +245,22 @@ class CreatePost extends Component
 					<input type="text"
 						name="title"
 						id="title"
+						value={this.state.title}
+						onChange={this.handleChange}
 						className="form-control" />
 				</div>
 
-				{ this.isOffer() ?
-					<div className="row">
-						<div className="col-md-4">
-							<div className="form-group">
-								<label htmlFor="price">Price</label>
-								<div className="input-group">
-									<span className="input-group-addon">AED</span>
-									<input type="text"
-									name="price"
-									id="price"
-									className="form-control" />
-								</div>
-							</div>
-						</div>
-					</div>
-					: <div></div>
-				}
-
 				<div className="form-group">
 					<label htmlFor="editor">Description</label>
-					<textarea name="desc" id="editor" className="form-control">
-
-					</textarea>
+					<textarea
+						name="desc"
+						id="editor"
+						className="form-control"
+						defaultValue={this.state.desc}
+						onChange={this.handleChange}
+					></textarea>
 				</div>
 
-				{ this.isFromCityCard() ?
-					this.isOffer() ?
-						<div>
-							<h3>Payment Option</h3>
-							<div className="form-group">
-								<label htmlFor="type">The customer can pay using</label>
-								<div className="radio">
-									<label>
-										<input type="radio" name="payment_option" value="both" /> Cashback &amp; Points
-									</label>
-								</div>
-								<div className="radio">
-									<label>
-										<input type="radio" name="payment_option" value="cashback" /> Cashback
-									</label>
-								</div>
-								<div className="radio">
-									<label>
-										<input type="radio" name="payment_option" value="points" /> Points
-									</label>
-								</div>
-							</div>
-							<div className="row">
-								<div className="col-md-5">
-									<div className="form-group">
-										<label htmlFor="points">How many points the customer will earn when they purchased this offer?</label>
-										<input type="text"
-										name="points"
-										id="points"
-										className="form-control" />
-									</div>
-								</div>
-							</div>
-						</div>
-						: <div></div>
-					: <div></div>
-				}
 				<div className="form-group">
 					<button
 						type="submit"

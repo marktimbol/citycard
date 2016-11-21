@@ -19,6 +19,7 @@
     "intl-tel-input": "^9.2.4",
     "react": "^15.4.0",
     "react-dom": "^15.4.0",
+    "react-select": "^1.0.0-rc.2",
     "select2": "^4.0.3",
     "sweetalert": "^1.1.3"
   }

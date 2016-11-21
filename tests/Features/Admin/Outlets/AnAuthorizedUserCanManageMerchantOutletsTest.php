@@ -46,26 +46,29 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
     public function test_an_authorized_user_can_add_an_outlet_to_a_merchant()
     {
-    	$merchant = $this->createMerchant();
-		$area = $this->createArea();
+    	$merchant = $this->createMerchant([
+			'name'	=> 'Zara'
+		]);
+		$area = $this->createArea([
+			'name'	=> 'Deira'
+		]);
 
 		$endpoint = sprintf('/dashboard/merchants/%s/outlets', $merchant->id);
 		$response = $this->post($endpoint, [
 			'area'	=> $area->id,
-			'name'	=> 'Outlet',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',
 			'latitude'	=> '1',
 			'longitude'	=> '2',
 			'email'	=> 'john@example.com',
-			'password'	=> 'john123',
-			'password_confirmation'	=> 'john123',
+			'password'	=> 'secret',
+			'password_confirmation'	=> 'secret',
 		]);
 
 		$this->seeInDatabase('outlets', [
 			'merchant_id'	=> $merchant->id,
-			'name'	=> 'Outlet',
+			'name'	=> 'Zara - Deira',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',
@@ -82,15 +85,16 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
     public function test_an_authorized_user_can_edit_a_merchants_outlet_information()
     {
-    	$merchant = $this->createMerchant();
-    	$outlet = $this->createOutlet([
-    		'merchant_id'	=> $merchant->id
-    	]);
-
-		// Areas
+    	$merchant = $this->createMerchant([
+			'name'	=> 'Zara'
+		]);
 		$alRigga = $this->createArea([
 			'name'	=> 'Al Rigga'
 		]);
+    	$outlet = $this->createOutlet([
+			'name'	=> 'Zara - Al Rigga',
+    		'merchant_id'	=> $merchant->id
+    	]);
 		$outlet->areas()->attach($alRigga);
 
 		$this->seeInDatabase('area_outlets', [
@@ -105,7 +109,6 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
 		$response = $this->put($endpoint, [
 			'area'	=> $burjuman->id,
-			'name'	=> 'Updated Outlet Name',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',
@@ -116,7 +119,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
 		$this->seeInDatabase('outlets', [
 			'id'	=> $outlet->id,
-			'name'	=> 'Updated Outlet Name',
+			'name'	=> 'Zara - Burjuman',
 			'phone'	=> '0563759865',
 			'address1'	=> 'Address 1',
 			'address2'	=> 'Address 2',

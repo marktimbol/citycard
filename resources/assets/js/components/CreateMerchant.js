@@ -1,27 +1,21 @@
-// EditOutlet.js
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 
-class EditOutlet extends Component
+class CreateMerchant extends Component
 {
 	constructor(props)
 	{
 		super(props);
 
-		let outlet = app.outlet;
-
 		this.state = {
 			isSubmitted: false,
-			submitButtonText: 'Update',
-			phone: outlet.phone,
-			address1: outlet.address1,
-			address2: outlet.address2,
-			latitude: outlet.latitude,
-			longitude: outlet.longitude,
-			country: outlet.areas[0].city.country.id,
-			city: outlet.areas[0].city.id,
-			area: outlet.areas[0].id,
-			email: outlet.email,
+			submitButtonText: 'Save',
+			name: '',
+			phone: '',
+			area: '',
+			email: '',
+			password: '',
+			password_confirmation: '',
 
 			availableCities: [],
 			availableAreas: [],
@@ -31,6 +25,7 @@ class EditOutlet extends Component
 		this.handleCountryChange = this.handleCountryChange.bind(this);
 		this.handleCityChange = this.handleCityChange.bind(this);
 		this.handleAreaChange = this.handleAreaChange.bind(this);
+
 	}
 
 	handleChange(e) {
@@ -41,6 +36,7 @@ class EditOutlet extends Component
 
 	handleCountryChange(e) {
 		let countryId = e.target.value;
+
 		this.fetchCities(countryId);
 	}
 
@@ -66,8 +62,10 @@ class EditOutlet extends Component
 		this.fetchAreas(cityId);
 	}
 
-	fetchAreas(cityId) {
+	fetchAreas(cityId)
+	{
 		let url = '/api/cities/'+cityId+'/areas';
+
 		$.get(url, function(response) {
 			this.setState({
 				availableAreas: response
@@ -84,31 +82,30 @@ class EditOutlet extends Component
 		e.preventDefault();
 		this.isSubmitting();
 
-		let merchant = app.merchant;
-		let outlet = app.outlet;
-		let url = '/dashboard/merchants/' + merchant.id + '/outlets/' + outlet.id;
+		let url = '/dashboard/merchants/';
 
 		$.ajax({
 		    url: url,
-		    type: 'PUT',
-		    data: $('#EditOutletForm').serialize(),
+		    type: 'POST',
+		    data: $('#CreateMerchantForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
 				console.log(response);
 
 		        swal({
 		            title: "City Card",
-		            text: "You have successfully updated the Outlet information",
+		            text: "You have successfully created a new Merchant",
 		            type: "success",
 		            showConfirmButton: true
 		        });
 
 		        this.setState({
-		            submitButtonText: 'Update',
+		            submitButtonText: 'Save',
 		            isSubmitted: false
 		        })
 
-		        window.location = '/dashboard/merchants/' + merchant.id + '/outlets/' + outlet.id;
+		        // window.location = '/dashboard/merchants/' + response.id;
+
 		    }.bind(this),
 		    error: function(error) {
 				console.log(error);
@@ -121,7 +118,7 @@ class EditOutlet extends Component
 	{
 		this.setState({
 			isSubmitted: true,
-			submitButtonText: 'Updating',
+			submitButtonText: 'Saving',
 		});
 	}
 
@@ -133,31 +130,11 @@ class EditOutlet extends Component
 		});
 	}
 
-	componentDidMount()
-	{
-		console.log('componentDidMount');
-
-		let outlet = app.outlet;
-		let country_id = outlet.areas[0].city.country.id;
-		let city_id = outlet.areas[0].city.id;
-
-		this.fetchCities(country_id);
-		this.fetchAreas(city_id)
-	}
-
 	render()
 	{
-		console.log('render');
-
-		let merchant = app.merchant;
-		let outlet = app.outlet;
-
 		let availableCountries = app.countries.map(country => {
 			return (
-				<option
-					key={country.id}
-					value={country.id}
-				>
+				<option value={country.id} key={country.id}>
 					{country.name}
 				</option>
 			)
@@ -175,19 +152,16 @@ class EditOutlet extends Component
 			)
 		});
 
-		let outlet_country_id = outlet.areas[0].city.country.id;
-		let outlet_city_id = outlet.areas[0].city.id;
-		let outlet_area_id = outlet.areas[0].id;
-
 		return (
-			<form method="POST" id="EditOutletForm" onSubmit={this.onSubmit.bind(this)}>
+			<form method="POST" id="CreateMerchantForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
-					<label htmlFor="merchant">Merchant Name</label>
-					<input
-						type="text"
-						value={merchant.name}
-						className="form-control"
-						disabled />
+					<label htmlFor="name">Name</label>
+					<input type="text"
+						name="name"
+						id="name"
+						value={this.state.name}
+						onChange={this.handleChange}
+						className="form-control" />
 				</div>
 
 				<div className="form-group">
@@ -200,59 +174,7 @@ class EditOutlet extends Component
 						className="form-control" />
 				</div>
 
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address1">Address 1</label>
-							<input type="text"
-								name="address1"
-								id="address1"
-								value={this.state.address1}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address2">Address 2</label>
-							<input type="text"
-								name="address2"
-								id="address2"
-								value={this.state.address2}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="latitude">Latitude</label>
-							<input type="text"
-								name="latitude"
-								id="latitude"
-								value={this.state.latitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="longitude">Longitude</label>
-							<input type="text"
-								name="longitude"
-								id="longitude"
-								value={this.state.longitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<div className="row">
+                <div className="row">
 					<div className="col-md-4">
 						<div className="form-group">
 							<label htmlFor="country">Country</label>
@@ -260,7 +182,6 @@ class EditOutlet extends Component
 								name="country"
 								id="country"
 								className="form-control"
-								defaultValue={outlet_country_id}
 								onChange={this.handleCountryChange}
 							>
 								<option value=""></option>
@@ -275,7 +196,6 @@ class EditOutlet extends Component
 								name="city"
 								id="city"
 								className="form-control"
-								defaultValue={outlet_city_id}
 								onChange={this.handleCityChange}
 							>
 								<option value=""></option>
@@ -291,7 +211,6 @@ class EditOutlet extends Component
 								name="area"
 								id="area"
 								className="form-control"
-								defaultValue={outlet_area_id}
 								onChange={this.handleAreaChange}
 							>
 								<option value=""></option>
@@ -313,6 +232,31 @@ class EditOutlet extends Component
 						className="form-control" />
 				</div>
 
+				<div className="row">
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="password">Password</label>
+							<input type="password"
+								name="password"
+								id="password"
+								className="form-control"
+								value={this.state.password}
+								onChange={this.handleChange} />
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="password_confirmation">Password Confirmation</label>
+							<input type="password"
+								name="password_confirmation"
+								id="password_confirmation"
+								className="form-control"
+								value={this.state.password_confirmation}
+								onChange={this.handleChange} />
+						</div>
+					</div>
+				</div>
+
 				<div className="form-group">
 					<button
 						type="submit"
@@ -329,6 +273,6 @@ class EditOutlet extends Component
 }
 
 ReactDOM.render(
-	<EditOutlet />,
-	document.getElementById('EditOutlet')
+	<CreateMerchant />,
+	document.getElementById('CreateMerchant')
 );

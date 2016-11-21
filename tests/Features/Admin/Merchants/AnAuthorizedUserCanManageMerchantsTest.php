@@ -16,7 +16,11 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authorized_user_can_view_all_the_merchants()
     {
+		$area = $this->createArea([
+			'name'	=> 'Deira'
+		]);
     	$merchant = $this->createMerchant();
+		$area->merchants()->attach($merchant);
 
  		$this->visit('/dashboard/merchants')
  			->see($merchant->name);
@@ -24,10 +28,16 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authenticated_user_can_view_merchant_information()
     {
+		$area = $this->createArea([
+			'name'	=> 'Deira'
+		]);
         $merchant = $this->createMerchant();
+		$area->merchants()->attach($merchant);
+
         $outlet = $this->createOutlet([
             'merchant_id'   => $merchant->id
         ]);
+		$area->outlets()->attach($outlet);
         $clerk = $this->createClerk([
             'merchant_id'   => $merchant->id,
             'first_name'    => 'John'
@@ -40,36 +50,43 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well()
     {
-    	$this->visit('/dashboard/merchants/create')
-    		->see('Add Merchant')
+		$endpoint = '/dashboard/merchants';
 
-			->type('Merchant Name', 'name')
-			->type('0563759865', 'phone')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
-			->type('email@citycard.me', 'email')
-			->type('secret', 'password')
-			->type('secret', 'password_confirmation')
-			->press('Save')
+		$area = $this->createArea([
+			'name'	=> 'Al Barsha'
+		]);
 
-			->seeInDatabase('merchants', [
-				'name'	=> 'Merchant Name',
-				'phone'	=> '0563759865',
-				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai',
-				'email'	=> 'email@citycard.me',
-			])
+		$this->post($endpoint, [
+			'area'	=> $area->id,
+			'name'	=> 'Zara',
+			'phone'	=> '0563759865',
+			'email'	=> 'john@example.com',
+			'password'	=> 'secret',
+			'password_confirmation'	=> 'secret',
+		])
+		->seeInDatabase('merchants', [
+			'name'	=> 'Zara',
+			'phone'	=> '0563759865',
+			'email'	=> 'john@example.com',
+		])
 
-            ->seeInDatabase('outlets', [
-                'merchant_id'   => 1,
-                'name'  => 'Merchant Name',
-                'email' => 'email@citycard.me',
-                'phone' => '0563759865',
-                // 'country'   => 'United Arab Emirates',
-                // 'city'  => 'Dubai',
-            ])
+		->seeInDatabase('area_merchants', [
+			'area_id'	=> $area->id,
+			'merchant_id'	=> 1,
+		])
 
-            ->seePageIs('/dashboard/merchants/1');
+        ->seeInDatabase('outlets', [
+            'merchant_id'   => 1,
+            'name'  => 'Zara - Al Barsha',
+			'phone' => '0563759865',
+            'email' => 'john@example.com',
+        ])
+
+		->seeInDatabase('area_outlets', [
+			'area_id'	=> $area->id,
+			'outlet_id'	=> 1,
+		]);
+
     }
 
     public function test_an_authorized_user_can_edit_a_merchant_information()
@@ -99,7 +116,11 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authenticated_user_can_delete_a_merchant()
     {
+		$area = $this->createArea([
+			'name'	=> 'Deira'
+		]);
     	$merchant = $this->createMerchant();
+		$area->merchants()->attach($merchant);
 
 		$this->visit('/dashboard/merchants/'.$merchant->id)
 			->press('Delete')

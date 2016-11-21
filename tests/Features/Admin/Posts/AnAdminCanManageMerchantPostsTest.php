@@ -37,6 +37,10 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
+		$this->createOutlet([
+    		'merchant_id'	=> $merchant->id
+    	]);
+
 		$source = $this->createSource([
 			'name'	=> 'Cobone'
 		]);
@@ -48,7 +52,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'source_link'	=> 'http://google.com',
 
 			'type'	=> 'notification',
-			'outlet_ids'	=> ['1'],
+			'outlet_ids'	=> '1,2',
 			'title'	=> 'The Title',
 			'desc'	=> 'The description',
 		]);

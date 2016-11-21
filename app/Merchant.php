@@ -29,8 +29,6 @@ class Merchant extends Authenticatable
 	    'password', 'remember_token', 'api_token',
 	];
 
-	// protected $with = ['outlets', 'posts'];
-	
 	public function setPasswordAttribute($password)
 	{
 		$this->attributes['password'] = bcrypt($password);
@@ -60,6 +58,11 @@ class Merchant extends Authenticatable
 	public function posts()
 	{
 		return $this->hasMany(Post::class);
+	}
+
+	public function areas()
+	{
+		return $this->belongsToMany(Area::class, 'area_merchants', 'merchant_id', 'area_id');
 	}
 
 	public static function createPost($attributes)

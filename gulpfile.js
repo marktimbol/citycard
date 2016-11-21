@@ -25,6 +25,7 @@ elixir(mix => {
       .webpack('components/CreateOutlet.js')
       .webpack('components/EditOutlet.js')
       .webpack('components/CreatePost.js')
+      .webpack('components/CreateMerchant.js')
 
       .styles([
           modulesPath + 'froala-editor/css/froala_editor.min.css',
@@ -41,13 +42,8 @@ elixir(mix => {
       ], 'public/js/editor.js')
 
       .styles([
-          modulesPath + 'select2/dist/css/select2.css'
+          modulesPath + 'react-select/dist/react-select.css'
       ], 'public/css/select.css')
-
-      .scripts([
-          modulesPath + 'select2/dist/js/select2.js',
-          'select2.js'
-      ], 'public/js/select.js')
 
       .styles([
           'intl-tel-input/build/css/intlTelInput.css'
@@ -72,7 +68,6 @@ elixir(mix => {
           'public/css/editor.css',
           'public/js/editor.js',
           'public/css/select.css',
-          'public/js/select.js',
           'public/css/telephone.css',
           'public/js/telephone.js',
           'public/css/mobile.css'
