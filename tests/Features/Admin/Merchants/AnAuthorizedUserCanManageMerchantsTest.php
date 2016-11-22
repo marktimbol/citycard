@@ -56,8 +56,24 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Al Barsha'
 		]);
 
+		$category = $this->createCategory([
+			'name'	=> 'Food'
+		]);
+
+		$subcategory_brunch = $this->createSubCategory([
+			'category_id'	=> $category->id,
+			'name'	=> 'Brunch'
+		]);
+
+		$subcategory_buffet = $this->createSubCategory([
+			'category_id'	=> $category->id,
+			'name'	=> 'Buffet'
+		]);
+
 		$this->post($endpoint, [
 			'area'	=> $area->id,
+			'category'	=> $category->id,
+			'subcategories'	=> [$subcategory_brunch->id, $subcategory_buffet->id],
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
@@ -68,6 +84,21 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
+		])
+
+		->seeInDatabase('merchant_categories', [
+			'merchant_id'	=> 1,
+			'category_id'	=> $category->id,
+		])
+
+		->seeInDatabase('merchant_subcategories', [
+			'merchant_id'	=> 1,
+			'subcategory_id'	=> $subcategory_brunch->id,
+		])
+
+		->seeInDatabase('merchant_subcategories', [
+			'merchant_id'	=> 1,
+			'subcategory_id'	=> $subcategory_buffet->id,
 		])
 
 		->seeInDatabase('area_merchants', [

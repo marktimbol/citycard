@@ -110,4 +110,14 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         return factory(App\Source::class)->create($attributes);
     }
+
+    protected function createCategory($attributes = [])
+    {
+        return factory(App\Category::class)->create($attributes);
+    }
+
+    protected function createSubCategory($attributes = [])
+    {
+        return factory(App\Subcategory::class)->create($attributes);
+    }
 }

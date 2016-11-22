@@ -65,6 +65,16 @@ class Merchant extends Authenticatable
 		return $this->belongsToMany(Area::class, 'area_merchants', 'merchant_id', 'area_id');
 	}
 
+	public function categories()
+	{
+		return $this->belongsToMany(Category::class, 'merchant_categories', 'merchant_id', 'category_id');
+	}
+
+	public function subcategories()
+	{
+		return $this->belongsToMany(Subcategory::class, 'merchant_subcategories', 'merchant_id', 'subcategory_id');
+	}
+
 	public static function createPost($attributes)
 	{
 		return Auth::guard('merchant')

@@ -22,7 +22,7 @@ class MerchantsController extends Controller
     public function index()
     {
     	$merchants = Merchant::with('areas.city.country')->latest()->get();
-		
+
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
@@ -51,6 +51,9 @@ class MerchantsController extends Controller
         $merchant = Merchant::create($request->all());
 		$area = Area::findOrFail($request->area);
 		$area->merchants()->attach($merchant);
+
+		$merchant->categories()->attach($request->category);
+		$merchant->subcategories()->attach($request->subcategories);
 
         $outlet = $merchant->outlets()->create([
             'name'  => sprintf('%s - %s', $request->name, $area->name),

@@ -154,3 +154,15 @@ $factory->define(App\Source::class, function (Faker\Generator $faker) {
         'name' => $faker->word,
     ];
 });
+
+$factory->define(App\Category::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
+
+$factory->define(App\Subcategory::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});
