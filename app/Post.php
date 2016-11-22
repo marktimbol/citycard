@@ -50,4 +50,18 @@ class Post extends Model
             ->where('type', 'ticket')
             ->get();
     }
+
+    public static function byCity($city)
+    {
+        $posts = Post::latest()->get();
+        $posts->load('outlets.areas.city');
+
+        return $posts->filter(function($post, $key) use ($city) {
+            foreach( $post->outlets as $outlet ) {
+                foreach( $outlet->areas as $area ) {
+                    return $city->id == $area->city->id;
+                }
+            }
+        })->all();
+    }
 }

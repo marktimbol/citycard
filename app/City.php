@@ -23,4 +23,9 @@ class City extends Model
     {
         return $this->belongsTo(Country::class);
     }
+
+    public function posts()
+    {
+        return $this->hasManyThrough(Post::class, City::class);
+    }
 }
