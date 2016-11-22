@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 
 use App\Post;
 use App\City;
+use App\Area;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
@@ -15,12 +16,21 @@ class FiltersController extends Controller
     {
         if( request()->has('city_id') )
         {
-            $city_id = request('city_id');
-            $city = City::findOrFail($city_id);
-            
+            $city = City::findOrFail(request('city_id'));
             return Post::byCity($city);
         }
 
-        return Post::latest()->get();
+        if( request()->has('area_id') )
+        {
+            $area = Area::findOrFail(request('area_id'));
+            $posts = Post::byArea($area);
+            return $posts;
+        }
+
+        if( request()->has('area_ids') )
+        {
+            $area_ids = request()->area_ids;
+            return Post::byAreas($area_ids);
+        }
     }
 }
