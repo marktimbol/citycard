@@ -20,13 +20,6 @@ class FiltersController extends Controller
             return Post::byCity($city);
         }
 
-        if( request()->has('area_id') )
-        {
-            $area = Area::findOrFail(request('area_id'));
-            $posts = Post::byArea($area);
-            return $posts;
-        }
-
         if( request()->has('area_ids') )
         {
             $area_ids = request()->area_ids;

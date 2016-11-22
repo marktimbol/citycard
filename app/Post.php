@@ -67,7 +67,7 @@ class Post extends Model
 
     public static function byArea($selectedArea)
     {
-        $posts = Post::latest()->get();
+        $posts = Post::has('outlets')->latest()->get();
         $posts->load('outlets.areas', 'photos', 'sources');
 
         return $posts->filter(function($post, $key) use ($selectedArea) {
@@ -82,7 +82,7 @@ class Post extends Model
     public static function byAreas($area_ids)
     {
         $posts = Post::has('outlets')->latest()->get();
-        $posts->load('outlets.areas', 'photos', 'sources:id,name');
+        $posts->load('outlets.areas', 'photos', 'sources');
 
         return $posts->filter(function($post, $key) use ($area_ids) {
             foreach( $post->outlets as $outlet ) {

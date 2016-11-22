@@ -78,7 +78,7 @@ class FiltersTest extends TestCase
         ->dontSee('Zara Offer in Abu Dhabi');
     }
 
-    public function test_it_filters_posts_by_area()
+    public function test_it_filters_posts_by_specific_area()
     {
         // Area
         $area = $this->createArea([
@@ -108,7 +108,7 @@ class FiltersTest extends TestCase
         $endpoint = sprintf('/api/filters');
         $this->json('GET', $endpoint, [
             'city_id'   => '',
-            'area_id' => $area->id
+            'area_ids' => [$area->id]
         ])
         ->seeJson([
             'title' => 'Zara Offer in Al Rigga Area'
@@ -167,19 +167,19 @@ class FiltersTest extends TestCase
 
         $post2 = $this->createPost([
             'merchant_id'   => $merchant2->id,
-            'title' => 'Do not show this post'
+            'title' => 'More post'
         ]);
         $outlet2->posts()->attach($post2);
 
         $endpoint = sprintf('/api/filters');
         $this->json('GET', $endpoint, [
-            'area_ids' => [$area->id]
+            'area_ids' => [$area->id, $area2->id]
         ])
         ->seeJson([
             'title' => 'Show this post'
         ])
-        ->dontSeeJson([
-            'title' => 'Do not show this post'
+        ->seeJson([
+            'title' => 'More post'
         ]);
     }
 }
