@@ -73,7 +73,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		$this->post($endpoint, [
 			'area'	=> $area->id,
 			'category'	=> $category->id,
-			'subcategories'	=> [$subcategory_brunch->id, $subcategory_buffet->id],
+			'subcategories'	=> sprintf('%s,%s', $subcategory_brunch->id, $subcategory_buffet->id),
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',

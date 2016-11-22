@@ -27,6 +27,8 @@ class CreateMerchantRequest extends FormRequest
             'area' => 'required',
             'name'	=> 'required',
 			'email'	=> 'required|email',
+            'category'  => 'required',
+            'subcategories' => 'required',
 			'password'	=> 'required|min:6|confirmed',
 			'password_confirmation'	=> 'required'
         ];

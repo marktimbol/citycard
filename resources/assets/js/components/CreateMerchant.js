@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import Select from 'react-select';
+import Countries from './Countries';
 
 class CreateMerchant extends Component
 {
@@ -17,15 +19,16 @@ class CreateMerchant extends Component
 			password: '',
 			password_confirmation: '',
 
-			availableCities: [],
-			availableAreas: [],
+			category: '',
+			availableSubcategories: [],
+			subcategories: [],
+
+			isFetchingSubcategories: false,
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		this.handleCountryChange = this.handleCountryChange.bind(this);
-		this.handleCityChange = this.handleCityChange.bind(this);
-		this.handleAreaChange = this.handleAreaChange.bind(this);
-
+		this.handleCategoryChange = this.handleCategoryChange.bind(this);
+		this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);
 	}
 
 	handleChange(e) {
@@ -34,48 +37,27 @@ class CreateMerchant extends Component
 		});
 	}
 
-	handleCountryChange(e) {
-		let countryId = e.target.value;
-
-		this.fetchCities(countryId);
+	handleCategoryChange(e) {
+		let category = e.value;
+		this.setState({ category, isFetchingSubcategories: true });
+		this.fetchSubcategories(category);
 	}
 
-	fetchCities(countryId) {
-		let url = '/api/countries/'+countryId+'/cities';
-		$.get(url, function(response) {
-			this.setState({
-				availableCities: response
-			});
-			if( this.state.availableCities.length <= 0 ) {
-				swal({
-					title: "City Card",
-					text: "No cities found.",
-					type: "error",
-					showConfirmButton: true
-				});
-			}
-		}.bind(this))
-	}
-
-	handleCityChange(e) {
-		let cityId = e.target.value;
-		this.fetchAreas(cityId);
-	}
-
-	fetchAreas(cityId)
-	{
-		let url = '/api/cities/'+cityId+'/areas';
+	fetchSubcategories(category) {
+		let url = '/api/categories/'+category+'/subcategories';
 
 		$.get(url, function(response) {
 			this.setState({
-				availableAreas: response
+				availableSubcategories: response,
+				isFetchingSubcategories: false
 			});
 		}.bind(this))
 	}
 
-	handleAreaChange(e) {
-		let areaId = e.target.value;
-		this.setState({ area: areaId });
+	handleSubcategoryChange(value) {
+		this.setState({
+			subcategories: value
+		})
 	}
 
 	onSubmit(e) {
@@ -132,25 +114,20 @@ class CreateMerchant extends Component
 
 	render()
 	{
-		let availableCountries = app.countries.map(country => {
-			return (
-				<option value={country.id} key={country.id}>
-					{country.name}
-				</option>
-			)
-		});
+		let availableCategories = [];
+		app.categories.map(category => {
+			availableCategories.push({
+				value: category.id,
+				label: category.name
+			});
+		})
 
-		let availableCities = this.state.availableCities.map((city) => {
-			return (
-				<option value={city.id} key={city.id}>{city.name}</option>
-			)
-		});
-
-		let availableAreas = this.state.availableAreas.map((area) => {
-			return (
-				<option value={area.id} key={area.id}>{area.name}</option>
-			)
-		});
+		let availableSubcategories = this.state.availableSubcategories.map(subcategory => {
+			return {
+				value: subcategory.id,
+				label: subcategory.name
+			}
+		})
 
 		return (
 			<form method="POST" id="CreateMerchantForm" onSubmit={this.onSubmit.bind(this)}>
@@ -174,53 +151,38 @@ class CreateMerchant extends Component
 						className="form-control" />
 				</div>
 
-                <div className="row">
-					<div className="col-md-4">
-						<div className="form-group">
-							<label htmlFor="country">Country</label>
-							<select
-								name="country"
-								id="country"
-								className="form-control"
-								onChange={this.handleCountryChange}
-							>
-								<option value=""></option>
-								{availableCountries}
-							</select>
-						</div>
-					</div>
-					<div className="col-md-4">
-						<div className="form-group">
-							<label htmlFor="city">City</label>
-							<select
-								name="city"
-								id="city"
-								className="form-control"
-								onChange={this.handleCityChange}
-							>
-								<option value=""></option>
-								{ availableCities }
-							</select>
-						</div>
-					</div>
+				<h3>What your store is all about?</h3>
 
-					<div className="col-md-4">
+				<div className="row">
+					<div className="col-md-6">
 						<div className="form-group">
-							<label htmlFor="area">Area</label>
-							<select
-								name="area"
-								id="area"
-								className="form-control"
-								onChange={this.handleAreaChange}
-							>
-								<option value=""></option>
-								{ availableAreas }
-							</select>
+							<label htmlFor="category">Category</label>
+							<Select
+								name="category"
+								value={this.state.category}
+								options={availableCategories}
+								onChange={this.handleCategoryChange} />
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="subcategories">Subcategories</label>
+							<Select
+								name="subcategories"
+								isLoading={this.state.isFetchingSubcategories}
+								value={this.state.subcategories}
+								options={availableSubcategories}
+								joinValues
+								multi={true}
+								onChange={this.handleSubcategoryChange} />
 						</div>
 					</div>
 				</div>
 
-				<h2>Account Details</h2>
+				<h3>And where it is located?</h3>
+				<Countries />
+
+				<h3>Account Details</h3>
 
 				<div className="form-group">
 					<label htmlFor="email">Email</label>

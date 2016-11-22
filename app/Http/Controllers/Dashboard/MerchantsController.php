@@ -6,6 +6,7 @@ use JavaScript;
 use App\Country;
 use App\Area;
 use App\Merchant;
+use App\Category;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
@@ -39,21 +40,26 @@ class MerchantsController extends Controller
     public function create()
     {
 		$countries = Country::orderBy('name', 'asc')->get();
+		$categories = Category::orderBy('name', 'asc')->get();
+
         JavaScript::put([
-            'countries' => $countries
+            'countries' => $countries,
+			'categories' => $categories
         ]);
 
     	return view('dashboard.merchants.create');
     }
 
     public function store(CreateMerchantRequest $request)
-    {
+    {		
         $merchant = Merchant::create($request->all());
 		$area = Area::findOrFail($request->area);
 		$area->merchants()->attach($merchant);
 
 		$merchant->categories()->attach($request->category);
-		$merchant->subcategories()->attach($request->subcategories);
+
+		$subcategories = explode(',', $request->subcategories);
+		$merchant->subcategories()->attach($subcategories);
 
         $outlet = $merchant->outlets()->create([
             'name'  => sprintf('%s - %s', $request->name, $area->name),
