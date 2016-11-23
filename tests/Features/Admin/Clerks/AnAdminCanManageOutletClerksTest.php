@@ -36,8 +36,6 @@ class AnAdminCanManageOutletClerksTest extends TestCase
 			->type('Doe', 'last_name')
 			->type('email@citycard.me', 'email')
 			->type('0563759865', 'phone')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
 			->type('123456', 'password')
 			->type('123456', 'password_confirmation')
 			->press('Save')
@@ -48,9 +46,7 @@ class AnAdminCanManageOutletClerksTest extends TestCase
 				'last_name'	=> 'Doe',
 				'email'	=> 'email@citycard.me',
 				'phone'	=> '0563759865',
-				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai'
-			]);	
+			]);
     }
 
     public function test_an_admin_can_remove_a_clerk_from_the_outlet()

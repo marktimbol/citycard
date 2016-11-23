@@ -44,16 +44,17 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 
     public function test_an_authorized_user_can_add_a_clerk_to_a_merchant_and_attach_it_to_the_selected_outlets()
     {
+		$area = $this->createArea();
     	$merchant = $this->createMerchant();
+		$area->merchants()->attach($merchant);
+
 
     	$this->visit('/dashboard/merchants/'.$merchant->id.'/clerks/create')
-    		->see('Add Clerk')
+    		->see('Create Clerk')
 			->type('John', 'first_name')
 			->type('Doe', 'last_name')
 			->type('email@citycard.me', 'email')
 			->type('0563759865', 'phone')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
 			->type('123456', 'password')
 			->type('123456', 'password_confirmation')
 			->press('Save')
@@ -64,8 +65,6 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 				'last_name'	=> 'Doe',
 				'email'	=> 'email@citycard.me',
 				'phone'	=> '0563759865',
-				'country'	=> 'United Arab Emirates',
-				'city'	=> 'Dubai'
 			]);
     }
 
@@ -83,8 +82,6 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 			->type('Updated Doe', 'last_name')
 			->type('updated.email@citycard.me', 'email')
 			->type('971563759865', 'phone')
-			->type('UAE', 'country')
-			->type('Sharjah', 'city')
 
     		->press('Update')
 
@@ -94,8 +91,6 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 				'last_name'	=> 'Updated Doe',
 				'email'	=> 'updated.email@citycard.me',
 				'phone'	=> '971563759865',
-				'country'	=> 'UAE',
-				'city'	=> 'Sharjah',
     		]);
     }
 

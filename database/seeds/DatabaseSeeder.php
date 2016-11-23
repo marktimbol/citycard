@@ -21,7 +21,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         factory(App\Admin::class)->create([
-        	'email'	=> 'mark@timbol.com',
+        	'email'	=> 'admin@citycard.me',
         	'password'	=> bcrypt('marktimbol')
         ]);
 
