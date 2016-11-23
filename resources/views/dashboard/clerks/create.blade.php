@@ -11,6 +11,8 @@
 		<h1 class="Heading__title">Create Clerk</h1>
 	</div>
 
+	@include('errors.list')
+	
 	<form method="POST" action="{{ route('dashboard.merchants.clerks.store', $merchant->id) }}">
 		{{ csrf_field() }}
 		<div class="row">

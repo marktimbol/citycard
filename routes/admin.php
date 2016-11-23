@@ -24,6 +24,8 @@ Route::group([
 	Route::resource('merchants.clerks', 'Dashboard\MerchantClerksController');
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
 	Route::resource('merchants.posts', 'Dashboard\MerchantPostsController');
+	Route::put('merchants/{merchant}/photos', 'Dashboard\MerchantPhotosController@update');
+	Route::put('clerks/{clerk}/photos', 'Dashboard\ClerkPhotosController@update');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
 	Route::resource('outlets.photos', 'Dashboard\OutletPhotosController');
 	Route::resource('outlets.posts', 'Dashboard\OutletPostsController');

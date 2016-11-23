@@ -9,6 +9,7 @@ use JavaScript;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMerchantClerksRequest;
 
 class MerchantClerksController extends Controller
 {
@@ -35,7 +36,7 @@ class MerchantClerksController extends Controller
     	return view('dashboard.clerks.create', compact('merchant'));
     }
 
-    public function store(Request $request, Merchant $merchant)
+    public function store(CreateMerchantClerksRequest $request, Merchant $merchant)
     {
         $merchant->clerks()->create($request->all());
 

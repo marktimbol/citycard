@@ -39,6 +39,18 @@
 				@endforeach
 			</ul>
 		</div>
+		<div class="col-md-4">
+			@if( $merchant->logo !== '' )
+				<img src="{{ getPhotoPath($merchant->logo) }}"
+					alt="{{ $merchant->name }}"
+					title="{{ $merchant->name }}"
+					class="img-responsive" />
+			@endif
+			<form method="POST" class="dropzone" action="/dashboard/merchants/{{$merchant->id}}/photos">
+				{{ csrf_field() }}
+				{{ method_field('PUT') }}
+			</form>
+		</div>
 	</div>
 
 	<a href="#" class="btn btn-sm btn-primary">
