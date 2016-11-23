@@ -6,8 +6,8 @@ Route::post('/admin/login', 'Auth\Admin\LoginController@login');
 Route::delete('/admin/logout', 'Auth\Admin\LoginController@logout');
 
 // Admin Registration Routes...
-Route::get('/admin/register', 'Auth\Admin\RegisterController@create');
-Route::post('/admin/register', 'Auth\Admin\RegisterController@store');
+Route::get('/admin/register', 'Auth\Admin\RegisterController@showRegistrationForm');
+Route::post('/admin/register', 'Auth\Admin\RegisterController@register');
 
 Route::get('/admin/dashboard', function() {
 	return 'Admin Dashboard';

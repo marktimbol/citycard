@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Auth\Admin;
 
-use App\User;
+use App\Admin;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
@@ -27,7 +27,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/admin/dashboard';
+    protected $redirectTo = '/dashboard';
 
     /**
      * Create a new controller instance.
@@ -69,8 +69,13 @@ class RegisterController extends Controller
         ]);
     }
 
+    public function showRegistrationForm()
+    {
+        return view('auth.admin.register');
+    }
+
     protected function guard()
     {
-        return Auth::guard('admin');
+        return auth()->guard('admin');
     }
 }
