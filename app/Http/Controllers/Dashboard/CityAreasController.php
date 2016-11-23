@@ -14,7 +14,7 @@ class CityAreasController extends Controller
     {
     	$city->load('areas');
     	$areas = $city->areas;
-
+        
     	return view('dashboard.areas.index', compact('city', 'areas'));
     }
 
@@ -23,7 +23,7 @@ class CityAreasController extends Controller
         $this->validate($request, [
             'name'  => 'required'
         ]);
-        
+
     	$area = $city->areas()->create($request->all());
 
     	flash()->success(sprintf('%s has been successfully saved.', $area->name));

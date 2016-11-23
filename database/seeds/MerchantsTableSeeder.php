@@ -27,7 +27,6 @@ class MerchantsTableSeeder extends Seeder
                     'password'  => bcrypt($merchant->password)
                 ]);
             }
-
             return 'Done';
         })->get();
 
@@ -39,7 +38,7 @@ class MerchantsTableSeeder extends Seeder
         	$outlets = factory(App\Outlet::class, 2)->create([
         		'merchant_id'	=> $merchant->id
         	]);
-            
+
             // Each merchant has 2 clerks
         	$clerks = factory(App\Clerk::class, 2)->create([
         		'merchant_id'	=> $merchant->id

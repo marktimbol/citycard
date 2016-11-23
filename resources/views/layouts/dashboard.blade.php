@@ -7,16 +7,16 @@
                     <ul class="list-group">
                         <a href="{{ route('dashboard.index') }}" class="list-group-item">Home</a>
                         <a href="{{ route('dashboard.merchants.index') }}" class="list-group-item">
-                            Manage Merchants
+                            Merchants
                         </a>
                         <a href="{{ route('dashboard.countries.index') }}" class="list-group-item">
-                            Manage Countries
+                            Countries
                         </a>
                         <a href="{{ route('dashboard.categories.index')}}" class="list-group-item">
-                            Manage Categories
+                            Categories
                         </a>
                         <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
-                            Manage Externals (eg. Groupon)
+                            Externals (eg. Groupon)
                         </a>
                     </ul>
                 </aside>
