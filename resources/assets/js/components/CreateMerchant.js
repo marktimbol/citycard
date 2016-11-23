@@ -5,8 +5,7 @@ import Countries from './Countries';
 
 class CreateMerchant extends Component
 {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
 
 		this.state = {
@@ -72,21 +71,20 @@ class CreateMerchant extends Component
 		    data: $('#CreateMerchantForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
-				console.log(response);
+
+				this.setState({
+					submitButtonText: 'Save',
+					isSubmitted: false
+				})
 
 		        swal({
 		            title: "City Card",
 		            text: "You have successfully created a new Merchant",
 		            type: "success",
 		            showConfirmButton: true
-		        });
-
-		        this.setState({
-		            submitButtonText: 'Save',
-		            isSubmitted: false
-		        })
-
-		        // window.location = '/dashboard/merchants/' + response.id;
+		        }, function() {
+					window.location = '/dashboard/merchants/' + response.id;
+				});
 
 		    }.bind(this),
 		    error: function(error) {
@@ -96,24 +94,21 @@ class CreateMerchant extends Component
 		});
 	}
 
-	isSubmitting()
-	{
+	isSubmitting() {
 		this.setState({
 			isSubmitted: true,
 			submitButtonText: 'Saving',
 		});
 	}
 
-	resetSubmitButton()
-	{
+	resetSubmitButton() {
 		this.setState({
 			isSubmitted: false,
 			submitButtonText: 'Save',
 		});
 	}
 
-	render()
-	{
+	render() {
 		let availableCategories = [];
 		app.categories.map(category => {
 			availableCategories.push({

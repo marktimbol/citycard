@@ -4,6 +4,7 @@
 
 @section('header_styles')
 	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
+	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

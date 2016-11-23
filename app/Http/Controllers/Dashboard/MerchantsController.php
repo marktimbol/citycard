@@ -22,19 +22,23 @@ class MerchantsController extends Controller
 
     public function index()
     {
-    	$merchants = Merchant::with('areas.city.country')->latest()->get();
+    	$merchants = Merchant::with('areas.city.country')
+					->orderBy('name', 'asc')
+					->latest()
+					->get();
 
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
     public function show(Merchant $merchant)
     {
-		$merchant->load('areas.city.country');
+		$merchant->load('areas.city.country', 'categories.subcategories');
         $outlets = $merchant->outlets()->latest()->get();
         $clerks = $merchant->clerks()->latest()->get();
         $posts = $merchant->posts()->latest()->get();
+        $categories = $merchant->categories;
 
-        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts'));
+        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts', 'categories'));
     }
 
     public function create()
@@ -51,7 +55,7 @@ class MerchantsController extends Controller
     }
 
     public function store(CreateMerchantRequest $request)
-    {		
+    {
         $merchant = Merchant::create($request->all());
 		$area = Area::findOrFail($request->area);
 		$area->merchants()->attach($merchant);

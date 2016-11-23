@@ -16,8 +16,8 @@ class Clerk extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'merchant_id', 'first_name', 'last_name', 
-	    'email', 'password', 'phone', 'country', 'city'
+	    'merchant_id', 'first_name', 'last_name',
+	    'email', 'password', 'phone'
 	];
 
 	/**
@@ -34,7 +34,7 @@ class Clerk extends Authenticatable
         $this->attributes['email'] = $email;
         $this->attributes['api_token'] = str_random(60);
     }
-	
+
 	public function merchant()
 	{
 		return $this->belongsTo(Merchant::class);

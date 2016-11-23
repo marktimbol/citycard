@@ -36,5 +36,8 @@ Route::group(['as' => 'api.'], function() {
 	Route::get('countries/{country}/cities', 'Api\CountryCitiesController@index');
 	Route::get('cities/{city}/areas', 'Api\CityAreasController@index');
 
-	Route::get('/categories/{category}/subcategories', 'Api\SubcategoriesController@index');
+	Route::get('categories/{category}/subcategories', 'Api\SubcategoriesController@index');
+
+	// Filters
+	Route::get('filters', 'Api\FiltersController@index');
 });

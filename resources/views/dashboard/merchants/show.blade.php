@@ -11,19 +11,37 @@
 		@include('dashboard._go-back')
 	</div>
 
-	<ul class="list-group">
-		<li class="list-group-item">
-			eMail: {{ $merchant->email }} <label class="label label-danger">Not Verified</label>
-		</li>
-		<li class="list-group-item">
-			Phone: {{ $merchant->phone }} <label class="label label-danger">Not Verified</label>
-		</li>
-		<li class="list-group-item">
-			Address: {{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}
-		</li>
-	</ul>
+	<div class="row">
+		<div class="col-md-8">
+			<ul class="list-group">
+				<li class="list-group-item">
+					eMail: {{ $merchant->email }} <label class="label label-danger">Not Verified</label>
+				</li>
+				<li class="list-group-item">
+					Phone: {{ $merchant->phone }} <label class="label label-danger">Not Verified</label>
+				</li>
+				<li class="list-group-item">
+					Address: {{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}
+				</li>
+			</ul>
 
-	<a href="#" class="btn btn-primary">
+			<ul class="list-group">
+				@foreach( $categories as $category )
+					<li class="list-group-item">
+						Category: {{ $category->name }}
+					</li>
+					<li class="list-group-item">
+						Sub-Categories:
+						@foreach( $category->subcategories as $subcategory )
+							<label class="label label-success">{{ $subcategory->name }}</label>
+						@endforeach
+					</li>
+				@endforeach
+			</ul>
+		</div>
+	</div>
+
+	<a href="#" class="btn btn-sm btn-primary">
 		Change Password
 	</a>
 

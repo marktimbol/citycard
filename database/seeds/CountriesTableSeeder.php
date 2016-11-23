@@ -33,5 +33,25 @@ class CountriesTableSeeder extends Seeder
             'name'  => 'Al Barsha',
             'slug'  => 'al-barsha',
         ]);
+
+        // Abu Dhabi
+
+        $city = factory(App\City::class)->create([
+            'country_id'    => $country->id,
+            'name'  => 'Abu Dhabi',
+            'slug'  => 'abu-dhabi',
+        ]);
+
+        factory(App\Area::class)->create([
+            'city_id'    => $city->id,
+            'name'  => 'Al Nahyan',
+            'slug'  => 'al-nahyan',
+        ]);
+
+        factory(App\Area::class)->create([
+            'city_id'    => $city->id,
+            'name'  => 'Al Mushrif',
+            'slug'  => 'al-mushrif',
+        ]);
     }
 }

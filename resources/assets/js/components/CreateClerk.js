@@ -1,22 +1,18 @@
-// CreateOutlet.js
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Countries from './Countries';
 
-class CreateOutlet extends Component
+class CreateClerk extends Component
 {
-	constructor(props)
-	{
+	constructor(props) {
 		super(props);
 
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
+
+			first_name: '',
+			last_name: '',
 			phone: '',
-			address1: '',
-			address2: '',
-			latitude: '',
-			longitude: '',
 			email: '',
 			password: '',
 			password_confirmation: '',
@@ -35,13 +31,12 @@ class CreateOutlet extends Component
 		e.preventDefault();
 		this.isSubmitting();
 
-		let merchant = app.merchant;
-		let url = '/dashboard/merchants/' + merchant.id + '/outlets';
+		let url = '/dashboard/merchants/' + app.merchant.id + '/clerks';
 
 		$.ajax({
 		    url: url,
 		    type: 'POST',
-		    data: $('#CreateOutletForm').serialize(),
+		    data: $('#CreateMerchantClerkForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
 
@@ -52,11 +47,11 @@ class CreateOutlet extends Component
 
 		        swal({
 		            title: "City Card",
-		            text: "You have successfully created a new Outlet",
+		            text: "You have successfully created a new clerk",
 		            type: "success",
 		            showConfirmButton: true
 		        }, function() {
-					window.location = '/dashboard/merchants/' + merchant.id + '/outlets/' + response.id;
+					window.location = '/dashboard/merchants/' + response.id;
 				});
 
 		    }.bind(this),
@@ -82,84 +77,47 @@ class CreateOutlet extends Component
 	}
 
 	render() {
-		let merchant = app.merchant;
-
 		return (
-			<form method="POST" id="CreateOutletForm" onSubmit={this.onSubmit.bind(this)}>
+			<form method="POST" id="CreateMerchantClerkForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
 					<label htmlFor="merchant">Merchant Name</label>
-					<input
-						type="text"
-						value={merchant.name}
-						className="form-control"
-						disabled />
+					<input type="text" value={app.merchant.name} className="form-control" disabled />
 				</div>
-
+				<div className="row">
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="first_name">First Name</label>
+							<input type="text"
+								name="first_name"
+								id="first_name"
+								className="form-control"
+								value={this.state.first_name}
+								onChange={this.handleChange} />
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="last_name">Last Name</label>
+							<input type="text"
+								name="last_name"
+								id="last_name"
+								className="form-control"
+								value={this.state.last_name}
+								onChange={this.handleChange} />
+						</div>
+					</div>
+				</div>
 				<div className="form-group">
 					<label htmlFor="phone" className="label-block">Phone</label>
 					<input type="tel"
 						name="phone"
 						id="phone"
+						className="form-control"
 						value={this.state.phone}
-						onChange={this.handleChange}
-						className="form-control" />
+						onChange={this.handleChange} />
 				</div>
 
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address1">Address 1</label>
-							<input type="text"
-								name="address1"
-								id="address1"
-								value={this.state.address1}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address2">Address 2</label>
-							<input type="text"
-								name="address2"
-								id="address2"
-								value={this.state.address2}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="latitude">Latitude</label>
-							<input type="text"
-								name="latitude"
-								id="latitude"
-								value={this.state.latitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="longitude">Longitude</label>
-							<input type="text"
-								name="longitude"
-								id="longitude"
-								value={this.state.longitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<Countries />
-
-				<h2>Account Details</h2>
+				<h3>Account Details</h3>
 
 				<div className="form-group">
 					<label htmlFor="email">Email</label>
@@ -185,7 +143,7 @@ class CreateOutlet extends Component
 					</div>
 					<div className="col-md-6">
 						<div className="form-group">
-							<label htmlFor="password_confirmation">Password Confirmation</label>
+							<label htmlhtmlFor="password_confirmation">Password Confirmation</label>
 							<input type="password"
 								name="password_confirmation"
 								id="password_confirmation"
@@ -212,6 +170,6 @@ class CreateOutlet extends Component
 }
 
 ReactDOM.render(
-	<CreateOutlet />,
-	document.getElementById('CreateOutlet')
+	<CreateClerk />,
+	document.getElementById('CreateClerk')
 );

@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-
 import Select from 'react-select';
 
 class CreatePost extends Component
@@ -36,7 +35,7 @@ class CreatePost extends Component
 	}
 
 	handleSourceChange(e) {
-		let source = e.target.value;
+		let source = e.value;
 		if( source == 'external' ) {
 			this.setState({
 				isExternal: 1
@@ -51,7 +50,7 @@ class CreatePost extends Component
 	}
 
 	handleSourceFromChange(e) {
-		let source_from = e.target.value;
+		let source_from = e.value;
 		this.setState({
 			source_from
 		})
@@ -82,20 +81,21 @@ class CreatePost extends Component
 		    data: $('#CreatePostForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
-				console.log(response);
+
+				this.setState({
+					submitButtonText: 'Save',
+					isSubmitted: false
+				})
+
 		        swal({
 		            title: "City Card",
 		            text: "You have successfully created a post.",
 		            type: "success",
 		            showConfirmButton: true
-		        });
+		        }, function() {
+					window.location = '/dashboard/merchants/' + merchant.id + '/posts/' + response.id;
+				});
 
-		        this.setState({
-		            submitButtonText: 'Save',
-		            isSubmitted: false
-		        })
-
-		        window.location = '/dashboard/merchants/' + merchant.id + '/posts/' + response.id;
 		    }.bind(this),
 		    error: function(error) {
 				console.log(error);
@@ -143,19 +143,24 @@ class CreatePost extends Component
 		let outlets = app.outlets;
 		let sources = app.sources;
 
-		let sourcesFrom = sources.map(source => {
-			return (
-				<option value={source.id} key={source.id}>
-					{source.name}
-				</option>
-			)
-		})
-
 		let availableOutlets = []
 		outlets.map(outlet => {
 			availableOutlets.push({
 				value: outlet.id,
 				label: outlet.name
+			})
+		})
+
+		let availableSources = [
+			{ value: 'citycard', label: 'City Card' },
+			{ value: 'external', label: 'External' }
+		]
+
+		let availableSourcesFrom = [];
+		sources.map(source => {
+			availableSourcesFrom.push({
+				value: source.id,
+				label: source.name
 			})
 		})
 
@@ -176,17 +181,11 @@ class CreatePost extends Component
 					<div className="col-md-4">
 						<div className="form-group">
 							<label htmlFor="source">Source</label>
-							<select
+							<Select
 								name="source"
-								id="source"
-								className="form-control"
-								defaultValue={this.state.source}
-								onChange={this.handleSourceChange}
-							>
-								<option value=""></option>
-								<option value="citycard">City Card</option>
-								<option value="external">External</option>
-							</select>
+								value={this.state.source}
+								options={availableSources}
+								onChange={this.handleSourceChange} />
 						</div>
 					</div>
 					<div className="col-md-8">
@@ -195,15 +194,11 @@ class CreatePost extends Component
 								<div className="col-md-6">
 									<div className="form-group">
 										<label htmlFor="source_from">From</label>
-										<select
+										<Select
 											name="source_from"
-											id="source_from"
-											className="form-control"
-											defaultValue={this.state.source_from}
-											onChange={this.handleSourceFromChange}
-										>
-											{sourcesFrom}
-										</select>
+											value={this.state.source_from}
+											options={availableSourcesFrom}
+											onChange={this.handleSourceFromChange} />
 									</div>
 								</div>
 								<div className="col-md-6">

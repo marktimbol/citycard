@@ -14,6 +14,6 @@ class CityAreasController extends Controller
     {
     	$city->load('areas');
 
-    	return $city->areas;
+    	return $city->areas()->orderBy('name', 'asc')->get();
     }
 }

@@ -8,7 +8,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Add Clerk</h1>
+		<h1 class="Heading__title">Create Clerk</h1>
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.clerks.store', $merchant->id) }}">
@@ -51,31 +51,8 @@
 				value="{{ old('phone') }}" />
 		</div>
 
-		<div class="row">
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="city">City</label>
-					<input type="text"
-						name="city"
-						id="city"
-						class="form-control"
-						value="{{ old('city') }}" />
-				</div>
-			</div>
-			<div class="col-md-6">
-				<div class="form-group">
-					<label for="country">Country</label>
-					<input type="text"
-						name="country"
-						id="country"
-						class="form-control"
-						value="{{ old('country') }}" />
-				</div>
-			</div>
-		</div>
-
 		<h2>Account Details</h2>
-		
+
 		<div class="form-group">
 			<label for="email">Email</label>
 			<input type="email"
@@ -106,7 +83,7 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Save</button>
 			@include('dashboard._cancel')

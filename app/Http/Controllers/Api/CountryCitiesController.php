@@ -14,6 +14,6 @@ class CountryCitiesController extends Controller
     {
     	$country->load('cities');
 
-    	return $country->cities;
+    	return $country->cities()->orderBy('name', 'asc')->get();
     }
 }

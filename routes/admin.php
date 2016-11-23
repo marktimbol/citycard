@@ -21,7 +21,7 @@ Route::group([
 	Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
 	Route::resource('merchants', 'Dashboard\MerchantsController');
 	Route::resource('merchants.outlets', 'Dashboard\MerchantOutletsController');
-	Route::resource('merchants.clerks', 'Dashboard\ClerksController');
+	Route::resource('merchants.clerks', 'Dashboard\MerchantClerksController');
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
 	Route::resource('merchants.posts', 'Dashboard\MerchantPostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');

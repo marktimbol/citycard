@@ -5,11 +5,12 @@ namespace App\Http\Controllers\Dashboard;
 use Illuminate\Http\Request;
 
 use App\Clerk;
+use JavaScript;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 
-class ClerksController extends Controller
+class MerchantClerksController extends Controller
 {
     public function index(Merchant $merchant)
     {
@@ -21,12 +22,16 @@ class ClerksController extends Controller
     {
         $clerk->load('outlets');
         $outlets = $clerk->outlets;
-        
+
         return view('dashboard.clerks.show', compact('merchant', 'clerk', 'outlets'));
     }
 
     public function create(Merchant $merchant)
     {
+        JavaScript::put([
+            'merchant' => $merchant
+        ]);
+
     	return view('dashboard.clerks.create', compact('merchant'));
     }
 
@@ -36,7 +41,7 @@ class ClerksController extends Controller
 
         flash()->success('A new clerk has been successfully saved.');
 
-        return redirect()->route('dashboard.merchants.clerks.index', $merchant->id);
+        return redirect()->route('dashboard.merchants.show', $merchant->id);
     }
 
     public function edit(Merchant $merchant, Clerk $clerk)

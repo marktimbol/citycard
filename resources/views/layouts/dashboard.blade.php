@@ -16,7 +16,7 @@
                             Manage Categories
                         </a>
                         <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
-                            Manage Externals
+                            Manage Externals (eg. Groupon)
                         </a>
                     </ul>
                 </aside>

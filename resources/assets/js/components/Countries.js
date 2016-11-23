@@ -14,6 +14,9 @@ class Countries extends React.Component
 
             availableCities: [],
             availableAreas: [],
+
+            isFetchingCities: false,
+            isFetchingAreas: false
         }
 
         this.handleCountryChange = this.handleCountryChange.bind(this);
@@ -29,10 +32,15 @@ class Countries extends React.Component
     }
 
     fetchCities(country) {
+        this.setState({
+            isFetchingCities: true
+        })
+
 		let url = '/api/countries/'+country+'/cities';
 		$.get(url, function(response) {
 			this.setState({
-				availableCities: response
+				availableCities: response,
+                isFetchingCities: false,
 			});
 		}.bind(this))
 	}
@@ -45,11 +53,16 @@ class Countries extends React.Component
 	}
 
 	fetchAreas(city) {
+        this.setState({
+            isFetchingAreas: true
+        })
+
 		let url = '/api/cities/'+city+'/areas';
 
 		$.get(url, function(response) {
 			this.setState({
-				availableAreas: response
+				availableAreas: response,
+                isFetchingAreas: false
 			});
 		}.bind(this))
 	}
@@ -60,7 +73,7 @@ class Countries extends React.Component
 	}
 
     render()
-    {        
+    {
         let availableCountries = app.countries.map(country => {
             return {
                 value: country.id,
@@ -101,6 +114,7 @@ class Countries extends React.Component
                             name="city"
                             value={this.state.selectedCity}
                             options={availableCities}
+                            isLoading={this.state.isFetchingCities}
                             onChange={this.handleCityChange} />
                     </div>
                 </div>
@@ -112,6 +126,7 @@ class Countries extends React.Component
                             name="area"
                             value={this.state.selectedArea}
                             options={availableAreas}
+                            isLoading={this.state.isFetchingAreas}
                             onChange={this.handleAreaChange} />
                     </div>
                 </div>

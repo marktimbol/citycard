@@ -21,8 +21,6 @@ class CreateClerksTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone');
-            $table->string('country');
-            $table->string('city');
             $table->foreign('merchant_id')
                   ->references('id')->on('merchants')
                   ->onDelete('cascade');

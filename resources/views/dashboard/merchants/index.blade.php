@@ -29,14 +29,14 @@
 					$area = $merchant->areas->first();
 				?>
 			<tr>
-				<td width="250">
+				<td>
 					<a href="{{ route('dashboard.merchants.show', $merchant->id) }}">
 						{{ $merchant->name }}
 					</a>
 				</td>
 				<td>{{ $merchant->email }}</td>
 				<td>{{ $merchant->phone }}</td>
-				<td>{{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}</td>
+				<td>{{ sprintf('%s, %s', $area->city->name, $area->city->country->name) }}</td>
 				<td>
 					<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}"
 						class="btn btn-sm btn-default"
