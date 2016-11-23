@@ -35,9 +35,8 @@ Route::group([
 	Route::resource('sources', 'Dashboard\SourcesController');
 	Route::resource('categories', 'Dashboard\CategoriesController');
 	Route::resource('categories.subcategories', 'Dashboard\SubcategoriesController');
-
-
-
+	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
+	Route::post('import/categories/{category}/subcategories', 'Dashboard\ImportSubcategoriesController@store');
 
 	//
 	Route::post('merchants/{merchant}/outlets/{outlet}/promos', [

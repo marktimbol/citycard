@@ -6,7 +6,13 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="Heading">
-				<h1 class="Heading__title">Subcategories</h1>
+				<h1 class="Heading__title">{{ $category->name }} Subcategories
+					<small>
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#importSubcategoriesModal">
+							Import
+						</button>
+					</small>
+				</h1>
 				@include('dashboard._search-form')
 			</div>
 		</div>
@@ -69,6 +75,26 @@
 				</tbody>
 			</table>
 		</div>
+	</div>
+
+	<!-- Modal -->
+	<div class="modal fade" id="importSubcategoriesModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+	    	<div class="modal-content">
+	      		<div class="modal-header">
+	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	        		<h4 class="modal-title" id="myModalLabel">Import {{ $category->name }} Sub-categories</h4>
+	      		</div>
+		    	<div class="modal-body">
+					<form class="dropzone" method="POST" action="/dashboard/import/categories/{{$category->id}}/subcategories">
+						{{ csrf_field() }}
+					</form>
+				</div>
+	      		<div class="modal-footer">
+	    			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+	      		</div>
+	    	</div>
+	  	</div>
 	</div>
 
 @endsection
