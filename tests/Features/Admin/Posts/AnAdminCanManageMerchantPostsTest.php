@@ -29,9 +29,15 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
     public function test_an_admin_can_add_an_external_post_to_a_merchant()
     {
+		$area = $this->createArea([
+			'name'	=> 'Al Barsha'
+		]);
+
     	$merchant = $this->createMerchant([
     		'name'	=> 'McDonalds'
     	]);
+
+		$area->merchants()->attach($merchant);
 
     	$outlet = $this->createOutlet([
     		'merchant_id'	=> $merchant->id
@@ -45,11 +51,28 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'name'	=> 'Cobone'
 		]);
 
+		$category = $this->createCategory([
+			'name'	=> 'Food',
+		]);
+
+		$buffet = $this->createSubcategory([
+			'category_id'	=> $category->id,
+			'name'	=> 'Buffet'
+		]);
+
+		$brunch = $this->createSubcategory([
+			'category_id'	=> $category->id,
+			'name'	=> 'Brunch'
+		]);
+
         $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
 		$response = $this->post($endpoint, [
 			'isExternal'	=> true,
 			'source_from'	=> $source->id,
 			'source_link'	=> 'http://google.com',
+
+			'category'	=> 1,
+			'subcategories'	=> '1,2',
 
 			'type'	=> 'notification',
 			'outlet_ids'	=> '1,2',
@@ -59,6 +82,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
+            'category_id'   => $category->id,
             'type'  => 'notification',
             'title' => 'The Title',
             'slug'  => 'the-title',
@@ -66,6 +90,16 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'isExternal'	=> true,
             'approved'  => false
         ])
+
+		->seeInDatabase('subcategory_posts', [
+			'subcategory_id'	=> $buffet->id,
+			'post_id'	=> 1,
+		])
+
+		->seeInDatabase('subcategory_posts', [
+			'subcategory_id'	=> $brunch->id,
+			'post_id'	=> 1
+		])
 
 		->seeInDatabase('source_posts', [
 			'source_id'	=> $source->id,

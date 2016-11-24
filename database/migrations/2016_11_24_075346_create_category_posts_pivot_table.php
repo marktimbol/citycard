@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddLogoColumnInMerchantsTable extends Migration
+class CreateCategoryPostsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddLogoColumnInMerchantsTable extends Migration
      */
     public function up()
     {
-        Schema::table('merchants', function (Blueprint $table) {
-            $table->string('logo');
+        Schema::create('category_posts', function (Blueprint $table) {
+            $table->integer('category_id')->unsigned();
+            $table->integer('post_id')->unsigned();
         });
     }
 
@@ -25,8 +26,6 @@ class AddLogoColumnInMerchantsTable extends Migration
      */
     public function down()
     {
-        Schema::table('merchants', function (Blueprint $table) {
-            $table->dropColumn('logo');
-        });
+        Schema::dropIfExists('category_posts');
     }
 }

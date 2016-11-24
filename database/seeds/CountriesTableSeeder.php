@@ -16,42 +16,54 @@ class CountriesTableSeeder extends Seeder
             'slug'  => 'united-arab-emirates'
         ]);
 
-        $city = factory(App\City::class)->create([
+        factory(App\City::class)->create([
             'country_id'    => $country->id,
             'name'  => 'Dubai',
             'slug'  => 'dubai',
         ]);
 
-        factory(App\Area::class)->create([
-            'city_id'    => $city->id,
-            'name'  => 'Dubai Internet City',
-            'slug'  => 'dubai-internet-city',
-        ]);
-
-        factory(App\Area::class)->create([
-            'city_id'    => $city->id,
-            'name'  => 'Al Barsha',
-            'slug'  => 'al-barsha',
-        ]);
-
-        // Abu Dhabi
-
-        $city = factory(App\City::class)->create([
+        factory(App\City::class)->create([
             'country_id'    => $country->id,
             'name'  => 'Abu Dhabi',
             'slug'  => 'abu-dhabi',
         ]);
 
-        factory(App\Area::class)->create([
-            'city_id'    => $city->id,
-            'name'  => 'Al Nahyan',
-            'slug'  => 'al-nahyan',
+        factory(App\City::class)->create([
+            'country_id'    => $country->id,
+            'name'  => 'Sharjah',
+            'slug'  => 'sharjah',
         ]);
 
-        factory(App\Area::class)->create([
-            'city_id'    => $city->id,
-            'name'  => 'Al Mushrif',
-            'slug'  => 'al-mushrif',
-        ]);
+        // factory(App\Area::class)->create([
+        //     'city_id'    => $city->id,
+        //     'name'  => 'Dubai Internet City',
+        //     'slug'  => 'dubai-internet-city',
+        // ]);
+        //
+        // factory(App\Area::class)->create([
+        //     'city_id'    => $city->id,
+        //     'name'  => 'Al Barsha',
+        //     'slug'  => 'al-barsha',
+        // ]);
+        //
+        // // Abu Dhabi
+        //
+        // $city = factory(App\City::class)->create([
+        //     'country_id'    => $country->id,
+        //     'name'  => 'Abu Dhabi',
+        //     'slug'  => 'abu-dhabi',
+        // ]);
+        //
+        // factory(App\Area::class)->create([
+        //     'city_id'    => $city->id,
+        //     'name'  => 'Al Nahyan',
+        //     'slug'  => 'al-nahyan',
+        // ]);
+        //
+        // factory(App\Area::class)->create([
+        //     'city_id'    => $city->id,
+        //     'name'  => 'Al Mushrif',
+        //     'slug'  => 'al-mushrif',
+        // ]);
     }
 }

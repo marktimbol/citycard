@@ -6103,6 +6103,30 @@ footer {
   .Dashboard .has-delete-icon form {
     position: absolute; }
 
+.Dashboard .has-camera-icon {
+  display: -webkit-box;
+  display: flex;
+  position: relative;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center; }
+  .Dashboard .has-camera-icon button {
+    width: 100%;
+    height: 100%;
+    display: none;
+    position: absolute; }
+  .Dashboard .has-camera-icon:hover::before {
+    content: "";
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(0, 0, 0, 0.6); }
+  .Dashboard .has-camera-icon:hover button {
+    color: white;
+    display: block; }
+
 .Dashboard .Mobile {
   padding: 10px;
   overflow-y: scroll; }
@@ -6112,10 +6136,24 @@ footer {
   display: flex; }
 
 .Dashboard .Mobile__Outlet__image {
-  margin-right: 10px; }
+  -webkit-box-flex: 0.4;
+  flex: 0.4;
+  display: -webkit-box;
+  display: flex;
+  margin-right: 10px;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center;
+  border: 1px solid #ddd; }
+  .Dashboard .Mobile__Outlet__image img {
+    padding: 5px; }
 
-.Dashboard .Mobile__Outlet__info h4 {
-  margin: 0; }
+.Dashboard .Mobile__Outlet__info {
+  -webkit-box-flex: 1;
+  flex: 1; }
+  .Dashboard .Mobile__Outlet__info h4 {
+    margin: 0; }
 
 .Dashboard .Mobile__content {
   margin-top: 10px; }

@@ -10,7 +10,7 @@ class SubcategoriesController extends Controller
 {
     public function index(Category $category)
     {
-        $category->load('subcategories');
+        $category->load('subcategories.posts');
         $subcategories = $category->subcategories;
 
         return view('dashboard.categories.subcategories.index', compact('category', 'subcategories'));

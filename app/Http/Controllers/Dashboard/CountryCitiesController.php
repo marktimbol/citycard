@@ -12,8 +12,8 @@ class CountryCitiesController extends Controller
 {
     public function index(Country $country)
     {
-    	$country->load('cities');
-    	$cities = $country->cities;
+    	$country->load('cities.areas');
+    	$cities = $country->cities()->orderBy('name', 'asc')->get();
 
     	return view('dashboard.cities.index', compact('country', 'cities'));
     }
@@ -23,7 +23,7 @@ class CountryCitiesController extends Controller
         $this->validate($request, [
             'name'  => 'required'
         ]);
-        
+
     	$city = $country->cities()->create($request->all());
 
     	flash()->success(sprintf('%s has been successfully saved.', $city->name));

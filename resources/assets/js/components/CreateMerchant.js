@@ -146,7 +146,7 @@ class CreateMerchant extends Component
 						className="form-control" />
 				</div>
 
-				<h3>What your store is all about?</h3>
+				<h3>What is the nature of your business?</h3>
 
 				<div className="row">
 					<div className="col-md-6">

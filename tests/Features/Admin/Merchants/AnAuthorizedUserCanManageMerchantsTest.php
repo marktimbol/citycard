@@ -52,7 +52,12 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     {
 		$endpoint = '/dashboard/merchants';
 
+		$city = $this->createCity([
+			'name'	=> 'Dubai'
+		]);
+
 		$area = $this->createArea([
+			'city_id'	=> $city->id,
 			'name'	=> 'Al Barsha'
 		]);
 
@@ -129,8 +134,6 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
 			->type('Updated Merchant Name', 'name')
 			->type('0563759865', 'phone')
-			->type('United Arab Emirates', 'country')
-			->type('Dubai', 'city')
 			->type('updated-email@citycard.me', 'email')
 
     		->press('Update')
@@ -139,8 +142,6 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     			'id'	=> $merchant->id,
     			'name'	=> 'Updated Merchant Name',
     			'phone'	=> '0563759865',
-    			'country'	=> 'United Arab Emirates',
-    			'city'	=> 'Dubai',
     			'email'	=> 'updated-email@citycard.me'
     		]);
     }

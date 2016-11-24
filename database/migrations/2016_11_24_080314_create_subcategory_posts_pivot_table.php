@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddPhotoColumnInClerksTable extends Migration
+class CreateSubcategoryPostsPivotTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,9 @@ class AddPhotoColumnInClerksTable extends Migration
      */
     public function up()
     {
-        Schema::table('clerks', function (Blueprint $table) {
-            $table->string('photo');
+        Schema::create('subcategory_posts', function (Blueprint $table) {
+            $table->integer('subcategory_id')->unsigned();
+            $table->integer('post_id')->unsigned();
         });
     }
 
@@ -25,8 +26,6 @@ class AddPhotoColumnInClerksTable extends Migration
      */
     public function down()
     {
-        Schema::table('clerks', function (Blueprint $table) {
-            $table->dropColumn('photo');
-        });
+        Schema::dropIfExists('subcategory_posts');
     }
 }

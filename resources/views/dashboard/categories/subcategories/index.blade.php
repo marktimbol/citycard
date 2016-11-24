@@ -9,7 +9,7 @@
 				<h1 class="Heading__title">{{ $category->name }} Subcategories
 					<small>
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#importSubcategoriesModal">
-							Import
+							Import from Excel
 						</button>
 					</small>
 				</h1>
@@ -49,11 +49,13 @@
 					</tr>
 				</thead>
 				<tbody>
-					@forelse( $subcategories as $category )
+					@forelse( $subcategories as $subcategory )
 					<tr>
 						<td width="250">
 							<a href="#">
-								{{ $category->name }}
+								{{ $subcategory->name }}
+								&mdash;
+								{{ $subcategory->posts()->count() }} Posts
 							</a>
 						</td>
 						<td>
@@ -83,7 +85,7 @@
 	    	<div class="modal-content">
 	      		<div class="modal-header">
 	        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        		<h4 class="modal-title" id="myModalLabel">Import {{ $category->name }} Sub-categories</h4>
+	        		<h4 class="modal-title" id="myModalLabel">Import {{ $category->name }} Subcategories</h4>
 	      		</div>
 		    	<div class="modal-body">
 					<form class="dropzone" method="POST" action="/dashboard/import/categories/{{$category->id}}/subcategories">

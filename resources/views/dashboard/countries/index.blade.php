@@ -21,11 +21,11 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="name">Name</label>
-					<input 
-						type="text" 
-						name="name" 
-						id="name" 
-						class="form-control" 
+					<input
+						type="text"
+						name="name"
+						id="name"
+						class="form-control"
 						placeholder="etc. United Arab Emirates" />
 				</div>
 
@@ -46,18 +46,17 @@
 					@forelse( $countries as $country )
 					<tr>
 						<td width="250">
-							<a href="#">
-								{{ $country->name }}
-							</a>
+							{{ $country->name }} &mdash;
+							<small>({{ $country->cities->count() }} Cities)</small>
 						</td>
 						<td>
 							<div class="btn-group">
-								<a href="{{ route('dashboard.countries.cities.index', $country->id) }}" 
+								<a href="{{ route('dashboard.countries.cities.index', $country->id) }}"
 									class="btn btn-sm btn-default"
 								>
 									Manage Cities
 								</a>
-								<a href="#" 
+								<a href="#"
 									class="btn btn-sm btn-default"
 								>
 									Edit

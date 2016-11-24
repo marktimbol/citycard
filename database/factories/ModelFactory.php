@@ -44,8 +44,8 @@ $factory->define(App\Merchant::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'phone' => $faker->phoneNumber,
-        'country'   => $faker->country,
-        'city'  => $faker->city,
+        // 'country'   => $faker->country,
+        // 'city'  => $faker->city,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
     ];
@@ -92,6 +92,9 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
     return [
         'merchant_id'   => function() {
             return factory(App\Merchant::class)->create()->id;
+        },
+        'category_id'   => function() {
+            return factory(App\Category::class)->create()->id;
         },
         'type'  => 'notification',
         'title' => $faker->sentence,

@@ -12,7 +12,12 @@ class ClerkPhotosController extends Controller
     {
         $clerk->load('merchant');
 
-	    $uploadPath = 
+        if( $clerk->merchant->photo !== '' )
+        {
+            deletePhoto($clerk->merchant->photo);
+        }
+
+	    $uploadPath =
             sprintf('merchants/%s/clerks/%s/photos',
                 str_slug($clerk->merchant->name),
                 str_slug($clerk->fullName())

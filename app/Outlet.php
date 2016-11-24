@@ -25,7 +25,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-	    'password', 'remember_token',
+	    'password', 'remember_token', 'api_token'
 	];
 
     public function setEmailAttribute($email)

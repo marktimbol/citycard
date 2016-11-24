@@ -16,7 +16,7 @@ class OutletsController extends Controller
 
     public function show(Outlet $outlet)
     {
-    	$outlet->load('merchant', 'clerks', 'posts.photos');
+    	$outlet->load('merchant:id,logo', 'clerks:id,first_name,last_name,photo', 'posts.photos');
 
     	return $outlet;
     }

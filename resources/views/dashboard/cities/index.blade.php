@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="Heading">
-				<h1 class="Heading__title">Cities</h1>
+				<h1 class="Heading__title">{{ $country->name }} Cities</h1>
 				@include('dashboard._search-form')
 			</div>
 		</div>
@@ -21,10 +21,10 @@
 				{{ csrf_field() }}
 				<div class="form-group">
 					<label for="name">Name</label>
-					<input 
-						type="text" 
-						name="name" 
-						id="name" 
+					<input
+						type="text"
+						name="name"
+						id="name"
 						class="form-control" />
 				</div>
 
@@ -45,18 +45,17 @@
 					@forelse( $cities as $city )
 					<tr>
 						<td width="250">
-							<a href="#">
-								{{ $city->name }}
-							</a>
+							{{ $city->name }} &mdash;
+							<small>({{ $city->areas->count() }} Areas)</small>
 						</td>
 						<td>
 							<div class="btn-group">
-								<a href="{{ route('dashboard.cities.areas.index', $city->id) }}" 
+								<a href="{{ route('dashboard.cities.areas.index', $city->id) }}"
 									class="btn btn-sm btn-default"
 								>
 									Manage Areas
 								</a>
-								<a href="#" 
+								<a href="#"
 									class="btn btn-sm btn-default"
 								>
 									Edit

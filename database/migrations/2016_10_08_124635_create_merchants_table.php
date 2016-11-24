@@ -19,8 +19,7 @@ class CreateMerchantsTable extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('phone');
-            $table->string('country')->nullable();
-            $table->string('city')->nullable();
+            $table->string('logo')->nullable();
             $table->string('api_token', 60);
             $table->rememberToken();
             $table->timestamps();

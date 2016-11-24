@@ -7,9 +7,11 @@ use Illuminate\Http\Request;
 use App\Post;
 use JavaScript;
 use App\Source;
+use App\Category;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\CreateMerchantPostRequest;
 
 class MerchantPostsController extends Controller
 {
@@ -21,8 +23,7 @@ class MerchantPostsController extends Controller
 
     public function show(Merchant $merchant, Post $post)
     {
-        $post->load('outlets', 'photos', 'outlets', 'sources');
-
+        $post->load('outlets', 'photos', 'outlets', 'sources', 'category', 'subcategories');
         $photos = $post->photos;
 
         return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));
@@ -32,19 +33,26 @@ class MerchantPostsController extends Controller
     {
         $merchant->load('outlets');
         $sources = Source::orderBy('name', 'asc')->latest()->get();
+		$categories = Category::orderBy('name', 'asc')->get();
 
         JavaScript::put([
             'merchant'  => $merchant,
             'outlets'   => $merchant->outlets,
-            'sources' => $sources
+            'sources' => $sources,
+            'categories' => $categories
         ]);
 
     	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));
     }
 
-    public function store(Request $request, Merchant $merchant)
+    public function store(CreateMerchantPostRequest $request, Merchant $merchant)
     {
+        $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());
+
+		// subcategory_posts
+		$subcategories = explode(',', $request->subcategories);
+		$post->subcategories()->attach($subcategories);
 
     	if( $request->has('outlet_ids') ) {
             $outlet_ids = explode(',', $request->outlet_ids);

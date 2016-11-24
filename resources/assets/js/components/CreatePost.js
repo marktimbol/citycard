@@ -16,6 +16,10 @@ class CreatePost extends Component
 			source_link: '',
 			type: '',
 			outlets: [],
+			selectedCategory: '',
+			selectedSubcategories: '',
+			availableSubcategories: [],
+			isFetchingSubcategories: false,
 			title: '',
 			desc: '',
 			outlet_ids: [],
@@ -26,6 +30,8 @@ class CreatePost extends Component
 		this.handleSourceFromChange = this.handleSourceFromChange.bind(this);
 		this.handleTypeChange = this.handleTypeChange.bind(this);
 		this.handleSelectedOutletsChange = this.handleSelectedOutletsChange.bind(this);
+		this.handleCategoryChange = this.handleCategoryChange.bind(this);
+		this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);
 	}
 
 	handleChange(e) {
@@ -57,13 +63,36 @@ class CreatePost extends Component
 	}
 
 	handleTypeChange(e) {
-		let type = e.target.value;
+		let type = e.value;
 		this.setState({ type })
 	}
 
 	handleSelectedOutletsChange(value) {
 		this.setState({
 			outlet_ids: value
+		})
+	}
+
+	handleCategoryChange(e) {
+		let selectedCategory = e.value;
+		this.setState({ selectedCategory, isFetchingSubcategories: true });
+		this.fetchSubcategories(selectedCategory);
+	}
+
+	fetchSubcategories(selectedCategory) {
+		let url = '/api/categories/'+selectedCategory+'/subcategories';
+
+		$.get(url, function(response) {
+			this.setState({
+				availableSubcategories: response,
+				isFetchingSubcategories: false
+			});
+		}.bind(this))
+	}
+
+	handleSubcategoryChange(value) {
+		this.setState({
+			selectedSubcategories: value
 		})
 	}
 
@@ -118,10 +147,6 @@ class CreatePost extends Component
 		});
 	}
 
-	componentDidMount() {
-
-	}
-
 	isFromCityCard() {
 		return this.state.source == 'citycard' ? true : false
 	}
@@ -135,16 +160,12 @@ class CreatePost extends Component
 	}
 
 	isOffer() {
-		return ( this.state.postType == 'offer' || this.state.postType == 'ticket' ) ? true : false
+		return ( this.state.postType == 'offer' || this.state.postType == 'events' ) ? true : false
 	}
 
 	render() {
-		let merchant = app.merchant;
-		let outlets = app.outlets;
-		let sources = app.sources;
-
 		let availableOutlets = []
-		outlets.map(outlet => {
+		app.outlets.map(outlet => {
 			availableOutlets.push({
 				value: outlet.id,
 				label: outlet.name
@@ -157,11 +178,32 @@ class CreatePost extends Component
 		]
 
 		let availableSourcesFrom = [];
-		sources.map(source => {
+		app.sources.map(source => {
 			availableSourcesFrom.push({
 				value: source.id,
 				label: source.name
 			})
+		})
+
+		let availablePostTypes = [
+			{ value: 'notification', label: 'Notification' },
+			{ value: 'offer', label: 'Offer' },
+			{ value: 'events', label: 'Events' },
+		]
+		
+		let availableCategories = [];
+		app.categories.map(category => {
+			availableCategories.push({
+				value: category.id,
+				label: category.name
+			})
+		})
+
+		let availableSubcategories = this.state.availableSubcategories.map(subcategory => {
+			return {
+				value: subcategory.id,
+				label: subcategory.name
+			}
 		})
 
 		return (
@@ -174,7 +216,7 @@ class CreatePost extends Component
 						name="merchant"
 						id="merchant"
 						className="form-control"
-						value={merchant.name} disabled />
+						value={app.merchant.name} disabled />
 				</div>
 
 				<div className="row">
@@ -222,18 +264,11 @@ class CreatePost extends Component
 
 				<div className="form-group">
 					<label htmlFor="type">Post Type</label>
-					<select
+					<Select
 						name="type"
-						id="type"
-						className="form-control"
-						defaultValue={this.state.type}
-						onChange={this.handleTypeChange}
-					>
-						<option value=""></option>
-						<option value="notification">Notification</option>
-						<option value="offer">Offer</option>
-						<option value="ticket">Ticket</option>
-					</select>
+						value={this.state.type}
+						options={availablePostTypes}
+						onChange={this.handleTypeChange} />
 				</div>
 
 				<div className="form-group">
@@ -245,6 +280,32 @@ class CreatePost extends Component
 						joinValues
 						options={availableOutlets}
 						onChange={this.handleSelectedOutletsChange} />
+				</div>
+
+				<div className="row">
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="category">Category</label>
+							<Select
+								name="category"
+								value={this.state.selectedCategory}
+								options={availableCategories}
+								onChange={this.handleCategoryChange} />
+						</div>
+					</div>
+					<div className="col-md-6">
+						<div className="form-group">
+							<label htmlFor="category">Subcategories</label>
+							<Select
+								name="subcategories"
+								isLoading={this.state.isFetchingSubcategories}
+								value={this.state.selectedSubcategories}
+								options={availableSubcategories}
+								multi={true}
+								joinValues
+								onChange={this.handleSubcategoryChange} />
+						</div>
+					</div>
 				</div>
 
 				<div className="form-group">

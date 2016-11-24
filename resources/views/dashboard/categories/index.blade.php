@@ -9,7 +9,7 @@
 				<h1 class="Heading__title">Categories
 					<small>
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#importCategoriesModal">
-							Import
+							Import from Excel
 						</button>
 					</small>
 				</h1>
@@ -53,7 +53,8 @@
 					<tr>
 						<td width="250">
 							<a href="#">
-								{{ $category->name }}
+								{{ $category->name }} &mdash;
+								<small>({{ $category->subcategories->count() }} Subcategories)</small>
 							</a>
 						</td>
 						<td>

@@ -6,10 +6,10 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="Heading">
-				<h1 class="Heading__title">Areas
+				<h1 class="Heading__title">{{ $city->name }} Areas
 					<small>
 						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#importAreasModal">
-							Import
+							Import from Excel
 						</button>
 					</small>
 				</h1>
@@ -49,9 +49,7 @@
 					@forelse( $areas as $area )
 					<tr>
 						<td width="250">
-							<a href="#">
-								{{ $area->name }}
-							</a>
+							{{ $area->name }}
 						</td>
 						<td>
 							<a href="#"

@@ -11,8 +11,11 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	return Post::with('outlets.areas.city.country', 'photos', 'sources')
+    	return Post::with('outlets.merchant:id,logo', 'photos', 'sources:name')
                     ->latest()
                     ->get();
+    	// return Post::with('outlets.areas.city.country', 'photos', 'sources')
+        //             ->latest()
+        //             ->get();
     }
 }

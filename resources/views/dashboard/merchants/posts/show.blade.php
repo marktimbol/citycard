@@ -33,6 +33,18 @@
 				@endif
 			</ul>
 
+			<ul class="list-group">
+				<li class="list-group-item">
+					Category: {{ $post->category->name }}
+				</li>
+				<li class="list-group-item">
+					Sub-Categories:
+					@foreach( $post->subcategories as $subcategory )
+						<label class="label label-success">{{ $subcategory->name }}</label>
+					@endforeach
+				</li>
+			</ul>
+
 			{!! $post->desc !!}
 
 			<p>&nbsp;</p>
@@ -79,7 +91,11 @@
 						<div class="Mobile__header">
 							<div class="Flex">
 								<div class="Mobile__Outlet__image">
-									<img src="/images/avatar.jpg" alt="" title="" width="60" height="60" class="img-responsive" />
+									@if( $merchant->logo !== '' )
+										<img src="{{ getPhotoPath($merchant->logo)}}" alt="" title="" width="60" height="60" class="img-responsive" />
+									@else
+										<img src="/images/avatar.jpg" alt="" title="" width="60" height="60" class="img-responsive" />
+									@endif
 								</div>
 								<div class="Mobile__Outlet__info">
 									<h4>{{ $post->outlets()->first()->name }}</h4>
