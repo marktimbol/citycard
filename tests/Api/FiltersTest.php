@@ -69,7 +69,7 @@ class FiltersTest extends TestCase
         $zaraAbuDhabi->posts()->attach($post2);
 
         $endpoint = sprintf('/api/filters');
-        $this->json('GET', $endpoint, [
+        $response = $this->json('GET', $endpoint, [
             'city_id' => $dubai->id
         ])
         ->seeJson([
@@ -172,7 +172,7 @@ class FiltersTest extends TestCase
         $outlet2->posts()->attach($post2);
 
         $endpoint = sprintf('/api/filters');
-        $this->json('GET', $endpoint, [
+        $response = $this->json('GET', $endpoint, [
             'area_ids' => [$area->id, $area2->id]
         ])
         ->seeJson([
@@ -182,4 +182,68 @@ class FiltersTest extends TestCase
             'title' => 'More post'
         ]);
     }
+
+    public function test_it_filters_posts_by_categories_on_the_selected_city()
+    {
+        // Setup the location
+        $city = $this->createCity([
+            'name'  => 'Dubai'
+        ]);
+
+        $area = $this->createArea([
+            'name'  => 'Al Barsha',
+        ]);
+
+        // Setup the merchant
+        $merchant = $this->createMerchant([
+            'name'  => 'The Mechant'
+        ]);
+
+        $area->merchants()->attach($merchant);
+
+        $outlet = $this->createOutlet([
+            'name'  => 'The Outlet'
+        ]);
+
+        $merchant->outlets()->save($outlet);
+
+        // Setup the categories
+        $foodCategory = $this->createCategory([
+            'name'  => 'Category'
+        ]);
+
+        $beautyCategory = $this->createCategory([
+            'name'  => 'Beauty'
+        ]);
+
+        // Setup the posts
+        $postFood = $this->createPost([
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $foodCategory->id,
+            'title' => 'Post about Food',
+        ]);
+
+        $postBeauty = $this->createPost([
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $beautyCategory->id,
+            'title' => 'Post about Beauty',
+        ]);
+
+        $outlet->posts()->attach($postFood);
+        $outlet->posts()->attach($postBeauty);
+
+        $response = $this->json('GET', '/api/filters', [
+            'city_id'  => $city->id,
+            'area_ids'  => [$area->id],
+            'categories'  => [$foodCategory->id],
+        ])
+        ->seeJson([
+            'title' => 'Post about Food'
+        ])
+        ->dontSeeJson([
+            'title' => 'Post about Beauty'
+        ]);
+    }
+
+
 }

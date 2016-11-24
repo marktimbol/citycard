@@ -14,16 +14,6 @@ class FiltersController extends Controller
 {
     public function index()
     {
-        if( request()->has('area_ids') )
-        {
-            $area_ids = request()->area_ids;
-            return Post::byAreas($area_ids);
-        }
-
-        if( request()->has('city_id') )
-        {
-            $city = City::findOrFail(request('city_id'));
-            return Post::byCity($city);
-        }
+        return Post::filterBy(request()->all());
     }
 }
