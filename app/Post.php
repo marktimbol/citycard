@@ -9,7 +9,7 @@ class Post extends Model
     use Filterable;
 
     protected $fillable = [
-        'category_id', 'type', 'title', 'desc', 'isExternal'
+        'merchant_id', 'category_id', 'type', 'title', 'desc', 'isExternal'
     ];
 
     public function setTitleAttribute($title)

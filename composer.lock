@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5177314e2569b24dea2f78d5c09364ae",
-    "content-hash": "33510a73b89269ff496aa88ce13b205d",
+    "hash": "6c96ceff6b93239cd67b3ff259867978",
+    "content-hash": "1eed540bcdd4524db6403f4f7c4f13cd",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -3087,6 +3087,59 @@
             "time": "2016-11-03 08:04:31"
         },
         {
+            "name": "themsaid/laravel-model-transformers",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/themsaid/laravel-model-transformer.git",
+                "reference": "8571bf423a7495c3c789e8ebe6a66e93e821d697"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/themsaid/laravel-model-transformer/zipball/8571bf423a7495c3c789e8ebe6a66e93e821d697",
+                "reference": "8571bf423a7495c3c789e8ebe6a66e93e821d697",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.1",
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "orchestra/testbench": "~3.0",
+                "phpunit/phpunit": "4.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Themsaid\\Transformers\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ],
+                "classmap": [
+                    "tests"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohamed Said",
+                    "email": "themohamedsaid@gmail.com"
+                }
+            ],
+            "description": "Easy transformation layer for complex model attributes.",
+            "homepage": "https://github.com/themsaid/laravel-model-transformers",
+            "keywords": [
+                "api",
+                "json",
+                "laravel"
+            ],
+            "time": "2016-03-11 10:54:10"
+        },
+        {
             "name": "tijsverkoyen/css-to-inline-styles",
             "version": "2.2.0",
             "source": {
@@ -3976,16 +4029,16 @@
         },
         {
             "name": "phpunit/phpunit-mock-objects",
-            "version": "3.4.1",
+            "version": "3.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "45026c8383187ad1dcb14fbfec77dced265b9cfc"
+                "reference": "90a08f5deed5f7ac35463c161f2e8fa0e5652faf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/45026c8383187ad1dcb14fbfec77dced265b9cfc",
-                "reference": "45026c8383187ad1dcb14fbfec77dced265b9cfc",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/90a08f5deed5f7ac35463c161f2e8fa0e5652faf",
+                "reference": "90a08f5deed5f7ac35463c161f2e8fa0e5652faf",
                 "shasum": ""
             },
             "require": {
@@ -4031,7 +4084,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2016-11-19 09:07:46"
+            "time": "2016-11-27 07:52:03"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",

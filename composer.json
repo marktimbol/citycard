@@ -12,7 +12,8 @@
         "league/flysystem-aws-s3-v3": "^1.0",
         "laracasts/utilities": "^2.1",
         "doctrine/dbal": "^2.5",
-        "stevebauman/location": "^2.0"
+        "stevebauman/location": "^2.0",
+        "themsaid/laravel-model-transformers": "^1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

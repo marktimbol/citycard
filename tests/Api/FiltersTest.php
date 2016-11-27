@@ -39,6 +39,7 @@ class FiltersTest extends TestCase
             'merchant_id'   => $zara->id,
             'title' => 'Zara Offer in Dubai'
         ]);
+
         $zaraAlRigga->posts()->attach($post);
 
 

@@ -11,24 +11,8 @@ trait Filterable
     protected $categories = [];
     // protected $subcategories = [];
 
-    protected $location;
-
-    public function __construct()
-    {
-        // $this->location = new IP2Location;
-        // $this->location->setKey(env('IPINFODB_KEY'));
-    }
-
     public static function filterBy($request)
     {
-        // if( empty($request) )
-        // {
-        //     $ipAddress = '80.227.153.98';
-        //     $location = $this->location->getCity($ipAddress);
-
-        //     return $location;
-        // }
-
         // $this->byCity($city)
         //     ->andByAreas($areas)
         //     ->andByCategory($category)
@@ -78,60 +62,26 @@ trait Filterable
 
         $posts->load('outlets.areas.city', 'photos', 'sources');
 
-        $city = $this->city;
-        $areas = $this->areas;
-
-        return $posts->filter(function($post, $key) use ($city, $areas) {
+        return $posts->filter(function($post, $key) {
             foreach( $post->outlets as $outlet ) {
                 foreach( $outlet->areas as $area ) {
-                    if( count($areas) > 0 ) {
-                        return in_array($area->id, $areas);
+                    if( count($this->areas) > 0 ) {
+                        return in_array($area->id, $this->areas);
                     }
-                    return $city == $area->city->id;
+                    return $this->city == $area->city->id;
                 }
             }
-        })->all();
-    }
+        });
 
-    // protected function byCity($city)
-    // {
-    //     $posts = Post::latest()->get();
-    //     $posts->load('outlets.areas.city', 'photos', 'sources');
-    //
-    //     return $posts->filter(function($post, $key) use ($city) {
-    //         foreach( $post->outlets as $outlet ) {
-    //             foreach( $outlet->areas as $area ) {
-    //                 return $city->id == $area->city->id;
-    //             }
-    //         }
-    //     })->all();
-    // }
-    //
-    // protected function byArea($selectedArea)
-    // {
-    //     $posts = Post::has('outlets')->latest()->get();
-    //     $posts->load('outlets.areas', 'photos', 'sources');
-    //
-    //     return $posts->filter(function($post, $key) use ($selectedArea) {
-    //         foreach( $post->outlets as $outlet ) {
-    //             foreach( $outlet->areas as $area ) {
-    //                 return $selectedArea->id == $area->id;
-    //             }
-    //         }
-    //     })->all();
-    // }
-    //
-    // protected function byAreas($area_ids)
-    // {
-    //     $posts = Post::has('outlets')->latest()->get();
-    //     $posts->load('outlets.areas', 'photos', 'sources');
-    //
-    //     return $posts->filter(function($post, $key) use ($area_ids) {
-    //         foreach( $post->outlets as $outlet ) {
-    //             foreach( $outlet->areas as $area ) {
-    //                 return in_array($area->id, $area_ids);
-    //             }
-    //         }
-    //     })->all();
-    // }
+        // return $posts->filter(function($post, $key) {
+        //     foreach( $post->outlets as $outlet ) {
+        //         foreach( $outlet->areas as $area ) {
+        //             if( count($this->areas) > 0 ) {
+        //                 return in_array($area->id, $this->areas);
+        //             }
+        //             return $this->city == $area->city->id;
+        //         }
+        //     }
+        // });
+    }
 }

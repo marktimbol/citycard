@@ -171,7 +171,8 @@ return [
         Laracasts\Flash\FlashServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
-
+        Themsaid\Transformers\TransformersServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
