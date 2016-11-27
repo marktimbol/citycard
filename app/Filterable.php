@@ -2,6 +2,8 @@
 
 namespace App;
 
+// include('IP2Location.php');
+
 trait Filterable
 {
     protected $city;
@@ -9,9 +11,23 @@ trait Filterable
     protected $categories = [];
     // protected $subcategories = [];
 
+    protected $location;
+
+    public function __construct()
+    {
+        // $this->location = new IP2Location;
+        // $this->location->setKey(env('IPINFODB_KEY'));
+    }
+
     public static function filterBy($request)
     {
-        // dd($request);
+        // if( empty($request) )
+        // {
+        //     $ipAddress = '80.227.153.98';
+        //     $location = $this->location->getCity($ipAddress);
+
+        //     return $location;
+        // }
 
         // $this->byCity($city)
         //     ->andByAreas($areas)

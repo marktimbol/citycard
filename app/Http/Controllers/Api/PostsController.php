@@ -11,9 +11,9 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	return Post::with('outlets.merchant:id,logo', 'photos', 'sources:name')
-                    ->latest()
-                    ->get();
+    	$post = Post::with('category.subcategories', 'outlets.merchant:id,logo', 'photos', 'sources:name')
+                    ->latest()->paginate(10);
+        return $post;
     	// return Post::with('outlets.areas.city.country', 'photos', 'sources')
         //             ->latest()
         //             ->get();
