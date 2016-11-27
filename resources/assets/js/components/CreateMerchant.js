@@ -14,7 +14,7 @@ class CreateMerchant extends Component
 			name: '',
 			phone: '',
 			area: '',
-			email: '',
+			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
 

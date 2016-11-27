@@ -11,7 +11,8 @@
         "maatwebsite/excel": "^2.1",
         "league/flysystem-aws-s3-v3": "^1.0",
         "laracasts/utilities": "^2.1",
-        "doctrine/dbal": "^2.5"
+        "doctrine/dbal": "^2.5",
+        "stevebauman/location": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

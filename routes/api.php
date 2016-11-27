@@ -33,9 +33,11 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('posts.purchase', 'Api\PurchasesController');
 
 	// Countries
+	Route::get('countries', 'Api\CountriesController@index');
 	Route::get('countries/{country}/cities', 'Api\CountryCitiesController@index');
 	Route::get('cities/{city}/areas', 'Api\CityAreasController@index');
 
+	Route::get('categories', 'Api\CategoriesController@index');
 	Route::get('categories/{category}/subcategories', 'Api\SubcategoriesController@index');
 
 	// Filters
