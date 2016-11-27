@@ -17,7 +17,7 @@ class OutletsController extends Controller
 
     public function show(Outlet $outlet)
     {
-    	$outlet->load('merchant', 'clerks', 'posts', 'posts.photos');
+    	$outlet->load('merchant', 'clerks', 'posts.sources', 'posts.category', 'posts.photos');
 
     	return OutletTransformer::transform($outlet);
     }
