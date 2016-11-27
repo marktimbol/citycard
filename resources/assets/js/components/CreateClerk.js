@@ -13,7 +13,7 @@ class CreateClerk extends Component
 			first_name: '',
 			last_name: '',
 			phone: '',
-			email: '',
+			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
 		}

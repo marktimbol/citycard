@@ -17,7 +17,7 @@ class CreateOutlet extends Component
 			address2: '',
 			latitude: '',
 			longitude: '',
-			email: '',
+			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
 		}
