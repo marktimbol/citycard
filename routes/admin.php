@@ -35,6 +35,7 @@ Route::group([
 	Route::resource('cities.areas', 'Dashboard\CityAreasController');
 	Route::post('import/cities/{city}/areas', 'Dashboard\ImportAreasController@store');
 	Route::resource('sources', 'Dashboard\SourcesController');
+	Route::resource('sources.posts', 'Dashboard\ExternalPostsController');
 	Route::resource('categories', 'Dashboard\CategoriesController');
 	Route::resource('categories.subcategories', 'Dashboard\SubcategoriesController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');

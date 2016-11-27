@@ -52,10 +52,8 @@
 					@forelse( $categories as $category )
 					<tr>
 						<td width="250">
-							<a href="#">
-								{{ $category->name }} &mdash;
-								<small>({{ $category->subcategories->count() }} Subcategories)</small>
-							</a>
+							{{ $category->name }} &mdash;
+							<small>({{ $category->subcategories->count() }} Subcategories)</small>
 						</td>
 						<td>
 							<div class="btn-group">

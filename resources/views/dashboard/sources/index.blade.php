@@ -46,8 +46,8 @@
 					@forelse( $sources as $source )
 					<tr>
 						<td width="250">
-							<a href="#">
-								{{ $source->name }}
+							<a href="{{ route('dashboard.sources.posts.index', $source->id) }}">
+								{{ $source->name }} &mdash; {{ $source->posts->count() }} Posts
 							</a>
 						</td>
 						<td>
