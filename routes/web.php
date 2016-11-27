@@ -15,6 +15,10 @@ use Maatwebsite\Excel\Excel;
 */
 
 Route::get('/', function () {
+    return view('welcome');
+});
+
+Route::get('/location', function () {
     $location = Location::get();
     dd($location);
     
