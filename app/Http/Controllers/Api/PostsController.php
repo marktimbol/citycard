@@ -11,7 +11,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	$post = Post::with('category.subcategories', 'outlets.merchant:id,logo', 'photos', 'sources:name')
+    	$post = Post::with('category', 'outlets:id,name', 'merchant:id,name', 'photos', 'sources:name')
                     ->latest()->paginate(10);
         return $post;
     	// return Post::with('outlets.areas.city.country', 'photos', 'sources')
