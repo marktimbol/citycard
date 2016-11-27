@@ -27,4 +27,17 @@ class CountriesController extends Controller
     	flash()->success(sprintf('%s has been successfully saved.', $country->name));
     	return back();
     }
+
+    public function edit(Country $country)
+    {
+        return view('dashboard.countries.edit', compact('country'));
+    }
+
+    public function update(Request $request, Country $country)
+    {
+        $country->update($request->all());
+
+        flash()->success(sprintf('%s has been successfully updated.', $country->name));
+        return back();        
+    }
 }

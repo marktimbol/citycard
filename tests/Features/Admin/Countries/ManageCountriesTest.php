@@ -16,20 +16,43 @@ class ManageCountriesTest extends TestCase
 
     public function test_an_admin_can_view_all_the_available_countries_alphabetically()
     {
-    	$country = $this->createCountry();
+    	$country = $this->createCountry([
+            'name'  => 'United Arab Emirates',
+            'iso_code'  => 'AE'
+        ]);
     	$this->visit('/dashboard/countries')
-    		->see($country->name);
+            ->see('AE')
+    		->see('United Arab Emirates');
     }
 
     public function test_an_admin_can_add_a_new_country()
     {
     	$this->visit('/dashboard/countries')
-    		->type('United Arab Emirates', 'name')
+            ->type('AE', 'iso_code')
+            ->type('United Arab Emirates', 'name')
     		->press('Save')
 
     		->seeInDatabase('countries', [
+                'iso_code'  => 'AE',
     			'name'	=> 'United Arab Emirates',
     			'slug'	=> 'united-arab-emirates'
     		]);
+    }
+
+    public function test_an_admin_can_update_country_information()
+    {
+        $country = $this->createCountry([
+            'name'  => 'United Arab Emirates',
+            'iso_code'  => 'UAE'
+        ]);
+
+        $this->visit('/dashboard/countries/'.$country->id.'/edit')
+            ->type('AE', 'iso_code')
+            ->press('Update')
+
+            ->seeInDatabase('countries', [
+                'id'    => $country->id,
+                'iso_code'  => 'AE'
+            ]);
     }
 }

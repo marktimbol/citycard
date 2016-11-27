@@ -26,8 +26,20 @@
 						name="name"
 						id="name"
 						class="form-control"
+						value="{{ old('name') }}"
 						placeholder="etc. United Arab Emirates" />
 				</div>
+
+				<div class="form-group">
+					<label for="iso_code">ISO Code</label>
+					<input
+						type="text"
+						name="iso_code"
+						id="iso_code"
+						class="form-control"
+						value="{{ old('iso_code') }}"
+						placeholder="etc. AE" />
+				</div>						
 
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Save</button>
@@ -38,6 +50,7 @@
 			<table class="table table-bordered">
 				<thead>
 					<tr>
+						<th>ISO Code</th>
 						<th>Country</th>
 						<th>&nbsp;</th>
 					</tr>
@@ -45,6 +58,9 @@
 				<tbody>
 					@forelse( $countries as $country )
 					<tr>
+						<td>
+							{{ $country->iso_code }}
+						</td>					
 						<td width="250">
 							{{ $country->name }} &mdash;
 							<small>({{ $country->cities->count() }} Cities)</small>
@@ -56,7 +72,7 @@
 								>
 									Manage Cities
 								</a>
-								<a href="#"
+								<a href="{{ route('dashboard.countries.edit', $country->id) }}"
 									class="btn btn-sm btn-default"
 								>
 									Edit
@@ -67,7 +83,7 @@
 
 					@empty
 					<tr>
-						<td colspan="6">No record yet.</td>
+						<td colspan="3">No record yet.</td>
 					</tr>
 					@endforelse
 				</tbody>
