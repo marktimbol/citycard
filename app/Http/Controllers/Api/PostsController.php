@@ -12,11 +12,10 @@ class PostsController extends Controller
 {
     public function index()
     {    	
-		$paginator = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])->latest()->paginate(10);
+		$paginator = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+					->latest()
+					->paginate(10);
 
-		return response([
-			'paginator'	=> $paginator->only(['from', 'to', 'total']),
-        	'posts'	=> PostTransformer::transform($paginator->getCollection())
-		]);
+		return PostTransformer::transform($paginator->getCollection());
     }
 }
