@@ -16,8 +16,6 @@ class PostsController extends Controller
 					->latest()
 					->paginate(10);
 
-		return response([
-			'posts'	=> PostTransformer::transform($paginator->getCollection())
-		]);
+		return PostTransformer::transform($paginator->getCollection());
     }
 }
