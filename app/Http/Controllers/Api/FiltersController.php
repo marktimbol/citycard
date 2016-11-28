@@ -1,4 +1,4 @@
-<?php
+\<?php
 
 namespace App\Http\Controllers\Api;
 
@@ -16,6 +16,8 @@ class FiltersController extends Controller
     {
         $paginator = Post::filterBy(request())->paginate(10);
         
-        return PostTransformer::transform($paginator->getCollection());
+		return response([
+			'posts'	=> PostTransformer::transform($paginator->getCollection())
+		]);        
     }
 }
