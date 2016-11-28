@@ -55,14 +55,18 @@ trait Filterable
 
         if( count($categories) > 0 )
         {
-            return $posts->filter(function($post, $key) use ($categories) {
+            $posts = $posts->filter(function($post, $key) use ($categories) {
                 return in_array($post->category->id, $categories);
             });
+
+            return Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                    ->latest()
+                    ->whereIn('id', $posts->pluck('id'));            
         }
 
         $posts->load('outlets.areas.city', 'photos', 'sources');
 
-        return $posts->filter(function($post, $key) {
+        $posts = $posts->filter(function($post, $key) {
             foreach( $post->outlets as $outlet ) {
                 foreach( $outlet->areas as $area ) {
                     if( count($this->areas) > 0 ) {
@@ -73,15 +77,8 @@ trait Filterable
             }
         });
 
-        // return $posts->filter(function($post, $key) {
-        //     foreach( $post->outlets as $outlet ) {
-        //         foreach( $outlet->areas as $area ) {
-        //             if( count($this->areas) > 0 ) {
-        //                 return in_array($area->id, $this->areas);
-        //             }
-        //             return $this->city == $area->city->id;
-        //         }
-        //     }
-        // });
+        return Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                ->latest()
+                ->whereIn('id', $posts->pluck('id'));
     }
 }
