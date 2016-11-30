@@ -4,11 +4,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Clerks
-			<smal>
-				<a href="{{ route('dashboard.merchants.clerks.create', $merchant->id) }}" class="btn btn-sm btn-primary">Add New</a>
-			</smal>
-		</h1>
+		<h1 class="Heading__title">Clerks</h1>
 		@include('dashboard._search-form')
 	</div>
 
@@ -17,8 +13,6 @@
 			<tr>
 				<th>Name</th>
 				<th>eMail</th>
-				<th>Phone</th>
-				<th>Country</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -26,15 +20,14 @@
 			@forelse( $clerks as $clerk )
 			<tr>
 				<td>
-					<a href="{{ route('dashboard.merchants.clerks.show', [$merchant->id, $clerk->id]) }}">
-						{{ sprintf('%s %s', $clerk->first_name, $clerk->last_name) }}
+					<a href="{{ route('dashboard.merchants.clerks.show', [$clerk->merchant->id, $clerk->id]) }}"
+					>
+						{{ $clerk->fullName() }}
 					</a>
 				</td>
 				<td>{{ $clerk->email }}</td>
-				<td>{{ $clerk->phone }}</td>
-				<td>{{ sprintf('%s, %s', $clerk->city, $clerk->country) }}</td>
 				<td>
-					<a href="{{ route('dashboard.merchants.clerks.edit', [$merchant->id, $clerk->id]) }}" 
+					<a href="{{ route('dashboard.merchants.clerks.edit', [$clerk->merchant->id, $clerk->id]) }}" 
 						class="btn btn-sm btn-default"
 					>
 						Edit

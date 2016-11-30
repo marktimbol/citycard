@@ -88,8 +88,20 @@ class CreateMerchant extends Component
 
 		    }.bind(this),
 		    error: function(error) {
-				console.log(error);
-				this.resetSubmitButton();
+		    	this.resetSubmitButton();
+				let errors = error.responseJSON;
+				let errorMessage = '';
+				
+		        $.each(errors, function(index, value) {
+		        	errorMessage += value[0] + '\n';
+		        });		
+
+		        swal({
+		            title: "City Card",
+		            text: errorMessage,
+		            type: "error",
+		            showConfirmButton: true
+		        });	
 		    }.bind(this)
 		});
 	}

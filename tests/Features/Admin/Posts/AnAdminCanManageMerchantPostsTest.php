@@ -67,6 +67,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
 		$response = $this->post($endpoint, [
+            'source'    => 'external',
 			'isExternal'	=> true,
 			'source_from'	=> $source->id,
 			'source_link'	=> 'http://google.com',

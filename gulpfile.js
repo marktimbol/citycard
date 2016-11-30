@@ -46,7 +46,7 @@ elixir(mix => {
       ], 'public/css/select.css')
 
       .styles([
-          'intl-tel-input/build/css/intlTelInput.css'
+          '../js/intl-tel-input/build/css/intlTelInput.css'
       ], 'public/css/telephone.css')
 
       .scripts([
@@ -70,6 +70,9 @@ elixir(mix => {
           'public/css/select.css',
           'public/css/telephone.css',
           'public/js/telephone.js',
+          'public/js/CreateMerchant.js',
+          'public/js/CreateOutlet.js',
+          'public/js/CreatePost.js',
           'public/css/mobile.css'
       ]);
 });

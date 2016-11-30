@@ -28,9 +28,14 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
 	Route::resource('outlets.photos', 'Api\OutletPhotosController');
 	Route::resource('posts', 'Api\PostsController');
-	Route::resource('offers', 'Api\OffersController');
+	Route::resource('deals', 'Api\DealsController');
 	Route::resource('events', 'Api\EventsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');
+	
+	// Filters
+	// api/posts/?filter=yes&country=1&cities=1,2,3&categories=1,2,3&distance=&page=1
+	Route::get('posts/filter', 'Api\FilterPostsController@index');
+	Route::get('filters', 'Api\FiltersController@index');
 
 	// Countries
 	Route::get('countries', 'Api\CountriesController@index');
@@ -40,6 +45,4 @@ Route::group(['as' => 'api.'], function() {
 	Route::get('categories', 'Api\CategoriesController@index');
 	Route::get('categories/{category}/subcategories', 'Api\SubcategoriesController@index');
 
-	// Filters
-	Route::get('filters', 'Api\FiltersController@index');
 });

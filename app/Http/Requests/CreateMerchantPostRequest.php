@@ -24,10 +24,21 @@ class CreateMerchantPostRequest extends FormRequest
     public function rules()
     {
         return [
+            'source'    => 'required',
             'type'  => 'required',
+            'outlet_ids'    => 'required',
             'title' => 'required',
             'category'  => 'required',
             'subcategories' => 'required'
+        ];
+    }
+
+    public function messages()
+    {
+        return [
+            'source.required'   => 'Is this from City Card or External source?',
+            'type.required'   => 'Please specify the Post Type',
+            'outlet_ids.required'   => 'Please select Outlets'
         ];
     }
 }

@@ -18,5 +18,5 @@
 
 @section('footer_scripts')
 	<script src="/js/telephone.js"></script>
-	<script src="/js/CreateOutlet.js"></script>
+	<script src="{{ elixir('js/CreateOutlet.js') }}"></script>
 @endsection

@@ -99,7 +99,6 @@ class CreatePost extends Component
 	onSubmit(e) {
 		e.preventDefault();
 		this.isSubmitting();
-		console.log('CreatePostForm' + $('#CreatePostForm').serialize());
 
 		let merchant = app.merchant;
 		let url = '/dashboard/merchants/' + merchant.id + '/posts/';
@@ -110,7 +109,6 @@ class CreatePost extends Component
 		    data: $('#CreatePostForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
-
 				this.setState({
 					submitButtonText: 'Save',
 					isSubmitted: false
@@ -127,8 +125,21 @@ class CreatePost extends Component
 
 		    }.bind(this),
 		    error: function(error) {
-				console.log(error);
-				this.resetSubmitButton();
+		    	this.resetSubmitButton();
+				let errors = error.responseJSON;
+				let errorMessage = '';
+				
+		        $.each(errors, function(index, value) {
+		        	errorMessage += value[0] + '\n';
+		        });		
+
+		        swal({
+		            title: "City Card",
+		            text: errorMessage,
+		            type: "error",
+		            showConfirmButton: true
+		        });
+
 		    }.bind(this)
 		});
 	}
@@ -147,20 +158,8 @@ class CreatePost extends Component
 		});
 	}
 
-	isFromCityCard() {
-		return this.state.source == 'citycard' ? true : false
-	}
-
 	isNotFromCityCard() {
 		return this.state.source == 'external' ? true : false
-	}
-
-	isNotification() {
-		return this.state.postType == 'notification' ? true : false
-	}
-
-	isOffer() {
-		return ( this.state.postType == 'offer' || this.state.postType == 'events' ) ? true : false
 	}
 
 	render() {
@@ -186,8 +185,8 @@ class CreatePost extends Component
 		})
 
 		let availablePostTypes = [
-			{ value: 'notification', label: 'Notification' },
-			{ value: 'offer', label: 'Offer' },
+			{ value: 'newsfeed', label: 'News Feed' },
+			{ value: 'deals', label: 'Deals' },
 			{ value: 'events', label: 'Events' },
 		]
 		

@@ -5,7 +5,7 @@ namespace App\Transformers;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
-class CategoryTransformer extends AbstractTransformer
+class CityTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
@@ -13,10 +13,10 @@ class CategoryTransformer extends AbstractTransformer
     		'id', 'name'
     	]);
 
-    	if( $this->isRelationshipLoaded($item, 'subcategories') ) {
-    		$output['subcategories'] = SubcategoryTransformer::transform($item->subcategories);
+    	if( $this->isRelationshipLoaded($item, 'areas') ) {
+    		$output['areas'] = AreaTransformer::transform($item->areas);
     	}    
 
-    	return $output;
+    	return $output;    	
     }
 }

@@ -18,5 +18,5 @@
 
 @section('footer_scripts')
 	<script src="{{ elixir('js/telephone.js') }}"></script>
-	<script src="/js/CreateMerchant.js"></script>
+	<script src="{{ elixir('js/CreateMerchant.js') }}"></script>
 @endsection

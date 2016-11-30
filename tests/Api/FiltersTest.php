@@ -42,7 +42,6 @@ class FiltersTest extends TestCase
 
         $zaraAlRigga->posts()->attach($post);
 
-
         // Abu Dhabi
         $abuDhabi = $this->createCity([
             'name'  => 'Abu Dhabi'

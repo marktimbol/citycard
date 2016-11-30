@@ -6260,4 +6260,7 @@ footer {
     list-style: none;
     padding-left: 0; }
 
+.fr-box {
+  z-index: 0; }
+
 /*# sourceMappingURL=app.css.map */
