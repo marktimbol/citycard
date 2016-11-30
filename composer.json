@@ -13,7 +13,8 @@
         "laracasts/utilities": "^2.1",
         "doctrine/dbal": "^2.5",
         "stevebauman/location": "^2.0",
-        "themsaid/laravel-model-transformers": "^1.0"
+        "themsaid/laravel-model-transformers": "^1.0",
+        "aloha/twilio": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

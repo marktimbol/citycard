@@ -172,7 +172,8 @@ return [
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         Themsaid\Transformers\TransformersServiceProvider::class,
-        
+        Aloha\Twilio\Support\Laravel\ServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -231,6 +232,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
+        'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
     ],
 
 ];

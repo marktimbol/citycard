@@ -22,8 +22,8 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
 });
 
 Route::group(['as' => 'api.'], function() {
-	Route::post('login', 'Api\Auth\LoginController@login');
-	Route::post('register', 'Api\Auth\RegisterController@register');
+	Route::post('login', 'Api\Auth\User\LoginController@login');
+	Route::post('register', 'Api\Auth\User\RegisterController@register');
 	Route::resource('outlets', 'Api\OutletsController');
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
 	Route::resource('outlets.photos', 'Api\OutletPhotosController');

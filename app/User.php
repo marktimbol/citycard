@@ -32,4 +32,13 @@ class User extends Authenticatable
         $this->attributes['email'] = $email;
         $this->attributes['api_token'] = str_random(60);
     }
+
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($user) {
+            $user->token = str_random(30);
+        });
+    }
 }

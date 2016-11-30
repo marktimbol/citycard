@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth;
+namespace App\Http\Controllers\Api\Auth\User;
 
-use App\Http\Controllers\Controller;
 use App\User;
+use Validator;
+use Illuminate\Http\Request;
+use App\Events\User\UserRegistered;
+use App\Http\Controllers\Controller;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Validator;
 
 class RegisterController extends Controller
 {
@@ -74,6 +75,8 @@ class RegisterController extends Controller
         $this->validator($request->all())->validate();
 
         $user = $this->create($request->all());
+        
+        event( new UserRegistered($user) );
         
         $this->guard()->login($user);
         

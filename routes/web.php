@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,6 +16,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
 Auth::routes();
+Route::get('/register/confirm/{token}', 'Auth\ConfirmEmailController@confirm');
 
 Route::get('/home', 'HomeController@index');
