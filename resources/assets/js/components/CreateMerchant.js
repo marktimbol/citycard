@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Select from 'react-select';
+import Select, { Creatable } from 'react-select';
 import Countries from './Countries';
 
 class CreateMerchant extends Component
@@ -71,7 +71,8 @@ class CreateMerchant extends Component
 		    data: $('#CreateMerchantForm').serialize(),
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
-
+		    	console.log(response);
+		    	
 				this.setState({
 					submitButtonText: 'Save',
 					isSubmitted: false
@@ -83,7 +84,7 @@ class CreateMerchant extends Component
 		            type: "success",
 		            showConfirmButton: true
 		        }, function() {
-					window.location = '/dashboard/merchants/' + response.id;
+					// window.location = '/dashboard/merchants/' + response.id;
 				});
 
 		    }.bind(this),
@@ -174,7 +175,7 @@ class CreateMerchant extends Component
 					<div className="col-md-6">
 						<div className="form-group">
 							<label htmlFor="subcategories">Subcategories</label>
-							<Select
+							<Creatable
 								name="subcategories"
 								isLoading={this.state.isFetchingSubcategories}
 								value={this.state.subcategories}

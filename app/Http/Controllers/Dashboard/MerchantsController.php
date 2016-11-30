@@ -56,6 +56,12 @@ class MerchantsController extends Controller
 
     public function store(CreateMerchantRequest $request)
     {
+        // $categories = explode(',', $request->subcategories);
+        // foreach( $categories as $category )
+        // {
+        //     $category = $request->category;
+        // }
+
         $merchant = Merchant::create($request->all());
 		$area = Area::findOrFail($request->area);
 		$area->merchants()->attach($merchant);

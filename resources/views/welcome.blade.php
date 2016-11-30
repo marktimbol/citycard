@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    {{ config('app.name') }}
+                    Coming soon
                 </div>
             </div>
         </div>

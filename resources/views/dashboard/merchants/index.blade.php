@@ -6,7 +6,7 @@
 	<div class="Heading">
 		<h1 class="Heading__title">Merchants
 			<smal>
-				<a href="#" class="btn btn-sm btn-default">Import Merchants</a>
+				<a href="{{ route('dashboard.merchants.create') }}" class="btn btn-sm btn-primary">Add New</a>
 			</smal>
 		</h1>
 		@include('dashboard._search-form')
@@ -50,12 +50,6 @@
 				<td colspan="6">No record yet.</td>
 			</tr>
 			@endforelse
-
-			<tr>
-				<td colspan="6">
-					<a href="{{ route('dashboard.merchants.create') }}" class="btn btn-sm btn-primary">Add New</a>
-				</td>
-			</tr>
 		</tbody>
 	</table>
 
