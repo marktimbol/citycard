@@ -1,5 +1,5 @@
 import React from 'react';
-import Select from 'react-select';
+import Select, { Creatable } from 'react-select';
 
 class Countries extends React.Component
 {
@@ -67,9 +67,10 @@ class Countries extends React.Component
 		}.bind(this))
 	}
 
-	handleAreaChange(e) {
-		let selectedArea = e.value;
-		this.setState({ selectedArea });
+	handleAreaChange(value) {
+		this.setState({ 
+            selectedArea: value 
+        });
 	}
 
     render()
@@ -122,7 +123,7 @@ class Countries extends React.Component
                 <div className="col-md-4">
                     <div className="form-group">
                         <label htmlFor="area">Area</label>
-                        <Select
+                        <Creatable
                             name="area"
                             value={this.state.selectedArea}
                             options={availableAreas}

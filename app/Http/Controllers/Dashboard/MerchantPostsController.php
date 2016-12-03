@@ -50,9 +50,19 @@ class MerchantPostsController extends Controller
         $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());
 
-		// subcategory_posts
-		$subcategories = explode(',', $request->subcategories);
-		$post->subcategories()->attach($subcategories);
+        // Store Sub Categories
+        $category = Category::findOrFail($request->category);
+        $categories = explode(',', $request->subcategories);
+        foreach( $categories as $value ) {
+            if( strlen($value) == 1 ) {
+                $post->subcategories()->attach($value);
+            } else {
+                $subcategory = $category->subcategories()->create([
+                    'name'  => $value
+                ]);
+                $post->subcategories()->attach($subcategory);
+            }
+        }
 
     	if( $request->has('outlet_ids') ) {
             $outlet_ids = explode(',', $request->outlet_ids);

@@ -125,6 +125,72 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     }
 
+    public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well_with_custom_options()
+    {
+    	$endpoint = '/dashboard/merchants';
+
+    	$city = $this->createCity();
+
+    	$food = $this->createCategory([
+    		'name'	=> 'Food'
+    	]);
+
+    	$filipinoFood = $this->createSubCategory([
+    		'category_id'	=> $food->id,
+    		'name'	=> 'Filipino Food'
+    	]);
+
+		$response = $this->post($endpoint, [
+			'city'	=> 1,
+			'area'	=> 'Al Rigga',
+			'category'	=> $food->id,
+			'subcategories'	=> '1,Buffet',
+			'name'	=> 'Zara',
+			'phone'	=> '0563759865',
+			'email'	=> 'john@example.com',
+			'password'	=> 'secret',
+			'password_confirmation'	=> 'secret',
+		]);
+
+		$this->seeInDatabase('merchants', [
+			'name'	=> 'Zara',
+			'phone'	=> '0563759865',
+			'email'	=> 'john@example.com',
+		])
+
+		->seeInDatabase('merchant_categories', [
+			'merchant_id'	=> 1,
+			'category_id'	=> 1,
+		])
+
+		->seeInDatabase('merchant_subcategories', [
+			'merchant_id'	=> 1,
+			'subcategory_id'	=> 1
+		])
+
+		->seeInDatabase('merchant_subcategories', [
+			'merchant_id'	=> 1,
+			'subcategory_id'	=> 2
+		])
+
+		->seeInDatabase('area_merchants', [
+			'area_id'	=> 1,
+			'merchant_id'	=> 1,
+		])
+
+        ->seeInDatabase('outlets', [
+            'merchant_id'   => 1,
+            'name'  => 'Zara - Al Rigga',
+			'phone' => '0563759865',
+            'email' => 'john@example.com',
+        ])
+
+		->seeInDatabase('area_outlets', [
+			'area_id'	=> 1,
+			'outlet_id'	=> 1,
+		]);
+    }
+
     public function test_an_authorized_user_can_edit_a_merchant_information()
     {
     	$merchant = $this->createMerchant();

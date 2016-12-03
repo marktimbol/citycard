@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Select, { Creatable } from 'react-select';
 import Countries from './Countries';
+import Categories from './Categories';
 
 class CreateMerchant extends Component
 {
@@ -17,46 +18,15 @@ class CreateMerchant extends Component
 			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
-
-			category: '',
-			availableSubcategories: [],
-			subcategories: [],
-
-			isFetchingSubcategories: false,
 		}
 
 		this.handleChange = this.handleChange.bind(this);
-		this.handleCategoryChange = this.handleCategoryChange.bind(this);
-		this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);
 	}
 
 	handleChange(e) {
 		this.setState({
 			[e.target.name]: e.target.value
 		});
-	}
-
-	handleCategoryChange(e) {
-		let category = e.value;
-		this.setState({ category, isFetchingSubcategories: true });
-		this.fetchSubcategories(category);
-	}
-
-	fetchSubcategories(category) {
-		let url = '/api/categories/'+category+'/subcategories';
-
-		$.get(url, function(response) {
-			this.setState({
-				availableSubcategories: response,
-				isFetchingSubcategories: false
-			});
-		}.bind(this))
-	}
-
-	handleSubcategoryChange(value) {
-		this.setState({
-			subcategories: value
-		})
 	}
 
 	onSubmit(e) {
@@ -84,7 +54,7 @@ class CreateMerchant extends Component
 		            type: "success",
 		            showConfirmButton: true
 		        }, function() {
-					// window.location = '/dashboard/merchants/' + response.id;
+					window.location = '/dashboard/merchants/' + response.id;
 				});
 
 		    }.bind(this),
@@ -122,21 +92,6 @@ class CreateMerchant extends Component
 	}
 
 	render() {
-		let availableCategories = [];
-		app.categories.map(category => {
-			availableCategories.push({
-				value: category.id,
-				label: category.name
-			});
-		})
-
-		let availableSubcategories = this.state.availableSubcategories.map(subcategory => {
-			return {
-				value: subcategory.id,
-				label: subcategory.name
-			}
-		})
-
 		return (
 			<form method="POST" id="CreateMerchantForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
@@ -161,31 +116,7 @@ class CreateMerchant extends Component
 
 				<h3>What is the nature of your business?</h3>
 
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="category">Category</label>
-							<Select
-								name="category"
-								value={this.state.category}
-								options={availableCategories}
-								onChange={this.handleCategoryChange} />
-						</div>
-					</div>
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="subcategories">Subcategories</label>
-							<Creatable
-								name="subcategories"
-								isLoading={this.state.isFetchingSubcategories}
-								value={this.state.subcategories}
-								options={availableSubcategories}
-								joinValues
-								multi={true}
-								onChange={this.handleSubcategoryChange} />
-						</div>
-					</div>
-				</div>
+				<Categories />
 
 				<h3>And where it is located?</h3>
 				<Countries />

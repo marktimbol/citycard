@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Dashboard;
 
 use JavaScript;
 use App\Country;
+use App\City;
 use App\Area;
 use App\Merchant;
 use App\Category;
@@ -55,21 +56,35 @@ class MerchantsController extends Controller
     }
 
     public function store(CreateMerchantRequest $request)
-    {
-        // $categories = explode(',', $request->subcategories);
-        // foreach( $categories as $category )
-        // {
-        //     $category = $request->category;
-        // }
-
+    {        
         $merchant = Merchant::create($request->all());
-		$area = Area::findOrFail($request->area);
+        
+        if( strlen($request->area) == 1 ) {
+            $area = Area::findOrFail($request->area);
+        } else {
+            $city = City::findOrFail($request->city);
+            $area = $city->areas()->create([
+                'name'  => $request->area,
+            ]);
+        }
+
+        // Store merchant in area
 		$area->merchants()->attach($merchant);
-
-		$merchant->categories()->attach($request->category);
-
-		$subcategories = explode(',', $request->subcategories);
-		$merchant->subcategories()->attach($subcategories);
+        // Store the category of a merchant
+        $category = Category::findOrFail($request->category);
+		$merchant->categories()->attach($category);
+        // Store Sub Categories
+        $categories = explode(',', $request->subcategories);
+        foreach( $categories as $value ) {
+            if( strlen($value) == 1 ) {
+                $merchant->subcategories()->attach($value);
+            } else {
+                $subcategory = $category->subcategories()->create([
+                    'name'  => $value
+                ]);
+                $merchant->subcategories()->attach($subcategory);
+            }
+        }
 
         $outlet = $merchant->outlets()->create([
             'name'  => sprintf('%s - %s', $request->name, $area->name),
