@@ -16,6 +16,7 @@ use Illuminate\Http\Request;
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::resource('clerks.messages', 'Api\User\MessagesController');
 	Route::put('user/account/change-password', 'Api\User\ChangePasswordController@update');
+	Route::put('user/account/profile', 'Api\User\ProfileController@update');
 });
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
