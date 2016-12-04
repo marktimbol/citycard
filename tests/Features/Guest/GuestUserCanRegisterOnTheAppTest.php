@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use App\Events\User\UserRegistered;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class GuestUserCanRegisterOnTheAppTest extends TestCase
 {
@@ -10,6 +11,8 @@ class GuestUserCanRegisterOnTheAppTest extends TestCase
 
     public function test_guest_user_can_register_on_the_app()
     {
+        $this->expectsEvents(UserRegistered::class);
+        
     	$data = [
             'name'  => 'Mark Timbol',
     		'email'	=> 'mark@timbol.com',
