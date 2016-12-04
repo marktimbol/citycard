@@ -41,4 +41,9 @@ class User extends Authenticatable
             $user->token = str_random(30);
         });
     }
+
+    public function favourites()
+    {
+        return $this->belongsToMany(Post::class, 'user_favourites', 'user_id', 'post_id');
+    }
 }

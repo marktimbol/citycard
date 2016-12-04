@@ -51,6 +51,12 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->actingAs($this->merchant, 'merchant');
     }
 
+    protected function actingAsUser($attributes=[])
+    {
+        $user = $this->createUser($attributes);
+        $this->actingAs($user, 'user_api');
+    }    
+
     protected function createUser($attributes = [])
     {
         return factory(App\User::class)->create($attributes);
