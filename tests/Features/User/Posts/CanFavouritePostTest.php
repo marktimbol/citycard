@@ -25,7 +25,7 @@ class CanFavouritePostTest extends TestCase
     		'title'	=> '50% discount'
     	]);
 
-    	$endpoint = sprintf('/api/posts/%s/favourites', $post->id);
+    	$endpoint = sprintf('/api/posts/%s/favourite', $post->id);
     	$request = $this->json('POST', $endpoint, [
     		'api_token'	=> $user->api_token
     	]);
@@ -50,11 +50,11 @@ class CanFavouritePostTest extends TestCase
             'post_id'   => $post->id
         ]);
 
-        $endpoint = sprintf('/api/posts/%s/favourites/%s', $post->id, $post->id);
+        $endpoint = sprintf('/api/posts/%s/unfavourite', $post->id);
         $request = $this->delete($endpoint, [
             'api_token' => $user->api_token
         ]);
-        
+
         $this->dontSeeInDatabase('user_favourites', [
             'user_id'   => $user->id,
             'post_id'   => $post->id

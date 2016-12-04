@@ -30,7 +30,9 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
 	Route::resource('outlets.photos', 'Api\OutletPhotosController');
 	Route::resource('posts', 'Api\PostsController');
-	Route::resource('posts.favourites', 'Api\FavouritePostsController');
+	Route::post('posts/{post}/favourite', ['uses' => 'Api\FavouritePostsController@store']);
+	Route::delete('posts/{post}/unfavourite', ['uses' => 'Api\FavouritePostsController@destroy']);
+	// Route::resource('posts.favourites', 'Api\FavouritePostsController');
 	Route::resource('favourites', 'Api\FavouritesController');
 	Route::resource('deals', 'Api\DealsController');
 	Route::resource('events', 'Api\EventsController');
