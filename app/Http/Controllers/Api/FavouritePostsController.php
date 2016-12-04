@@ -22,4 +22,14 @@ class FavouritePostsController extends Controller
             'response'   => true
         ]);
     }
+
+    public function destroy(Post $post)
+    {
+        $user = auth()->guard('user_api')->user();
+        $user->favourites()->detach($post);
+
+        return response()->json([
+            'response'   => true
+        ]);        
+    }
 }

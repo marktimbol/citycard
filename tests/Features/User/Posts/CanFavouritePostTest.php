@@ -10,7 +10,8 @@ class CanFavouritePostTest extends TestCase
 
 	public function setUp()
 	{
-		parent::setUp();
+        parent::setUp();
+
 		$this->actingAsUser([
 			'name'	=> 'John Doe'
 		]);
@@ -33,6 +34,32 @@ class CanFavouritePostTest extends TestCase
     		'post_id'	=> $post->id
     	]);
     }
+
+    public function test_a_user_can_unfavourite_a_post()
+    {
+        $user = auth()->guard('user_api')->user();
+
+        $post = $this->createPost([
+            'title' => '50% discount'
+        ]);
+
+        $user->favourites()->attach($post);
+
+        $this->seeInDatabase('user_favourites', [
+            'user_id'   => $user->id,
+            'post_id'   => $post->id
+        ]);
+
+        $endpoint = sprintf('/api/posts/%s/favourites/%s', $post->id, $post->id);
+        $request = $this->delete($endpoint, [
+            'api_token' => $user->api_token
+        ]);
+        
+        $this->dontSeeInDatabase('user_favourites', [
+            'user_id'   => $user->id,
+            'post_id'   => $post->id
+        ]);
+    }    
 
     public function test_a_user_can_view_all_his_or_her_favourited_posts()
     {
