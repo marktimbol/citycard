@@ -11,7 +11,9 @@ class GuestUserCanRegisterOnTheAppTest extends TestCase
     public function test_guest_user_can_register_on_the_app()
     {
     	$data = [
+            'name'  => 'Mark Timbol',
     		'email'	=> 'mark@timbol.com',
+            'mobile'    => '+971 56 820 7189',
     		'password'	=> 'secret',
     		'password_confirmation'	=> 'secret',
     	];
@@ -21,7 +23,9 @@ class GuestUserCanRegisterOnTheAppTest extends TestCase
                 'email' => 'mark@timbol.com'
             ])
     		->seeInDatabase('users', [
-    			'email'	=> 'mark@timbol.com'
+                'name'  => 'Mark Timbol',
+    			'email'	=> 'mark@timbol.com',
+                'mobile'    => '+971 56 820 7189'
     		]);
     }
 
