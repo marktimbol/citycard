@@ -12,7 +12,7 @@ class GuestUserCanRegisterOnTheAppTest extends TestCase
     public function test_guest_user_can_register_on_the_app()
     {
         $this->expectsEvents(UserRegistered::class);
-        
+
     	$data = [
             'name'  => 'Mark Timbol',
     		'email'	=> 'mark@timbol.com',
@@ -23,6 +23,7 @@ class GuestUserCanRegisterOnTheAppTest extends TestCase
 
     	$this->json('POST', '/api/register', $data)
             ->seeJson([
+                'authenticated' => true,
                 'email' => 'mark@timbol.com'
             ])
     		->seeInDatabase('users', [
