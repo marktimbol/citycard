@@ -52,10 +52,10 @@ trait Filterable
         $posts = $posts->filter(function($post, $key) {
             foreach( $post->outlets as $outlet ) {
                 foreach( $outlet->areas as $area ) {
-                    if( ! empty($this->areas) ) {
-                        return in_array($area->id, explode(',', $this->areas));
+                    if( empty($this->areas) ) {
+                        return $this->city == $area->city->id;
                     }
-                    return $this->city == $area->city->id;
+                    return in_array($area->id, explode(',', $this->areas));
                 }
             }
         });

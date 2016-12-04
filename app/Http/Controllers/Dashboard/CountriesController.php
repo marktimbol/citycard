@@ -12,7 +12,7 @@ class CountriesController extends Controller
     public function index()
     {
     	$countries = Country::with('cities')->orderBy('name', 'asc')->get();
-
+        
     	return view('dashboard.countries.index', compact('countries'));
     }
 

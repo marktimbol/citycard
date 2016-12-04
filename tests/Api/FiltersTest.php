@@ -198,6 +198,7 @@ class FiltersTest extends TestCase
         ]);
 
         $area = $this->createArea([
+            'city_id'   => $city->id,
             'name'  => 'Al Barsha',
         ]);
 
@@ -213,6 +214,7 @@ class FiltersTest extends TestCase
         ]);
 
         $merchant->outlets()->save($outlet);
+        $area->outlets()->attach($outlet);
 
         // Setup the categories
         $foodCategory = $this->createCategory([
@@ -239,7 +241,7 @@ class FiltersTest extends TestCase
         $outlet->posts()->attach($postFood);
         $outlet->posts()->attach($postBeauty);
 
-        $response = $this->json('GET', '/api/filters', [
+        $response = $this->json('GET', '/api/posts', [
             'filter'    => true,
             'city'  => '1',
             'areas'  => '',

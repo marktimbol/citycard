@@ -53,7 +53,10 @@
 					<tr>
 						<td width="250">
 							{{ $category->name }} &mdash;
-							<small>({{ $category->subcategories->count() }} Subcategories)</small>
+							<small>(
+								{{ $category->posts->count() }}
+								{{ str_plural('Post', $category->posts->count() >= 2 ? 2 : 1) }}
+							)</small>
 						</td>
 						<td>
 							<div class="btn-group">

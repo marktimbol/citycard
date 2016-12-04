@@ -10,7 +10,8 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('subcategories')->orderBy('name', 'asc')->get();
+        $categories = Category::with('posts', 'subcategories')->orderBy('name', 'asc')->get();
+        
         return view('dashboard.categories.index', compact('categories'));
     }
 
