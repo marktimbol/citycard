@@ -33,4 +33,27 @@ class CanFavouritePostTest extends TestCase
     		'post_id'	=> $post->id
     	]);
     }
+
+    public function test_a_user_can_view_all_his_or_her_favourited_posts()
+    {
+        $user = auth()->guard('user_api')->user();
+
+        $post = $this->createPost([
+            'title' => '50% discount'
+        ]);
+
+        $this->createPost([
+            'title' => '0% discount'
+        ]);        
+
+        $user->favourites()->attach($post);
+
+        $this->json('GET', 'api/favourites')
+            ->seeJson([
+                'title' => '50% discount'
+            ])
+            ->dontSeeJson([
+                'title' => '0% discount'
+            ]);
+    }
 }

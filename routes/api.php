@@ -29,7 +29,9 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('outlets.photos', 'Api\OutletPhotosController');
 	Route::resource('posts', 'Api\PostsController');
 	Route::resource('posts.favourites', 'Api\FavouritePostsController');
+	Route::resource('favourites', 'Api\FavouritesController');
 	Route::resource('deals', 'Api\DealsController');
+	Route::resource('events', 'Api\EventsController');
 	Route::resource('events', 'Api\EventsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');
 	
