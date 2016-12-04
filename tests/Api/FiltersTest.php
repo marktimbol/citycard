@@ -252,4 +252,118 @@ class FiltersTest extends TestCase
             'title' => 'Post about Beauty'
         ]);
     }
+
+    public function test_it_shows_all_the_posts_in_multiple_areas_filtered_by_categories()
+    {
+        // ====================================
+        $city = $this->createCity([
+            'name'  => 'Dubai'
+        ]);
+
+        // ====================================
+        $alRigga = $this->createArea([
+            'city_id'   => $city->id,
+            'name'  => 'Al Rigga',
+        ]);
+
+        $burjuman = $this->createArea([
+            'city_id'   => $city->id,
+            'name'  => 'Burjuman',
+        ]);    
+
+        $karama = $this->createArea([
+            'city_id'   => $city->id,
+            'name'  => 'Karama',
+        ]);    
+
+        // ====================================
+
+        $merchant = $this->createMerchant([
+            'name'  => 'Zara'
+        ]);
+
+        $alRigga->merchants()->attach($merchant);
+        $burjuman->merchants()->attach($merchant);
+        $karama->merchants()->attach($merchant);
+
+        // ====================================
+
+        $zaraAlRigga = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Zara - Al Rigga'
+        ]);
+
+        $zaraBurjuman = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Zara - Al Burjuman'
+        ]);     
+
+        $zaraKarama = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Zara - Karama'
+        ]);     
+
+        $alRigga->outlets()->attach($zaraAlRigga);
+        $burjuman->outlets()->attach($zaraBurjuman);
+        $karama->outlets()->attach($zaraKarama);
+
+        // ====================================
+
+        $clothing = $this->createCategory([
+            'name'  => 'Clothing'
+        ]);
+
+        $beauty = $this->createCategory([
+            'name'  => 'Beauty'
+        ]);
+
+        $decorations = $this->createCategory([
+            'name'  => 'Decorations'
+        ]);        
+
+        // ====================================
+
+        $postAboutClothing = $this->createPost([
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $clothing->id,
+            'title' => 'Post about Clothing',
+        ]);
+
+        $postAboutBeauty = $this->createPost([
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $beauty->id,
+            'title' => 'Post about Beauty',
+        ]);
+
+        $postAboutDecorations = $this->createPost([
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $decorations->id,
+            'title' => 'Post about Decorations',
+        ]);        
+
+        $zaraAlRigga->posts()->attach($postAboutClothing);
+        $zaraBurjuman->posts()->attach($postAboutClothing);
+        $zaraKarama->posts()->attach($postAboutClothing);
+
+        $zaraAlRigga->posts()->attach($postAboutBeauty);
+        $zaraBurjuman->posts()->attach($postAboutBeauty);
+        $zaraKarama->posts()->attach($postAboutBeauty);
+
+        $request = $this->json('GET', 'api/posts', [
+            'filter'   => true,
+            'city'  => '1',
+            'areas' => '1,2,3',
+            'categories'    => '1,2',
+        ])
+
+        ->seeJson([
+            'title' => 'Post about Clothing'
+        ])
+        ->seeJson([
+            'title' => 'Post about Beauty'
+        ])
+        ->dontSeeJson([
+            'title' => 'Post about Decorations'
+        ]);
+    }
 }

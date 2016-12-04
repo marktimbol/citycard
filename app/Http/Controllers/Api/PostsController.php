@@ -11,12 +11,13 @@ use App\Http\Controllers\Controller;
 class PostsController extends Controller
 {
     public function index(Request $request)
-    {
+    {    	
 		$paginator = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
 					->latest()
 					->paginate(10);
 
-    	if( $request->has('filter') && $request->filter ) {
+    	if( $request->has('filter') && $request->filter )
+    	{
 	        $paginator = Post::filterBy($request)
 		    			->latest()
 		    			->paginate(10);

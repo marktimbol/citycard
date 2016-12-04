@@ -47,35 +47,24 @@ trait Filterable
     }
 
     protected function get()
-    {
-        $posts = Post::with('category')->latest()->get();
-        $categories = $this->categories;
-
-        if( $categories != '' )
-        {
-            $categories = explode(',', $categories);
-            $posts = $posts->filter(function($post, $key) use ($categories) {
-                return in_array($post->category->id, $categories);
-            });
-
-            return Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
-                    ->latest()
-                    ->whereIn('id', $posts->pluck('id'));            
-        }
-
-        $posts->load('outlets.areas.city');
-
+    {        
+        $posts = Post::with('outlets.areas.city', 'category')->get();
         $posts = $posts->filter(function($post, $key) {
             foreach( $post->outlets as $outlet ) {
                 foreach( $outlet->areas as $area ) {
-                    if( $this->areas != '' ) {
-                        $areas = explode(',', $this->areas);
-                        return in_array($area->id, $areas);
+                    if( ! empty($this->areas) ) {
+                        return in_array($area->id, explode(',', $this->areas));
                     }
                     return $this->city == $area->city->id;
                 }
             }
         });
+
+        if( ! empty($this->categories) ) {
+            $posts = $posts->filter(function($post, $key) {
+                return in_array($post->category->id, explode(',', $this->categories));
+            });
+        }
 
         return Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
                 ->latest()
