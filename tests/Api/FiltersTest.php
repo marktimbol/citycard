@@ -8,7 +8,7 @@ class FiltersTest extends TestCase
 {
     use DatabaseMigrations;
 
-    public function test_it_filters_posts_by_city()
+    public function test_it_shows_all_posts_by_city()
     {
         // City
         $dubai = $this->createCity([
@@ -16,7 +16,7 @@ class FiltersTest extends TestCase
         ]);
 
         // Area
-        $alRiggaArea = $this->createArea([
+        $alRigga = $this->createArea([
             'city_id'   => $dubai->id,
             'name'  => 'Al Rigga'
         ]);
@@ -27,20 +27,20 @@ class FiltersTest extends TestCase
         ]);
 
         // Zara in Al Rigga
-        $zaraAlRigga = $this->createOutlet([
+        $zaraOutletDubai = $this->createOutlet([
             'merchant_id'   => $zara->id,
             'name'  => 'Zara - Al Rigga'
         ]);
 
         // Add Zara - Al Rigga branch to Al Rigga area
-        $alRiggaArea->outlets()->attach($zaraAlRigga);
+        $alRigga->outlets()->attach($zaraOutletDubai);
 
         $post = $this->createPost([
             'merchant_id'   => $zara->id,
             'title' => 'Zara Offer in Dubai'
         ]);
 
-        $zaraAlRigga->posts()->attach($post);
+        $zaraOutletDubai->posts()->attach($post);
 
         // Abu Dhabi
         $abuDhabi = $this->createCity([
@@ -48,29 +48,31 @@ class FiltersTest extends TestCase
         ]);
 
         // Area
-        $abuDhabiArea = $this->createArea([
+        $khalifaCity = $this->createArea([
             'city_id'   => $abuDhabi->id,
-            'name'  => 'Abu Dhabi Area'
+            'name'  => 'Khalifa City'
         ]);
 
         // Zara in Al Rigga
-        $zaraAbuDhabi = $this->createOutlet([
+        $zaraOutletAbuDhabi = $this->createOutlet([
             'merchant_id'   => $zara->id,
             'name'  => 'Zara - Abu Dhabi'
         ]);
 
         // Add Zara - Al Rigga branch to Al Rigga area
-        $abuDhabiArea->outlets()->attach($zaraAbuDhabi);
+        $khalifaCity->outlets()->attach($zaraOutletAbuDhabi);
 
         $post2 = $this->createPost([
             'merchant_id'   => $zara->id,
             'title' => 'Zara Offer in Abu Dhabi'
         ]);
-        $zaraAbuDhabi->posts()->attach($post2);
+        $zaraOutletAbuDhabi->posts()->attach($post2);
 
-        $endpoint = sprintf('/api/filters');
-        $response = $this->json('GET', $endpoint, [
-            'city_id' => $dubai->id
+        $response = $this->json('GET', '/api/posts', [
+            'filter'   => true,
+            'city' => '1',
+            'areas' => '',
+            'categories'    => ''
         ])
         ->seeJson([
             'title' => 'Zara Offer in Dubai'
@@ -78,7 +80,7 @@ class FiltersTest extends TestCase
         ->dontSee('Zara Offer in Abu Dhabi');
     }
 
-    public function test_it_filters_posts_by_specific_area()
+    public function test_it_show_all_the_posts_by_specific_area()
     {
         // Area
         $area = $this->createArea([
@@ -105,10 +107,12 @@ class FiltersTest extends TestCase
         ]);
         $outlet->posts()->attach($post);
 
-        $endpoint = sprintf('/api/filters');
+        $endpoint = sprintf('/api/posts');
         $this->json('GET', $endpoint, [
-            'city_id'   => '',
-            'area_ids' => [$area->id]
+            'filter'    => true,
+            'city'   => '',
+            'areas' => '1',
+            'categories' => ''
         ])
         ->seeJson([
             'title' => 'Zara Offer in Al Rigga Area'
@@ -171,9 +175,12 @@ class FiltersTest extends TestCase
         ]);
         $outlet2->posts()->attach($post2);
 
-        $endpoint = sprintf('/api/filters');
+        $endpoint = sprintf('/api/posts');
         $response = $this->json('GET', $endpoint, [
-            'area_ids' => [$area->id, $area2->id]
+            'filters'   => true,
+            'city'  => '',
+            'areas' => '1,2',
+            'categories'    => '',
         ])
         ->seeJson([
             'title' => 'Show this post'
@@ -233,9 +240,10 @@ class FiltersTest extends TestCase
         $outlet->posts()->attach($postBeauty);
 
         $response = $this->json('GET', '/api/filters', [
-            'city_id'  => $city->id,
-            'area_ids'  => [$area->id],
-            'categories'  => [$foodCategory->id],
+            'filter'    => true,
+            'city'  => '1',
+            'areas'  => '',
+            'categories'  => '1'
         ])
         ->seeJson([
             'title' => 'Post about Food'
@@ -244,6 +252,4 @@ class FiltersTest extends TestCase
             'title' => 'Post about Beauty'
         ]);
     }
-
-
 }
