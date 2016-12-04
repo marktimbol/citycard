@@ -39,7 +39,7 @@ Route::group(['as' => 'api.'], function() {
 	
 	// Filters
 	// api/posts/?filter=yes&country=1&cities=1,2,3&categories=1,2,3&distance=&page=1
-	Route::get('posts/filter', 'Api\FilterPostsController@index');
+	// Route::get('posts/filter', 'Api\FilterPostsController@index');
 	Route::get('filters', 'Api\FiltersController@index');
 
 	// Countries

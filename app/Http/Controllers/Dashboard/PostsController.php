@@ -10,10 +10,12 @@ use Illuminate\Http\Request;
 
 class PostsController extends Controller
 {
-    public function index(Merchant $merchant)
+    public function index()
     {
-        $posts = $merchant->posts;
-        return view('dashboard.merchants.posts.index', compact('merchant', 'posts'));
+        $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                    ->latest()
+                    ->paginate(10);
+        return view('dashboard.posts.index', compact('posts'));
     }
 
     public function show(Merchant $merchant, Post $post)

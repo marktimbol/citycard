@@ -12,7 +12,7 @@ class CityAreasController extends Controller
 {
     public function index(City $city)
     {
-    	$city->load('areas');
+    	$city->load('areas.outlets');        
     	$areas = $city->areas;
         
     	return view('dashboard.areas.index', compact('city', 'areas'));

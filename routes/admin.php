@@ -27,6 +27,7 @@ Route::group([
 	Route::put('merchants/{merchant}/photos', 'Dashboard\MerchantPhotosController@update');
 	Route::resource('clerks', 'Dashboard\ClerksController');
 	Route::put('clerks/{clerk}/photos', 'Dashboard\ClerkPhotosController@update');
+	Route::resource('posts', 'Dashboard\PostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
 	Route::resource('outlets.photos', 'Dashboard\OutletPhotosController');
 	Route::resource('outlets.posts', 'Dashboard\OutletPostsController');
@@ -39,6 +40,7 @@ Route::group([
 	Route::resource('sources.posts', 'Dashboard\ExternalPostsController');
 	Route::resource('categories', 'Dashboard\CategoriesController');
 	Route::resource('categories.subcategories', 'Dashboard\SubcategoriesController');
+	Route::resource('subcategories.posts', 'Dashboard\SubcategoryPostsController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
 	Route::post('import/categories/{category}/subcategories', 'Dashboard\ImportSubcategoriesController@store');
 

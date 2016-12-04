@@ -52,7 +52,7 @@
 					@forelse( $subcategories as $subcategory )
 					<tr>
 						<td width="250">
-							<a href="#">
+							<a href="{{ route('dashboard.subcategories.posts.index', $subcategory->id) }}">
 								{{ $subcategory->name }}
 								&mdash;
 								{{ $subcategory->posts()->count() }} Posts

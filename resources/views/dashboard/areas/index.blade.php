@@ -49,7 +49,11 @@
 					@forelse( $areas as $area )
 					<tr>
 						<td width="250">
-							{{ $area->name }}
+							{{ $area->name }} &mdash;
+							<small>(
+								{{ $area->outlets->count() }} 
+								{{ str_plural('Outlet', $area->outlets->count() >= 2 ? 2 : 1) }}
+							)</small>
 						</td>
 						<td>
 							<a href="#"

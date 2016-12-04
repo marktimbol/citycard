@@ -1,10 +1,10 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', sprintf('%s Posts', $source->name))
+@section('pageTitle', 'All Posts')
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">{{ ucfirst($source->name) }} Posts</h1>
+		<h1 class="Heading__title">Posts</h1>
 		@include('dashboard._search-form')
 	</div>
 
@@ -13,7 +13,6 @@
 			<tr>
 				<th>Post Type</th>
 				<th>Title</th>
-				<th>&nbsp;</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -21,12 +20,9 @@
 			<tr>
 				<td width="100">{{ ucfirst($post->type) }}</td>
 				<td>
-					<a href="{{ route('dashboard.merchants.posts.show', [$post->merchant->id, $post->id]) }}">
+					<a href="{{ route('dashboard.posts.show', $post->id) }}">
 						{{ $post->title }}
 					</a>
-				</td>
-				<td>
-
 				</td>
 			</tr>
 

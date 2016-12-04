@@ -46,7 +46,10 @@
 					<tr>
 						<td width="250">
 							{{ $city->name }} &mdash;
-							<small>({{ $city->areas->count() }} Areas)</small>
+							<small>(
+								{{ $city->areas->count() }} 
+								{{ str_plural('Areas', $city->areas->count() >= 2 ? 2 : 1) }}
+							)</small>
 						</td>
 						<td>
 							<div class="btn-group">

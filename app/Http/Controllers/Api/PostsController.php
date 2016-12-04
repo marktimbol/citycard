@@ -16,7 +16,7 @@ class PostsController extends Controller
 					->latest()
 					->paginate(10);
 
-    	if( $request->has('filter') && $request->filter )
+    	if( $request->has('filter') && $request->filter == 'true' )
     	{
 	        $paginator = Post::filterBy($request)
 		    			->latest()
