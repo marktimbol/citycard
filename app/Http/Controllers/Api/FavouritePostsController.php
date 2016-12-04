@@ -17,7 +17,9 @@ class FavouritePostsController extends Controller
     {
     	$user = auth()->guard('user_api')->user();
     	$user->favourites()->attach($post);
-    	
-    	return $user->favourites;
+        
+        return response()->json([
+            'response'   => true
+        ]);
     }
 }

@@ -14,6 +14,16 @@ class PostTransformer extends AbstractTransformer
     		'id', 'type', 'title', 'desc', 'isExternal', 'created_at', 'updated_at'
     	]);
 
+        $output['is_favourited'] = false;
+        
+        if( auth()->guard('user_api')->check() )
+        {
+            $user = auth()->guard('user_api')->user();
+            $favourites = $user->favourites;
+            
+            $output['is_favourited'] = $user->favourites->contains($item->id);
+        }
+
     	if( $this->isRelationshipLoaded($item, 'category') ) {
     		$output['category'] = CategoryTransformer::transform($item->category);
     	}
