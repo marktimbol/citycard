@@ -8,11 +8,6 @@ use Illuminate\Http\Request;
 
 class ChangePasswordController extends Controller
 {
-	public function __construct()
-	{
-		$this->middleware('auth:user_api');
-	}
-
     public function update(ChangePasswordRequest $request)
     {
     	$user = auth()->guard('user_api')->user();	
