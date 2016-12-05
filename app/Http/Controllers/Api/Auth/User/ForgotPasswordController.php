@@ -51,6 +51,7 @@ class ForgotPasswordController extends Controller
 
         if ($response === Password::RESET_LINK_SENT) {
             return response()->json([
+                'status'    => true,
                 'message'    => trans($response)
             ]);
         }
@@ -59,6 +60,7 @@ class ForgotPasswordController extends Controller
         // translated so we can notify a user of the problem. We'll redirect back
         // to where the users came from so they can attempt this process again.
         return response()->json([
+            'status'    => false,
             'message'    => trans($response)
         ]);
     }
