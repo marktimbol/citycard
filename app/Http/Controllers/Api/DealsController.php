@@ -11,7 +11,7 @@ class DealsController extends Controller
 {
     public function index()
     {
-    	$posts = Post::getDeals()->paginate(1);
+    	$posts = Post::getDeals()->paginate(10);
 
 		return PostTransformer::transform($posts->getCollection());    	
     }

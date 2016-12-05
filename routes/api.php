@@ -37,7 +37,6 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('favourites', 'Api\FavouritesController');
 	Route::resource('deals', 'Api\DealsController');
 	Route::resource('events', 'Api\EventsController');
-	Route::resource('events', 'Api\EventsController');
 	Route::resource('posts.purchase', 'Api\PurchasesController');
 	
 	// Filters
