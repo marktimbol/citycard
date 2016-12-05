@@ -12,7 +12,10 @@ class ClerkTransformer extends AbstractTransformer
     	return [
     		'id'	=> $item->id,
     		'name'	=> $item->fullName(),
+    		'email'	=> $item->email,
     		'photo'	=> $item->photo,
+    		'phone'	=> $item->phone,
+    		'online'	=> 1,
     	];
     }
 }

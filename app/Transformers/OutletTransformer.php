@@ -10,7 +10,7 @@ class OutletTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name'
+    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude'
     	]);    
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {

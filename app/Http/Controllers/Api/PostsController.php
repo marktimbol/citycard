@@ -12,7 +12,7 @@ class PostsController extends Controller
 {
     public function index(Request $request)
     {    	
-		$paginator = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+		$paginator = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
 					->latest()
 					->paginate(10);
 

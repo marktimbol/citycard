@@ -7,12 +7,16 @@ use Themsaid\Transformers\AbstractTransformer;
 
 class MerchantTransformer extends AbstractTransformer
 {
-    public function transformModel(Model $item)
+    public function transformModel(Model $merchant)
     {
-    	return [
-    		'id'	=> $item->id,
-    		'name'	=> $item->name,
-    		'logo'	=> $item->logo,
-    	];
+    	$output = array_only($merchant->toArray(), [
+    		'id', 'name', 'logo'
+    	]);
+
+    	if( $this->isRelationshipLoaded($merchant, 'outlets') )  {            
+    		$output['outlets'] = OutletTransformer::transform($merchant->outlets);
+    	}         	
+
+    	return $output;
     }
 }
