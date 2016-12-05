@@ -1,0 +1,4 @@
+// api
+
+Reset Password
+/api/password/email?email=john@example.com

@@ -25,6 +25,7 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
 
 Route::group(['as' => 'api.'], function() {
 	Route::post('login', 'Api\Auth\User\LoginController@login');
+	Route::post('password/email', 'Api\Auth\User\ForgotPasswordController@sendResetLinkEmail');
 	Route::post('register', 'Api\Auth\User\RegisterController@register');
 	Route::resource('outlets', 'Api\OutletsController');
 	Route::resource('outlets.posts', 'Api\OutletPostsController');

@@ -14,7 +14,7 @@ class CannotFavouritePostTest extends TestCase
     		'title'	=> '50% discount'
     	]);
 
-    	$endpoint = sprintf('/api/posts/%s/favourites', $post->id);
+    	$endpoint = sprintf('/api/posts/%s/favourite', $post->id);
     	$this->json('POST', $endpoint);
     	$this->seeJson([
     		'error'	=> 'Unauthenticated.'
