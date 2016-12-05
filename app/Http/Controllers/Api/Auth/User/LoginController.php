@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api\Auth\User;
 
 use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
 use App\User;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
@@ -52,17 +53,19 @@ class LoginController extends Controller
 
         $credentials = $this->credentials($request);
         $attempt = Auth::attempt($credentials);
-        
+            
         if( $attempt ) {
             return response()->json([
                 'authenticated' => true,
-                'user'  => auth()->user()
+                'message'   => 'success',
+                'user'  => UserTransformer::transform(auth()->user())
             ]);
         }
 
         return response()->json([
             'authenticated' => false,
-            'error' => 'Invalid email or password.'
+            'message' => 'Invalid email or password.',
+            'user'  => []
         ]);
     }
 
