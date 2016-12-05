@@ -14,7 +14,8 @@
         "doctrine/dbal": "^2.5",
         "stevebauman/location": "^2.0",
         "themsaid/laravel-model-transformers": "^1.0",
-        "aloha/twilio": "^3.0"
+        "aloha/twilio": "^3.0",
+        "guzzlehttp/guzzle": "^6.2"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
