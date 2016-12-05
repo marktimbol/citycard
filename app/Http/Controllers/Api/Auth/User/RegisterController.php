@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers\Api\Auth\User;
 
-use App\User;
-use Validator;
-use Illuminate\Http\Request;
 use App\Events\User\UserRegistered;
 use App\Http\Controllers\Controller;
+use App\Transformers\UserTransformer;
+use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Validator;
 
 class RegisterController extends Controller
 {
@@ -76,7 +77,14 @@ class RegisterController extends Controller
 
     public function register(Request $request)
     {
-        $this->validator($request->all())->validate();
+        $validator = $this->validator($request->all());
+        if( $validator->fails() ) {
+            return response()->json([
+                'authenticated' => false,
+                'message' => $validator->errors()->first(),
+                'user'  => []
+            ]);
+        }
 
         $user = $this->create($request->all());
         
@@ -86,7 +94,8 @@ class RegisterController extends Controller
         
         return response()->json([
             'authenticated' => true,
-            'user'  => $user
+            'message'   => 'success',
+            'user'  => UserTransformer::transform($user)
         ]);
     }
 }
