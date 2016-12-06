@@ -61,7 +61,7 @@
 				name="email"
 				id="email"
 				class="form-control"
-				value="{{ old('email') }}" />
+				value="@citycard.me" />
 		</div>
 
 		<div class="row">

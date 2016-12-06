@@ -24,7 +24,6 @@ class MerchantsController extends Controller
     public function index()
     {
     	$merchants = Merchant::with('areas.city.country')
-					->orderBy('name', 'asc')
 					->latest()
 					->get();
 
