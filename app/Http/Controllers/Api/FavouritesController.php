@@ -16,10 +16,15 @@ class FavouritesController extends Controller
     public function index()
     {
     	$user = auth()->guard('user_api')->user();
-    	$favourites =  $user->favourites()
+
+    	$favourites = $user->favourites()
     					->with('category', 'outlets', 'merchant', 'photos', 'sources')
-    					->latest()->get();
-    					
-		return PostTransformer::transform($favourites);    	
+    					->latest();
+
+        if( request()->has('type') ) {
+            $favourites = $favourites->whereType(request()->type);  
+        }
+    	
+		return PostTransformer::transform($favourites->get());    	
     }
 }
