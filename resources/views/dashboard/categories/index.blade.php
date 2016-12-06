@@ -53,10 +53,12 @@
 					<tr>
 						<td width="250">
 							{{ $category->name }} &mdash;
-							<small>(
-								{{ $category->posts->count() }}
-								{{ str_plural('Post', $category->posts->count() >= 2 ? 2 : 1) }}
-							)</small>
+							<small>
+								<a href="{{ route('dashboard.categories.posts.index', $category->id) }}">
+									({{ $category->posts->count() }}
+									{{ str_plural('Post', $category->posts->count() >= 2 ? 2 : 1) }})
+								</a>
+							</small>
 						</td>
 						<td>
 							<div class="btn-group">

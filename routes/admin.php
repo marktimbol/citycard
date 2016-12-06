@@ -40,6 +40,7 @@ Route::group([
 	Route::resource('sources.posts', 'Dashboard\ExternalPostsController');
 	Route::resource('categories', 'Dashboard\CategoriesController');
 	Route::resource('categories.subcategories', 'Dashboard\SubcategoriesController');
+	Route::resource('categories.posts', 'Dashboard\CategoryPostsController');
 	Route::resource('subcategories.posts', 'Dashboard\SubcategoryPostsController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
 	Route::post('import/categories/{category}/subcategories', 'Dashboard\ImportSubcategoriesController@store');

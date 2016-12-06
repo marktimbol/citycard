@@ -52,11 +52,13 @@
 					@forelse( $subcategories as $subcategory )
 					<tr>
 						<td width="250">
-							<a href="{{ route('dashboard.subcategories.posts.index', $subcategory->id) }}">
-								{{ $subcategory->name }}
-								&mdash;
-								{{ $subcategory->posts()->count() }} Posts
-							</a>
+							{{ $subcategory->name }} &mdash;
+							<small>
+								<a href="{{ route('dashboard.subcategories.posts.index', $subcategory->id) }}">
+									({{ $subcategory->posts->count() }}
+									{{ str_plural('Post', $subcategory->posts->count() >= 2 ? 2 : 1) }})
+								</a>
+							</small>								
 						</td>
 						<td>
 							<div class="btn-group">
