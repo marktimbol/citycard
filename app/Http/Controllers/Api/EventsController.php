@@ -12,7 +12,8 @@ class EventsController extends Controller
 {
     public function index(Request $request)
     {
-    	$posts = Post::getEvents()->paginate(10);
+        $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
+                    ->where('type', 'events')->paginate(10);
 
     	if( $request->has('filter') && $request->filter == 'true' )
     	{
