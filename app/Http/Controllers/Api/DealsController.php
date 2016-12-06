@@ -9,9 +9,16 @@ use App\Transformers\PostTransformer;
 
 class DealsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
     	$posts = Post::getDeals()->paginate(10);
+
+    	if( $request->has('filter') && $request->filter == 'true' )
+    	{
+	        $posts = Post::filterBy($request)
+		    			->where('type', 'deals')
+		    			->paginate(10);
+    	}
 
 		return PostTransformer::transform($posts->getCollection());    	
     }

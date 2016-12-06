@@ -58,9 +58,10 @@ class Post extends Model
 
     public static function getDeals()
     {
-        return static::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
-                    ->latest()
-                    ->where('type', 'deals');
+        return static::where('type', 'deals');
+        // return static::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+        //     ->latest()
+        //     ->where('type', 'deals');
     }    
 
     public static function getEvents()

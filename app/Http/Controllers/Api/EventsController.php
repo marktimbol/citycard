@@ -10,10 +10,17 @@ use App\Transformers\PostTransformer;
 
 class EventsController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
     	$posts = Post::getEvents()->paginate(10);
 
-		return PostTransformer::transform($posts->getCollection());  
+    	if( $request->has('filter') && $request->filter == 'true' )
+    	{
+	        $posts = Post::filterBy($request)
+		    			->where('type', 'events')
+		    			->paginate(10);
+    	}
+
+		return PostTransformer::transform($posts->getCollection());    		
     }
 }

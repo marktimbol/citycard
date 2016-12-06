@@ -16,11 +16,10 @@ class FavouritesController extends Controller
     public function index()
     {
     	$user = auth()->guard('user_api')->user();
-    	$paginator =  $user->favourites()
+    	$favourites =  $user->favourites()
     					->with('category', 'outlets', 'merchant', 'photos', 'sources')
-    					->latest()
-    					->paginate(10);
+    					->latest()->get();
     					
-		return PostTransformer::transform($paginator->getCollection());    	
+		return PostTransformer::transform($favourites);    	
     }
 }

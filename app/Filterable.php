@@ -11,7 +11,7 @@ trait Filterable
     protected $categories = [];
 
     public static function filterBy($request)
-    {
+    {        
         // $this->byCity($city)
         //     ->andByAreas($areas)
         //     ->andByCategories($categories)
