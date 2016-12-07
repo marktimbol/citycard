@@ -27,15 +27,22 @@ class RegisterUserInQuickBlox
      */
     public function handle(UserRegistered $event)
     {
-        // $user = $event->user;
+        $user = $event->user;
 
-        // $response = request()->create('https://api.quickblox.com/users.json', 'POST', [
-        //     'QB-Token'  => env('QB_Token', ''),
-        //     'user[login]'   => $user->email,
-        //     'user[password]'   => $user->password,
-        //     'user[email]'   => $user->email,
-        // ]);
-        
-        // dd($response);
+        $client = new Client([
+            'headers'   => [
+                'QB-Token'  => env('QB_Token', ''),
+            ]
+        ]);
+
+        $client->post('https://api.quickblox.com/users.json', [
+            'form_params'   => [
+                'user[login]'   => $user->email,
+                'user[password]'   => $event->password,
+                'user[email]'   => $user->email,
+                'user[full_name]'   => $user->name,
+                'user[phone]'   => $user->phone,
+            ]
+        ]);       
     }
 }

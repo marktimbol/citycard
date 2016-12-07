@@ -13,6 +13,10 @@ class OutletTransformer extends AbstractTransformer
     		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude'
     	]);    
 
+        if( $this->isRelationshipLoaded($item, 'areas') ) {
+            $output['areas'] = AreaTransformer::transform($item->areas);
+        }     
+
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
     		$output['merchant'] = MerchantTransformer::transform($item->merchant);
     	}      

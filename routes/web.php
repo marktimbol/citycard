@@ -25,9 +25,13 @@ Route::get('/qb', function() {
 	]);
 
 	$response = $client->post('https://api.quickblox.com/users.json', [
-        'user[login]'   => 'john@doe.com',
-        'user[password]'   => 'johndoe',
-        'user[email]'   => 'john@doe.com',
+		'form_params'	=> [
+	        'user[login]'   => 'jane@doe.com',
+	        'user[full_name]'   => 'Jane Doe',
+	        'user[phone]'   => '+971568207189',
+	        'user[password]'   => 'johndoe1234',
+	        'user[email]'   => 'jane@doe.com',
+		]
 	]);
 
 	dd($response);
