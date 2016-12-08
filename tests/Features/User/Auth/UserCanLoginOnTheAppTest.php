@@ -45,7 +45,7 @@ class UserCanLoginOnTheAppTest extends TestCase
         $this->json('POST', '/api/login', $credentials)
             ->seeJson([
                 'authenticated' => false,
-                'error' => 'Invalid email or password.'
+                'message' => 'Invalid email or password.'
             ]);
     }
 }

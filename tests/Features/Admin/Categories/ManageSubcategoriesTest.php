@@ -27,7 +27,7 @@ class ManageSubcategoriesTest extends TestCase
 
         $category->subcategories()->save($subcategory);
 
-        $url = sprintf('/dashboard/categories/%s/subcategories', $category->id);
+        $url = sprintf(adminPath().'/dashboard/categories/%s/subcategories', $category->id);
         $this->visit($url)
             ->see('Buffet');
     }
@@ -38,7 +38,7 @@ class ManageSubcategoriesTest extends TestCase
             'name'  => 'Food'
         ]);
 
-        $url = sprintf('/dashboard/categories/%s/subcategories', $category->id);
+        $url = sprintf(adminPath() . '/dashboard/categories/%s/subcategories', $category->id);
         $this->visit($url)
             ->type('Brunch', 'name')
             ->press('Save')
@@ -55,7 +55,7 @@ class ManageSubcategoriesTest extends TestCase
             'name'  => 'Food'
         ]);
 
-        $url = sprintf('/dashboard/categories/%s', $category->id);
+        $url = sprintf(adminPath() . '/dashboard/categories/%s', $category->id);
         $this->visit($url)
             ->press('Delete')
 

@@ -24,7 +24,7 @@ class AnAuthorizedUserCanManagePromoOutletsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-    	$this->post('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id.'/outlets', [
+    	$this->post(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id.'/outlets', [
     		'outlet_ids'	=> [$outlet->id]
     	]);
 
@@ -45,7 +45,7 @@ class AnAuthorizedUserCanManagePromoOutletsTest extends TestCase
         ]);
         $promo->outlets()->attach($outlet);
 
-        $this->delete('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id.'/outlets/'.$outlet->id);
+        $this->delete(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id.'/outlets/'.$outlet->id);
 
         $this->dontSeeInDatabase('outlet_promos', [
             'promo_id'  => $promo->id,
@@ -65,7 +65,7 @@ class AnAuthorizedUserCanManagePromoOutletsTest extends TestCase
         ]);
         $outlet->promos()->attach($promo);
 
-        $this->visit('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
+        $this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
             ->see('Al Ghurair Branch');
     }
 }

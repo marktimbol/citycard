@@ -47,7 +47,7 @@ class LoginController extends Controller
     {
         return view('auth.login', [
             'title' => 'Admin Login',
-            'action'    => '/admin/login',
+            'action'    => '/'
         ]);
     }
 }

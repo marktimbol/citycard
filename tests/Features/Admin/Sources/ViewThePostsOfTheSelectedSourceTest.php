@@ -31,7 +31,7 @@ class ViewThePostsOfTheSelectedSourceTest extends TestCase
     		'title'	=> 'Talabat post'
     	]);    	
 
-    	$url = sprintf('/dashboard/sources/%s/posts', $source->id);
+    	$url = sprintf(adminPath() . '/dashboard/sources/%s/posts', $source->id);
     	$this->visit($url)
     		->see('Groupon post')
     		->dontSee('Talabat post');

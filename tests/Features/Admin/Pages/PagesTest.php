@@ -16,7 +16,7 @@ class PagesTest extends TestCase
 
     public function test_it_displays_the_dashboard_page()
     {
-    	$this->visit('/dashboard')
+    	$this->visit(adminPath() . '/dashboard')
     		->see('Welcome Admin!');
     }
 }

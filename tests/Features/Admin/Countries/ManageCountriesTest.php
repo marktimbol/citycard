@@ -20,14 +20,14 @@ class ManageCountriesTest extends TestCase
             'name'  => 'United Arab Emirates',
             'iso_code'  => 'AE'
         ]);
-    	$this->visit('/dashboard/countries')
+    	$this->visit(adminPath() . '/dashboard/countries')
             ->see('AE')
     		->see('United Arab Emirates');
     }
 
     public function test_an_admin_can_add_a_new_country()
     {
-    	$this->visit('/dashboard/countries')
+    	$this->visit(adminPath() . '/dashboard/countries')
             ->type('AE', 'iso_code')
             ->type('United Arab Emirates', 'name')
     		->press('Save')
@@ -46,7 +46,7 @@ class ManageCountriesTest extends TestCase
             'iso_code'  => 'UAE'
         ]);
 
-        $this->visit('/dashboard/countries/'.$country->id.'/edit')
+        $this->visit(adminPath() . '/dashboard/countries/'.$country->id.'/edit')
             ->type('AE', 'iso_code')
             ->press('Update')
 

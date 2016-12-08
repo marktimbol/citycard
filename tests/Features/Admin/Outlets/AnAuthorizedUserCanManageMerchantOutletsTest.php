@@ -25,7 +25,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
 		$area->outlets()->attach($outlet);
 
- 		$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets')
+ 		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/outlets')
  			->see($outlet->name);
     }
 
@@ -40,7 +40,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     	]);
     	$outlet->clerks()->attach($clerk);
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id)
+    	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id)
     		->see($clerk->first_name);
     }
 
@@ -53,7 +53,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 			'name'	=> 'Deira'
 		]);
 
-		$endpoint = sprintf('/dashboard/merchants/%s/outlets', $merchant->id);
+		$endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/outlets', $merchant->id);
 		$response = $this->post($endpoint, [
 			'area'	=> $area->id,
 			'phone'	=> '0563759865',
@@ -105,7 +105,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		$burjuman = $this->createArea([
 			'name'	=> 'Burjuman'
 		]);
-		$endpoint = sprintf('/dashboard/merchants/%s/outlets/%s', $merchant->id, $outlet->id);
+		$endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/outlets/%s', $merchant->id, $outlet->id);
 
 		$response = $this->put($endpoint, [
 			'area'	=> $burjuman->id,
@@ -144,7 +144,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-		$this->visit('/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id)
+		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id)
 			->press('Delete')
 
 			->dontSeeInDatabase('outlets', [

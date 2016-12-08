@@ -22,7 +22,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     	$merchant = $this->createMerchant();
 		$area->merchants()->attach($merchant);
 
- 		$this->visit('/dashboard/merchants')
+ 		$this->visit(adminPath() . '/dashboard/merchants')
  			->see($merchant->name);
     }
 
@@ -43,14 +43,14 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
             'first_name'    => 'John'
         ]);
 
-        $this->visit('/dashboard/merchants/'.$merchant->id)
+        $this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id)
             ->see($merchant->name)
             ->see($outlet->name);
     }
 
     public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well()
     {
-		$endpoint = '/dashboard/merchants';
+		$endpoint = adminPath() . '/dashboard/merchants';
 
 		$city = $this->createCity([
 			'name'	=> 'Dubai'
@@ -75,7 +75,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Buffet'
 		]);
 
-		$this->post($endpoint, [
+		$request = $this->post($endpoint, [
 			'area'	=> $area->id,
 			'category'	=> $category->id,
 			'subcategories'	=> sprintf('%s,%s', $subcategory_brunch->id, $subcategory_buffet->id),
@@ -84,8 +84,9 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'email'	=> 'john@example.com',
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
-		])
-		->seeInDatabase('merchants', [
+		]);
+
+		$this->seeInDatabase('merchants', [
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
@@ -121,13 +122,23 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		->seeInDatabase('area_outlets', [
 			'area_id'	=> $area->id,
 			'outlet_id'	=> 1,
-		]);
+		])
+
+		->seeInDatabase('admin_merchants', [
+			'admin_id'	=> 1,
+			'merchant_id'	=> 1,
+		])
+
+		->seeInDatabase('admin_outlets', [
+			'admin_id'	=> 1,
+			'outlet_id'	=> 1,
+		]);		
 
     }
 
     public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well_with_custom_options()
     {
-    	$endpoint = '/dashboard/merchants';
+    	$endpoint = adminPath() . '/dashboard/merchants';
 
     	$city = $this->createCity();
 
@@ -195,7 +206,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     {
     	$merchant = $this->createMerchant();
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/edit')
+    	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/edit')
     		->see('Update Merchant')
 
 			->type('Updated Merchant Name', 'name')
@@ -220,7 +231,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     	$merchant = $this->createMerchant();
 		$area->merchants()->attach($merchant);
 
-		$this->visit('/dashboard/merchants/'.$merchant->id)
+		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id)
 			->press('Delete')
 
 			->dontSeeInDatabase('merchants', [

@@ -6,6 +6,9 @@
                 <aside>
                     <ul class="list-group">
                         <a href="{{ route('dashboard.index') }}" class="list-group-item">Home</a>
+                    </ul>
+                    <h3>Manage</h3>
+                    <ul class="list-group">
                         <a href="{{ route('dashboard.merchants.index') }}" class="list-group-item">
                             Merchants
                         </a>
@@ -17,11 +20,25 @@
                         </a>
                         <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
                             Externals (eg. Groupon)
-                        </a>                        
-                        <a href="{{ route('dashboard.clerks.index') }}" class="list-group-item">
-                            Clerks
-                        </a>
+                        </a>   
+
+                        <a href="{{ route('dashboard.roles.index') }}" class="list-group-item">
+                            Roles
+                        </a>   
                     </ul>
+                    <h3>Registered Users</h3>
+                    <ul class="list-group">
+                        <a href="{{ route('dashboard.users.index') }}" class="list-group-item">
+                            Users
+                        </a>    
+                    </ul>
+
+                    <h3>System Admins</h3>
+                    <ul class="list-group">
+                        <a href="{{ route('dashboard.admins.index') }}" class="list-group-item">
+                            View All
+                        </a>    
+                    </ul>                    
                 </aside>
             </div>
             <div class="col-md-9 Content">

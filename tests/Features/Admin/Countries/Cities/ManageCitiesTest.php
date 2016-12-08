@@ -21,7 +21,7 @@ class ManageCitiesTest extends TestCase
     		'country_id'	=> $country->id
     	]);
 
-    	$this->visit(sprintf('/dashboard/countries/%s/cities', $country->id))
+    	$this->visit(sprintf(adminPath() . '/dashboard/countries/%s/cities', $country->id))
     		->see($city->name);
     }
 
@@ -29,7 +29,7 @@ class ManageCitiesTest extends TestCase
     {
         $country = $this->createCountry();
         
-        $url = sprintf('/dashboard/countries/%s/cities', $country->id);
+        $url = sprintf(adminPath() . '/dashboard/countries/%s/cities', $country->id);
         $this->visit($url)
             ->type('Dubai', 'name')
             ->press('Save')

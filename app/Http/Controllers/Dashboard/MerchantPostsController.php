@@ -75,6 +75,8 @@ class MerchantPostsController extends Controller
             ]);
         }
 
+        auth()->guard('admin')->user()->posts()->attach($post->id);
+
         return $post;
     }
 

@@ -19,7 +19,7 @@ class AnAdminCanManageOutletPostsTest extends TestCase
     {
         $outlet = $this->createOutlet();
 
-        $url = sprintf('/dashboard/outlets/%s/posts/create', $outlet->id);
+        $url = sprintf(adminPath() . '/dashboard/outlets/%s/posts/create', $outlet->id);
         $this->visit($url)
             ->see('Add New Post');
     }
@@ -77,7 +77,7 @@ class AnAdminCanManageOutletPostsTest extends TestCase
     		'post_id'	=> $post->id
     	]);
 
-    	$endpoint = sprintf('/dashboard/outlets/%s/posts/%s', $outlet->id, $post->id);
+    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/posts/%s', $outlet->id, $post->id);
     	$response = $this->delete($endpoint);
 
 		$this->dontSeeInDatabase('outlet_posts', [

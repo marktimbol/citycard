@@ -21,7 +21,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
- 		$this->visit('/dashboard/merchants/'.$merchant->id.'/clerks')
+ 		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks')
  			->see($clerk->name);
     }
 
@@ -38,7 +38,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 
         $outlet->clerks()->attach($clerk);
 
-        $this->visit('/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id)
+        $this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id)
             ->see($outlet->name);
     }
 
@@ -49,7 +49,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 		$area->merchants()->attach($merchant);
 
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/clerks/create')
+    	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/create')
     		->see('Create Clerk')
 			->type('John', 'first_name')
 			->type('Doe', 'last_name')
@@ -75,7 +75,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-    	$this->visit('/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id.'/edit')
+    	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id.'/edit')
     		->see('Update Clerk')
 
 			->type('Updated John', 'first_name')
@@ -101,7 +101,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-		$this->visit('/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id)
+		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id)
 			->press('Delete')
 
 			->dontSeeInDatabase('clerks', [

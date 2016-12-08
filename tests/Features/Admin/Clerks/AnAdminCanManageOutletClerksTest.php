@@ -18,7 +18,7 @@ class AnAdminCanManageOutletClerksTest extends TestCase
     {
     	$outlet = $this->createOutlet();
 
-    	$url = sprintf('/dashboard/outlets/%s/clerks/create', $outlet->id);
+    	$url = sprintf(adminPath() . '/dashboard/outlets/%s/clerks/create', $outlet->id);
     	$this->visit($url)
     		->see('Add new Clerk');
     }
@@ -30,7 +30,7 @@ class AnAdminCanManageOutletClerksTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-    	$url = sprintf('/dashboard/outlets/%s/clerks/create', $outlet->id);
+    	$url = sprintf(adminPath() . '/dashboard/outlets/%s/clerks/create', $outlet->id);
     	$this->visit($url)
 			->type('John', 'first_name')
 			->type('Doe', 'last_name')
@@ -65,7 +65,7 @@ class AnAdminCanManageOutletClerksTest extends TestCase
             'clerk_id'  => $clerk->id
         ]);
 
-        $endpoint = sprintf('/dashboard/outlets/%s/clerks/%s', $outlet->id, $clerk->id);
+        $endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/clerks/%s', $outlet->id, $clerk->id);
         $this->delete($endpoint)
             ->dontSeeInDatabase('outlet_clerks', [
                 'outlet_id' => $outlet->id,

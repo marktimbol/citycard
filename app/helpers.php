@@ -17,3 +17,7 @@ function getPhotoPath($photo) {
 function deletePhoto($photo) {
 	Storage::delete($photo);
 }
+
+function adminPath() {
+	return env('CITYCARD_ADMIN');
+}

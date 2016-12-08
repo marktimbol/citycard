@@ -16,12 +16,12 @@ class AdminShouldBeAbleToLoginTest extends TestCase
 			'password'	=> bcrypt('secret')
     	]);
 
-    	$this->visit('/admin/login')
+    	$this->visit(adminPath())
     		->type('email@admin.com', 'email')
     		->type('secret', 'password')
     		->press('Login')
 
-    		->seePageIs('/dashboard');
+    		->seePageIs(adminPath().'/dashboard');
     }
 
     public function test_an_admin_should_not_be_able_to_login_with_incorrect_credentials()
@@ -32,11 +32,11 @@ class AdminShouldBeAbleToLoginTest extends TestCase
             'password'  => 'secret'         
         ]);
 
-    	$this->visit('/admin/login')
+    	$this->visit(adminPath())
             ->type('email@admin.com', 'email')
             ->type('secrets', 'password')
     		->press('Login')
 
-    		->seePageIs('/admin/login');
+    		->seePageIs(adminPath());
     }
 }

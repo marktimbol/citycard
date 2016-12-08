@@ -18,7 +18,7 @@ class ManageSourcesTest extends TestCase
     {
         $source = $this->createSource();
 
-        $this->visit('/dashboard/sources')
+        $this->visit(adminPath() . '/dashboard/sources')
             ->see($source->name);
     }
 }

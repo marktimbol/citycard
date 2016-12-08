@@ -22,7 +22,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-        $url = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
+        $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
         $this->visit($url)
             ->see($post->title);
     }
@@ -65,8 +65,8 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'name'	=> 'Brunch'
 		]);
 
-        $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
-		$response = $this->post($endpoint, [
+        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
+		$request = $this->post($endpoint, [
             'source'    => 'external',
 			'isExternal'	=> true,
 			'source_from'	=> $source->id,
@@ -80,7 +80,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'title'	=> 'The Title',
 			'desc'	=> 'The description',
 		]);
-
+        
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
@@ -111,9 +111,12 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ->seeInDatabase('outlet_posts', [
             'outlet_id' => 1,
             'post_id'   => 1
-        ]);
+        ])
 
-        // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
+        ->seeInDatabase('admin_posts', [
+            'admin_id'  => 1,
+            'post_id'   => 1,
+        ]);
     }
 
     public function test_an_admin_can_add_an_external_post_to_a_merchant_with_custom_options()
@@ -149,7 +152,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'name'  => 'Buffet'
         ]);
 
-        $endpoint = sprintf('/dashboard/merchants/%s/posts', $merchant->id);
+        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
         $response = $this->post($endpoint, [
             'source'    => 'external',
             'isExternal'    => true,
@@ -212,7 +215,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ]);
         $outlet->posts()->save($post);
 
-        $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
+        $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
         $this->visit($url)
             ->see('Notification')
             ->see($post->title)
@@ -243,7 +246,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'post_id'   => $post->id
         ]);
 
-        $url = sprintf('/dashboard/merchants/%s/posts/%s/edit', $merchant->id, $post->id);
+        $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts/%s/edit', $merchant->id, $post->id);
         $this->visit($url)
             ->select('offer', 'type')
             ->select($marinaBranch->id, 'outlet_ids')
@@ -281,7 +284,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ]);
         $outlet->posts()->save($post);
 
-        $url = sprintf('/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
+        $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
 
         $this->visit($url)
             ->press('Delete')

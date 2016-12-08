@@ -34,4 +34,19 @@ class Admin extends Authenticatable
         $this->attributes['api_token'] = str_random(60);
     }
 
+    public function merchants()
+    {
+    	return $this->belongsToMany(Merchant::class, 'admin_merchants', 'admin_id', 'merchant_id');
+    }
+
+    public function outlets()
+    {
+    	return $this->belongsToMany(Outlet::class, 'admin_outlets', 'admin_id', 'outlet_id');
+    }   
+
+    public function posts()
+    {
+    	return $this->belongsToMany(Post::class, 'admin_posts', 'admin_id', 'post_id');
+    }   
+
 }

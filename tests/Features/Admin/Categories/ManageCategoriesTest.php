@@ -20,13 +20,13 @@ class ManageCategoriesTest extends TestCase
             'name'  => 'Food'
         ]);
 
-        $this->visit('/dashboard/categories')
+        $this->visit(adminPath() . '/dashboard/categories')
             ->see('Food');
     }
 
     public function test_an_admin_can_create_a_new_category()
     {
-        $this->visit('/dashboard/categories')
+        $this->visit(adminPath() . '/dashboard/categories')
             ->type('Food', 'name')
             ->press('Save')
 
@@ -41,7 +41,7 @@ class ManageCategoriesTest extends TestCase
             'name'  => 'Food'
         ]);
 
-        $url = sprintf('/dashboard/categories/%s', $category->id);
+        $url = sprintf(adminPath() . '/dashboard/categories/%s', $category->id);
         $this->visit($url)
             ->press('Delete')
 

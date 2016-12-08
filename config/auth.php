@@ -69,7 +69,7 @@ return [
         'clerk_api' => [
             'driver' => 'token',
             'provider' => 'clerks',
-        ],
+        ], 
     ],
 
     /*
@@ -108,7 +108,7 @@ return [
         'clerks' => [
             'driver' => 'eloquent',
             'model' => App\Clerk::class,
-        ],
+        ],    
     ],
 
     /*

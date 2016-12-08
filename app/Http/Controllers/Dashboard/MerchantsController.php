@@ -98,6 +98,9 @@ class MerchantsController extends Controller
 
 		$outlet->areas()->attach($area);
 
+        auth()->guard('admin')->user()->merchants()->attach($merchant->id);
+        auth()->guard('admin')->user()->outlets()->attach($outlet->id);
+
 		return $merchant;
     }
 

@@ -24,7 +24,7 @@ class ManageAreasTest extends TestCase
     		'city_id'	=> $city->id
     	]);
 
-    	$this->visit(sprintf('/dashboard/cities/%s/areas', $city->id))
+    	$this->visit(sprintf(adminPath() . '/dashboard/cities/%s/areas', $city->id))
     		->see($area->name);
     }
 }

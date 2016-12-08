@@ -21,7 +21,7 @@ class AnAuthorizedUserCanManagePromotionsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
- 		$this->visit('/dashboard/merchants/'.$merchant->id.'/promos')
+ 		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos')
  			->see($promo->title);
     }
 
@@ -35,7 +35,7 @@ class AnAuthorizedUserCanManagePromotionsTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-        $this->post('/dashboard/merchants/'.$merchant->id.'/promos', [
+        $this->post(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos', [
             'title' => 'Buy 1 take 1',
             'outlet_ids' => [ $outlet1->id, $outlet2->id ],
         ])
@@ -68,7 +68,7 @@ class AnAuthorizedUserCanManagePromotionsTest extends TestCase
         ]);
         $outlet->promos()->attach($promo);
 
-        $response = $this->put('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id, [
+        $response = $this->put(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id, [
             'title' => 'Buy 2 take 1',
             'outlet_ids' => [ $outlet->id ],
         ]);
@@ -95,7 +95,7 @@ class AnAuthorizedUserCanManagePromotionsTest extends TestCase
         ]);
         $outlet->promos()->attach($promo);
 
-        $this->visit('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
+        $this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
             ->see('Available in')
             ->see($outlet->name);
     }
@@ -111,7 +111,7 @@ class AnAuthorizedUserCanManagePromotionsTest extends TestCase
         ]);
         $outlet->promos()->attach($promo);
 
-        $this->delete('/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
+        $this->delete(adminPath() . '/dashboard/merchants/'.$merchant->id.'/promos/'.$promo->id)
         
 			->dontSeeInDatabase('promos', [
 				'id'	=> $promo->id

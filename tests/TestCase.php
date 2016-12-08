@@ -125,5 +125,5 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function createSubCategory($attributes = [])
     {
         return factory(App\Subcategory::class)->create($attributes);
-    }
+    } 
 }

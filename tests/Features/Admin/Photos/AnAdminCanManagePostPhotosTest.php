@@ -27,7 +27,7 @@ class AnAdminCanManagePostPhotosTest extends TestCase
     		'imageable_type'	=> 'App\Post'
     	]);
 
-    	$endpoint = sprintf('/dashboard/posts/%s/photos/%s', $post->id, $photo->id);
+    	$endpoint = sprintf(adminPath() . '/dashboard/posts/%s/photos/%s', $post->id, $photo->id);
 
     	$this->delete($endpoint)
     		->dontSeeInDatabase('photos', [
