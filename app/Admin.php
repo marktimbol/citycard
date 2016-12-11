@@ -7,7 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Admin extends Authenticatable
 {
-	use Notifiable;
+	use Notifiable, HasRoles;
     
 
 	/**
@@ -32,6 +32,11 @@ class Admin extends Authenticatable
     {
         $this->attributes['name'] = $name;
         $this->attributes['api_token'] = str_random(60);
+    }
+
+    public function setPasswordAttribute($password)
+    {
+    	$this->attributes['password'] = bcrypt($password);
     }
 
     public function merchants()

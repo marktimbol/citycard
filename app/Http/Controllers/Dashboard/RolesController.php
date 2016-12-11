@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Role;
+use App\Permission;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,9 +11,10 @@ class RolesController extends Controller
 {
     public function index()
     {
-    	$roles = Role::orderBy('name', 'asc')->get();
+    	$roles = Role::with('permissions')->orderBy('name', 'asc')->get();
+        $permissions = Permission::orderBy('name', 'asc')->get();
 
-    	return view('dashboard.roles.index', compact('roles'));
+    	return view('dashboard.roles.index', compact('roles', 'permissions'));
     }
 
     public function store(Request $request)

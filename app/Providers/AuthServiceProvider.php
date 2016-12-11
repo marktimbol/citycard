@@ -2,8 +2,11 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Gate;
+use App\Admin;
+use App\Permission;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -13,7 +16,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        'App\Model' => 'App\Policies\ModelPolicy',
+        App\Merchant::class => App\Policies\MerchantPolicy::class,
+        App\Outlet::class => App\Policies\OutletPolicy::class,
+        App\Post::class => App\Policies\PostPolicy::class,
     ];
 
     /**
@@ -25,6 +30,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        foreach( $this->getPermissions() as $permission ) {
+            Gate::define($permission->name, function(Admin $user) use($permission) {
+                return $user->hasPermission($permission);
+            });
+        }
+    }
+
+    protected function getPermissions()
+    {
+        return Permission::with('roles')->get();
     }
 }

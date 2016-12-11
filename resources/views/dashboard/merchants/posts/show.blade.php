@@ -129,7 +129,10 @@
 			</div>
 		</div>
 	</div>
-	@include('dashboard._delete', [
-		'route'	=> route('dashboard.merchants.posts.destroy', [$merchant->id, $post->id])
-	])
+
+	@can('delete_post')
+		@include('dashboard._delete', [
+			'route'	=> route('dashboard.merchants.posts.destroy', [$merchant->id, $post->id])
+		])
+	@endcan
 @endsection

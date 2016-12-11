@@ -12,25 +12,35 @@
                         <a href="{{ route('dashboard.merchants.index') }}" class="list-group-item">
                             Merchants
                         </a>
-                        <a href="{{ route('dashboard.countries.index') }}" class="list-group-item">
-                            Countries
-                        </a>
+                        @can('manage_countries')
+                            <a href="{{ route('dashboard.countries.index') }}" class="list-group-item">
+                                Countries
+                            </a>
+                        @endcan
                         <a href="{{ route('dashboard.categories.index')}}" class="list-group-item">
                             Categories
                         </a>
                         <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
                             Externals (eg. Groupon)
                         </a>   
-
-                        <a href="{{ route('dashboard.roles.index') }}" class="list-group-item">
-                            Roles
-                        </a>   
                     </ul>
+
                     <h3>Registered Users</h3>
                     <ul class="list-group">
                         <a href="{{ route('dashboard.users.index') }}" class="list-group-item">
                             Users
                         </a>    
+                    </ul>   
+
+                    <h3>Access Control List</h3>
+                    <ul class="list-group">
+                        <a href="{{ route('dashboard.roles.index') }}" class="list-group-item">
+                            Roles
+                        </a>
+
+                        <a href="{{ route('dashboard.permissions.index') }}" class="list-group-item">
+                            Permissions
+                        </a>   
                     </ul>
 
                     <h3>System Admins</h3>
@@ -38,7 +48,7 @@
                         <a href="{{ route('dashboard.admins.index') }}" class="list-group-item">
                             View All
                         </a>    
-                    </ul>                    
+                    </ul>                      
                 </aside>
             </div>
             <div class="col-md-9 Content">

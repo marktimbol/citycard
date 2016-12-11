@@ -25,6 +25,8 @@ Route::group([
 	Route::resource('users', 'Dashboard\UsersController');
 	Route::resource('admins', 'Dashboard\AdminsController');
 	Route::resource('roles', 'Dashboard\RolesController');
+	Route::resource('permissions', 'Dashboard\PermissionsController');
+	Route::resource('roles.permissions', 'Dashboard\RolePermissionsController');
 	Route::resource('admins.roles', 'Dashboard\AdminRolesController');
 	Route::resource('merchants', 'Dashboard\MerchantsController');
 	Route::resource('merchants.outlets', 'Dashboard\MerchantOutletsController');

@@ -27,7 +27,7 @@ class CreateMerchantPostRequest extends FormRequest
             'source'    => 'required',
             'type'  => 'required',
             'outlet_ids'    => 'required',
-            'title' => 'required',
+            'title' => 'required|unique:posts',
             'category'  => 'required',
             'subcategories' => 'required'
         ];

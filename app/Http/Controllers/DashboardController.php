@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
+use App\Clerk;
+use App\Http\Requests;
 use App\Merchant;
 use App\Outlet;
-use App\Clerk;
 use App\Post;
 use App\User;
-use App\Http\Requests;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
 {
