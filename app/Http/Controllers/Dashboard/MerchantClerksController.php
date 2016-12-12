@@ -21,6 +21,7 @@ class MerchantClerksController extends Controller
 
     public function show(Merchant $merchant, Clerk $clerk)
     {
+        $merchant->load('outlets');
         $clerk->load('outlets');
         $outlets = $clerk->outlets;
 

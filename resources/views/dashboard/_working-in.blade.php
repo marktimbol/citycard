@@ -49,3 +49,42 @@
 		@endforelse
 	</tbody>
 </table>
+
+
+<div 
+	class="modal fade" 
+	id="assignOutletsTo{{$clerk->id}}" 
+	tabindex="-1" 
+	role="dialog"
+>
+	<div class="modal-dialog" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+				<h4 class="modal-title">Assign {{ $clerk->name }} to Outlet</h4>
+			</div>
+				<div class="modal-body">
+					<form method="POST" action="{{ route('dashboard.clerks.outlets.store', $clerk->id) }}">
+						{{ csrf_field() }}									
+						@foreach( $merchant->outlets as $outlet )
+							<div class="checkbox">
+								<label>
+									<input type="checkbox" name="outlets[]" value="{{ $outlet->id }}" />
+									{{ $outlet->name }}
+								</label>
+							</div>
+						@endforeach
+
+						<button type="submit" class="btn btn-sm btn-primary">
+							Assign
+						</button>											
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+						Close
+					</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>	
