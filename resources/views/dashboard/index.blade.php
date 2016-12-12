@@ -3,7 +3,7 @@
 @section('pageTitle', 'Dashboard')
 
 @section('content')
-	<h1>Welcome Admin!</h1>
+	<h1>Welcome {{ auth()->guard('admin')->user()->name }}!</h1>
 
 {{-- 	<h3>Merchants</h3>
 	<canvas id="merchants_statistics" width="400" height="200"></canvas>

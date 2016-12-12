@@ -11,12 +11,14 @@ class PagesTest extends TestCase
     public function setUp()
     {
         parent::setUp();
-        $this->adminSignIn();
+        $this->adminSignIn([
+            'name'  => 'Mark Timbol'
+        ]);
     }
 
     public function test_it_displays_the_dashboard_page()
     {
     	$this->visit(adminPath() . '/dashboard')
-    		->see('Welcome Admin!');
+    		->see('Welcome Mark Timbol!');
     }
 }
