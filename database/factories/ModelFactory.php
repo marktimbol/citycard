@@ -165,6 +165,9 @@ $factory->define(App\Category::class, function (Faker\Generator $faker) {
 
 $factory->define(App\Subcategory::class, function (Faker\Generator $faker) {
     return [
+        'category_id'   => function() {
+            return factory(App\Category::class)->create()->id;
+        },
         'name' => $faker->word,
     ];
 });

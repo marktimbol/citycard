@@ -59,26 +59,28 @@ class MerchantPostsController extends Controller
 
         // Store Sub Categories
         $category = Category::findOrFail($request->category);
-        $subcategories = explode(',', $request->subcategories);
-        foreach( $subcategories as $subcategory )
-        {
-            if( strlen($subcategory) == 1 )
-            {
-                $hasExistingSubcategory = Subcategory::find($subcategory);
-            } else {
-                $hasExistingSubcategory = Subcategory::whereName($subcategory)->get();
-            }
+        $subcategories = collect(explode(',', $request->subcategories));
 
-            if( count($hasExistingSubcategory) == 0 )
-            {
-                $newSubcategory = $category->subcategories()->create([
+        $subcategory_ids = $subcategories->filter(function($value, $key) {
+            return strlen($value) == 1;
+        });
+
+        $subcategory_strings = $subcategories->filter(function($value, $key) {
+            return strlen($value) > 1;
+        });
+
+        if( $subcategory_ids->count() > 0 ) {
+            $post->subcategories()->attach($subcategory_ids->all());
+        }
+
+        if( $subcategory_strings->count() > 0 ) {
+            foreach( $subcategory_strings as $subcategory ) {
+                $subcategory = $category->subcategories()->create([
                     'name'  => $subcategory
                 ]);
-                $post->subcategories()->attach($newSubcategory);                 
-            } else {
-                $post->subcategories()->attach($subcategory);
+                $post->subcategories()->attach($subcategory);                  
             }
-        }
+        }          
 
     	if( $request->has('outlet_ids') ) {
             $outlet_ids = explode(',', $request->outlet_ids);

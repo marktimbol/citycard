@@ -69,12 +69,6 @@
 					<li class="list-group-item">
 						Category: {{ $category->name }}
 					</li>
-					<li class="list-group-item">
-						Sub-Categories:
-						@foreach( $category->subcategories as $subcategory )
-							<label class="label label-success">{{ $subcategory->name }}</label>
-						@endforeach
-					</li>
 				@endforeach
 			</ul>
 		</div>

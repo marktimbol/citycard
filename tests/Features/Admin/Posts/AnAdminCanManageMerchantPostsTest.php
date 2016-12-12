@@ -12,7 +12,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->actingAsAdmin();
+		$this->adminSignIn();
 	}
 
     public function test_an_admin_can_view_all_the_posts_of_a_merchant()
@@ -177,25 +177,25 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'desc'=> 'The description',
             'isExternal'    => true,
             'approved'  => false
-        ])
+        ]);
 
-        ->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => $buffet->id,
+        $this->seeInDatabase('subcategory_posts', [
+            'subcategory_id'    => 1,
             'post_id'   => 1,
         ])
 
         ->seeInDatabase('subcategory_posts', [
             'subcategory_id'    => 2,
             'post_id'   => 1
-        ])
+        ]);
 
-        ->seeInDatabase('source_posts', [
+        $this->seeInDatabase('source_posts', [
             'source_id' => $source->id,
             'post_id'   => 1,
             'link'  => 'http://google.com'
-        ])
+        ]);
 
-        ->seeInDatabase('outlet_posts', [
+        $this->seeInDatabase('outlet_posts', [
             'outlet_id' => 1,
             'post_id'   => 1
         ]);

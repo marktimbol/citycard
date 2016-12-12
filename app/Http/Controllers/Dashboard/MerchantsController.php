@@ -8,6 +8,7 @@ use App\City;
 use App\Area;
 use App\Merchant;
 use App\Category;
+use App\Subcategory;
 use App\Http\Requests;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Excel;
@@ -61,7 +62,7 @@ class MerchantsController extends Controller
     }
 
     public function store(CreateMerchantRequest $request)
-    {        
+    {                
         $merchant = Merchant::create($request->all());
         
         if( strlen($request->area) == 1 ) {
@@ -78,18 +79,28 @@ class MerchantsController extends Controller
         // Store the category of a merchant
         $category = Category::findOrFail($request->category);
 		$merchant->categories()->attach($category);
-        // Store Sub Categories
-        $categories = explode(',', $request->subcategories);
-        foreach( $categories as $value ) {
-            if( strlen($value) == 1 ) {
-                $merchant->subcategories()->attach($value);
-            } else {
-                $subcategory = $category->subcategories()->create([
-                    'name'  => $value
-                ]);
-                $merchant->subcategories()->attach($subcategory);
-            }
+
+        $subcategories = collect(explode(',', $request->subcategories));
+        $subcategory_ids = $subcategories->filter(function($value, $key) {
+            return strlen($value) == 1;
+        });
+
+        $subcategory_strings = $subcategories->filter(function($value, $key) {
+            return strlen($value) > 1;
+        });
+
+        if( $subcategory_ids->count() > 0 ) {
+            $merchant->subcategories()->attach($subcategory_ids->all());
         }
+
+        if( $subcategory_strings->count() > 0 ) {
+            foreach( $subcategory_strings as $subcategory ) {
+                $subcategory = $category->subcategories()->create([
+                    'name'  => $subcategory
+                ]);
+                $merchant->subcategories()->attach($subcategory);                  
+            }
+        }      
 
         $outlet = $merchant->outlets()->create([
             'name'  => sprintf('%s - %s', $request->name, $area->name),

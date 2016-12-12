@@ -11,7 +11,7 @@ class AnAdminCanManagePostPhotosTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
-		$this->actingAsAdmin();
+		$this->adminSignIn();
 	}
 
     public function test_an_authorized_can_delete_photo_from_a_post()

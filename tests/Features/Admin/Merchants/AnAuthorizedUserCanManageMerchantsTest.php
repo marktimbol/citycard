@@ -65,20 +65,31 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Food'
 		]);
 
-		$subcategory_brunch = $this->createSubCategory([
+		$this->createSubCategory([
 			'category_id'	=> $category->id,
 			'name'	=> 'Brunch'
 		]);
 
-		$subcategory_buffet = $this->createSubCategory([
-			'category_id'	=> $category->id,
-			'name'	=> 'Buffet'
+		// $this->createSubCategory([
+		// 	'category_id'	=> $category->id,
+		// 	'name'	=> 'Buffet'
+		// ]);
+
+		$this->seeInDatabase('subcategories', [
+			'id'	=> 1,
+			'category_id'	=> 1,
+			'name'	=> 'Brunch'
 		]);
+		// ->seeInDatabase('subcategories', [
+		// 	'id'	=> 2,
+		// 	'category_id'	=> 1,
+		// 	'name'	=> 'Buffet'
+		// ]);
 
 		$request = $this->post($endpoint, [
 			'area'	=> $area->id,
 			'category'	=> $category->id,
-			'subcategories'	=> sprintf('%s,%s', $subcategory_brunch->id, $subcategory_buffet->id),
+			'subcategories'	=> '1,Buffet',
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
@@ -90,24 +101,29 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
-		])
+		]);
 
-		->seeInDatabase('merchant_categories', [
+		$this->seeInDatabase('merchant_categories', [
 			'merchant_id'	=> 1,
 			'category_id'	=> $category->id,
 		])
 
-		->seeInDatabase('merchant_subcategories', [
-			'merchant_id'	=> 1,
-			'subcategory_id'	=> $subcategory_brunch->id,
+		->seeInDatabase('subcategories', [
+			'category_id'	=> 1,
+			'name'	=> 'Buffet'
 		])
 
 		->seeInDatabase('merchant_subcategories', [
 			'merchant_id'	=> 1,
-			'subcategory_id'	=> $subcategory_buffet->id,
+			'subcategory_id'	=> 1,
 		])
 
-		->seeInDatabase('area_merchants', [
+		->seeInDatabase('merchant_subcategories', [
+			'merchant_id'	=> 1,
+			'subcategory_id'	=> 2,
+		]);
+
+		$this->seeInDatabase('area_merchants', [
 			'area_id'	=> $area->id,
 			'merchant_id'	=> 1,
 		])
@@ -122,9 +138,9 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		->seeInDatabase('area_outlets', [
 			'area_id'	=> $area->id,
 			'outlet_id'	=> 1,
-		])
+		]);
 
-		->seeInDatabase('admin_merchants', [
+		$this->seeInDatabase('admin_merchants', [
 			'admin_id'	=> 1,
 			'merchant_id'	=> 1,
 		])
@@ -153,7 +169,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     		'name'	=> 'Filipino Food'
     	]);
 
-		$response = $this->post($endpoint, [
+		$request = $this->post($endpoint, [
 			'city'	=> 1,
 			'area'	=> 'Al Rigga',
 			'category'	=> $food->id,
@@ -169,11 +185,16 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
-		])
+		]);
 
-		->seeInDatabase('merchant_categories', [
+		$this->seeInDatabase('merchant_categories', [
 			'merchant_id'	=> 1,
 			'category_id'	=> 1,
+		])
+
+		->seeInDatabase('subcategories', [
+			'category_id'	=> 1,
+			'name'	=> 'Buffet'
 		])
 
 		->seeInDatabase('merchant_subcategories', [
@@ -184,9 +205,9 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		->seeInDatabase('merchant_subcategories', [
 			'merchant_id'	=> 1,
 			'subcategory_id'	=> 2
-		])
+		]);
 
-		->seeInDatabase('area_merchants', [
+		$this->seeInDatabase('area_merchants', [
 			'area_id'	=> 1,
 			'merchant_id'	=> 1,
 		])

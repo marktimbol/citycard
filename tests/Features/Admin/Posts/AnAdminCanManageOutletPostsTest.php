@@ -12,7 +12,7 @@ class AnAdminCanManageOutletPostsTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->actingAsAdmin();
+		$this->adminSignIn();
 	}
 
     public function test_an_admin_can_create_a_post_for_the_outlet()
