@@ -18,6 +18,7 @@
 				<th>Name</th>
 				<th>eMail</th>
 				<th>Roles</th>
+				<th>Status</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -34,6 +35,13 @@
 					@foreach($admin->roles as $role)
 						<label class="label label-success">{{ $role->label }}</label>
 					@endforeach
+				</td>
+				<td>
+					@if( $admin->is_online )
+						<label class="label label-success">Online</label>
+					@else
+						<label class="label label-danger">Offline</label>
+					@endif
 				</td>
 				<td>
 					<button 

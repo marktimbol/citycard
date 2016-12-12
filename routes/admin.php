@@ -8,7 +8,7 @@ Route::group([
 		Route::post('/', 'Auth\Admin\LoginController@login');
 		Route::get('/login', 'Auth\Admin\LoginController@showLoginForm');
 		Route::post('/login', 'Auth\Admin\LoginController@login');		
-		Route::delete('logout', 'Auth\Admin\LoginController@logout');
+		Route::post('logout', 'Auth\Admin\LoginController@logout');
 		// Admin Registration Routes...
 		Route::get('register', 'Auth\Admin\RegisterController@showRegistrationForm');
 		Route::post('register', 'Auth\Admin\RegisterController@register');		
@@ -52,7 +52,7 @@ Route::group([
 	Route::resource('categories.subcategories', 'Dashboard\SubcategoriesController');
 	Route::resource('categories.posts', 'Dashboard\CategoryPostsController');
 	Route::resource('subcategories.posts', 'Dashboard\SubcategoryPostsController');
-	Route::resource('staffs', 'Dashboard\StaffsController');
+	// Route::resource('staffs', 'Dashboard\StaffsController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
 	Route::post('import/categories/{category}/subcategories', 'Dashboard\ImportSubcategoriesController@store');
 
