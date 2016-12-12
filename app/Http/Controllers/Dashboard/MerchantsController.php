@@ -23,9 +23,15 @@ class MerchantsController extends Controller
 
     public function index()
     {
-    	$merchants = Merchant::with('areas.city.country')
-					->latest()
-					->get();
+        $merchants = Merchant::with('areas.city.country')
+                    ->latest();
+
+        if( request()->has('search') ) {         
+            $search = request()->search;
+            $merchants = $merchants->where('name', 'like', '%'.$search.'%');
+        }
+
+        $merchants = $merchants->get();
 
     	return view('dashboard.merchants.index', compact('merchants'));
     }
