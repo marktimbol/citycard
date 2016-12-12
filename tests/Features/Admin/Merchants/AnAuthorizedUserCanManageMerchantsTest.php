@@ -228,6 +228,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authenticated_user_can_delete_a_merchant()
     {
+    	$this->adminSignIn();
+    	
 		$area = $this->createArea([
 			'name'	=> 'Deira'
 		]);

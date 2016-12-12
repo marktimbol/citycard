@@ -8,6 +8,7 @@ use App\Post;
 use JavaScript;
 use App\Source;
 use App\Category;
+use App\Subcategory;
 use App\Merchant;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -51,19 +52,30 @@ class MerchantPostsController extends Controller
 
     public function store(CreateMerchantPostRequest $request, Merchant $merchant)
     {
+        // dd($request->all());
+
         $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());
 
         // Store Sub Categories
         $category = Category::findOrFail($request->category);
-        $categories = explode(',', $request->subcategories);
-        foreach( $categories as $value ) {
-            if( strlen($value) == 1 ) {
-                $post->subcategories()->attach($value);
+        $subcategories = explode(',', $request->subcategories);
+        foreach( $subcategories as $subcategory )
+        {
+            if( strlen($subcategory) == 1 )
+            {
+                $hasExistingSubcategory = Subcategory::find($subcategory);
             } else {
-                $subcategory = $category->subcategories()->create([
-                    'name'  => $value
+                $hasExistingSubcategory = Subcategory::whereName($subcategory)->get();
+            }
+
+            if( count($hasExistingSubcategory) == 0 )
+            {
+                $newSubcategory = $category->subcategories()->create([
+                    'name'  => $subcategory
                 ]);
+                $post->subcategories()->attach($newSubcategory);                 
+            } else {
                 $post->subcategories()->attach($subcategory);
             }
         }

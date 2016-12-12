@@ -153,7 +153,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ]);
 
         $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
-        $response = $this->post($endpoint, [
+        $request = $this->post($endpoint, [
             'source'    => 'external',
             'isExternal'    => true,
             'source_from'   => $source->id,
@@ -167,7 +167,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'title' => 'The Title',
             'desc'  => 'The description',
         ]);
-
+        
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
