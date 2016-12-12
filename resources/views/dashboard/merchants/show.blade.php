@@ -90,9 +90,9 @@
 
 	@include('dashboard.merchants._clerks')
 
-	@can('delete', $merchant)
+	@if( adminCan('edit', $merchant) )
 		@include('dashboard._delete', [
 			'route'	=> route('dashboard.merchants.destroy', $merchant->id)
 		])
-	@endcan
+	@endif
 @endsection

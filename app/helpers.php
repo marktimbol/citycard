@@ -21,3 +21,8 @@ function deletePhoto($photo) {
 function adminPath() {
 	return env('CITYCARD_ADMIN');
 }
+
+function adminCan($action, $model)
+{
+	return auth()->guard('admin')->user()->can($action, $model);
+}

@@ -10,24 +10,19 @@ class MerchantPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function before(Admin $admin)
     {
-        //
+        return $admin->hasRole('admin');
     }
 
     public function edit(Admin $admin, Merchant $merchant)
     {
-        return auth()->guard('admin')->user()->merchants->contains($merchant);
+        return $admin->merchants->contains($merchant->id);
     }
 
     public function delete(Admin $admin, Merchant $merchant)
     {
-        return auth()->guard('admin')->user()->merchants->contains($merchant);
+        return $admin->merchants->contains($merchant);
     }
 
 }

@@ -22,7 +22,7 @@ class PostPhotosController extends Controller
     		'url'	=> $file
     	]);
 
-    	return back();
+    	return redirect()->route('dashboard.merchants.show', $post->merchant->id);
     }
 
     public function destroy(Post $post, Photo $photo)

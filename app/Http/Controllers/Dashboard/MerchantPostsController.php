@@ -26,6 +26,10 @@ class MerchantPostsController extends Controller
         $post->load('outlets', 'photos', 'outlets', 'sources', 'category', 'subcategories');
         $photos = $post->photos;
 
+        JavaScript::put([
+            'merchant'  => $merchant,
+        ]);
+
         return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));
     }
 

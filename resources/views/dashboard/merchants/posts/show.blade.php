@@ -72,10 +72,14 @@
 
 			@endforelse
 
-			<form method="POST" class="dropzone" action="{{ route('dashboard.posts.photos.store', $post->id) }}">
+			<form 
+				method="POST" 
+				class="dropzone" 
+				id="UploadPostPhotos"
+				action="{{ route('dashboard.posts.photos.store', $post->id) }}"
+			>
 				{{ csrf_field() }}
 			</form>
-
 
 		</div>
 		<div class="col-md-5">

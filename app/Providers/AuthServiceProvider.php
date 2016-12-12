@@ -3,7 +3,13 @@
 namespace App\Providers;
 
 use App\Admin;
+use App\Merchant;
+use App\Outlet;
 use App\Permission;
+use App\Policies\MerchantPolicy;
+use App\Policies\OutletPolicy;
+use App\Policies\PostPolicy;
+use App\Post;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -16,9 +22,9 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        App\Merchant::class => App\Policies\MerchantPolicy::class,
-        App\Outlet::class => App\Policies\OutletPolicy::class,
-        App\Post::class => App\Policies\PostPolicy::class,
+        Merchant::class => MerchantPolicy::class,
+        Outlet::class => OutletPolicy::class,
+        Post::class => PostPolicy::class,
     ];
 
     /**

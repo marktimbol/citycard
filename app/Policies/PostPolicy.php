@@ -10,15 +10,10 @@ class PostPolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Create a new policy instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public function before(Admin $admin)
     {
-        //
-    }
+        return $admin->hasRole('admin');
+    }    
 
     public function edit(Admin $admin, Post $post)
     {
