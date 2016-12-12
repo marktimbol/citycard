@@ -69,7 +69,11 @@
 						@foreach( $merchant->outlets as $outlet )
 							<div class="checkbox">
 								<label>
-									<input type="checkbox" name="outlets[]" value="{{ $outlet->id }}" />
+									<input type="checkbox" 
+										name="outlets[]" 
+										value="{{ $outlet->id }}" 
+										{{ $clerk->outlets->contains($outlet) ? 'checked' : '' }}
+										/>
 									{{ $outlet->name }}
 								</label>
 							</div>
