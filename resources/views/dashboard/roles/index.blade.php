@@ -22,8 +22,19 @@
 						id="name"
 						class="form-control"
 						value="{{ old('name') }}"
-						placeholder="etc. Encoder, Editor" />
-				</div>		
+						placeholder="administrator, encoder, etc." />
+				</div>	
+
+				<div class="form-group">
+					<label for="label">Label</label>
+					<input
+						type="text"
+						name="label"
+						id="label"
+						class="form-control"
+						value="{{ old('label') }}"
+						placeholder="Site Administrator, Site Encoder, etc." />
+				</div>	
 
 				<div class="form-group">
 					<button type="submit" class="btn btn-primary">Save</button>
@@ -89,12 +100,12 @@
 
 											@endforeach
 
-											<button type="submit" class="btn btn-primary">
+											<button type="submit" class="btn btn-sm btn-primary">
 												Attach Permission
 											</button>											
 									</div>
 									<div class="modal-footer">
-										<button type="button" class="btn btn-default" data-dismiss="modal">
+										<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
 											Close
 										</button>
 									</div>

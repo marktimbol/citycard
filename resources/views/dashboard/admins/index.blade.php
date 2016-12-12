@@ -75,12 +75,12 @@
 									</div>
 									@endforeach
 
-									<button type="submit" class="btn btn-primary">
+									<button type="submit" class="btn btn-sm btn-primary">
 										Attach Roles
 									</button>											
 							</div>
 							<div class="modal-footer">
-								<button type="button" class="btn btn-default" data-dismiss="modal">
+								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
 									Close
 								</button>
 							</div>
