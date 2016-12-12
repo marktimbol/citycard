@@ -24,15 +24,13 @@
 				</a>
 			</td>
 			<td>
-				<form method="POST" action="">
-
-				</form>
-				
-				<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}" 
-					class="btn btn-sm btn-default"
-				>
-					Edit
-				</a>
+				@if( adminCan('update', $post) )
+					<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}" 
+						class="btn btn-sm btn-default"
+					>
+						Edit
+					</a>
+				@endif
 			</td>
 		</tr>
 

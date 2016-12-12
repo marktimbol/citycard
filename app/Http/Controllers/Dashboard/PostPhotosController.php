@@ -27,7 +27,7 @@ class PostPhotosController extends Controller
 
     public function destroy(Post $post, Photo $photo)
     {       
-        Storage::delete($photo->url);
+        // Storage::delete($photo->url);
         $photo->delete();
 
         return back();

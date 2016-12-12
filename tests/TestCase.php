@@ -41,7 +41,13 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     protected function actingAsAdmin()
     {
+        $role = factory(App\Role::class)->create([
+            'name'  => 'admin'
+        ]);
+
         $this->admin = $this->createAdmin();
+        $this->admin->assignRole('admin');
+        
         $this->actingAs($this->admin, 'admin');
     }
 

@@ -9,11 +9,13 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">{{ $post->title }}
-			<small>
-				<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}">
-					<i class="fa fa-pencil"></i>
-				</a>
-			</small>
+			@if( adminCan('edit', $post))
+				<small>
+					<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</small>
+			@endif
 		</h1>
 		@include('dashboard._go-back')
 	</div>
@@ -134,9 +136,9 @@
 		</div>
 	</div>
 
-	@can('delete_post')
+	@if( adminCan('delete', $post) )
 		@include('dashboard._delete', [
 			'route'	=> route('dashboard.merchants.posts.destroy', [$merchant->id, $post->id])
 		])
-	@endcan
+	@endif
 @endsection

@@ -1,4 +1,14 @@
-<h2>Working In</h2>
+<h2>Working In
+	<small>
+		<button 
+			class="btn btn-sm btn-primary" 
+			data-toggle="modal" 
+			data-target="#assignOutletsTo{{$clerk->id}}"
+		>
+			Assign to Outlet
+		</button>		
+	</small>
+</h2>
 
 <table class="table table-bordered">
 	<thead>

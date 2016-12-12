@@ -8,14 +8,10 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 {
 	use DatabaseMigrations;
 
-    public function setUp()
-    {
-        parent::setUp();
-        $this->adminSignIn();
-    }
-
     public function test_an_authorized_user_can_view_all_the_merchants()
     {
+    	$this->adminSignIn();
+
 		$area = $this->createArea([
 			'name'	=> 'Deira'
 		]);
@@ -28,6 +24,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authenticated_user_can_view_merchant_information()
     {
+    	$this->adminSignIn();
+
 		$area = $this->createArea([
 			'name'	=> 'Deira'
 		]);
@@ -50,6 +48,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well()
     {
+    	$this->adminSignIn();
+
 		$endpoint = adminPath() . '/dashboard/merchants';
 
 		$city = $this->createCity([
@@ -138,6 +138,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authorized_user_can_add_a_merchant_and_store_it_as_an_outlet_as_well_with_custom_options()
     {
+    	$this->adminSignIn();
+
     	$endpoint = adminPath() . '/dashboard/merchants';
 
     	$city = $this->createCity();
@@ -204,6 +206,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
     public function test_an_authorized_user_can_edit_a_merchant_information()
     {
+    	$this->adminSignIn();
     	$merchant = $this->createMerchant();
 
     	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/edit')

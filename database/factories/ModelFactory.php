@@ -168,3 +168,9 @@ $factory->define(App\Subcategory::class, function (Faker\Generator $faker) {
         'name' => $faker->word,
     ];
 });
+
+$factory->define(App\Role::class, function (Faker\Generator $faker) {
+    return [
+        'name' => $faker->word,
+    ];
+});

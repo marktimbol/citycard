@@ -273,7 +273,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ]);
     }
 
-    public function test_an_admin_can_remove_a_post_information()
+    public function test_an_authorized_can_remove_a_post_information()
     {
         $merchant = $this->createMerchant();
         $outlet = $this->createOutlet([

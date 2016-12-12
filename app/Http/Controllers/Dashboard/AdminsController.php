@@ -19,7 +19,9 @@ class AdminsController extends Controller
 
     public function show(Admin $admin)
     {
-    	$admin->load('merchants', 'outlets');
+    	$admin->load('merchants', 'outlets', 'posts');
+        // dd($admin->toArray());
+        
     	return view('dashboard.admins.show', compact('admin'));
     }
 

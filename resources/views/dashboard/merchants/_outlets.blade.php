@@ -26,11 +26,13 @@
 			<td></td>
 			<td><label class="label label-danger">Close</label></td>
 			<td>
-				<a href="{{ route('dashboard.merchants.outlets.edit', [$merchant->id, $outlet->id]) }}" 
-					class="btn btn-sm btn-default"
-				>
-					Edit
-				</a>
+				@if( adminCan('update', $outlet) )
+					<a href="{{ route('dashboard.merchants.outlets.edit', [$merchant->id, $outlet->id]) }}" 
+						class="btn btn-sm btn-default"
+					>
+						Edit
+					</a>
+				@endif
 			</td>
 		</tr>
 

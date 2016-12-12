@@ -38,11 +38,11 @@ class MerchantClerksController extends Controller
 
     public function store(CreateMerchantClerksRequest $request, Merchant $merchant)
     {
-        $merchant->clerks()->create($request->all());
+        $clerk = $merchant->clerks()->create($request->all());
 
         flash()->success('A new clerk has been successfully saved.');
 
-        return redirect()->route('dashboard.merchants.show', $merchant->id);
+        return redirect()->route('dashboard.merchants.clerks.show', [$merchant->id, $clerk->id]);
     }
 
     public function edit(Merchant $merchant, Clerk $clerk)

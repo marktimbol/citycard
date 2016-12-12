@@ -26,3 +26,8 @@ function adminCan($action, $model)
 {
 	return auth()->guard('admin')->user()->can($action, $model);
 }
+
+function userCan($action, $model, $guard='admin')
+{
+	return auth()->guard($guard)->user()->can($action, $model);
+}
