@@ -28,4 +28,12 @@ class RolesController extends Controller
     	flash()->success(sprintf('%s has been successfully saved.', $role->name));
     	return back();    	
     }
+
+    public function destroy(Role $role)
+    {
+        $role->delete();
+
+        flash()->success(sprintf('%s Role has been successfully removed.', $role->label));
+        return back();         
+    }
 }

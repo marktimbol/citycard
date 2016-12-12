@@ -49,6 +49,11 @@ class Admin extends Authenticatable
     	return $this->belongsToMany(Outlet::class, 'admin_outlets', 'admin_id', 'outlet_id');
     }   
 
+    public function clerks()
+    {
+        return $this->belongsToMany(Clerk::class, 'admin_clerks', 'admin_id', 'clerk_id');
+    }       
+
     public function posts()
     {
     	return $this->belongsToMany(Post::class, 'admin_posts', 'admin_id', 'post_id');

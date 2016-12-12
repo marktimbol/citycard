@@ -15,11 +15,23 @@ class DashboardController extends Controller
 {
     public function index()
     {
-    	$totalMerchants = Merchant::count();
-    	$totalOutlets = Outlet::count();
-    	$totalClerks = Clerk::count();
-    	$totalPosts = Post::count();
     	$totalUsers = User::count();
+
+        if( isAdmin() )
+        {        
+            $totalMerchants = Merchant::count();
+            $totalOutlets = Outlet::count();
+            $totalClerks = Clerk::count();
+            $totalPosts = Post::count();
+        } else {
+            $admin = auth()->guard('admin')->user();
+            $admin->load('merchants', 'outlets', 'clerks', 'posts');
+
+            $totalMerchants = $admin->merchants->count();
+            $totalOutlets = $admin->outlets->count();
+            $totalClerks = $admin->clerks->count();
+            $totalPosts = $admin->posts->count();
+        }
 
     	return view('dashboard.index', compact('totalMerchants', 'totalOutlets', 'totalClerks', 'totalPosts', 'totalUsers'));
     }

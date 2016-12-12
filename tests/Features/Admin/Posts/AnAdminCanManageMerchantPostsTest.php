@@ -167,7 +167,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'title' => 'The Title',
             'desc'  => 'The description',
         ]);
-        
+
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
@@ -202,6 +202,105 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }    
+
+    public function test_an_admin_can_add_an_external_post_to_a_merchant_with_more_custom_options()
+    {
+        $area = $this->createArea([
+            'name'  => 'Al Barsha'
+        ]);
+
+        $merchant = $this->createMerchant([
+            'name'  => 'McDonalds'
+        ]);
+
+        $area->merchants()->attach($merchant);
+
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
+
+        $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
+
+        $source = $this->createSource([
+            'name'  => 'Cobone'
+        ]);
+
+        $category = $this->createCategory([
+            'name'  => 'Food',
+        ]);
+
+        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
+        $request = $this->post($endpoint, [
+            'source'    => 'external',
+            'isExternal'    => true,
+            'source_from'   => $source->id,
+            'source_link'   => 'http://google.com',
+
+            'category'  => 1,
+            'subcategories' => 'Filipino Food,Indian Food,Italian Food',
+
+            'type'  => 'notification',
+            'outlet_ids'    => '1,2',
+            'title' => 'The Title',
+            'desc'  => 'The description',
+        ]);
+        
+        $this->seeInDatabase('posts', [
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $category->id,
+            'type'  => 'notification',
+            'title' => 'The Title',
+            'slug'  => 'the-title',
+            'desc'=> 'The description',
+            'isExternal'    => true,
+            'approved'  => false
+        ])
+
+        ->seeInDatabase('subcategory_posts', [
+            'subcategory_id'    => 1,
+            'post_id'   => 1,
+        ])
+
+        ->seeInDatabase('subcategory_posts', [
+            'subcategory_id'    => 2,
+            'post_id'   => 1
+        ])
+
+        ->seeInDatabase('subcategory_posts', [
+            'subcategory_id'    => 3,
+            'post_id'   => 1
+        ])        
+
+        ->seeInDatabase('subcategories', [
+            'id'    => 1,
+            'name'  => 'Filipino Food',
+        ])
+
+        ->seeInDatabase('subcategories', [
+            'id'    => 2,
+            'name'  => 'Indian Food',
+        ])        
+
+        ->seeInDatabase('subcategories', [
+            'id'    => 3,
+            'name'  => 'Italian Food',
+        ])
+
+        ->seeInDatabase('source_posts', [
+            'source_id' => $source->id,
+            'post_id'   => 1,
+            'link'  => 'http://google.com'
+        ])
+
+        ->seeInDatabase('outlet_posts', [
+            'outlet_id' => 1,
+            'post_id'   => 1
+        ]);
+
+        // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
+    }       
 
     public function test_an_admin_can_view_the_post_of_a_merchant()
     {

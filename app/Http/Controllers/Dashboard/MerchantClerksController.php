@@ -41,6 +41,8 @@ class MerchantClerksController extends Controller
     {
         $clerk = $merchant->clerks()->create($request->all());
 
+        auth()->guard('admin')->user()->clerks()->attach($clerk);
+        
         flash()->success('A new clerk has been successfully saved.');
 
         return redirect()->route('dashboard.merchants.clerks.show', [$merchant->id, $clerk->id]);

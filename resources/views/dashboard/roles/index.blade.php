@@ -69,9 +69,14 @@
 							>
 								Attach Permissions
 							</button>
-							<a href="#" class="btn btn-sm btn-default">
-								Edit
-							</a>
+
+							<button 
+								class="btn btn-sm btn-danger" 
+								data-toggle="modal" 
+								data-target="#deleteRole{{$role->id}}"
+							>
+								Delete Role
+							</button>
 						</td>
 					</tr>
 					<div 
@@ -112,7 +117,42 @@
 								</form>
 							</div>
 						</div>
-					</div>	
+					</div>
+
+					<div 
+						class="modal fade" 
+						id="deleteRole{{$role->id}}" 
+						tabindex="-1" 
+						role="dialog"
+					>
+						<div class="modal-dialog" role="document">
+							<div class="modal-content">
+								<div class="modal-header">
+									<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+									<h4 class="modal-title">Delete Role</h4>
+								</div>
+								<div class="modal-body">
+									<form method="POST" action="{{ route('dashboard.roles.destroy', $role->id) }}">
+										{{ csrf_field() }}	
+										{{ method_field('DELETE') }}
+										<p>Are you sure you want to delete the role {{ $role->label }}?</p>								
+										<button type="submit" class="btn btn-sm btn-primary">
+											Yes
+										</button>
+
+										<button type="button" class="btn btn-sm btn-link" data-dismiss="modal">
+											No
+										</button>
+									</form>
+								</div>
+								<div class="modal-footer">
+									<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
+										Close
+									</button>
+								</div>
+							</div>
+						</div>
+					</div>							
 					@empty
 					<tr>
 						<td colspan="6">No record yet.</td>

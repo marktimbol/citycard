@@ -31,3 +31,8 @@ function userCan($action, $model, $guard='admin')
 {
 	return auth()->guard($guard)->user()->can($action, $model);
 }
+
+function isAdmin()
+{
+	return auth()->guard('admin')->user()->hasRole('admin');
+}

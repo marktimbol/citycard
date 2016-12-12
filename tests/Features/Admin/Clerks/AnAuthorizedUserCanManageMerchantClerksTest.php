@@ -42,7 +42,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
             ->see($outlet->name);
     }
 
-    public function test_an_authorized_user_can_add_a_clerk_to_a_merchant_and_attach_it_to_the_selected_outlets()
+    public function test_an_authorized_user_can_add_a_clerk_to_a_merchant()
     {
 		$area = $this->createArea();
     	$merchant = $this->createMerchant();
