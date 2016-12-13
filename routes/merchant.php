@@ -3,7 +3,9 @@
 Route::group([
 	'domain' => merchantPath(),
 ], function () {
-
+	Route::get('/', function() {
+		return 'Hello from Merchant';
+	});
 	// Route::group(['as' => 'api.', 'prefix' => 'api'], function() {
 	// 	// Merchant Authentication
 	// 	Route::post('login', 'Api\Auth\Merchant\LoginController@login');	

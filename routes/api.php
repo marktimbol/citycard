@@ -16,9 +16,6 @@ use Illuminate\Http\Request;
 Route::group([
 	'domain' => merchantPath(),
 ], function () {
-	Route::get('/', function() {
-		return 'Hello from Merchant';
-	});
 	// Merchant Authentication
 	Route::post('login', ['as' => 'api.merchant.login', 'uses' => 'Api\Auth\Merchant\LoginController@login']);	
 });
