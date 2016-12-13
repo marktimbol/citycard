@@ -22,7 +22,7 @@ class DashboardController extends Controller
             $totalMerchants = Merchant::count();
             $totalOutlets = Outlet::count();
             $totalClerks = Clerk::count();
-            $totalPosts = Post::count();
+            $posts = Post::all();
         } else {
             $admin = auth()->guard('admin')->user();
             $admin->load('merchants', 'outlets', 'clerks', 'posts');
@@ -30,10 +30,14 @@ class DashboardController extends Controller
             $totalMerchants = $admin->merchants->count();
             $totalOutlets = $admin->outlets->count();
             $totalClerks = $admin->clerks->count();
-            $totalPosts = $admin->posts->count();
+            $posts = $admin->posts;
         }
 
-    	return view('dashboard.index', compact('totalMerchants', 'totalOutlets', 'totalClerks', 'totalPosts', 'totalUsers'));
+        $totalPosts = $posts->count();
+        $totalDeals = $posts->where('type', 'deals')->count();
+        $totalEvents = $posts->where('type', 'events')->count();            
+
+    	return view('dashboard.index', compact('totalMerchants', 'totalOutlets', 'totalClerks', 'totalPosts', 'totalUsers', 'totalDeals', 'totalEvents'));
     }
 
     public function attachExisting()
