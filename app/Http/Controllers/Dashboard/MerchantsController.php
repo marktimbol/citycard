@@ -37,6 +37,17 @@ class MerchantsController extends Controller
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
+    public function testing()
+    {
+        $merchants = Merchant::with('areas.city.country')->latest()->get();
+
+        foreach( $merchants as $merchant )
+        {
+            $area = $merchant->areas->first();
+            var_dump(sprintf('%s - %s, %s', $merchant->id, $area->city->name, $area->city->country->name));
+        }
+    }
+
     public function show(Merchant $merchant)
     {
 		$merchant->load('areas.city.country', 'categories.subcategories');

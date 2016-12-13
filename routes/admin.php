@@ -28,6 +28,8 @@ Route::group([
 	Route::resource('permissions', 'Dashboard\PermissionsController');
 	Route::resource('roles.permissions', 'Dashboard\RolePermissionsController');
 	Route::resource('admins.roles', 'Dashboard\AdminRolesController');
+
+	Route::get('merchants/testing', 'Dashboard\MerchantsController@testing');
 	Route::resource('merchants', 'Dashboard\MerchantsController');
 	Route::resource('merchants.outlets', 'Dashboard\MerchantOutletsController');
 	Route::resource('merchants.clerks', 'Dashboard\MerchantClerksController');
