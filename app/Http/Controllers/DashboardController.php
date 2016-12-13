@@ -34,10 +34,11 @@ class DashboardController extends Controller
         }
 
         $totalPosts = $posts->count();
+        $totalNewsFeed = $posts->where('type', 'newsfeed')->count();            
         $totalDeals = $posts->where('type', 'deals')->count();
         $totalEvents = $posts->where('type', 'events')->count();            
 
-    	return view('dashboard.index', compact('totalMerchants', 'totalOutlets', 'totalClerks', 'totalPosts', 'totalUsers', 'totalDeals', 'totalEvents'));
+    	return view('dashboard.index', compact('totalMerchants', 'totalOutlets', 'totalClerks', 'totalPosts', 'totalUsers', 'totalNewsFeed', 'totalDeals', 'totalEvents'));
     }
 
     public function attachExisting()

@@ -57,6 +57,7 @@ class LoginController extends Controller
             return response()->json([
                 'authenticated' => true,
                 'message'   => 'success',
+                'auto_logout' => false,
                 'merchant'  => auth()->guard('merchant')->user()
             ]);
         }
