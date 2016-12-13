@@ -32,7 +32,7 @@ class MerchantsController extends Controller
             $merchants = $merchants->where('name', 'like', '%'.$search.'%');
         }
 
-        $merchants = $merchants->get();
+        $merchants = $merchants->paginate(20);
 
     	return view('dashboard.merchants.index', compact('merchants'));
     }
