@@ -25,6 +25,8 @@ class CreateMerchantPostRequest extends FormRequest
     {
         return [
             'source'    => 'required',
+            'source_from'    => 'required',
+            'source_link'    => 'required',
             'type'  => 'required',
             'outlet_ids'    => 'required',
             'title' => 'required|unique:posts',
@@ -37,6 +39,8 @@ class CreateMerchantPostRequest extends FormRequest
     {
         return [
             'source.required'   => 'External source is required',
+            'source_from.required'   => 'From which source you get this?',
+            'source_link.required'   => 'Please enter the external link of the post',
             'type.required'   => 'Please specify the Post Type',
             'outlet_ids.required'   => 'Please select Outlets'
         ];

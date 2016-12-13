@@ -20,6 +20,8 @@ class CreatePost extends Component
 			title: '',
 			desc: '',
 			outlet_ids: [],
+
+			errors: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -99,18 +101,22 @@ class CreatePost extends Component
 		    error: function(error) {
 		    	this.resetSubmitButton();
 				let errors = error.responseJSON;
-				let errorMessage = '';
-				
-		        $.each(errors, function(index, value) {
-		        	errorMessage += value[0] + '\n';
-		        });		
+				this.setState({ errors });
 
-		        swal({
-		            title: "City Card",
-		            text: errorMessage,
-		            type: "error",
-		            showConfirmButton: true
-		        });
+				console.log(errors);
+
+				// let errorMessage = '';
+
+		        // $.each(errors, function(index, value) {
+		        // 	errorMessage += value[0] + '\n';
+		        // });
+
+		        // swal({
+		        //     title: "City Card",
+		        //     text: errorMessage,
+		        //     type: "error",
+		        //     showConfirmButton: true
+		        // });
 
 		    }.bind(this)
 		});
@@ -162,6 +168,9 @@ class CreatePost extends Component
 			{ value: 'events', label: 'Events' },
 		]
 
+		let errors = this.state.errors;
+		let sourceClass = errors.hasOwnProperty('source') ? 'form-group has-error' : 'form-group';
+
 		return (
 			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>
 				<input type="hidden" name="isExternal" id="isExternal" value={this.state.isExternal} />
@@ -177,8 +186,8 @@ class CreatePost extends Component
 
 				<div className="row">
 					<div className="col-md-4">
-						<div className="form-group">
-							<label htmlFor="source">Source</label>
+						<div className={sourceClass}>
+							<label htmlFor="source" className="control-label">Source</label>
 							<Select
 								name="source"
 								value={this.state.source}
