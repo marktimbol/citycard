@@ -70,23 +70,14 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Brunch'
 		]);
 
-		// $this->createSubCategory([
-		// 	'category_id'	=> $category->id,
-		// 	'name'	=> 'Buffet'
-		// ]);
-
 		$this->seeInDatabase('subcategories', [
 			'id'	=> 1,
 			'category_id'	=> 1,
 			'name'	=> 'Brunch'
 		]);
-		// ->seeInDatabase('subcategories', [
-		// 	'id'	=> 2,
-		// 	'category_id'	=> 1,
-		// 	'name'	=> 'Buffet'
-		// ]);
 
 		$request = $this->post($endpoint, [
+			'city'	=> $city->id,
 			'area'	=> $area->id,
 			'category'	=> $category->id,
 			'subcategories'	=> '1,Buffet',
@@ -170,7 +161,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     	]);
 
 		$request = $this->post($endpoint, [
-			'city'	=> 1,
+			'city'	=> $city->id,
 			'area'	=> 'Al Rigga',
 			'category'	=> $food->id,
 			'subcategories'	=> '1,Buffet',
@@ -191,38 +182,37 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'merchant_id'	=> 1,
 			'category_id'	=> 1,
 		])
+			->seeInDatabase('subcategories', [
+				'category_id'	=> 1,
+				'name'	=> 'Buffet'
+			])
+			->seeInDatabase('merchant_subcategories', [
+				'merchant_id'	=> 1,
+				'subcategory_id'	=> 1
+			])
+			->seeInDatabase('merchant_subcategories', [
+				'merchant_id'	=> 1,
+				'subcategory_id'	=> 2
+			]);
 
-		->seeInDatabase('subcategories', [
-			'category_id'	=> 1,
-			'name'	=> 'Buffet'
+		$this->seeInDatabase('areas', [
+			'city_id'	=> $city->id,
+			'name'	=> 'Al Rigga',
 		])
-
-		->seeInDatabase('merchant_subcategories', [
-			'merchant_id'	=> 1,
-			'subcategory_id'	=> 1
-		])
-
-		->seeInDatabase('merchant_subcategories', [
-			'merchant_id'	=> 1,
-			'subcategory_id'	=> 2
-		]);
-
-		$this->seeInDatabase('area_merchants', [
-			'area_id'	=> 1,
-			'merchant_id'	=> 1,
-		])
-
-        ->seeInDatabase('outlets', [
-            'merchant_id'   => 1,
-            'name'  => 'Zara - Al Rigga',
-			'phone' => '0563759865',
-            'email' => 'john@example.com',
-        ])
-
-		->seeInDatabase('area_outlets', [
-			'area_id'	=> 1,
-			'outlet_id'	=> 1,
-		]);
+			->seeInDatabase('area_merchants', [
+				'area_id'	=> 1,
+				'merchant_id'	=> 1,
+			])
+	        ->seeInDatabase('outlets', [
+	            'merchant_id'   => 1,
+	            'name'  => 'Zara - Al Rigga',
+				'phone' => '0563759865',
+	            'email' => 'john@example.com',
+	        ])
+			->seeInDatabase('area_outlets', [
+				'area_id'	=> 1,
+				'outlet_id'	=> 1,
+			]);
     }
 
     public function test_an_authorized_user_can_edit_a_merchant_information()

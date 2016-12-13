@@ -64,8 +64,9 @@ class MerchantsController extends Controller
     public function store(CreateMerchantRequest $request)
     {                
         $merchant = Merchant::create($request->all());
-        
-        if( strlen($request->area) == 1 ) {
+    
+        // Find or Store area
+        if( is_int($request->area) ) {
             $area = Area::findOrFail($request->area);
         } else {
             $city = City::findOrFail($request->city);

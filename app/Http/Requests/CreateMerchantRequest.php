@@ -25,7 +25,7 @@ class CreateMerchantRequest extends FormRequest
     {
         return [
             'area' => 'required',
-            'name'	=> 'required',
+            'name'	=> 'required|unique:merchants',
 			'email'	=> 'required|email|unique:merchants',
             'category'  => 'required',
             'subcategories' => 'required',
