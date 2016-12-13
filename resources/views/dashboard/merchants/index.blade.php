@@ -55,4 +55,6 @@
 		</tbody>
 	</table>
 
+	{{ $merchant->links() }}
+
 @endsection
