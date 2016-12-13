@@ -83,8 +83,8 @@ class MerchantPostsController extends Controller
         }          
 
     	if( $request->has('outlet_ids') ) {
-            $outlet_ids = explode(',', $request->outlet_ids);
-    		$post->outlets()->attach($outlet_ids);
+            $outlet_ids = collect(explode(',', $request->outlet_ids));
+    		$post->outlets()->attach($outlet_ids->all());
     	}
 
         if( $post->isExternal ) {

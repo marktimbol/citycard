@@ -68,6 +68,7 @@ class Countries extends React.Component
 	}
 
 	handleAreaChange(value) {
+        console.log(value);
 		this.setState({
             selectedArea: value
         });
