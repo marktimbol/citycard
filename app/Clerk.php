@@ -49,4 +49,9 @@ class Clerk extends Authenticatable
 	{
 		return sprintf('%s %s', $this->first_name, $this->last_name);
 	}
+
+	public function assignTo(Outlet $outlet)
+	{
+		return $this->outlets()->attach($outlet);
+	}
 }

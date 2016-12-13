@@ -21,9 +21,9 @@ class AdminsController extends Controller
     {
     	$admin->load('merchants.areas', 'outlets', 'posts');
 
-        $merchants = $admin->merchants()->paginate(1, ['*'], 'merchants');
-        $outlets = $admin->outlets()->paginate(1, ['*'], 'outlets');
-        $posts = $admin->posts()->paginate(1, ['*'], 'posts');
+        $merchants = $admin->merchants()->paginate(20, ['*'], 'merchants');
+        $outlets = $admin->outlets()->paginate(20, ['*'], 'outlets');
+        $posts = $admin->posts()->paginate(20, ['*'], 'posts');
         
     	return view('dashboard.admins.show', compact('admin', 'merchants', 'outlets', 'posts'));
     }
