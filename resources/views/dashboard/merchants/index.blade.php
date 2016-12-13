@@ -55,6 +55,6 @@
 		</tbody>
 	</table>
 
-	{{ $merchant->links() }}
+	{{ $merchants->links() }}
 
 @endsection
