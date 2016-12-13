@@ -56,10 +56,10 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'name'	=> 'Dubai'
 		]);
 
-		$area = $this->createArea([
-			'city_id'	=> $city->id,
-			'name'	=> 'Al Barsha'
-		]);
+		// $area = $this->createArea([
+		// 	'city_id'	=> $city->id,
+		// 	'name'	=> 'Al Barsha'
+		// ]);
 
 		$category = $this->createCategory([
 			'name'	=> 'Food'
@@ -78,7 +78,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
 		$request = $this->post($endpoint, [
 			'city'	=> $city->id,
-			'area'	=> $area->id,
+			'area'	=> 'Al Rigga',
 			'category'	=> $category->id,
 			'subcategories'	=> '1,Buffet',
 			'name'	=> 'Zara',
@@ -121,13 +121,13 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
         ->seeInDatabase('outlets', [
             'merchant_id'   => 1,
-            'name'  => 'Zara - Al Barsha',
+            'name'  => 'Zara - Al Rigga',
 			'phone' => '0563759865',
             'email' => 'john@example.com',
         ])
 
 		->seeInDatabase('area_outlets', [
-			'area_id'	=> $area->id,
+			'area_id'	=> 1,
 			'outlet_id'	=> 1,
 		]);
 

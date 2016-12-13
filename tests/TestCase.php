@@ -12,6 +12,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected $apiUrl = '/api';
 
     protected $admin;
+    protected $user;
     protected $merchant;
 
 
@@ -59,8 +60,8 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     protected function actingAsUser($attributes=[])
     {
-        $user = $this->createUser($attributes);
-        $this->actingAs($user, 'user_api');
+        $this->user = $this->createUser($attributes);
+        $this->actingAs($this->user, 'user_api');
     }    
 
     protected function createUser($attributes = [])

@@ -11,6 +11,7 @@ class Countries extends React.Component
             selectedCountry: '',
             selectedCity: '',
             selectedArea: '',
+            customArea: false,
 
             availableCities: [],
             availableAreas: [],
@@ -67,8 +68,19 @@ class Countries extends React.Component
 		}.bind(this))
 	}
 
-	handleAreaChange(value) {
-        console.log(value);
+	handleAreaChange(value) {        
+        if( isNaN(value.value) ) {
+            // User typed the area
+            this.setState({
+                customArea: true
+            })
+        } else {
+            // User select from the area
+            this.setState({
+                customArea: false
+            })
+        }
+
 		this.setState({
             selectedArea: value
         });
@@ -124,6 +136,7 @@ class Countries extends React.Component
                 <div className="col-md-4">
                     <div className="form-group">
                         <label htmlFor="area">Area</label>
+                        <input type="hidden" name="custom_area" value={this.state.customArea} />
                         <Creatable
                             name="area"
                             value={this.state.selectedArea}

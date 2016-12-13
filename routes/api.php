@@ -16,11 +16,11 @@ use Illuminate\Http\Request;
 Route::group([
 	'domain' => merchantPath(),
 ], function () {
-
-	// Merchant Authentication
-	Route::group(['as' => 'api.merchant.login'], function() {
-		Route::post('login', 'Api\Auth\Merchant\LoginController@login');	
+	Route::get('/', function() {
+		return 'Hello from Merchant';
 	});
+	// Merchant Authentication
+	Route::post('login', ['as' => 'api.merchant.login', 'uses' => 'Api\Auth\Merchant\LoginController@login']);	
 });
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {

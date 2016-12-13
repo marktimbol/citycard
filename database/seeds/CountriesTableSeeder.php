@@ -12,6 +12,7 @@ class CountriesTableSeeder extends Seeder
     public function run()
     {
         $country = factory(App\Country::class)->create([
+            'iso_code'   => 'AE',
             'name'  => 'United Arab Emirates',
             'slug'  => 'united-arab-emirates'
         ]);

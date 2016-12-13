@@ -1,13 +1,19 @@
 <?php
 
-// Merchant Authentication Routes...
-Route::get('/merchants/login', 'Auth\Merchants\LoginController@showLoginForm');
-Route::post('/merchants/login', 'Auth\Merchants\LoginController@login');
-Route::delete('/merchants/logout', 'Auth\Merchants\LoginController@logout');
+Route::group([
+	'domain' => merchantPath(),
+], function () {
 
-// Merchant Registration Routes...
-Route::get('/merchants/register', 'Auth\Merchants\RegisterController@showRegistrationForm');
-Route::post('/merchants/register', 'Auth\Merchants\RegisterController@register');
+	// Route::group(['as' => 'api.', 'prefix' => 'api'], function() {
+	// 	// Merchant Authentication
+	// 	Route::post('login', 'Api\Auth\Merchant\LoginController@login');	
+	// });
+
+	// Merchant Authentication Routes...
+	// Route::get('/merchants/login', 'Auth\Merchants\LoginController@showLoginForm');
+	// Route::post('/merchants/login', 'Auth\Merchants\LoginController@login');
+	// Route::delete('/merchants/logout', 'Auth\Merchants\LoginController@logout');
+});
 
 Route::group(['prefix' => 'merchants', 'as' => 'merchants.', 'middleware' => 'auth:merchant'], function() {
 

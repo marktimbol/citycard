@@ -69,6 +69,11 @@ class Outlet extends Authenticatable
         return $this->belongsToMany(Area::class, 'area_outlets', 'outlet_id', 'area_id');
     }
 
+    public function reservations()
+    {
+    	return $this->belongsToMany(Reservation::class, 'outlet_reservations', 'outlet_id', 'reservation_id');
+    }
+
 	public function getLocation()
 	{
 		if( count($this->areas) > 0 ) {

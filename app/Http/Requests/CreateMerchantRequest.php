@@ -30,7 +30,6 @@ class CreateMerchantRequest extends FormRequest
             'category'  => 'required',
             'subcategories' => 'required',
 			'password'	=> 'required|min:6|confirmed',
-			'password_confirmation'	=> 'required'
         ];
     }
 }

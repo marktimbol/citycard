@@ -14,18 +14,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+        $this->call(RoleTableSeeder::class);
+
         // Initial Admin User
-        factory(App\Admin::class)->create([
+        $admin = factory(App\Admin::class)->create([
+            'name'  => 'Belle Faustino',
         	'email'	=> 'belle@faustino.com',
         	'password'	=> bcrypt('belle123')
         ]);
 
-        factory(App\Admin::class)->create([
+        $admin->assignRole('admin');
+
+        $admin2 = factory(App\Admin::class)->create([
+            'name'  => 'City Card Admin',
         	'email'	=> 'admin@citycard.me',
         	'password'	=> bcrypt('marktimbol')
         ]);
 
+        $admin2->assignRole('admin');
+
         factory(App\User::class)->create([
+            'name'  => 'City Card User',
             'email' => 'user@timbol.com',
             'password'  => bcrypt('marktimbol')
         ]);
