@@ -17,7 +17,7 @@ Route::group([
 	'domain' => merchantPath(),
 ], function () {
 	// Merchant Authentication
-	Route::post('login', ['as' => 'api.merchant.login', 'uses' => 'Api\Auth\Merchant\LoginController@login']);	
+	Route::post('login', ['as' => 'api.clerk.login', 'uses' => 'Api\Auth\Clerk\LoginController@login']);	
 });
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {

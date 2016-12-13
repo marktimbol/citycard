@@ -25,7 +25,7 @@ class ClerkCanLoginOnTheAppTest extends TestCase
         $clerk = $this->createClerk([
             'merchant_id'   => $zara->id,
             'first_name'  => 'John',
-            'email' => 'john@citycard.com',
+            'email' => 'john@citycard.me',
             'password'  => 'secret',
             'api_token'	=> '123456',
         ]);
@@ -45,8 +45,6 @@ class ClerkCanLoginOnTheAppTest extends TestCase
 
     	$this->seeJson([
     		'authenticated'	=> true,
-            'message'   => 'success',
-            'api_token' => '123456'
     	]);
     }
 }

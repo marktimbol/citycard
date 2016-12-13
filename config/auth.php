@@ -66,6 +66,11 @@ return [
             'provider'  => 'merchants'
         ],
 
+        'clerk' => [
+            'driver' => 'session',
+            'provider' => 'clerks',
+        ], 
+
         'clerk_api' => [
             'driver' => 'token',
             'provider' => 'clerks',
