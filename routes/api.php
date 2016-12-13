@@ -13,10 +13,23 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::group([
+	'domain' => merchantPath(),
+], function () {
+
+	// Merchant Authentication
+	Route::group(['as' => 'api.merchant.login'], function() {
+		Route::post('login', 'Api\Auth\Merchant\LoginController@login');	
+	});
+});
+
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::resource('clerks.messages', 'Api\User\MessagesController');
 	Route::put('user/account/change-password', 'Api\User\ChangePasswordController@update');
 	Route::put('user/account/profile', 'Api\User\ProfileController@update');
+
+	// User reserve a services from the outlet
+	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
 });
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
@@ -24,9 +37,11 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
 });
 
 Route::group(['as' => 'api.'], function() {
+	// User Authentication
 	Route::post('login', 'Api\Auth\User\LoginController@login');
 	Route::post('password/email', 'Api\Auth\User\ForgotPasswordController@sendResetLinkEmail');
 	Route::post('register', 'Api\Auth\User\RegisterController@register');
+	
 	Route::resource('outlets', 'Api\OutletsController');
 	Route::resource('outlets.posts', 'Api\OutletPostsController');
 	Route::resource('outlets.photos', 'Api\OutletPhotosController');

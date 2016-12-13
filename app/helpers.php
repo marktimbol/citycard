@@ -22,6 +22,10 @@ function adminPath() {
 	return env('CITYCARD_ADMIN');
 }
 
+function merchantPath() {
+	return env('CITYCARD_MERCHANT');
+}
+
 function adminCan($action, $model)
 {
 	return auth()->guard('admin')->user()->can($action, $model);
