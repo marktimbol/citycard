@@ -25,7 +25,7 @@
 		<tbody>
 			@forelse( $merchants as $merchant )
 				<?php
-					// $area = $merchant->areas->first();
+					$area = $merchant->areas->first();
 				?>
 			<tr>
 				<td>
@@ -35,9 +35,9 @@
 				</td>
 				<td>{{ $merchant->email }}</td>
 				<td>{{ $merchant->phone }}</td>
-				{{-- <td>{{ sprintf('%s, %s', $area->city->name, $area->city->country->name) }}</td> --}}
+				<td>{{ sprintf('%s, %s', $area->city->name, $area->city->country->name) }}</td>
 				<td>
-					@can('edit')
+					@can('update', $merchant)
 					<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}"
 						class="btn btn-sm btn-default"
 					>

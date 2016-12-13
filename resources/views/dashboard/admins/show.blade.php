@@ -19,7 +19,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@forelse( $admin->merchants as $merchant )
+			@forelse( $merchants as $merchant )
 				<?php
 					$area = $merchant->areas->first();
 				?>
@@ -40,7 +40,6 @@
 					</a>
 				</td>
 			</tr>
-
 			@empty
 			<tr>
 				<td colspan="6">No record yet.</td>
@@ -48,6 +47,8 @@
 			@endforelse
 		</tbody>
 	</table>
+
+	{{ $merchants->links() }}
 
 	<h3>Outlets ({{ $admin->outlets->count() }})</h3>
 	<table class="table table-bordered">
@@ -60,7 +61,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@forelse( $admin->outlets as $outlet )
+			@forelse( $outlets as $outlet )
 			<tr>
 				<td>
 					<a href="#">
@@ -84,6 +85,8 @@
 		</tbody>
 	</table>	
 
+	{{ $outlets->links() }}
+
 	<h3>Posts ({{ $admin->posts->count() }})</h3>
 	<table class="table table-bordered">
 		<thead>
@@ -94,7 +97,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			@forelse( $admin->posts as $post )
+			@forelse( $posts as $post )
 			<tr>
 				<td>{{ ucfirst($post->type) }}</td>
 				<td>
@@ -115,5 +118,7 @@
 			</tr>
 			@endforelse
 		</tbody>
-	</table>	
+	</table>
+
+	{{ $posts->links() }}	
 @endsection

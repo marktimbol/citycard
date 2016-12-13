@@ -19,10 +19,13 @@ class AdminsController extends Controller
 
     public function show(Admin $admin)
     {
-    	$admin->load('merchants', 'outlets', 'posts');
-        // dd($admin->toArray());
+    	$admin->load('merchants.areas', 'outlets', 'posts');
+
+        $merchants = $admin->merchants()->paginate(1, ['*'], 'merchants');
+        $outlets = $admin->outlets()->paginate(1, ['*'], 'outlets');
+        $posts = $admin->posts()->paginate(1, ['*'], 'posts');
         
-    	return view('dashboard.admins.show', compact('admin'));
+    	return view('dashboard.admins.show', compact('admin', 'merchants', 'outlets', 'posts'));
     }
 
     public function create()
