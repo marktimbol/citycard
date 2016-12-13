@@ -36,7 +36,7 @@ class CreateMerchantPostRequest extends FormRequest
     public function messages()
     {
         return [
-            'source.required'   => 'Is this from City Card or External source?',
+            'source.required'   => 'External source is required',
             'type.required'   => 'Please specify the Post Type',
             'outlet_ids.required'   => 'Please select Outlets'
         ];

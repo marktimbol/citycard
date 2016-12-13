@@ -144,7 +144,7 @@ class CreatePost extends Component
 		})
 
 		let availableSources = [
-			{ value: 'citycard', label: 'City Card' },
+			{ value: '', label: '' },
 			{ value: 'external', label: 'External' }
 		]
 
