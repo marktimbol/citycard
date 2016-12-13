@@ -39,7 +39,7 @@ class MerchantsController extends Controller
 
     public function testing()
     {
-        $merchants = Merchant::with('areas.city.country')->latest()->get();
+        $merchants = Merchant::with('areas.city.country')->latest()->paginate(10);
         dd($merchants->toArray());
     }
 
