@@ -40,12 +40,7 @@ class MerchantsController extends Controller
     public function testing()
     {
         $merchants = Merchant::with('areas.city.country')->latest()->get();
-
-        foreach( $merchants as $merchant )
-        {
-            $area = $merchant->areas->first();
-            var_dump(sprintf('%s - %s, %s', $merchant->id, $area->city->name, $area->city->country->name));
-        }
+        dd($merchants->toArray());
     }
 
     public function show(Merchant $merchant)
