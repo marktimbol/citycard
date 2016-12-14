@@ -16,6 +16,8 @@ class CreatePost extends Component
 			source_from: '',
 			source_link: '',
 			type: '',
+			event_date: '',
+			event_time: '',
 			outlets: [],
 			title: '',
 			desc: '',
@@ -100,7 +102,9 @@ class CreatePost extends Component
 		    }.bind(this),
 		    error: function(error) {
 		    	this.resetSubmitButton();
+
 				let errors = error.responseJSON;
+		    	console.log('errors', errors);
 				this.setState({ errors });
 		    }.bind(this)
 		});
@@ -123,6 +127,10 @@ class CreatePost extends Component
 	isNotFromCityCard() {
 		return this.state.source == 'external' ? true : false
 	}
+
+	isEvent() {
+		return this.state.type == 'events' ? true : false;
+	}	
 
 	render() {
 		let availableOutlets = []
@@ -157,6 +165,8 @@ class CreatePost extends Component
 		let sourceFromClass = errors.hasOwnProperty('source_from') ? 'form-group has-error' : 'form-group';
 		let sourceLinkClass = errors.hasOwnProperty('source_link') ? 'form-group has-error' : 'form-group';
 		let postTypeClass = errors.hasOwnProperty('type') ? 'form-group has-error' : 'form-group';
+		let eventDateClass = errors.hasOwnProperty('event_date') ? 'form-group has-error' : 'form-group';
+		let eventTimeClass = errors.hasOwnProperty('event_time') ? 'form-group has-error' : 'form-group';
 		let selectOutletsClass = errors.hasOwnProperty('outlet_ids') ? 'form-group has-error' : 'form-group';
 		let titleClass = errors.hasOwnProperty('title') ? 'form-group has-error' : 'form-group';
 		let descriptionClass = errors.hasOwnProperty('desc') ? 'form-group has-error' : 'form-group';
@@ -241,6 +251,44 @@ class CreatePost extends Component
 						: <span></span>
 					}							
 				</div>
+
+				{
+					this.isEvent() ?				
+						<div className="row">
+							<div className="col-md-6">
+								<div className={eventDateClass}>
+									<label htmlFor="event_date" className="control-label">Event Date</label>
+									<input type="text"
+										name="event_date"
+										id="event_date"
+										value={this.state.event_date}
+										onChange={this.handleChange}
+										className="form-control" />
+									{ errors.hasOwnProperty('event_date') ?
+										<span className="help-block">{ errors['event_date'] }</span>
+										: <span></span>
+									}	
+								</div>
+							</div>
+
+							<div className="col-md-6">
+								<div className={eventTimeClass}>
+									<label htmlFor="event_time" className="control-label">Event Time</label>
+									<input type="text"
+										name="event_time"
+										id="event_time"
+										value={this.state.event_time}
+										onChange={this.handleChange}
+										className="form-control" />
+									{ errors.hasOwnProperty('event_time') ?
+										<span className="help-block">{ errors['event_time'] }</span>
+										: <span></span>
+									}	
+								</div>
+							</div>
+						</div>
+					: <div></div>
+				}
 
 				<div className={selectOutletsClass}>
 					<label htmlFor="outlet_ids" className="control-label">Select Outlets</label>

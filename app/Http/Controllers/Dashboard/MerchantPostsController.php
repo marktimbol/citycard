@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
-
-use App\Post;
-use JavaScript;
-use App\Source;
 use App\Category;
-use App\Subcategory;
-use App\Merchant;
-use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Http\Requests\CreateMerchantPostRequest;
+use App\Merchant;
+use App\Post;
+use App\Source;
+use App\Subcategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use JavaScript;
 
 class MerchantPostsController extends Controller
 {
@@ -50,9 +50,31 @@ class MerchantPostsController extends Controller
     	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));
     }
 
-    public function store(CreateMerchantPostRequest $request, Merchant $merchant)
-    {
-        // dd($request->all());
+    public function store(Request $request, Merchant $merchant)
+    {        
+        $validator = Validator::make($request->all(), [
+            'source'    => 'required',
+            'type'  => 'required',
+            'outlet_ids'    => 'required',
+            'title' => 'required|unique:posts',
+            'category'  => 'required',
+            'subcategories' => 'required',
+            'desc' => 'required',
+        ]);
+
+        $validator->sometimes(['source_from', 'source_link'], 'required', function($input) {
+            return $input->isExternal == 1;
+        });
+
+        $validator->sometimes(['event_date', 'event_time'], 'required', function($input) {
+            return $input->type == 'events';
+        });        
+
+        $validator->validate();
+
+        if( $validator->fails() ) {
+            return $validate->errors();
+        }
 
         $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());

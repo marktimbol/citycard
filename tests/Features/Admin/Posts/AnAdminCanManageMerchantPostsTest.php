@@ -119,6 +119,91 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ]);
     }
 
+    public function test_an_admin_can_add_an_external_event_post_to_a_merchant()
+    {
+        $area = $this->createArea([
+            'name'  => 'Al Barsha'
+        ]);
+
+        $merchant = $this->createMerchant([
+            'name'  => 'Platinum LLC'
+        ]);
+
+        $area->merchants()->attach($merchant);
+
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+        ]);
+
+        $source = $this->createSource([
+            'name'  => 'Cobone'
+        ]);
+
+        $category = $this->createCategory([
+            'name'  => 'Concert',
+        ]);
+
+        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
+        $request = $this->post($endpoint, [
+            'source'    => 'external',
+            'isExternal'    => true,
+            'source_from'   => $source->id,
+            'source_link'   => 'http://google.com',
+
+            'category'  => 1,
+            'subcategories' => 'Concert',
+
+            'type'  => 'events',
+            'event_date'    => 'soon',
+            'event_time'    => 'later',
+            
+            'outlet_ids'    => '1',
+            'title' => 'The Concert',
+            'desc'  => '1 Day concert',
+        ]);
+        
+        $this->seeInDatabase('posts', [
+            'merchant_id'   => $merchant->id,
+            'category_id'   => $category->id,
+            
+            'type'  => 'events',
+            'event_date'  => 'soon',
+            'event_time'  => 'later',
+
+            'title' => 'The Concert',
+            'slug'  => 'the-concert',
+            'desc'=> '1 Day concert',
+
+            'isExternal'    => true,
+            'approved'  => false
+        ]);
+
+        $this->seeInDatabase('subcategories', [
+            'category_id'   => $category->id,
+            'name'  => 'Concert',
+        ])
+            ->seeInDatabase('subcategory_posts', [
+                'subcategory_id'    => 1,
+                'post_id'   => 1,
+            ]);
+
+        $this->seeInDatabase('source_posts', [
+            'source_id' => $source->id,
+            'post_id'   => 1,
+            'link'  => 'http://google.com'
+        ]);
+
+        $this->seeInDatabase('outlet_posts', [
+            'outlet_id' => 1,
+            'post_id'   => 1
+        ]);
+
+        $this->seeInDatabase('admin_posts', [
+            'admin_id'  => 1,
+            'post_id'   => 1,
+        ]);
+    }    
+
     public function test_an_admin_can_add_an_external_post_to_a_merchant_with_custom_options()
     {
         $area = $this->createArea([

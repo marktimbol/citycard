@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use JavaScript;
-use App\Country;
-use App\City;
 use App\Area;
-use App\Merchant;
 use App\Category;
-use App\Subcategory;
-use App\Http\Requests;
-use Illuminate\Http\Request;
-use Maatwebsite\Excel\Excel;
+use App\City;
+use App\Country;
 use App\Http\Controllers\Controller;
+use App\Http\Requests;
 use App\Http\Requests\CreateMerchantRequest;
+use App\Merchant;
+use App\Subcategory;
+use Illuminate\Http\Request;
+use JavaScript;
+use Maatwebsite\Excel\Excel;
 
 class MerchantsController extends Controller
 {

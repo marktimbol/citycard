@@ -21,7 +21,7 @@ class CityAreasController extends Controller
     public function store(Request $request, City $city)
     {
         $this->validate($request, [
-            'name'  => 'required'
+            'name'  => 'required|unique:areas'
         ]);
 
     	$area = $city->areas()->create($request->all());

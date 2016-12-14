@@ -21,7 +21,7 @@ class CountryCitiesController extends Controller
     public function store(Request $request, Country $country)
     {
         $this->validate($request, [
-            'name'  => 'required'
+            'name'  => 'required|unique:cities'
         ]);
 
     	$city = $country->cities()->create($request->all());

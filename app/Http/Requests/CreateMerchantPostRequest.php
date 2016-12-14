@@ -32,7 +32,7 @@ class CreateMerchantPostRequest extends FormRequest
             'title' => 'required|unique:posts',
             'category'  => 'required',
             'subcategories' => 'required',
-            'desc' => 'required'
+            'desc' => 'required',
         ];
     }
 
