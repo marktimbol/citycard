@@ -66,4 +66,21 @@ class DashboardController extends Controller
 
     	return 'done';   	
     }
+
+    // public function attachPosts()
+    // {
+    //     $posts = Post::with('merchant.areas.city.country')->get();
+    //     dd($posts->toArray());
+
+    //     foreach( $posts as $post )
+    //     {
+    //         foreach( $post->merchant->areas as $area )
+    //         {
+    //             $area->posts()->attach($post);
+    //         }
+            
+    //         $area->city->posts()->attach($post);
+    //         $area->city->country->posts()->attach($post);
+    //     }
+    // }
 }

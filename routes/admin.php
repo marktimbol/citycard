@@ -22,6 +22,7 @@ Route::group([
 ], function () {
 	Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
 	Route::get('/attach-existing', ['as' => 'attach.existing', 'uses' => 'DashboardController@attachExisting']);
+	// Route::get('/attach-posts', ['as' => 'attach.posts', 'uses' => 'DashboardController@attachPosts']);	
 	Route::resource('users', 'Dashboard\UsersController');
 	Route::resource('admins', 'Dashboard\AdminsController');
 	Route::resource('roles', 'Dashboard\RolesController');
