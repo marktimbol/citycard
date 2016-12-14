@@ -68,13 +68,14 @@ class FiltersTest extends TestCase
         ]);
         $zaraOutletAbuDhabi->posts()->attach($post2);
 
-        $response = $this->json('GET', '/api/posts', [
+        $request = $this->json('GET', '/api/posts', [
             'filter'   => true,
             'city' => '1',
             'areas' => '',
             'categories'    => ''
-        ])
-        ->seeJson([
+        ]);
+
+        $this->seeJson([
             'title' => 'Zara Offer in Dubai'
         ])
         ->dontSee('Zara Offer in Abu Dhabi');

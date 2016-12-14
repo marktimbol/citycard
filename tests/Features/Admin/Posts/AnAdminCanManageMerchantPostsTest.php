@@ -29,7 +29,17 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
     public function test_an_admin_can_add_an_external_post_to_a_merchant()
     {
+        $country = $this->createCountry([
+            'name'  => 'UAE'
+        ]);
+
+        $city = $this->createCity([
+            'country_id'    => $country->id,
+            'name'  => 'Dubai'
+        ]);
+
 		$area = $this->createArea([
+            'city_id'   => $city->id,
 			'name'	=> 'Al Barsha'
 		]);
 
@@ -42,6 +52,8 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
     	$outlet = $this->createOutlet([
     		'merchant_id'	=> $merchant->id
     	]);
+
+        $area->outlets()->attach($outlet);
 
 		$this->createOutlet([
     		'merchant_id'	=> $merchant->id
@@ -80,7 +92,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'title'	=> 'The Title',
 			'desc'	=> 'The description',
 		]);
-        
+
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
@@ -90,30 +102,43 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'desc'=> 'The description',
 			'isExternal'	=> true,
             'approved'  => false
-        ])
+        ]);
 
-		->seeInDatabase('subcategory_posts', [
+		$this->seeInDatabase('subcategory_posts', [
 			'subcategory_id'	=> $buffet->id,
 			'post_id'	=> 1,
 		])
 
-		->seeInDatabase('subcategory_posts', [
-			'subcategory_id'	=> $brunch->id,
-			'post_id'	=> 1
-		])
+    		->seeInDatabase('subcategory_posts', [
+    			'subcategory_id'	=> $brunch->id,
+    			'post_id'	=> 1
+    		]);
 
-		->seeInDatabase('source_posts', [
+		$this->seeInDatabase('source_posts', [
 			'source_id'	=> $source->id,
 			'post_id'	=> 1,
 			'link'	=> 'http://google.com'
-		])
+		]);
 
-        ->seeInDatabase('outlet_posts', [
+        $this->seeInDatabase('outlet_posts', [
             'outlet_id' => 1,
             'post_id'   => 1
-        ])
+        ]);
 
-        ->seeInDatabase('admin_posts', [
+        $this->seeInDatabase('country_posts', [
+            'country_id'    => 1,
+            'post_id'   => 1,
+        ])
+            ->seeInDatabase('city_posts', [
+                'city_id'   => 1,
+                'post_id'   => 1,
+            ])
+            ->seeInDatabase('area_posts', [
+                'area_id'   => 1,
+                'post_id'   => 1,
+            ]);        
+
+        $this->seeInDatabase('admin_posts', [
             'admin_id'  => 1,
             'post_id'   => 1,
         ]);

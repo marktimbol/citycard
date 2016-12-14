@@ -51,7 +51,7 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {        
+    {
         $validator = Validator::make($request->all(), [
             'source'    => 'required',
             'type'  => 'required',
@@ -72,11 +72,14 @@ class MerchantPostsController extends Controller
 
         $validator->validate();
 
-        if( $validator->fails() ) {
-            return $validate->errors();
-        }
+        // When the validation passes
+        $merchant->load('areas.city.country');
+        $country = $merchant->areas->first()->city->country;
+        $city = $merchant->areas->first()->city;
+        $area = $merchant->areas->first();        
 
         $request['category_id'] = $request->category;
+
     	$post = $merchant->posts()->create($request->all());
 
         // Store Sub Categories
@@ -115,6 +118,10 @@ class MerchantPostsController extends Controller
             ]);
         }
 
+        $country->posts()->attach($post);
+        $city->posts()->attach($post);
+        $area->posts()->attach($post);
+        
         auth()->guard('admin')->user()->posts()->attach($post->id);
 
         return $post;

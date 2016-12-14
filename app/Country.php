@@ -18,4 +18,9 @@ class Country extends Model
     {
     	return $this->hasMany(City::class);
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class, 'country_posts', 'country_id', 'post_id');
+    }
 }

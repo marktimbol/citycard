@@ -31,6 +31,7 @@ class Area extends Model
 
     public function posts()
     {
-        return $this->hasManyThrough(Post::class, City::class);
+        // return $this->hasManyThrough(Post::class, City::class);
+        return $this->belongsToMany(Post::class, 'area_posts', 'area_id', 'post_id');
     }
 }
