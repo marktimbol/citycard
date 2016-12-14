@@ -102,22 +102,6 @@ class CreatePost extends Component
 		    	this.resetSubmitButton();
 				let errors = error.responseJSON;
 				this.setState({ errors });
-
-				console.log(errors);
-
-				// let errorMessage = '';
-
-		        // $.each(errors, function(index, value) {
-		        // 	errorMessage += value[0] + '\n';
-		        // });
-
-		        // swal({
-		        //     title: "City Card",
-		        //     text: errorMessage,
-		        //     type: "error",
-		        //     showConfirmButton: true
-		        // });
-
 		    }.bind(this)
 		});
 	}
@@ -170,9 +154,15 @@ class CreatePost extends Component
 
 		let errors = this.state.errors;
 		let sourceClass = errors.hasOwnProperty('source') ? 'form-group has-error' : 'form-group';
+		let sourceFromClass = errors.hasOwnProperty('source_from') ? 'form-group has-error' : 'form-group';
+		let sourceLinkClass = errors.hasOwnProperty('source_link') ? 'form-group has-error' : 'form-group';
+		let postTypeClass = errors.hasOwnProperty('type') ? 'form-group has-error' : 'form-group';
+		let selectOutletsClass = errors.hasOwnProperty('outlet_ids') ? 'form-group has-error' : 'form-group';
+		let titleClass = errors.hasOwnProperty('title') ? 'form-group has-error' : 'form-group';
+		let descriptionClass = errors.hasOwnProperty('desc') ? 'form-group has-error' : 'form-group';
 
 		return (
-			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>
+			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>			
 				<input type="hidden" name="isExternal" id="isExternal" value={this.state.isExternal} />
 				<div className="form-group">
 					<label htmlFor="merchant">Merchant Name</label>
@@ -193,24 +183,32 @@ class CreatePost extends Component
 								value={this.state.source}
 								options={availableSources}
 								onChange={this.handleSourceChange} />
+							{ errors.hasOwnProperty('source') ?
+								<span className="help-block">{ errors['source'] }</span>
+								: <span></span>
+							}								
 						</div>
 					</div>
 					<div className="col-md-8">
 						{ this.isNotFromCityCard() ?
 							<div className="row">
 								<div className="col-md-6">
-									<div className="form-group">
-										<label htmlFor="source_from">From</label>
+									<div className={sourceFromClass}>
+										<label htmlFor="source_from" className="control-label">From</label>
 										<Select
 											name="source_from"
 											value={this.state.source_from}
 											options={availableSourcesFrom}
 											onChange={this.handleSourceFromChange} />
+										{ errors.hasOwnProperty('source_from') ?
+											<span className="help-block">{ errors['source_from'] }</span>
+											: <span></span>
+										}												
 									</div>
 								</div>
 								<div className="col-md-6">
-									<div className="form-group">
-										<label htmlFor="source_link">Link</label>
+									<div className={sourceLinkClass}>
+										<label htmlFor="source_link" className="control-label">Link</label>
 										<input
 											type="text"
 											name="source_link"
@@ -219,6 +217,10 @@ class CreatePost extends Component
 											className="form-control"
 											value={this.state.source_link}
 											onChange={this.handleChange} />
+										{ errors.hasOwnProperty('source_link') ?
+											<span className="help-block">{ errors['source_link'] }</span>
+											: <span></span>
+										}
 									</div>
 								</div>
 							</div>
@@ -227,17 +229,21 @@ class CreatePost extends Component
 					</div>
 				</div>
 
-				<div className="form-group">
-					<label htmlFor="type">Post Type</label>
+				<div className={postTypeClass}>
+					<label htmlFor="type" className="control-label">Post Type</label>
 					<Select
 						name="type"
 						value={this.state.type}
 						options={availablePostTypes}
 						onChange={this.handleTypeChange} />
+					{ errors.hasOwnProperty('type') ?
+						<span className="help-block">{ errors['type'] }</span>
+						: <span></span>
+					}							
 				</div>
 
-				<div className="form-group">
-					<label htmlFor="outlet_ids">Select Outlets</label>
+				<div className={selectOutletsClass}>
+					<label htmlFor="outlet_ids" className="control-label">Select Outlets</label>
 					<Select
 						name="outlet_ids"
 						multi={true}
@@ -245,22 +251,30 @@ class CreatePost extends Component
 						joinValues
 						options={availableOutlets}
 						onChange={this.handleSelectedOutletsChange} />
+					{ errors.hasOwnProperty('outlet_ids') ?
+						<span className="help-block">{ errors['outlet_ids'] }</span>
+						: <span></span>
+					}						
 				</div>
 
-				<Categories />
+				<Categories errors={errors} />
 
-				<div className="form-group">
-					<label htmlFor="title">Title</label>
+				<div className={titleClass}>
+					<label htmlFor="title" className="control-label">Title</label>
 					<input type="text"
 						name="title"
 						id="title"
 						value={this.state.title}
 						onChange={this.handleChange}
 						className="form-control" />
+					{ errors.hasOwnProperty('title') ?
+						<span className="help-block">{ errors['title'] }</span>
+						: <span></span>
+					}	
 				</div>
 
-				<div className="form-group">
-					<label htmlFor="editor">Description</label>
+				<div className={descriptionClass}>
+					<label htmlFor="editor" className="control-label">Description</label>
 					<textarea
 						name="desc"
 						id="editor"
@@ -268,6 +282,10 @@ class CreatePost extends Component
 						defaultValue={this.state.desc}
 						onChange={this.handleChange}
 					></textarea>
+					{ errors.hasOwnProperty('desc') ?
+						<span className="help-block">{ errors['desc'] }</span>
+						: <span></span>
+					}					
 				</div>
 
 				<div className="form-group">

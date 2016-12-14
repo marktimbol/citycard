@@ -18,6 +18,7 @@ class CreateMerchant extends Component
 			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
+			errors: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
@@ -116,7 +117,7 @@ class CreateMerchant extends Component
 
 				<h3>What is the nature of your business?</h3>
 
-				<Categories />
+				<Categories errors={this.state.errors} />
 
 				<h3>And where it is located?</h3>
 				<Countries />

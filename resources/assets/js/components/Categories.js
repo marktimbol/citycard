@@ -60,21 +60,29 @@ class Categories extends React.Component
             }
         })
 
+        let errors = this.props.errors;
+        let categoryClass = errors.hasOwnProperty('category') ? 'form-group has-error' : 'form-group';
+        let subcategoryClass = errors.hasOwnProperty('subcategories') ? 'form-group has-error' : 'form-group';
+
         return (
             <div className="row">
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="category">Category</label>
+                    <div className={categoryClass}>
+                        <label htmlFor="category" className="control-label">Category</label>
                         <Select
                             name="category"
                             value={this.state.selectedCategory}
                             options={availableCategories}
                             onChange={this.handleCategoryChange} />
+                        { errors.hasOwnProperty('category') ?
+                            <span className="help-block">{ errors['category'] }</span>
+                            : <span></span>
+                        }                               
                     </div>
                 </div>
                 <div className="col-md-6">
-                    <div className="form-group">
-                        <label htmlFor="category">Subcategories</label>
+                    <div className={subcategoryClass}>
+                        <label htmlFor="category" className="control-label">Subcategories</label>
                         <Creatable
                             name="subcategories"
                             value={this.state.selectedSubcategories}
@@ -83,6 +91,10 @@ class Categories extends React.Component
                             multi={true}
                             joinValues
                             onChange={this.handleSubcategoryChange} />
+                        { errors.hasOwnProperty('subcategories') ?
+                            <span className="help-block">{ errors['subcategories'] }</span>
+                            : <span></span>
+                        }                              
                     </div>
                 </div>
             </div>

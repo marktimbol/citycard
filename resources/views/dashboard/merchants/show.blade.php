@@ -68,8 +68,8 @@
 				@foreach( $categories as $category )
 					<li class="list-group-item">
 						Category: {{ $category->name }}
-					</li>
-				@endforeach
+					</li>				
+				@endforeach		
 			</ul>
 		</div>
 	</div>
