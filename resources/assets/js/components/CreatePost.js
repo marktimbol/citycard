@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 import Categories from './Categories';
 
 class CreatePost extends Component
@@ -16,7 +18,7 @@ class CreatePost extends Component
 			source_from: '',
 			source_link: '',
 			type: '',
-			event_date: '',
+			event_date: moment(),
 			event_time: '',
 			outlets: [],
 			title: '',
@@ -30,6 +32,7 @@ class CreatePost extends Component
 		this.handleSourceChange = this.handleSourceChange.bind(this);
 		this.handleSourceFromChange = this.handleSourceFromChange.bind(this);
 		this.handleTypeChange = this.handleTypeChange.bind(this);
+		this.handleEventDateChange = this.handleEventDateChange.bind(this);
 		this.handleSelectedOutletsChange = this.handleSelectedOutletsChange.bind(this);
 	}
 
@@ -64,6 +67,14 @@ class CreatePost extends Component
 	handleTypeChange(e) {
 		let type = e.value;
 		this.setState({ type })
+	}
+
+	handleEventDateChange(date) {
+		// console.log(date, date.format('YYYY-MM-DD'), date.toString(), date.toDate(), date.toISOString());
+
+		this.setState({
+			event_date: date,
+		})
 	}
 
 	handleSelectedOutletsChange(value) {
@@ -258,12 +269,14 @@ class CreatePost extends Component
 							<div className="col-md-6">
 								<div className={eventDateClass}>
 									<label htmlFor="event_date" className="control-label">Event Date</label>
-									<input type="text"
-										name="event_date"
-										id="event_date"
-										value={this.state.event_date}
-										onChange={this.handleChange}
-										className="form-control" />
+									<input type="hidden" name="event_date" value={this.state.event_date.format('YYYY-MM-DD')} />
+									<DatePicker
+										dateFormat="YYYY-MM-DD"
+										selected={this.state.event_date}
+										onChange={this.handleEventDateChange}
+										className="form-control"
+										minDate={moment()}
+										monthsShown={2} />
 									{ errors.hasOwnProperty('event_date') ?
 										<span className="help-block">{ errors['event_date'] }</span>
 										: <span></span>

@@ -16,7 +16,7 @@ const modulesPath = '../../../node_modules/';
 elixir(mix => {
     mix.sass('app.scss', 'resources/assets/css/app.css')
    	    .styles([
-            modulesPath + 'font-awesome/css/font-awesome.css',
+          modulesPath + 'font-awesome/css/font-awesome.css',
    		    modulesPath + 'sweetalert/dist/sweetalert.css',
    			'app.css'
    		], 'public/css/app.css')
@@ -59,6 +59,10 @@ elixir(mix => {
           'mobile.css'
       ], 'public/css/mobile.css')
 
+      .styles([
+        modulesPath  + 'react-datepicker/dist/react-datepicker.css',
+      ], 'public/css/datepicker.css')
+
       .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
       .copy('node_modules/intl-tel-input/build/img', 'public/build/img')
 
@@ -73,6 +77,7 @@ elixir(mix => {
           'public/js/CreateMerchant.js',
           'public/js/CreateOutlet.js',
           'public/js/CreatePost.js',
-          'public/css/mobile.css'
+          'public/css/mobile.css',
+          'public/css/datepicker.css'
       ]);
 });

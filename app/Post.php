@@ -12,6 +12,8 @@ class Post extends Model
         'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'title', 'desc', 'isExternal'
     ];
 
+    protected $dates = ['event_date'];
+
     public function setTitleAttribute($title)
     {
     	$this->attributes['title'] = $title;
