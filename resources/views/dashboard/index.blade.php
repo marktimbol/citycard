@@ -26,19 +26,10 @@
 			<h4>{{ $totalPosts }}<small>Total Posts</small></h4>
 		</div>
 		<div class="Statistic">
-			<h4>{{ $totalNewsFeed }}<small>Total News Feed</small></h4>
-		</div>		
-		<div class="Statistic">
 			<h4>{{ $totalDeals }}<small>Total Deals</small></h4>
 		</div>	
 		<div class="Statistic">
 			<h4>{{ $totalEvents }}<small>Total Events</small></h4>
-		</div>	
-		<div class="Statistic">
-			<h4>{{ $totalUsers }}<small>Total Users</small></h4>
-		</div>
-		<div class="Statistic">
-			<h4>0<small>Online Users</small></h4>
 		</div>
 	</div>
 @endsection
