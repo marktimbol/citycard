@@ -44,7 +44,7 @@
 									<input type="password" name="password_confirmation" class="form-control" placeholder="Repeat Password" />
 								</div>	
 								<div class="form-group">
-									<button type="submit" class="btn btn-block btn-primary">Continue</button>
+									<button type="submit" class="btn btn-block btn-primary">Sign Up</button>
 								</div>
 								<p class="help-block text-center">
 									By signing up, you agree to our<br />
@@ -78,6 +78,7 @@
 
 		<footer>
 			<ul>
+				<li><a href="/posts">Deals</a></li>
 				<li><a href="#">About Us</a></li>
 				<li><a href="#">Support</a></li>
 				<li><a href="#">Directory</a></li>

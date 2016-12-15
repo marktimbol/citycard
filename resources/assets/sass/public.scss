@@ -64,6 +64,12 @@ h1, h2, h3, h4, h5, h6 {
 		    color: #999;
 		    font-weight: 600;
 	    }
+
+	    form {
+	    	.help-block {
+	    		margin-top: 20px;
+	    	}
+	    }
 	}
 
 	.Login {
@@ -121,29 +127,6 @@ h1, h2, h3, h4, h5, h6 {
     }
 }
 
-.Posts--container {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
-}
-.Posts {
-
-}
-
-.Card {
-
-}
-
-.Card__title {
-    height: 64px;
-    padding: 14px 20px;
-}
-
-.Card__image {
-
-}
-
 footer {
 	display: flex;
 	margin-top: 20px;
@@ -177,5 +160,7 @@ footer {
 }
 
 @import 'components/Grid';
+@import 'components/Card';
+@import 'components/Posts';
 @import 'components/PublicOverwrite';
 @import 'components/MediaQueries';

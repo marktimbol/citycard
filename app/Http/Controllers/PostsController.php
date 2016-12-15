@@ -9,7 +9,8 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	$posts = Post::all();
+    	$posts = Post::with('merchant', 'outlets', 'photos')->paginate(20);
+
     	return view('public.posts.index', compact('posts'));
     }
 }
