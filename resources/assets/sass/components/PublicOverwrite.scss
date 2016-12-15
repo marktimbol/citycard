@@ -16,6 +16,7 @@ $blue: #3897f0;
 .form-control {
 	color: #262628;
 	font-size: 14px;
+	box-shadow: none;
 	border-radius: 3px;
 	padding: 9px 8px 7px;
 	border: 1px solid #dbdbdb;
@@ -23,6 +24,12 @@ $blue: #3897f0;
 	    outline: none;		
 		box-shadow: none;
 		border: 1px solid #b2b2b2;
+	}
+}
+
+.Registration__form {
+	.form-group {
+		margin-bottom: 6px;
 	}
 }
 

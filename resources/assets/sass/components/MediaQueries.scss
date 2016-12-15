@@ -10,4 +10,14 @@
 	.Column-6 {
 		flex: 1;
 	}
+
+	footer {
+	    flex-direction: column;
+		margin: 0 20px;	  
+	    ul {
+    	    margin-bottom: 0px;
+			flex-wrap: wrap;  
+			justify-content: center;
+	    }
+	}
 }

@@ -4,11 +4,11 @@
 
 @section('content')
 	<main>
-		<article class="Article__content Flex Flex--center">
+		<article class="Flex Flex--center">
 			<div class="Column-6 PhoneMockup--container">
 				<div class="PhoneMockup"></div>
 			</div>
-			<div class="Column-6 Authentication--container">
+			<div class="Column-6 max-350">
 				<div class="Authentication">
 					<div class="Box Registration">
 						<h1 class="text-center">City Card</h1>
@@ -54,12 +54,7 @@
 						<p>Have an account? <a href="#">Log in</a></p>
 					</div>							
 				</div>
-			</div>
-		</article>
 
-		<article class="GetTheApp Flex Flex--center">
-			<div class="Column-6 hide-on-mobile"></div>
-			<div class="Column-6">
 				<div class="Download-app">
 					<p>Get the app.</p>
 					<ul>
@@ -74,8 +69,26 @@
 							</a>
 						</li>								
 					</ul>
-				</div>
+				</div>				
 			</div>
 		</article>
+
+		<footer>
+			<ul>
+				<li><a href="#">About Us</a></li>
+				<li><a href="#">Support</a></li>
+				<li><a href="#">Directory</a></li>
+				<li><a href="#">Jobs</a></li>
+				<li><a href="#">Privacy</a></li>
+				<li><a href="#">Terms</a></li>
+			</ul>
+			<ul>
+				<li class="copyright">
+					&copy; {{ sprintf('%s %s', date('Y'), config('app.name')) }}
+				</li>
+			</ul>
+		</footer>
 	</main>
+
+
 @endsection

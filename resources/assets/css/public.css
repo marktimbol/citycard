@@ -5772,19 +5772,19 @@ body {
 h1, h2, h3, h4, h5, h6 {
   font-weight: 300; }
 
+.max-350 {
+  max-width: 350px; }
+
 .Box {
   padding: 40px;
   background: #fff;
   border-radius: 1px;
   border: 1px solid #efefef; }
 
-.Home .Article__content {
+.Home main {
   width: 100%;
   max-width: 935px;
   margin: 30px auto 0; }
-
-.Home .Authentication--container {
-  max-width: 350px; }
 
 .Home .PhoneMockup {
   height: 618px;
@@ -5809,6 +5809,10 @@ h1, h2, h3, h4, h5, h6 {
     margin-top: 0;
     font-weight: bold;
     text-transform: uppercase; }
+  .Home .Registration p.lead {
+    font-size: 17px;
+    color: #999;
+    font-weight: 600; }
 
 .Home .Login {
   -webkit-box-flex: .1;
@@ -5859,6 +5863,35 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 18px;
     line-height: 15px;
     text-transform: uppercase; }
+
+footer {
+  display: -webkit-box;
+  display: flex;
+  margin-top: 20px;
+  -webkit-box-pack: justify;
+  justify-content: space-between; }
+  footer ul {
+    padding-left: 0;
+    display: -webkit-box;
+    display: flex;
+    list-style: none; }
+    footer ul li {
+      margin-bottom: 7px;
+      margin-right: 16px; }
+      footer ul li.copyright {
+        color: #999;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase; }
+      footer ul li a {
+        color: #003567;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        text-decoration: none; }
+        footer ul li a:hover {
+          color: #003567;
+          text-decoration: none; }
 
 .Row {
   display: -webkit-box;
@@ -5946,6 +5979,7 @@ h1, h2, h3, h4, h5, h6 {
 .form-control {
   color: #262628;
   font-size: 14px;
+  box-shadow: none;
   border-radius: 3px;
   padding: 9px 8px 7px;
   border: 1px solid #dbdbdb; }
@@ -5953,6 +5987,9 @@ h1, h2, h3, h4, h5, h6 {
     outline: none;
     box-shadow: none;
     border: 1px solid #b2b2b2; }
+
+.Registration__form .form-group {
+  margin-bottom: 6px; }
 
 .Authentication .btn {
   font-weight: bold;
@@ -5970,6 +6007,16 @@ h1, h2, h3, h4, h5, h6 {
     display: none; }
   .Column-6 {
     -webkit-box-flex: 1;
-    flex: 1; } }
+    flex: 1; }
+  footer {
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    flex-direction: column;
+    margin: 0 20px; }
+    footer ul {
+      margin-bottom: 0px;
+      flex-wrap: wrap;
+      -webkit-box-pack: center;
+      justify-content: center; } }
 
 /*# sourceMappingURL=public.css.map */

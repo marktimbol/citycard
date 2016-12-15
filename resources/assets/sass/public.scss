@@ -13,6 +13,10 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
 
+.max-350 {
+	max-width: 350px;
+}
+
 .Box {
     padding: 40px;
 	background: #fff;
@@ -22,15 +26,11 @@ h1, h2, h3, h4, h5, h6 {
 
 .Home {
 
-	.Article__content {
+	main {
 		width: 100%;
 		max-width: 935px;
 		margin: 30px auto 0;
 	}
-
-	.Authentication--container {
-	    max-width: 350px;
-	}	
 
 	.PhoneMockup {
 		height: 618px;
@@ -53,6 +53,12 @@ h1, h2, h3, h4, h5, h6 {
 	    	margin-top: 0;
 	    	font-weight: bold;
 	    	text-transform: uppercase;
+	    }
+
+	    p.lead {
+	    	font-size: 17px;
+		    color: #999;
+		    font-weight: 600;
 	    }
 	}
 
@@ -109,6 +115,38 @@ h1, h2, h3, h4, h5, h6 {
 		line-height: 15px;
 		text-transform: uppercase;
     }
+}
+
+footer {
+	display: flex;
+	margin-top: 20px;
+	justify-content: space-between;
+	ul {
+	    padding-left: 0;
+	    display: flex;
+	    list-style: none;    		
+		li {
+		    margin-bottom: 7px;
+		    margin-right: 16px;    
+		    &.copyright {
+			    color: #999;
+			    font-size: 12px;
+			    font-weight: bold;
+			    text-transform: uppercase;
+		    }			
+			a {
+				color: #003567;
+			    font-size: 12px;
+			    font-weight: bold;				
+				text-transform: uppercase;
+				text-decoration: none;
+				&:hover {
+					color: #003567;
+					text-decoration: none;
+				}
+			}
+		}
+	}
 }
 
 @import 'components/Grid';
