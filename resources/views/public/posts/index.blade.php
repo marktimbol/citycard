@@ -13,7 +13,7 @@
 					$outlet = $post->outlets->first();
 
 					if( $post->merchant->logo != null ) {
-						$logo = $post->merchant->logo;
+						$logo = getPhotoPath($post->merchant->logo);
 					}
 				?>
 				<div class="Card">
