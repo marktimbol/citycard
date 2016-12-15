@@ -9,13 +9,16 @@ class ClerkTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
-    	return [
-    		'id'	=> $item->id,
-    		'name'	=> $item->fullName(),
-    		'email'	=> $item->email,
-    		'photo'	=> $item->photo,
-    		'phone'	=> $item->phone,
-    		'online'	=> 1,
-    	];
+        $output = array_only($item->toArray(), [
+            'id', 'first_name', 'last_name', 'email', 'phone', 'photo', 'api_token'
+        ]);    
+
+        $output['online'] = 1;
+
+        if( $this->isRelationshipLoaded($item, 'outlets') ) {
+            $output['outlets'] = OutletTransformer::transform($item->outlets);
+        }         
+
+        return $output;
     }
 }

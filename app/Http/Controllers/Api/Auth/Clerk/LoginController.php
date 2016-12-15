@@ -2,8 +2,9 @@
 
 namespace App\Http\Controllers\Api\Auth\Clerk;
 
-use App\Http\Controllers\Controller;
 use App\Clerk;
+use App\Http\Controllers\Controller;
+use App\Transformers\ClerkTransformer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -54,11 +55,14 @@ class LoginController extends Controller
         $attempt = Auth::guard('clerk')->attempt($credentials);
         
         if( $attempt ) {
+            $clerk = auth()->guard('clerk')->user();
+            $clerk->load('outlets');
+
             return response()->json([
                 'authenticated' => true,
                 'message'   => 'success',
                 'auto_logout' => false,
-                'clerk'  => auth()->guard('clerk')->user()
+                'clerk'  => ClerkTransformer::transform($clerk)
             ]);
         }
 
