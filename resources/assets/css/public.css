@@ -5785,7 +5785,8 @@ h1, h2, h3, h4, h5, h6 {
   -webkit-box-align: center;
   align-items: center;
   -webkit-box-pack: center;
-  justify-content: center; }
+  justify-content: center;
+  margin-top: 40px; }
 
 .Home .row--flex-1 {
   -webkit-box-flex: 1;
@@ -5843,7 +5844,7 @@ h1, h2, h3, h4, h5, h6 {
   .Home .Download-app li {
     margin: 0 10px; }
   .Home .Download-app img {
-    height: 40px; }
+    max-height: 40px; }
 
 .or--divider {
   display: -webkit-box;
