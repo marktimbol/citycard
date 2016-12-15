@@ -8113,6 +8113,9 @@ h1, h2, h3, h4, h5, h6 {
 .max-350 {
   max-width: 350px; }
 
+.max-600 {
+  max-width: 600px; }
+
 .Box {
   padding: 40px;
   background: #fff;
@@ -8201,6 +8204,17 @@ h1, h2, h3, h4, h5, h6 {
     margin: 0 18px;
     line-height: 15px;
     text-transform: uppercase; }
+
+.Posts--container {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  -webkit-box-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  justify-content: center; }
 
 footer {
   display: -webkit-box;

@@ -17,6 +17,10 @@ h1, h2, h3, h4, h5, h6 {
 	max-width: 350px;
 }
 
+.max-600 {
+	max-width: 600px;
+}
+
 .Box {
     padding: 40px;
 	background: #fff;
@@ -115,6 +119,29 @@ h1, h2, h3, h4, h5, h6 {
 		line-height: 15px;
 		text-transform: uppercase;
     }
+}
+
+.Posts--container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+.Posts {
+
+}
+
+.Card {
+
+}
+
+.Card__title {
+    height: 64px;
+    padding: 14px 20px;
+}
+
+.Card__image {
+
 }
 
 footer {

@@ -13,6 +13,7 @@
 */
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
+Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 
 Route::get('/qb', function() {
 
