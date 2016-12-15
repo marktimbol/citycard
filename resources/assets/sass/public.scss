@@ -21,17 +21,16 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .Home {
-	.container--center {
-	    height: 100vh;
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;
 
-	    margin-top: 40px;
+	.Article__content {
+		width: 100%;
+		max-width: 935px;
+		margin: 30px auto 0;
 	}
-	.row--flex-1 {
-		flex: 1;
-	}
+
+	.Authentication--container {
+	    max-width: 350px;
+	}	
 
 	.PhoneMockup {
 		height: 618px;

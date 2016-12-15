@@ -5778,19 +5778,13 @@ h1, h2, h3, h4, h5, h6 {
   border-radius: 1px;
   border: 1px solid #efefef; }
 
-.Home .container--center {
-  height: 100vh;
-  display: -webkit-box;
-  display: flex;
-  -webkit-box-align: center;
-  align-items: center;
-  -webkit-box-pack: center;
-  justify-content: center;
-  margin-top: 40px; }
+.Home .Article__content {
+  width: 100%;
+  max-width: 935px;
+  margin: 30px auto 0; }
 
-.Home .row--flex-1 {
-  -webkit-box-flex: 1;
-  flex: 1; }
+.Home .Authentication--container {
+  max-width: 350px; }
 
 .Home .PhoneMockup {
   height: 618px;
@@ -5973,6 +5967,9 @@ h1, h2, h3, h4, h5, h6 {
   .PhoneMockup--container {
     display: none; }
   .hide-on-mobile {
-    display: none; } }
+    display: none; }
+  .Column-6 {
+    -webkit-box-flex: 1;
+    flex: 1; } }
 
 /*# sourceMappingURL=public.css.map */
