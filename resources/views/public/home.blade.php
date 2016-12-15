@@ -16,9 +16,12 @@
 							Sign up to see news, deals, and events from places around you.
 						</p>
 						<div class="Registration__form">
-							<div class="form-group">
-								<button type="submit" class="btn btn-block btn-primary"><i class="fa fa-facebook-official"></i> Login with Facebook</button>
-							</div>		
+							<div class="Social__login">
+								<button type="submit" class="btn btn-block btn-primary">
+									<i class="fa fa-facebook-official"></i> 
+									Login with Facebook
+								</button>									
+							</div>
 
 							<div class="or--divider">
 								<div class="or__line"></div>
