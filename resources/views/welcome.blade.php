@@ -75,7 +75,7 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Coming soon
+                    Coming soon s
                 </div>
             </div>
         </div>

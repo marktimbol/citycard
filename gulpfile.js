@@ -14,6 +14,15 @@ const modulesPath = '../../../node_modules/';
  */
 
 elixir(mix => {
+    mix.sass('public.scss', 'resources/assets/css/public.css')
+    
+      .styles([
+        modulesPath + 'font-awesome/css/font-awesome.css',
+        'public.css'
+      ], 'public/css/public.css')
+
+      .webpack('public.js');
+
     mix.sass('app.scss', 'resources/assets/css/app.css')
    	    .styles([
           modulesPath + 'font-awesome/css/font-awesome.css',
@@ -67,6 +76,11 @@ elixir(mix => {
       .copy('node_modules/intl-tel-input/build/img', 'public/build/img')
 
       .version([
+          // Front end
+          'public/css/public.css',
+          'public/js/public.js',
+
+          // Back end
           'public/css/app.css',
           'public/js/app.js',
           'public/css/editor.css',

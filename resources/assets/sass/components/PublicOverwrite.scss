@@ -1,0 +1,42 @@
+$gray: #999;
+$blue: #3897f0;
+
+.help-block {
+	color: $gray;
+	a {
+		color: $gray;
+		font-weight: bold;
+		&:hover {
+			color: $gray;
+			text-decoration: none;
+		}
+	}
+}
+
+.form-control {
+	color: #262628;
+	font-size: 14px;
+	border-radius: 3px;
+	padding: 9px 8px 7px;
+	border: 1px solid #dbdbdb;
+	&:focus {
+	    outline: none;		
+		box-shadow: none;
+		border: 1px solid #b2b2b2;
+	}
+}
+
+.Authentication {
+	.btn {
+		font-weight: bold;
+		background: $blue !important;
+		border-color: $blue !important;
+	}
+}
+
+.btn {
+	i {
+	    font-size: 20px;
+		margin-right: 5px;
+	}
+}

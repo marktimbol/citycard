@@ -1,0 +1,115 @@
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+body {
+	background: #fafafa;
+	font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
+
+.Box {
+    padding: 40px;
+	background: #fff;
+    border-radius: 1px;
+    border: 1px solid #efefef;
+}
+
+.Home {
+	.container--center {
+	    height: 100vh;
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;
+	}
+	.row--flex-1 {
+		flex: 1;
+	}
+
+	.PhoneMockup {
+		height: 618px;
+
+		background: url('/images/home-phones-mockup.png') no-repeat;
+		background-position: 0 0;
+		background-size: 454px 618px;	
+	}
+	.Authentication {
+		height: 100%;
+	    display: flex;
+	    flex-direction: column;		
+	}
+
+	.Registration {
+		flex: 0.9;
+	    margin-bottom: 10px;		
+	    h1 {
+	    	color: #333;
+	    	margin-top: 0;
+	    	font-weight: bold;
+	    	text-transform: uppercase;
+	    }
+	}
+
+	.Login {
+	    flex: .1;
+	    padding: 20px;
+
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;		
+	    p {
+		    margin: 0;
+	    }
+	}
+
+	.Download-app {
+		margin-top: 30px;
+		p {
+			color: #262626;
+			text-align: center;
+		}
+		ul {
+		    list-style: none;
+		    padding-left: 0;
+
+		    display: flex;	
+		    justify-content: center;
+		}
+		li {
+		    margin: 0 10px	
+		}
+		img {
+			height: 40px;
+		}
+	}
+}
+
+.or--divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+
+    .or__line {
+	    flex: 1;    	
+	    height: 1px;
+	    background-color: #c7c7c7;
+    }
+
+    .or__text {
+		color: #999;    	
+		font-size: 13px;
+		margin: 0 18px;
+		line-height: 15px;
+		text-transform: uppercase;
+    }
+}
+
+@import 'components/Grid';
+@import 'components/PublicOverwrite';
+@import 'components/MediaQueries';

@@ -8,6 +8,7 @@ use App\Merchant;
 use App\Outlet;
 use App\Post;
 use App\User;
+use App\Country;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Gate;
 
@@ -67,20 +68,24 @@ class DashboardController extends Controller
     	return 'done';   	
     }
 
-    // public function attachPosts()
-    // {
-    //     $posts = Post::with('merchant.areas.city.country')->get();
-    //     dd($posts->toArray());
+    public function attachPosts()
+    {
+        // $posts = Post::with('merchant.areas.city.country')->get();
+        $countries = Country::with('cities.areas')->get();
+        $posts = Post::with('merchant.areas.city.country')->get();
 
-    //     foreach( $posts as $post )
-    //     {
-    //         foreach( $post->merchant->areas as $area )
-    //         {
-    //             $area->posts()->attach($post);
-    //         }
-            
-    //         $area->city->posts()->attach($post);
-    //         $area->city->country->posts()->attach($post);
-    //     }
-    // }
+        foreach( $countries as $country )
+        {
+            foreach( $posts as $post )
+            {
+                foreach( $post->merchant->areas as $area )
+                {
+                    if( $country->id == $area->city->country->id )
+                    {
+                        $country->posts()->attach($post);
+                    }
+                }        
+            }
+        }
+    }
 }
