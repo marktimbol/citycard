@@ -40,3 +40,8 @@ function isAdmin()
 {
 	return auth()->guard('admin')->user()->hasRole('admin');
 }
+
+function permissionIsEnabled()
+{
+	return env('ACTIVATE_PERMISSION');
+}
