@@ -14,6 +14,13 @@ function getPhotoPath($photo) {
 	);
 }
 
+function getS3BucketUrl()
+{
+	return sprintf('https://s3-%s.amazonaws.com/%s/',
+			config('filesystems.disks.s3.region'),
+			config('filesystems.disks.s3.bucket'));
+}
+
 function deletePhoto($photo) {
 	Storage::delete($photo);
 }

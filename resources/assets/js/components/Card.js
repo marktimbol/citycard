@@ -18,11 +18,11 @@ class Card extends React.Component
 		
 		if( item.merchant.logo != null )
 		{
-			logo = 'https://s3-us-west-2.amazonaws.com/citycarddev/' + item.merchant.logo;
+			logo = app.s3_bucket_url + item.merchant.logo;
 		}
 
 		if (item.photos.length > 0 ) {
-			featuredImage = 'https://s3-us-west-2.amazonaws.com/citycarddev/' + item.photos[0].url;
+			featuredImage = app.s3_bucket_url + item.photos[0].url;
 		}
 
 		return (
