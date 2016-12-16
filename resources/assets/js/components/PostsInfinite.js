@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Infinite from 'react-infinite';
+import InfiniteScroll from 'react-infinite-scroller';
 import Card from './Card';
-
 
 class PostsInfinite extends React.Component {
 	constructor(props) {
@@ -10,36 +9,25 @@ class PostsInfinite extends React.Component {
 
 		this.state = {
 			posts: app.posts,
-			next_page_url: app.next_page_url,
-			isInfiniteLoading: false,
-			clientHeight: 0
+			nextPageUrl: app.nextPageUrl,
+			hasMorePages: app.hasMorePages,
 		}
 
 		this.getNewPosts = this.getNewPosts.bind(this);
-
 	}
 
     getNewPosts() {
     	let that = this;
 
-        this.setState({
-            isInfiniteLoading: true
+        $.getJSON(that.state.nextPageUrl, function(response) {
+	    	that.setState({
+	    		hasMorePages: response.hasMorePages,
+	    		nextPageUrl: response.nextPageUrl,
+	    		posts: that.state.posts.concat(response.posts)
+	    	})
+
+	    	console.log(response);
         });
-
-        if( that.state.next_page_url != null )
-        {    	
-	        $.getJSON(that.state.next_page_url, function(response) {
-		    	that.setState({
-		    		next_page_url: response.next_page_url,
-		    		posts: that.state.posts.concat(response.posts)
-		    	})
-		    	console.log(that.state.next_page_url, that.state.posts)
-	        });
-        }
-
-        that.setState({
-        	isInfiniteLoading: false,
-        })
     }
 
 	render()
@@ -51,15 +39,14 @@ class PostsInfinite extends React.Component {
 		})
 
 		return (
-	        <Infinite
-	        	elementHeight={1000}
-	        	infiniteLoadBeginEdgeOffset={1500}
-	            onInfiniteLoad={this.getNewPosts}
-	            isInfiniteLoading={this.state.isInfiniteLoading}
-	            useWindowAsScrollContainer
+	        <InfiniteScroll
+	        	pageStart={0}
+	            loadMore={this.getNewPosts}
+	            hasMore={this.state.hasMorePages}
+	            loader={<div className="loader">Loading ...</div>}
 			>
 	            {posts}
-	        </Infinite>			
+	        </InfiniteScroll>			
 		)
 	}
 }

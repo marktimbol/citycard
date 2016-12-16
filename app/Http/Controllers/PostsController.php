@@ -19,13 +19,15 @@ class PostsController extends Controller
 
     	if( request()->wantsJson() ) {
     		return response()->json([
-    			'next_page_url'	=> $posts->nextPageUrl(),
+    			'hasMorePages'	=> $posts->hasMorePages(),
+    			'nextPageUrl'	=> $posts->nextPageUrl(),
     			'posts'	=> PostTransformer::transform($posts->getCollection())
     		]);
     	}
 
     	JavaScript::put([
-    		'next_page_url'	=> $posts->nextPageUrl(),
+    		'hasMorePages'	=> $posts->hasMorePages(),
+    		'nextPageUrl'	=> $posts->nextPageUrl(),
     		'posts'	=> PostTransformer::transform($posts->getCollection())
     	]);    		
 
