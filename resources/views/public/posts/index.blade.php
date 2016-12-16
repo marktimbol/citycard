@@ -5,8 +5,11 @@
 @section('content')
 	@include('layouts._nav')
 
+
 	<div class="Posts--container">
 		<div class="Posts max-600">
+			<div id="PostsInfinite"></div>
+			<?php /*
 			@foreach( $posts as $post )
 				<?php
 					$logo = '/images/outlet-avatar.jpg';
@@ -46,7 +49,12 @@
 			@endforeach
 
 			{{ $posts->links() }}
+			*/ ?>
 		</div>
 	</div>
 
+@endsection
+
+@section('footer_scripts')
+	<script src="/js/PostsInfinite.js"></script>
 @endsection

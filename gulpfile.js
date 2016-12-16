@@ -21,7 +21,8 @@ elixir(mix => {
         'public.css'
       ], 'public/css/public.css')
 
-      .webpack('public.js');
+      .webpack('public.js')
+        .webpack('components/PostsInfinite.js');
 
     mix.sass('app.scss', 'resources/assets/css/app.css')
    	    .styles([

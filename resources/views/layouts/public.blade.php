@@ -12,6 +12,8 @@
     <!-- Styles -->
     <link href="{{ elixir('css/public.css') }}" rel="stylesheet">
 
+    @yield('header_styles')
+    
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -24,5 +26,5 @@
     @yield('content')
 
     <script src="{{ elixir('js/public.js') }}"></script>
-</body>
-</html>
+
+@include('layouts.public._footer')
