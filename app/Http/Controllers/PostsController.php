@@ -11,7 +11,7 @@ class PostsController extends Controller
 {
     public function index()
     {
-    	$posts = Post::with('merchant', 'outlets:id,name', 'photos')->latest()->paginate(20);
+    	$posts = Post::with('merchant', 'outlets:id,name', 'photos')->latest()->paginate(15);
 
     	JavaScript::put([
     		's3_bucket_url' => getS3BucketUrl()

@@ -1,4 +1,5 @@
 import React from 'react';
+import TimeAgo from 'react-timeago';
 
 class Card extends React.Component
 {
@@ -29,14 +30,14 @@ class Card extends React.Component
 			<div className="Card">
 				<div className="Card__header">
 					<div className="Flex Flex--center">
-						<img src={logo} alt={item.outlets[0].name} title={item.outlets[0].name} className="img-circle Card__logo" width="30" height="30" />
+						<img src={logo} alt={item.merchant.name} title={item.merchant.name} className="img-circle Card__logo" width="30" height="30" />
 						<h4 className="Card__title">
-							<a href="#">{item.outlets[0].name}</a>
+							<a href="#">{item.merchant.name}</a>
 						</h4>
 					</div>
 					<div>
 						<span className="timeago">
-							{ item.created_at }
+							<TimeAgo date={item.created_at} />
 						</span>
 					</div>
 				</div>
