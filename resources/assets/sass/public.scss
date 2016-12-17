@@ -4,9 +4,25 @@
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
+@font-face {
+    font-family: 'ProximaRegular';
+    src: url('../../fonts/proximanova-regular-webfont.woff2') format('woff2'),
+        url('../../fonts/proximanova-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'ProximaBold';
+    src: url('../../fonts/proximanova-bold-webfont.woff2') format('woff2'),
+        url('../../fonts/proximanova-bold-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
 	background: #fafafa;
-	font-family: 'Montserrat', sans-serif;
+	font-family: 'ProximaRegular', 'Montserrat', sans-serif;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -138,7 +154,8 @@ header {
 .Header__content {
 	width: 100%;
 	max-width: 1010px;
-
+	padding: 0 20px;
+	
     display: flex;
     align-items: center;
     justify-content: space-between;	
