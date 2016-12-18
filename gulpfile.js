@@ -36,6 +36,7 @@ elixir(mix => {
       .webpack('components/EditOutlet.js')
       .webpack('components/CreatePost.js')
       .webpack('components/CreateMerchant.js')
+      .webpack('components/DashboardPosts.js')
 
       .styles([
           modulesPath + 'froala-editor/css/froala_editor.min.css',

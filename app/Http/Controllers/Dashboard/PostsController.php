@@ -2,19 +2,35 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Merchant;
 use App\Post;
+use JavaScript;
+use App\Merchant;
+use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class PostsController extends Controller
 {
     public function index()
     {
         $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                    ->published()
                     ->latest()
-                    ->paginate(10);
+                    ->paginate(20);
+
+        if( request()->has('view') ) {
+            if( request()->view == 'for-review' ) {
+                $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                            ->unpublished()
+                            ->latest()
+                            ->paginate(20);
+            }
+        }
+
+        JavaScript::put([
+            'posts' => $posts,
+        ]);
+
         return view('dashboard.posts.index', compact('posts'));
     }
 
@@ -22,12 +38,12 @@ class PostsController extends Controller
     {
         $post->load('photos');
         $photos = $post->photos;
-        
+
         return view('dashboard.merchants.posts.show', compact('merchant', 'post', 'photos'));
     }
 
     public function create(Merchant $merchant)
-    {    	
+    {
     	$outlets = $merchant->outlets;
     	return view('dashboard.merchants.posts.create', compact('merchant', 'outlets'));
     }
@@ -35,9 +51,9 @@ class PostsController extends Controller
     public function store(Request $request, Merchant $merchant)
     {
     	$post = $merchant->posts()->create($request->all());
-    	
+
     	if( $request->has('outlet_ids') ) {
-    		$post->outlets()->attach(request('outlet_ids'));    		
+    		$post->outlets()->attach(request('outlet_ids'));
     	}
 
         flash()->success('A new post has been successfully saved.');
@@ -58,7 +74,7 @@ class PostsController extends Controller
         $post->update($request->all());
 
         if( $request->has('outlet_ids') ) {
-            $post->outlets()->sync(request('outlet_ids'));            
+            $post->outlets()->sync(request('outlet_ids'));
         }
 
         flash()->success('Post information has been successfully updated.');

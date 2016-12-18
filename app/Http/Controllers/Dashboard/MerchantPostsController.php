@@ -52,6 +52,8 @@ class MerchantPostsController extends Controller
 
     public function store(Request $request, Merchant $merchant)
     {
+        // dd($request->all(), $subcategories);
+
         $validator = Validator::make($request->all(), [
             'source'    => 'required',
             'type'  => 'required',
@@ -68,7 +70,7 @@ class MerchantPostsController extends Controller
 
         $validator->sometimes(['event_date', 'event_time'], 'required', function($input) {
             return $input->type == 'events';
-        });        
+        });
 
         $validator->validate();
 
@@ -76,9 +78,13 @@ class MerchantPostsController extends Controller
         $merchant->load('areas.city.country');
         $country = $merchant->areas->first()->city->country;
         $city = $merchant->areas->first()->city;
-        $area = $merchant->areas->first();        
+        $area = $merchant->areas->first();
 
         $request['category_id'] = $request->category;
+
+        if( auth()->guard('admin')->user()->hasRole('admin') ) {
+            $request['published'] = true;
+        }
 
     	$post = $merchant->posts()->create($request->all());
 
@@ -103,9 +109,9 @@ class MerchantPostsController extends Controller
                 $subcategory = $category->subcategories()->create([
                     'name'  => $subcategory
                 ]);
-                $post->subcategories()->attach($subcategory);                  
+                $post->subcategories()->attach($subcategory);
             }
-        }          
+        }
 
     	if( $request->has('outlet_ids') ) {
             $outlet_ids = collect(explode(',', $request->outlet_ids));
@@ -121,7 +127,7 @@ class MerchantPostsController extends Controller
         $country->posts()->attach($post);
         $city->posts()->attach($post);
         $area->posts()->attach($post);
-        
+
         auth()->guard('admin')->user()->posts()->attach($post->id);
 
         return $post;

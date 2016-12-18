@@ -29,10 +29,10 @@
 					Post Type: {{ ucfirst($post->type) }}
 				</li>
 				@if( $post->type == 'events' )
-				<li class="list-group-item">
-					Event Date: {{ $post->event_date->toFormattedDateString() }}<br />
-					Event Time: {{ $post->event_time }}
-				</li>
+					<li class="list-group-item">
+						Event Date: {{ $post->event_date->toFormattedDateString() }}<br />
+						Event Time: {{ $post->event_time }}
+					</li>
 				@endif
 				@if( $post->isExternal )
 					<a class="list-group-item" href="{{ $post->sources->first()->pivot->link }}" target="_blank">

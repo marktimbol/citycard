@@ -6,3 +6,7 @@ Guest User
 Merchant
 	View all their posts
 	Can add post
+
+post status
+	Save
+	Published	

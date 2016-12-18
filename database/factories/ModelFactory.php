@@ -103,7 +103,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'slug'  => $faker->slug,
         'desc'   => $faker->paragraph,
         'isExternal'   => 0,
-        'approved'  => 0,
+        'published'  => 0,
     ];
 });
 

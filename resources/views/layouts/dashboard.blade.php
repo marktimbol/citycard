@@ -14,6 +14,11 @@
                                 Merchants
                             </a>
                         @endcan
+                        @can('manage_posts')
+                            <a href="{{ route('dashboard.posts.index') }}" class="list-group-item">
+                                Posts
+                            </a>
+                        @endcan                        
                         @can('manage_countries')
                             <a href="{{ route('dashboard.countries.index') }}" class="list-group-item">
                                 Countries

@@ -7,11 +7,11 @@ Route::group([
 		Route::get('/', 'Auth\Admin\LoginController@showLoginForm');
 		Route::post('/', 'Auth\Admin\LoginController@login');
 		Route::get('/login', 'Auth\Admin\LoginController@showLoginForm');
-		Route::post('/login', 'Auth\Admin\LoginController@login');		
+		Route::post('/login', 'Auth\Admin\LoginController@login');
 		Route::post('logout', 'Auth\Admin\LoginController@logout');
 		// Admin Registration Routes...
 		Route::get('register', 'Auth\Admin\RegisterController@showRegistrationForm');
-		Route::post('register', 'Auth\Admin\RegisterController@register');		
+		Route::post('register', 'Auth\Admin\RegisterController@register');
 });
 
 Route::group([
@@ -21,8 +21,8 @@ Route::group([
 	'middleware' => 'auth:admin'
 ], function () {
 	Route::get('/', ['as' => 'index', 'uses' => 'DashboardController@index']);
-	Route::get('/attach-existing', ['as' => 'attach.existing', 'uses' => 'DashboardController@attachExisting']);
-	Route::get('/attach-posts', ['as' => 'attach.posts', 'uses' => 'DashboardController@attachPosts']);	
+	// Route::get('/attach-existing', ['as' => 'attach.existing', 'uses' => 'DashboardController@attachExisting']);
+	// Route::get('/attach-posts', ['as' => 'attach.posts', 'uses' => 'DashboardController@attachPosts']);
 	Route::resource('users', 'Dashboard\UsersController');
 	Route::resource('admins', 'Dashboard\AdminsController');
 	Route::resource('roles', 'Dashboard\RolesController');
@@ -40,6 +40,19 @@ Route::group([
 	Route::resource('clerks', 'Dashboard\ClerksController');
 	Route::resource('clerks.outlets', 'Dashboard\ClerksOutletsController');
 	Route::put('clerks/{clerk}/photos', 'Dashboard\ClerkPhotosController@update');
+
+	Route::post('posts/publish', [
+		'as' => 'posts.publish',
+		'uses' => 'Dashboard\PublishPostsController@store'
+	]);
+
+	Route::delete('posts/unpublish', [
+		'as' => 'posts.unpublish',
+		'uses' => 'Dashboard\PublishPostsController@destroy'
+	]);
+
+	Route::get('posts/publish-all', 'Dashboard\PublishPostsController@publishAll');
+
 	Route::resource('posts', 'Dashboard\PostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
 	Route::resource('outlets.photos', 'Dashboard\OutletPhotosController');

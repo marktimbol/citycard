@@ -20,6 +20,16 @@ class Post extends Model
     	$this->attributes['slug'] = str_slug($title);
     }
 
+    public function scopePublished($query)
+    {
+        return $query->where('published', true);
+    }
+
+    public function scopeUnpublished($query)
+    {
+        return $query->where('published', false);
+    }    
+
     public function outlets()
     {
     	return $this->belongsToMany(Outlet::class, 'outlet_posts', 'post_id', 'outlet_id');

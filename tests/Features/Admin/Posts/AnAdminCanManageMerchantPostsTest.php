@@ -227,7 +227,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'admin_id'  => 1,
             'post_id'   => 1,
         ]);
-    }    
+    } 
 
     public function test_an_admin_can_add_an_external_post_to_a_merchant_with_custom_options()
     {
@@ -257,7 +257,8 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'name'  => 'Food',
         ]);
 
-        $buffet = $this->createSubcategory([
+        $this->createSubcategory([
+            // 'id'    => 1,
             'category_id'   => $category->id,
             'name'  => 'Buffet'
         ]);
@@ -501,5 +502,153 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             ->dontSeeInDatabase('posts', [
                 'id'    => $post->id
             ]);
+    }
+
+    public function test_an_authorized_person_can_view_all_the_published_posts()
+    {
+        $published = $this->createPost([
+            'title' => 'Buy 1 take 1',
+            'published' => true,
+        ]);
+
+        $forReview = $this->createPost([
+            'title' => 'Buy 1 take 10',
+            'published' => false,
+        ]);        
+
+        $this->visit(adminPath() . '/dashboard/posts?view=published')
+            ->see('Buy 1 take 1')
+            ->dontSee('Buy 1 take 10');
+    }    
+
+    public function test_an_authorized_person_can_view_all_the_unpublished_posts()
+    {
+        $published = $this->createPost([
+            'title' => 'Buy 1 take 1',
+            'published' => true,
+        ]);
+
+        $forReview = $this->createPost([
+            'title' => 'Buy 1 take 10',
+            'published' => false,
+        ]);  
+
+        $this->visit(adminPath() . '/dashboard/posts?view=for-review')
+            ->see('Buy 1 take 10')
+            ->see('Buy 1 take 1');
+    }    
+
+    public function test_an_authorized_person_can_publish_multiple_posts()
+    {
+        $this->createPost([
+            'title' => 'Buy 1 take 1',
+            'published' => false,
+        ]);  
+
+        $this->createPost([
+            'title' => 'Buy 1 take 2',
+            'published' => false,
+        ]);  
+
+        $this->createPost([
+            'title' => 'Buy 1 take 3',
+            'published' => false,
+        ]);    
+
+        $this->seeInDatabase('posts', [
+            'id'    => 1,
+            'published' => false,
+        ])
+            ->seeInDatabase('posts', [
+                'id'    => 2,
+                'published' => false,
+            ])     
+            ->seeInDatabase('posts', [
+                'id'    => 3,
+                'published' => false,
+            ]);                       
+
+        $endpoint = adminPath() . '/dashboard/posts/publish';
+        $request = $this->post($endpoint, [
+            'action'    => 'publish',
+            'posts' => [1,2,3]
+        ]);
+
+        $this->seeInDatabase('posts', [
+            'id'    => 1,
+            'published' => true,
+        ])
+            ->seeInDatabase('posts', [
+                'id'    => 2,
+                'published' => true,
+            ])     
+            ->seeInDatabase('posts', [
+                'id'    => 3,
+                'published' => true,
+            ]);                
+    }  
+
+    public function test_an_authorized_person_can_unpublish_multiple_posts()
+    {
+        $this->createPost([
+            'title' => 'Buy 1 take 1',
+            'published' => true,
+        ]);  
+
+        $this->createPost([
+            'title' => 'Buy 1 take 2',
+            'published' => true,
+        ]);  
+
+        $this->createPost([
+            'title' => 'Buy 1 take 3',
+            'published' => true,
+        ]);    
+
+        $this->seeInDatabase('posts', [
+            'id'    => 1,
+            'published' => true,
+        ])
+            ->seeInDatabase('posts', [
+                'id'    => 2,
+                'published' => true,
+            ])     
+            ->seeInDatabase('posts', [
+                'id'    => 3,
+                'published' => true,
+            ]);                       
+
+        $endpoint = adminPath() . '/dashboard/posts/unpublish';
+        $request = $this->post($endpoint, [
+            'action'    => 'unpublish',
+            'posts' => [1,2,3]
+        ]);
+
+        $this->seeInDatabase('posts', [
+            'id'    => 1,
+            'published' => false,
+        ])
+            ->seeInDatabase('posts', [
+                'id'    => 2,
+                'published' => false,
+            ])     
+            ->seeInDatabase('posts', [
+                'id'    => 3,
+                'published' => false,
+            ]);                
+    }       
+
+    public function method()
+    {
+        $endpoint = sprintf('%s/dashboard/posts/%s/approve', adminpath(), $post->id);
+        $request = $this->post($endpoint);
+
+        $this->visit(adminPath() . '/dashboard/posts')
+            ->see('Buy 1 take 1');
+
+        $this->seeInDatabase('posts', [
+            'id'    => $post->id,
+            'approved'  => true,
+        ]);        
     }
 }
