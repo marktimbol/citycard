@@ -13,15 +13,17 @@ class EventsController extends Controller
     public function index(Request $request)
     {
         $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-                    ->where('type', 'events')->paginate(10);
+                    ->where('type', 'events')
+                    ->paginate(10);
 
     	if( $request->has('filter') && $request->filter == 'true' )
     	{
 	        $posts = Post::filterBy($request)
+                        ->published()
 		    			->where('type', 'events')
 		    			->paginate(10);
     	}
 
-		return PostTransformer::transform($posts->getCollection());    		
+		return PostTransformer::transform($posts->getCollection());
     }
 }
