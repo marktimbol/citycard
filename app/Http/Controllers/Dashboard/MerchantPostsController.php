@@ -51,9 +51,7 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {
-        // dd($request->all(), $subcategories);
-
+    {        
         $validator = Validator::make($request->all(), [
             'source'    => 'required',
             'type'  => 'required',
@@ -91,21 +89,18 @@ class MerchantPostsController extends Controller
         // Store Sub Categories
         $category = Category::findOrFail($request->category);
         $subcategories = collect(explode(',', $request->subcategories));
-
-        $subcategory_ids = $subcategories->filter(function($value, $key) {
-            return strlen($value) == 1;
+        $subcategories = $subcategories->partition(function($value) {
+            return is_numeric($value);
         });
 
-        $subcategory_strings = $subcategories->filter(function($value, $key) {
-            return strlen($value) > 1;
-        });
-
-        if( $subcategory_ids->count() > 0 ) {
-            $post->subcategories()->attach($subcategory_ids->all());
+        // User selected categories
+        if( $subcategories[0]->count() > 0 ) {
+            $post->subcategories()->attach($subcategories[0]->all());
         }
 
-        if( $subcategory_strings->count() > 0 ) {
-            foreach( $subcategory_strings as $subcategory ) {
+        // User typed categories
+        if( $subcategories[1]->count() > 0 ) {
+            foreach( $subcategories[1]->all() as $subcategory ) {
                 $subcategory = $category->subcategories()->create([
                     'name'  => $subcategory
                 ]);

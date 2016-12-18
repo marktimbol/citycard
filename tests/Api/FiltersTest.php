@@ -37,7 +37,8 @@ class FiltersTest extends TestCase
 
         $post = $this->createPost([
             'merchant_id'   => $zara->id,
-            'title' => 'Zara Offer in Dubai'
+            'title' => 'Zara Offer in Dubai',
+            'published' => true,
         ]);
 
         $zaraOutletDubai->posts()->attach($post);
@@ -64,7 +65,8 @@ class FiltersTest extends TestCase
 
         $post2 = $this->createPost([
             'merchant_id'   => $zara->id,
-            'title' => 'Zara Offer in Abu Dhabi'
+            'title' => 'Zara Offer in Abu Dhabi',
+            'published' => true,
         ]);
         $zaraOutletAbuDhabi->posts()->attach($post2);
 
@@ -272,12 +274,12 @@ class FiltersTest extends TestCase
         $burjuman = $this->createArea([
             'city_id'   => $city->id,
             'name'  => 'Burjuman',
-        ]);    
+        ]);
 
         $karama = $this->createArea([
             'city_id'   => $city->id,
             'name'  => 'Karama',
-        ]);    
+        ]);
 
         // ====================================
 
@@ -299,12 +301,12 @@ class FiltersTest extends TestCase
         $zaraBurjuman = $this->createOutlet([
             'merchant_id'   => $merchant->id,
             'name'  => 'Zara - Al Burjuman'
-        ]);     
+        ]);
 
         $zaraKarama = $this->createOutlet([
             'merchant_id'   => $merchant->id,
             'name'  => 'Zara - Karama'
-        ]);     
+        ]);
 
         $alRigga->outlets()->attach($zaraAlRigga);
         $burjuman->outlets()->attach($zaraBurjuman);
@@ -322,7 +324,7 @@ class FiltersTest extends TestCase
 
         $decorations = $this->createCategory([
             'name'  => 'Decorations'
-        ]);        
+        ]);
 
         // ====================================
 
@@ -342,7 +344,7 @@ class FiltersTest extends TestCase
             'merchant_id'   => $merchant->id,
             'category_id'   => $decorations->id,
             'title' => 'Post about Decorations',
-        ]);        
+        ]);
 
         $zaraAlRigga->posts()->attach($postAboutClothing);
         $zaraBurjuman->posts()->attach($postAboutClothing);

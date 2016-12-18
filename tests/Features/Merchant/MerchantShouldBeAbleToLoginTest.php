@@ -10,33 +10,39 @@ class MerchantShouldBeAbleToLoginTest extends TestCase
 
     public function test_a_merchant_should_be_able_to_login_with_correct_credentials()
     {
-    	$merchant = $this->createMerchant([
-			'name'	=> 'Merchant Mark',
+    	$merchant = $this->createClerk([
+			'first_name'	=> 'Mark',
 			'email'	=> 'info@merchant.ae',
-			'password'	=> 'thepassword'    		
+			'password'	=> 'password'
     	]);
 
-    	$this->visit('/merchants/login')
-    		->type('info@merchant.ae', 'email')
-    		->type('thepassword', 'password')
-    		->press('Login')
+		$endpoint = sprintf('%s/api/%s', merchantPath(), 'login');
+		$request = $this->post($endpoint, [
+			'email'	=> 'info@merchant.ae',
+			'password'	=> 'password'
+		]);
 
-    		->seePageIs('/merchants');
+		$this->seeJson([
+			'authenticated' => true,
+		]);
     }
 
     public function test_a_merchant_should_not_be_able_to_login_with_incorrect_credentials()
     {
-    	$merchant = $this->createMerchant([
-			'name'	=> 'Merchant Mark',
+    	$merchant = $this->createClerk([
+			'first_name'	=> 'Mark',
 			'email'	=> 'info@merchant.ae',
-			'password'	=> 'thepassword'    		
+			'password'	=> 'thepassword'
     	]);
 
-    	$this->visit('/merchants/login')
-    		->type('info@merchant.ae', 'email')
-    		->type('thepasswords', 'password')
-    		->press('Login')
+		$endpoint = sprintf('%s/api/%s', merchantPath(), 'login');
+		$request = $this->post($endpoint, [
+			'email'	=> 'info@merchant.ae',
+			'password'	=> 'passwords'
+		]);
 
-    		->seePageIs('/merchants/login');
+		$this->seeJson([
+			'authenticated' => false,
+		]);
     }
 }

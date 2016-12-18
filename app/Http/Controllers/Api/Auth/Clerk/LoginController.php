@@ -48,12 +48,12 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
-    {
+    {        
         $this->validateLogin($request);
 
         $credentials = $this->credentials($request);
         $attempt = Auth::guard('clerk')->attempt($credentials);
-        
+
         if( $attempt ) {
             $clerk = auth()->guard('clerk')->user();
             $clerk->load('outlets');

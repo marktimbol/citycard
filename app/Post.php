@@ -9,7 +9,7 @@ class Post extends Model
     use Filterable;
 
     protected $fillable = [
-        'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'title', 'desc', 'isExternal'
+        'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'title', 'desc', 'isExternal', 'published'
     ];
 
     protected $dates = ['event_date'];
@@ -28,7 +28,7 @@ class Post extends Model
     public function scopeUnpublished($query)
     {
         return $query->where('published', false);
-    }    
+    }
 
     public function outlets()
     {
@@ -71,10 +71,10 @@ class Post extends Model
     public static function getDeals()
     {
         return static::where('type', 'deals');
-    }    
+    }
 
     public static function getEvents()
     {
-        return static::where('type', 'events');            
+        return static::where('type', 'events');
     }
 }

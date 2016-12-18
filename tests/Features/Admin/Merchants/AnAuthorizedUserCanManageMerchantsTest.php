@@ -115,7 +115,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		]);
 
 		$this->seeInDatabase('area_merchants', [
-			'area_id'	=> $area->id,
+			'area_id'	=> 1,
 			'merchant_id'	=> 1,
 		])
 
@@ -139,7 +139,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		->seeInDatabase('admin_outlets', [
 			'admin_id'	=> 1,
 			'outlet_id'	=> 1,
-		]);		
+		]);
 
     }
 
@@ -162,6 +162,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
 		$request = $this->post($endpoint, [
 			'city'	=> $city->id,
+			// 'custom_area'	=> "true",
 			'area'	=> 'Al Rigga',
 			'category'	=> $food->id,
 			'subcategories'	=> '1,Buffet',
@@ -180,7 +181,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
 		$this->seeInDatabase('merchant_categories', [
 			'merchant_id'	=> 1,
-			'category_id'	=> 1,
+			'category_id'	=> $food->id,
 		])
 			->seeInDatabase('subcategories', [
 				'category_id'	=> 1,
@@ -240,7 +241,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     public function test_an_authenticated_user_can_delete_a_merchant()
     {
     	$this->adminSignIn();
-    	
+
 		$area = $this->createArea([
 			'name'	=> 'Deira'
 		]);

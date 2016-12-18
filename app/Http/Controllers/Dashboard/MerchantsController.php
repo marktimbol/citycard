@@ -27,7 +27,7 @@ class MerchantsController extends Controller
         $merchants = Merchant::with('areas.city.country')
                     ->latest();
 
-        if( request()->has('search') ) {         
+        if( request()->has('search') ) {
             $search = request()->search;
             $merchants = $merchants->where('name', 'like', '%'.$search.'%');
         }
@@ -69,44 +69,45 @@ class MerchantsController extends Controller
 
     public function store(CreateMerchantRequest $request)
     {
+		// dd($request->all());
+
         $merchant = Merchant::create($request->all());
 
-        if( $request->custom_area == "true" ) {
-            $city = City::findOrFail($request->city);
+		if( is_numeric($request->area) ) {
+			$area = Area::findOrFail($request->area);
+		} else {
+			$city = City::findOrFail($request->city);
             $area = $city->areas()->create([
                 'name'  => $request->area,
-            ]);            
-        } else {
-            $area = Area::find($request->area);
-        }
+            ]);
+		}
 
         // Store merchant in area
 		$area->merchants()->attach($merchant);
         // Store the category of a merchant
-        $category = Category::findOrFail($request->category);
+		$category = Category::findOrFail($request->category);
 		$merchant->categories()->attach($category);
 
-        $subcategories = collect(explode(',', $request->subcategories));
-        $subcategory_ids = $subcategories->filter(function($value, $key) {
-            return strlen($value) == 1;
+		$subcategories = collect(explode(',', $request->subcategories));
+        $subcategories = $subcategories->partition(function($value) {
+            return is_numeric($value);
         });
 
-        $subcategory_strings = $subcategories->filter(function($value, $key) {
-            return strlen($value) > 1;
-        });
-
-        if( $subcategory_ids->count() > 0 ) {
-            $merchant->subcategories()->attach($subcategory_ids->all());
+        // User selected categories
+        if( $subcategories[0]->count() > 0 ) {
+            $merchant->subcategories()->attach($subcategories[0]->all());
         }
 
-        if( $subcategory_strings->count() > 0 ) {
-            foreach( $subcategory_strings as $subcategory ) {
-                $subcategory = $category->subcategories()->create([
-                    'name'  => $subcategory
-                ]);
-                $merchant->subcategories()->attach($subcategory);                  
+        // User typed categories
+        if( $subcategories[1]->count() > 0 )
+		{
+            foreach( $subcategories[1]->all() as $subcategory ) {
+				$subcategory = $category->subcategories()->create([
+					'name'	=> $subcategory
+				]);
+            	$merchant->subcategories()->attach($subcategory);
             }
-        }      
+        }
 
         $outlet = $merchant->outlets()->create([
             'name'  => sprintf('%s - %s', $request->name, $area->name),

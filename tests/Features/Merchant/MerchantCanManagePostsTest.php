@@ -19,7 +19,7 @@ class MerchantCanManagePostsTest extends TestCase
     	$post = factory(App\Post::class)->make([
             'title' => 'Post title',
             'type'  => 'notification',
-            'approved' => true,
+            'published' => true,
         ]);
     	$this->merchant->posts()->save($post);
 
