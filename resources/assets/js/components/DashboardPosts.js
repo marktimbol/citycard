@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import TimeAgo from 'react-timeago';
 
 class DashboardPosts extends React.Component
 {
@@ -95,13 +96,16 @@ class DashboardPosts extends React.Component
 
 			return (
 				<tr key={post.id}>
-					<td width="100">
+					<td>
 						<div className="checkbox">
 							<label>
 								<input type="checkbox" name="posts[]" value={post.id} />
 								<a href={url}>{post.title}</a>
 							</label>
 						</div>
+					</td>
+					<td>
+						<TimeAgo date={post.created_at} />
 					</td>
 				</tr>
 			)
@@ -133,6 +137,7 @@ class DashboardPosts extends React.Component
 										</label>
 									</div>
 								</th>
+								<th></th>
 							</tr>
 						</thead>
 						<tbody>
