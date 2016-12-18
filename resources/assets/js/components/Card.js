@@ -16,7 +16,7 @@ class Card extends React.Component
 		let item = this.props.item;
 		let logo = 'http://placehold.it/28x28';
 		let featuredImage = 'http://placehold.it/600x500';
-		
+
 		if( item.merchant.logo != null )
 		{
 			logo = app.s3_bucket_url + item.merchant.logo;
@@ -44,7 +44,10 @@ class Card extends React.Component
 				<div className="Card__image">
 					<img src={ featuredImage } alt={ item.title } title={ item.title } className="img-responsive" />
 				</div>
-				<div className="Card__description" dangerouslySetInnerHTML={this.itemDescription()}></div>
+				<div className="Card__description">
+					<h4>{item.title}</h4>
+					<div dangerouslySetInnerHTML={this.itemDescription()}></div>
+				</div>
 			</div>
 		)
 	}
