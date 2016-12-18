@@ -2,3 +2,7 @@
 
 Reset Password
 /api/password/email?email=john@example.com
+
+Filter events
+
+/api/events/?filter=true&from=2016-12-01&to=2016-12-31

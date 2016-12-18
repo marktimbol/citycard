@@ -2,28 +2,36 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Post;
-use App\Http\Requests;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\PostTransformer;
+use App\Http\Requests;
+use App\Post;
+use App\Transformers\EventTransformer;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 
 class EventsController extends Controller
 {
     public function index(Request $request)
-    {
+    {        
         $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-                    ->where('type', 'events')
-                    ->paginate(10);
+                    ->where('type', 'events');
+                    
+        if( $request->has('filter') )
+        {        
+            $from = explode('-', $request->from);
+            $to = explode('-', $request->to);
 
-    	if( $request->has('filter') && $request->filter == 'true' )
-    	{
-	        $posts = Post::filterBy($request)
-                        ->published()
-		    			->where('type', 'events')
-		    			->paginate(10);
-    	}
+            $from = Carbon::createFromDate($from[0], $from[1], $from[2]);
+            $to = Carbon::createFromDate($to[0], $to[1], $to[2]);
 
-		return PostTransformer::transform($posts->getCollection());
+        	$posts = $posts->whereBetween('event_date', [
+                $from->toDateTimeString(), 
+                $to->toDateTimeString()
+            ]);
+        }
+
+        $posts = $posts->paginate(15);
+        
+		return EventTransformer::transform($posts->getCollection());
     }
 }
