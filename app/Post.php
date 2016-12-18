@@ -2,11 +2,13 @@
 
 namespace App;
 
+use App\Transformers\PostTransformer;
 use Illuminate\Database\Eloquent\Model;
+use Laravel\Scout\Searchable;
 
 class Post extends Model
 {
-    use Filterable;
+    use Searchable, Filterable;
 
     protected $fillable = [
         'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'title', 'desc', 'isExternal', 'published'
@@ -28,6 +30,36 @@ class Post extends Model
     public function scopeUnpublished($query)
     {
         return $query->where('published', false);
+    }
+
+    public function isPublished()
+    {
+        return $this->published == 1;
+    }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        // $this->load('merchant', 'outlets', 'category', 'photos', 'sources');
+        // return PostTransformer::transform($this);
+
+        $array = [];
+        
+        if( $this->isPublished() )
+        {         
+            $array = $this->toArray();
+            $array = [
+                'id'    => $this->id,
+                'title' => $this->title,
+                'category' => $this['category']['name']
+            ];
+        }
+
+        return $array;        
     }
 
     public function outlets()

@@ -16,6 +16,15 @@ class PostsController extends Controller
                 ->latest()
                 ->paginate(15);
 
+        if( request()->has('s') )
+        {
+            $key = request()->s;
+            $posts = Post::search($key)->get();
+            $posts = Post::with('merchant', 'outlets:id,name', 'photos')
+                    ->whereIn('id', $posts->pluck('id'))
+                    ->paginate(15);
+        }
+
     	JavaScript::put([
     		's3_bucket_url' => getS3BucketUrl()
     	]);

@@ -104,7 +104,7 @@ class DashboardPosts extends React.Component
 							</label>
 						</div>
 					</td>
-					<td>
+					<td width="100">
 						<TimeAgo date={post.created_at} />
 					</td>
 				</tr>
