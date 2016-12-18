@@ -7,7 +7,7 @@ class Card extends React.Component
 		let item = this.props.item;
 
 		return {
-			__html: item.desc
+			__html: item.desc.substr(0, 300)
 		}
 	}
 
@@ -45,7 +45,7 @@ class Card extends React.Component
 					<img src={ featuredImage } alt={ item.title } title={ item.title } className="img-responsive" />
 				</div>
 				<div className="Card__description">
-					<h4>{item.title}</h4>
+					<h3>{item.title}</h3>
 					<div dangerouslySetInnerHTML={this.itemDescription()}></div>
 				</div>
 			</div>
