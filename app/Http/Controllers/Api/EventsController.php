@@ -21,8 +21,10 @@ class EventsController extends Controller
             $from = explode('-', $request->from);
             $to = explode('-', $request->to);
 
-            $from = Carbon::createFromDate($from[0], $from[1], $from[2]);
-            $to = Carbon::createFromDate($to[0], $to[1], $to[2]);
+            $from = Carbon::create($from[0], $from[1], $from[2], 0);
+            $to = Carbon::create($to[0], $to[1], $to[2], 0);
+
+            // dd($from->toDateTimeString(), $to->toDateTimeString());
 
         	$posts = $posts->whereBetween('event_date', [
                 $from->toDateTimeString(), 
@@ -31,7 +33,7 @@ class EventsController extends Controller
         }
 
         $posts = $posts->paginate(15);
-        
+
 		return EventTransformer::transform($posts->getCollection());
     }
 }
