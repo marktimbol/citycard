@@ -8,13 +8,23 @@ class DashboardPosts extends React.Component
 	{
 		super(props);
 
+		let rowState = [];
+
+		app.posts.data.map(post => {
+			rowState[post.id] = false
+		});
+
 		this.state = {
 			posts: app.posts,
 			action: 'publish',
+			checkAll: false,
+			rowState: rowState,
 			selectedPosts: []
 		}
 
 		this.handleActionChange = this.handleActionChange.bind(this);
+		this.toggleCheckAll = this.toggleCheckAll.bind(this);
+		this.checkRow = this.checkRow.bind(this);
 		this.onSubmit = this.onSubmit.bind(this);
 	}
 
@@ -76,6 +86,39 @@ class DashboardPosts extends React.Component
 		}
 	}
 
+	toggleCheckAll() {
+		console.log('Toggle Check all');
+
+		let rowState = [];
+		let checkState = ! this.state.checkAll;
+
+		app.posts.data.map(post => {
+			rowState[post.id] = checkState;
+		})
+
+		this.state.checkAll = checkState;
+
+		this.setState({
+			rowState: rowState,
+			checkAll: this.state.checkAll
+		});
+
+	}
+
+	checkRow(e) {
+		let postId = e.target.value;
+
+		this.state.rowState[postId] = postId;
+		if( this.state.checkAll ) {
+			this.state.checkAll = ! this.state.checkAll;
+		}
+
+		this.setState({
+			rowState: this.state.rowState,
+			checkAll: this.state.checkAll,
+		})
+	}
+
 	render()
 	{
 		let actionOptions = [
@@ -99,7 +142,7 @@ class DashboardPosts extends React.Component
 					<td>
 						<div className="checkbox">
 							<label>
-								<input type="checkbox" name="posts[]" value={post.id} />
+								<input type="checkbox" name="posts[]" value={post.id} checked={this.state.rowState[post.id]} onChange={this.checkRow} />
 								<a href={url}>{post.title}</a>
 							</label>
 						</div>
@@ -132,7 +175,9 @@ class DashboardPosts extends React.Component
 								<th>
 									<div className="checkbox">
 										<label>
-											<input type="checkbox" />
+											<input type="checkbox" 
+												defaultChecked={this.state.checkAll}
+												onChange={this.toggleCheckAll} />
 											Title
 										</label>
 									</div>

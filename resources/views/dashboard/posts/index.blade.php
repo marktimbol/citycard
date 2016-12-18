@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'All Posts')
+@section('pageTitle', 'Posts')
 
 @section('content')
 	<div class="Heading">
