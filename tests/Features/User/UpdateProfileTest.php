@@ -22,13 +22,14 @@ class UpdateProfileTest extends TestCase
     {
     	$user = auth()->guard('user_api')->user();
 
-    	$this->json('PUT', '/api/user/account/profile', [
+    	$this->json('PUT', '/api/user/profile', [
     		'name'	=> 'Mark Timbol',
     		'email'	=> 'mark.timbol@hotmail.com',
     		'mobile'	=> '+971 56 820 7189'
     	]);
 
     	$this->seeJson([
+            'success'   => true,
     		'message'	=> 'Your profile has been successfully updated.',
     	])
     	->seeInDatabase('users', [

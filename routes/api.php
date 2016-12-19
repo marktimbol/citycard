@@ -22,8 +22,8 @@ Route::group([
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::resource('clerks.messages', 'Api\User\MessagesController');
-	Route::put('user/account/change-password', 'Api\User\ChangePasswordController@update');
-	Route::put('user/account/profile', 'Api\User\ProfileController@update');
+	Route::put('user/change-password', 'Api\User\ChangePasswordController@update');
+	Route::put('user/profile', 'Api\User\ProfileController@update');
 
 	// User reserve a services from the outlet
 	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');

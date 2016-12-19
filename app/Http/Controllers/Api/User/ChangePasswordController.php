@@ -22,10 +22,12 @@ class ChangePasswordController extends Controller
     		$user->save();
 
     		return response()->json([
+                'success'   => true,
     			'message'	=> 'Your password has been successfully updated.'
     		]);
     	}
 		return response()->json([
+            'success'   => false,
 			'error'	=> 'Incorrect old password.'
 		]);
     }
