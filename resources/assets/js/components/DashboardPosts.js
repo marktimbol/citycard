@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import TimeAgo from 'react-timeago';
+import DashboardPostsRow from './DashboardPostsRow';
 
 class DashboardPosts extends React.Component
 {
@@ -19,6 +19,8 @@ class DashboardPosts extends React.Component
 			action: 'publish',
 			checkAll: false,
 			rowState: rowState,
+			isSubmitting: false,
+			applyButtonText: 'Apply',
 			selectedPosts: []
 		}
 
@@ -44,6 +46,12 @@ class DashboardPosts extends React.Component
 	onSubmit(e)
 	{
 		e.preventDefault();
+
+		this.setState({
+			isSubmitting: true,
+			applyButtonText: 'Applying'
+		})
+
 		console.log('Submitting form.');
 
 		let that = this;
@@ -61,6 +69,8 @@ class DashboardPosts extends React.Component
 					console.log('result', result);
 					that.setState({
 						posts: result.posts,
+						isSubmitting: false,
+						applyButtonText: 'Apply'
 					})
 			    }
 			});
@@ -80,6 +90,8 @@ class DashboardPosts extends React.Component
 					console.log('result', result);
 					that.setState({
 						posts: result.posts,
+						isSubmitting: false,
+						applyButtonText: 'Apply'
 					})
 			    }
 			});
@@ -99,16 +111,17 @@ class DashboardPosts extends React.Component
 		this.state.checkAll = checkState;
 
 		this.setState({
-			rowState: rowState,
+			rowState,
 			checkAll: this.state.checkAll
 		});
 
 	}
 
-	checkRow(e) {
-		let postId = e.target.value;
+	checkRow(postId, value) {
+		console.log('selected post id:', postId, 'selected post value:', value);
 
-		this.state.rowState[postId] = postId;
+		this.state.rowState[postId] = value;
+
 		if( this.state.checkAll ) {
 			this.state.checkAll = ! this.state.checkAll;
 		}
@@ -135,22 +148,8 @@ class DashboardPosts extends React.Component
 		});
 
 		let posts = this.state.posts.data.map(post => {
-			let url = '/dashboard/posts/' + post.id;
-
 			return (
-				<tr key={post.id}>
-					<td>
-						<div className="checkbox">
-							<label>
-								<input type="checkbox" name="posts[]" value={post.id} checked={this.state.rowState[post.id]} onChange={this.checkRow} />
-								<a href={url}>{post.title}</a>
-							</label>
-						</div>
-					</td>
-					<td width="100">
-						<TimeAgo date={post.created_at} />
-					</td>
-				</tr>
+				<DashboardPostsRow key={post.id} post={post} checked={this.state.rowState[post.id]} checkRow={this.checkRow} />
 			)
 		})
 
@@ -163,8 +162,9 @@ class DashboardPosts extends React.Component
 								<select name="action" className="form-control input-sm" onChange={this.handleActionChange}>
 									{ actions }
 								</select>
-								<button className="btn btn-sm btn-primary">
-								Apply
+								<button className="btn btn-sm btn-primary" disabled={this.state.isSubmitting}>
+									{ this.state.applyButtonText }
+									{ this.state.isSubmitting ? <span>&nbsp; <i className="fa fa-spinner fa-spin"></i></span> : <span></span> }
 								</button>
 							</div>
 						</div>
@@ -175,7 +175,7 @@ class DashboardPosts extends React.Component
 								<th>
 									<div className="checkbox">
 										<label>
-											<input type="checkbox" 
+											<input type="checkbox"
 												defaultChecked={this.state.checkAll}
 												onChange={this.toggleCheckAll} />
 											Title

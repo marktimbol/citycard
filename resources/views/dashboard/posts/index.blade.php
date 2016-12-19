@@ -59,5 +59,5 @@
 @endsection
 
 @section('footer_scripts')
-	<script src="/js/DashboardPosts.js"></script>
+	<script src="{{ elixir('js/DashboardPosts.js') }}"></script>
 @endsection

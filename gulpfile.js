@@ -15,7 +15,7 @@ const modulesPath = '../../../node_modules/';
 
 elixir(mix => {
     mix.sass('public.scss', 'resources/assets/css/public.css')
-    
+
       .styles([
         modulesPath + 'font-awesome/css/font-awesome.css',
         'public.css'
@@ -36,7 +36,7 @@ elixir(mix => {
       .webpack('components/EditOutlet.js')
       .webpack('components/CreatePost.js')
       .webpack('components/CreateMerchant.js')
-      .webpack('components/DashboardPosts.js')
+      .webpack('components/DashboardPosts.js', 'public/js/DashboardPosts.js')
 
       .styles([
           modulesPath + 'froala-editor/css/froala_editor.min.css',
@@ -93,6 +93,7 @@ elixir(mix => {
           'public/js/CreateMerchant.js',
           'public/js/CreateOutlet.js',
           'public/js/CreatePost.js',
+          'public/js/DashboardPosts.js',
           'public/css/mobile.css',
           'public/css/datepicker.css'
       ]);
