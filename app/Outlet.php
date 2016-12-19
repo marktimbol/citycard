@@ -16,7 +16,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'email', 'password', 'phone', 'address1', 'address2', 'latitude', 'longitude',
+	    'name', 'email', 'password', 'phone', 'currency', 'address1', 'address2', 'latitude', 'longitude',
 	];
 
 	/**

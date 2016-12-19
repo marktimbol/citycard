@@ -63,13 +63,15 @@
 					Address: {{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}
 				</li>
 			</ul>
-
 			<ul class="list-group">
 				@foreach( $categories as $category )
 					<li class="list-group-item">
 						Category: {{ $category->name }}
-					</li>				
-				@endforeach		
+					</li>
+				@endforeach
+				<li class="list-group-item">
+					Currency: {{ $merchant->currency }}
+				</li>
 			</ul>
 		</div>
 	</div>

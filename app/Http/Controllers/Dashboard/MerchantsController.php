@@ -114,6 +114,7 @@ class MerchantsController extends Controller
             'email'  => $request->email,
             'password'  => $request->password,
             'phone'  => $request->phone,
+            'currency'  => $request->currency,
             'address1'  => '',
             'address2'  => '',
             'latitude'  => '',

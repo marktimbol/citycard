@@ -77,21 +77,26 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		]);
 
 		$request = $this->post($endpoint, [
-			'city'	=> $city->id,
-			'area'	=> 'Al Rigga',
-			'category'	=> $category->id,
-			'subcategories'	=> '1,Buffet',
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
+
+			'city'	=> $city->id,
+			'area'	=> 'Al Rigga',
+
+			'category'	=> $category->id,
+			'subcategories'	=> '1,Buffet',
+
+			'currency'	=> 'AED'
 		]);
 
 		$this->seeInDatabase('merchants', [
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
+			'currency'	=> 'AED'
 		]);
 
 		$this->seeInDatabase('merchant_categories', [
@@ -124,6 +129,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
             'name'  => 'Zara - Al Rigga',
 			'phone' => '0563759865',
             'email' => 'john@example.com',
+			'currency'	=> 'AED'
         ])
 
 		->seeInDatabase('area_outlets', [

@@ -14,6 +14,7 @@ class CreateMerchant extends Component
 			submitButtonText: 'Save',
 			name: '',
 			phone: '',
+			currency: 'AED',
 			area: '',
 			email: '@citycard.me',
 			password: '',
@@ -43,7 +44,7 @@ class CreateMerchant extends Component
 		    headers: { 'X-CSRF-Token': App.csrfToken },
 		    success: function(response) {
 		    	console.log(response);
-		    	
+
 				this.setState({
 					submitButtonText: 'Save',
 					isSubmitted: false
@@ -63,17 +64,17 @@ class CreateMerchant extends Component
 		    	this.resetSubmitButton();
 				let errors = error.responseJSON;
 				let errorMessage = '';
-				
+
 		        $.each(errors, function(index, value) {
 		        	errorMessage += value[0] + '\n';
-		        });		
+		        });
 
 		        swal({
 		            title: "City Card",
 		            text: errorMessage,
 		            type: "error",
 		            showConfirmButton: true
-		        });	
+		        });
 		    }.bind(this)
 		});
 	}
@@ -121,6 +122,18 @@ class CreateMerchant extends Component
 
 				<h3>And where it is located?</h3>
 				<Countries />
+
+				<h3>What is your preferred currency?</h3>
+				<div className="row">
+					<div className="col-md-4">
+						<input type="text"
+							name="currency"
+							id="currency"
+							value={this.state.currency}
+							onChange={this.handleChange}
+							className="form-control" />
+					</div>
+				</div>
 
 				<h3>Account Details</h3>
 

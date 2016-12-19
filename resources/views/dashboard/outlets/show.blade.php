@@ -18,6 +18,8 @@
 		<li class="list-group-item">
 			Phone: {{ $outlet->phone }} <label class="label label-danger">Not Verified</label>
 		</li>
+	</ul>
+	<ul class="list-group">
 		<li class="list-group-item">
 			Address: {{ sprintf('%s %s', $outlet->address1, $outlet->address2) }}
 		</li>
@@ -29,6 +31,12 @@
 		</li>
 		<li class="list-group-item">
 			Status: <label class="label label-danger">Close</label>
+		</li>
+	</ul>
+
+	<ul class="list-group">
+		<li class="list-group-item">
+			Currency: {{ $outlet->currency }}
 		</li>
 	</ul>
 
