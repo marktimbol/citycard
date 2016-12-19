@@ -19,6 +19,7 @@
 				<th>eMail</th>
 				<th>Roles</th>
 				<th>Status</th>
+				<th>Posts</th>
 				<th>&nbsp;</th>
 			</tr>
 		</thead>
@@ -43,14 +44,15 @@
 						<label class="label label-danger">Offline</label>
 					@endif
 				</td>
+				<td>{{ $admin->posts_count }}</td>
 				<td>
-					<button 
-						class="btn btn-sm btn-primary" 
-						data-toggle="modal" 
+					<button
+						class="btn btn-sm btn-primary"
+						data-toggle="modal"
 						data-target="#attachRolesToAdmin{{$admin->id}}"
 					>
 						Attach Roles
-					</button>					
+					</button>
 					<a href="{{ route('dashboard.admins.edit', $admin->id) }}"
 						class="btn btn-sm btn-default"
 					>
@@ -59,10 +61,10 @@
 				</td>
 			</tr>
 
-			<div 
-				class="modal fade" 
-				id="attachRolesToAdmin{{$admin->id}}" 
-				tabindex="-1" 
+			<div
+				class="modal fade"
+				id="attachRolesToAdmin{{$admin->id}}"
+				tabindex="-1"
 				role="dialog"
 			>
 				<div class="modal-dialog" role="document">
@@ -73,7 +75,7 @@
 						</div>
 							<div class="modal-body">
 								<form method="POST" action="{{ route('dashboard.admins.roles.store', $admin->id) }}" id="attachRolesToAdmin{{$admin->id}}" name="attachRolesToAdmin{{$admin->id}}">
-									{{ csrf_field() }}									
+									{{ csrf_field() }}
 									@foreach( $roles as $role )
 									<div class="checkbox">
 										<label>
@@ -85,7 +87,7 @@
 
 									<button type="submit" class="btn btn-sm btn-primary">
 										Attach Roles
-									</button>											
+									</button>
 							</div>
 							<div class="modal-footer">
 								<button type="button" class="btn btn-sm btn-default" data-dismiss="modal">
@@ -95,7 +97,7 @@
 						</form>
 					</div>
 				</div>
-			</div>	
+			</div>
 
 			@empty
 			<tr>

@@ -12,7 +12,7 @@ class AdminsController extends Controller
 {
     public function index()
     {
-        $admins = Admin::with('roles')->orderBy('name', 'asc')->get();
+        $admins = Admin::with('roles')->withCount('posts')->orderBy('name', 'asc')->get();
         $roles = Role::orderBy('name', 'asc')->get();
     	return view('dashboard.admins.index', compact('admins', 'roles'));
     }
@@ -24,7 +24,7 @@ class AdminsController extends Controller
         $merchants = $admin->merchants()->paginate(20, ['*'], 'merchants');
         $outlets = $admin->outlets()->paginate(20, ['*'], 'outlets');
         $posts = $admin->posts()->paginate(20, ['*'], 'posts');
-        
+
     	return view('dashboard.admins.show', compact('admin', 'merchants', 'outlets', 'posts'));
     }
 
@@ -38,6 +38,6 @@ class AdminsController extends Controller
         $admin = Admin::create($request->all());
 
         flash()->success(sprintf('%s has been successfully saved.', $admin->name));
-        return back();        
+        return back();
     }
 }
