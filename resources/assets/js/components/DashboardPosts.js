@@ -72,7 +72,13 @@ class DashboardPosts extends React.Component
 						isSubmitting: false,
 						applyButtonText: 'Apply'
 					})
-			    }
+			    },
+				error: function(error) {
+					that.setState({
+						isSubmitting: false,
+						applyButtonText: 'Apply'
+					})
+				}
 			});
 		}
 
@@ -93,7 +99,13 @@ class DashboardPosts extends React.Component
 						isSubmitting: false,
 						applyButtonText: 'Apply'
 					})
-			    }
+			    },
+				error: function(error) {
+					that.setState({
+						isSubmitting: false,
+						applyButtonText: 'Apply'
+					})
+				}				
 			});
 		}
 	}
