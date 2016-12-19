@@ -47,6 +47,7 @@ $factory->define(App\Merchant::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'phone' => $faker->phoneNumber,
+        'currency' => 'AED',
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
     ];
@@ -63,6 +64,7 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'phone' => $faker->phoneNumber,
+        'currency' => 'AED',
         'address1'  => $faker->address,
         'address2'  => $faker->address,
         'latitude'  => $faker->latitude,

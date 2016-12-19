@@ -27,6 +27,8 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 
 	// User reserve a services from the outlet
 	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
+	// User follows an outlet
+	Route::post('outlets/{outlet}/follows', 'Api\User\OutletFollowersController@store');
 });
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
