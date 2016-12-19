@@ -15,7 +15,7 @@ class DashboardPostsRow extends React.Component
                     <div className="checkbox">
                         <label>
                             <input type="checkbox" name="posts[]" value={post.id} checked={checked} onChange={() => this.props.checkRow(post.id, ! checked)} />
-                            <a href={url}>{post.title} Mark</a>
+                            <a href={url}>{post.title}</a>
                         </label>
                     </div>
                 </td>

@@ -161,7 +161,7 @@ class DashboardPosts extends React.Component
 							<div className="form-group form-inline">
 								<select name="action" className="form-control input-sm" onChange={this.handleActionChange}>
 									{ actions }
-								</select>
+								</select><span>&nbsp;</span>
 								<button className="btn btn-sm btn-primary" disabled={this.state.isSubmitting}>
 									{ this.state.applyButtonText }
 									{ this.state.isSubmitting ? <span>&nbsp; <i className="fa fa-spinner fa-spin"></i></span> : <span></span> }
