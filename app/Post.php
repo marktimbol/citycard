@@ -44,22 +44,20 @@ class Post extends Model
      */
     public function toSearchableArray()
     {
-        // $this->load('merchant', 'outlets', 'category', 'photos', 'sources');
-        // return PostTransformer::transform($this);
-
         $array = [];
-        
+
         if( $this->isPublished() )
-        {         
+        {
             $array = $this->toArray();
             $array = [
                 'id'    => $this->id,
                 'title' => $this->title,
+                'desc' => $this->desc,
                 'category' => $this['category']['name']
             ];
         }
 
-        return $array;        
+        return $array;
     }
 
     public function outlets()

@@ -14,7 +14,8 @@ class EventsController extends Controller
     public function index(Request $request)
     {        
         $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-                    ->where('type', 'events');
+                    ->where('type', 'events')
+                    ->where('event_date', '>=', date('Y-m-d'));                  
                     
         if( $request->has('filter') )
         {        
