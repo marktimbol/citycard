@@ -23,6 +23,12 @@ class FavouritesController extends Controller
 
         if( request()->has('type') ) {
             $favourites = $favourites->whereType(request()->type);  
+
+            if( request()->type == 'events' )
+            {
+                $favourites->where('event_date', '>=', date('Y-m-d'))
+                            ->orderBy('event_date', 'asc');                 
+            }
         }
     	
 		return PostTransformer::transform($favourites->get());    	

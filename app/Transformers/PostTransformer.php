@@ -14,6 +14,12 @@ class PostTransformer extends AbstractTransformer
     		'id', 'type', 'title', 'desc', 'isExternal', 'created_at', 'updated_at'
     	]);
 
+        if( $item->type == 'events' )
+        {
+            $output['event_date'] = $item->event_date;
+            $output['event_time'] = $item->event_time;
+        }
+        
         $output['is_favourited'] = false;
         
         if( auth()->guard('user_api')->check() )
