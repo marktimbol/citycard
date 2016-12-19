@@ -15,7 +15,7 @@ class EventsController extends Controller
     {        
         $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
                     ->where('type', 'events')
-                    ->where('event_date', '>=', date('Y-m-d'));                  
+                    ->where('event_date', '>=', date('Y-m-d'));                
                     
         if( $request->has('filter') )
         {        
@@ -33,7 +33,7 @@ class EventsController extends Controller
             ]);
         }
 
-        $posts = $posts->paginate(15);
+        $posts = $posts->orderBy('event_date', 'asc')->paginate(15);
 
 		return EventTransformer::transform($posts->getCollection());
     }
