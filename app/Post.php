@@ -60,6 +60,11 @@ class Post extends Model
         return $array;
     }
 
+    public function creator()
+    {
+        return $this->belongsToMany(Admin::class, 'admin_posts', 'post_id', 'admin_id');
+    }
+
     public function outlets()
     {
     	return $this->belongsToMany(Outlet::class, 'outlet_posts', 'post_id', 'outlet_id');

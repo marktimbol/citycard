@@ -52,6 +52,13 @@
 					@endforeach
 				</li>
 			</ul>
+			<ul class="list-group">
+				<li class="list-group-item">
+					Posted By: <a href="{{ route('dashboard.admins.show', $post->creator()->first()->id) }}">
+						{{ $post->creator()->first()->name }}
+					</a>
+				</li>
+			</ul>
 
 			{!! $post->desc !!}
 
@@ -80,9 +87,9 @@
 
 			@endforelse
 
-			<form 
-				method="POST" 
-				class="dropzone" 
+			<form
+				method="POST"
+				class="dropzone"
 				id="UploadPostPhotos"
 				action="{{ route('dashboard.posts.photos.store', $post->id) }}"
 			>
