@@ -16,7 +16,7 @@ class PostTransformer extends AbstractTransformer
 
         if( $item->type == 'events' )
         {
-            $output['event_date'] = $item->event_date;
+            $output['event_date'] = $item->event_date->toDateTimeString();
             $output['event_time'] = $item->event_time;
         }
         
