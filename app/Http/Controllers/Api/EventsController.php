@@ -17,7 +17,7 @@ class EventsController extends Controller
                     ->where('type', 'events')
                     ->where('event_date', '>=', date('Y-m-d'));                
                     
-        if( $request->has('filter') )
+        if( $request->has('filter') && $request->filter == '1' )
         {        
             $from = explode('-', $request->from);
             $to = explode('-', $request->to);
