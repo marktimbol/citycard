@@ -101,7 +101,15 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     protected function createPost($attributes = [])
     {
-        return factory(App\Post::class)->create($attributes);
+        $post = factory(App\Post::class)->create($attributes);
+
+        if( auth()->guard('admin')->check() )
+        {
+            $user = auth()->guard('admin')->user();
+            $user->posts()->attach($post);
+        }
+
+        return $post;
     }
 
     protected function createCountry($attributes = [])

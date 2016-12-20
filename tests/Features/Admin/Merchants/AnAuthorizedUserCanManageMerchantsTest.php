@@ -168,7 +168,6 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 
 		$request = $this->post($endpoint, [
 			'city'	=> $city->id,
-			// 'custom_area'	=> "true",
 			'area'	=> 'Al Rigga',
 			'category'	=> $food->id,
 			'subcategories'	=> '1,Buffet',
@@ -177,6 +176,7 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'email'	=> 'john@example.com',
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
+			'currency'	=> 'AED'
 		]);
 
 		$this->seeInDatabase('merchants', [

@@ -38,7 +38,7 @@ class CanFilterEventsTest extends TestCase
     		'event_date'	=> $decemberFifteen
     	]);    	
 
-    	$endpoint = sprintf('/api/events/?filter=true&from=%s&to=%s', '2016-12-01', '2016-12-10');
+    	$endpoint = sprintf('/api/events/?filter=1&from=%s&to=%s', '2016-12-01', '2016-12-10');
 
     	$this->json('GET', $endpoint)
     		->seeJson([

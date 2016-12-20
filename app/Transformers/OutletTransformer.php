@@ -28,11 +28,7 @@ class OutletTransformer extends AbstractTransformer
     	if( $this->isRelationshipLoaded($item, 'posts') ) {
             $output['posts_count'] = $item->posts->count();
     		$output['posts'] = PostTransformer::transform($item->posts);
-    	}   
-
-        if( $this->isRelationshipLoaded($item, 'photos') ) {
-            $output['photos'] = PhotoTransformer::transform($item->photos);
-        }            
+    	}      
 
     	return $output;	
     }
