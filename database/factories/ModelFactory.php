@@ -100,6 +100,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
             return factory(App\Category::class)->create()->id;
         },
         'type'  => 'notification',
+        'event_date'  => '',
         'event_time'  => '',
         'title' => $faker->sentence,
         'slug'  => $faker->slug,

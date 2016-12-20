@@ -11,45 +11,50 @@ class CanFilterEventsTest extends TestCase
 
     public function test_a_guest_user_can_filter_events_by_from_and_to_date()
     {
-		$decemberTwo = Carbon::create(2016, 12, 2, 0);
-		$decemberTwo = $decemberTwo->toDateTimeString(); 
-
-		$decemberThree = Carbon::create(2016, 12, 3, 0);
-		$decemberThree = $decemberThree->toDateTimeString();
-
- 		$decemberFifteen = Carbon::create(2016, 12, 15, 0);
-		$decemberFifteen = $decemberFifteen->toDateTimeString();
+        $yesterday = Carbon::yesterday();
+        $today = Carbon::now()->subHour();
+        $tomorrow = Carbon::tomorrow();
+        $nextYear = Carbon::now()->addYear(1);
 
     	$this->createPost([
-    		'title'	=> 'Event on December 2',
+    		'title'	=> 'Event yesterday',
     		'type'	=> 'events',
-    		'event_date'	=> $decemberTwo
+    		'event_date'	=> $yesterday->toDateTimeString()
     	]);
 
-    	$this->createPost([
-    		'title'	=> 'Event on December 3',
+    	$post = $this->createPost([
+    		'title'	=> 'Event today',
     		'type'	=> 'events',
-    		'event_date'	=> $decemberThree,
+    		'event_date'	=> $today->toDateTimeString()
     	]);    	
 
     	$this->createPost([
-    		'title'	=> 'Event on December 15',
+    		'title'	=> 'Event tomorrow',
     		'type'	=> 'events',
-    		'event_date'	=> $decemberFifteen
-    	]);    	
+    		'event_date'	=> $tomorrow->toDateTimeString()
+    	]); 
 
-    	$endpoint = sprintf('/api/events/?filter=1&from=%s&to=%s', '2016-12-01', '2016-12-10');
+        $this->createPost([
+            'title' => 'Event next year',
+            'type'  => 'events',
+            'event_date'    => $nextYear->toDateTimeString()
+        ]);            	
+
+    	$endpoint = sprintf('/api/events/?filter=1&from=%s&to=%s', $today->toDateString(), $tomorrow->toDateString());
 
     	$this->json('GET', $endpoint)
     		->seeJson([
-    			'title'	=> 'Event on December 2'
+    			'title'	=> 'Event today'
     		])
     		->seeJson([
-    			'title'	=> 'Event on December 3'
+    			'title'	=> 'Event tomorrow'
     		])
     		->dontSeeJson([
-    			'title'	=> 'Event on December 15'
-    		]);
+    			'title'	=> 'Event yesterday'
+    		])
+            ->dontSeeJson([
+                'title' => 'Event next year'
+            ]);
     }
 
     public function test_a_guest_user_can_view_all_the_events_on_a_specific_date()

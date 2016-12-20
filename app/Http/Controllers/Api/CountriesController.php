@@ -14,4 +14,4 @@ class CountriesController extends Controller
     	$countries = Country::with('cities.areas')->orderBy('name', 'asc')->get();
     	return CountryTransformer::transform($countries);
     }
-}
+} 

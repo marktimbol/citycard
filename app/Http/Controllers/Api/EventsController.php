@@ -24,9 +24,7 @@ class EventsController extends Controller
 
             $from = Carbon::create($from[0], $from[1], $from[2], 0);
             $to = Carbon::create($to[0], $to[1], $to[2], 0);
-
-            // dd($from->toDateTimeString(), $to->toDateTimeString());
-
+            
         	$posts = $posts->whereBetween('event_date', [
                 $from->toDateTimeString(), 
                 $to->toDateTimeString()
