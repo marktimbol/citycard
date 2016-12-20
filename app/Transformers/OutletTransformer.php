@@ -13,6 +13,14 @@ class OutletTransformer extends AbstractTransformer
     		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude'
     	]);    
 
+        if( auth()->guard('user_api')->check() )
+        {
+            $user = auth()->guard('user_api')->user();
+            $user->load('outlets');
+
+            $output['is_following'] = $user->outlets->contains($item->id);
+        }
+
         if( $this->isRelationshipLoaded($item, 'areas') ) {
             $output['areas'] = AreaTransformer::transform($item->areas);
         }     

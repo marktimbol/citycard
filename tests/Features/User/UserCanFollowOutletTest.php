@@ -50,4 +50,48 @@ class UserCanFollowOutletTest extends TestCase
     		]);    		
 
     }
+
+    public function test_an_authenticated_user_can_know_if_he_or_she_followed_the_current_outlet()
+    {
+        $merchant = $this->createMerchant([
+            'name'  => 'Al Shaya'
+        ]);      
+
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Zara - Al Rigga'
+        ]);
+
+        $outlet2 = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Zara - Al Rigga'
+        ]);        
+
+        $endpoint = sprintf('/api/outlets/%s/follows', $outlet->id);
+        $this->post($endpoint);
+
+        $this->json('GET', '/api/outlets/1')
+            ->seeJson([
+                'is_following'  => true,
+            ]);
+
+        $this->json('GET', '/api/outlets/2')
+            ->seeJson([
+                'is_following'  => true,
+            ]);  
+
+        $pullAndBear = $this->createMerchant([
+            'name'  => 'Pull and Bear'
+        ]);  
+
+        $pullAndBearOutlet = $this->createOutlet([
+            'merchant_id'   => $pullAndBear->id,
+            'name'  => 'pullAndBearOutlet - Al Rigga'
+        ]); 
+
+        $this->json('GET', '/api/outlets/'. $pullAndBearOutlet->id)
+            ->seeJson([
+                'is_following'  => false,
+            ]);                                     
+    }
 }
