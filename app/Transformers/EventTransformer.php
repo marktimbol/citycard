@@ -19,7 +19,7 @@ class EventTransformer extends AbstractTransformer
         if( auth()->guard('user_api')->check() )
         {
             $user = auth()->guard('user_api')->user();
-            $favourites = $user->favourites;
+            $user = $user->load('favourites');
             
             $output['is_favourited'] = $user->favourites->contains($item->id);
         }

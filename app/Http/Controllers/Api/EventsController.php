@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Post;
-use App\Transformers\EventTransformer;
+use App\Transformers\PostTransformer;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -35,6 +35,6 @@ class EventsController extends Controller
 
         $posts = $posts->orderBy('event_date', 'asc')->paginate(15);
 
-		return EventTransformer::transform($posts->getCollection());
+		return PostTransformer::transform($posts->getCollection());
     }
 }
