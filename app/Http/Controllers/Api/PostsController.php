@@ -17,13 +17,22 @@ class PostsController extends Controller
 					->latest()
 					->paginate(10);
 
+        if( $request->has('s') )
+        {
+            $key = $request->s;
+            $posts = Post::search($key)->get();
+            $paginator = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
+                    ->whereIn('id', $posts->pluck('id'))
+                    ->paginate(15);
+        }   
+
     	if( $request->has('filter') && $request->filter == 'true' )
     	{
 	        $paginator = Post::filterBy($request)
                         ->published()
 		    			->latest()
 		    			->paginate(10);
-    	}
+    	}     
 
 		return PostTransformer::transform($paginator->getCollection());
     }
