@@ -23,7 +23,7 @@ class PostsController extends Controller
             $posts = Post::search($key)->get();
             $paginator = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
                     ->whereIn('id', $posts->pluck('id'))
-                    ->paginate(15);
+                    ->paginate(10);
         }   
 
     	if( $request->has('filter') && $request->filter == 'true' )
