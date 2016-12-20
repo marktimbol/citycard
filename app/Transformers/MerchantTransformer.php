@@ -9,9 +9,9 @@ class MerchantTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
-    	$output = array_only($item->merchant->toArray(), [
-    		'id', 'name', 'logo'
-    	]);
+        $output['id'] = $item->merchant->id;
+        $output['name'] = $item->merchant->name;
+        $output['logo'] = $item->merchant->logo;
 
     	if( $this->isRelationshipLoaded($item->merchant, 'outlets') )  {       
             $merchantOutlets = $item->merchant->outlets->reject(function($outlet) use($item) {
