@@ -9,15 +9,17 @@ class MerchantTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
-        $output['id'] = $item->merchant->id;
-        $output['name'] = $item->merchant->name;
-        $output['logo'] = $item->merchant->logo;
+        // dd('merchant', $item);
 
-    	if( $this->isRelationshipLoaded($item->merchant, 'outlets') )  {       
-            $merchantOutlets = $item->merchant->outlets->reject(function($outlet) use($item) {
-                return $outlet->id == $item->id;
-            });
-    		$output['outlets'] = OutletTransformer::transform($merchantOutlets);
+    	$output = array_only($item->toArray(), [
+    		'id', 'name', 'logo'
+    	]);
+
+    	if( $this->isRelationshipLoaded($item, 'outlets') )  {       
+            // $merchantOutlets = $item->merchant->outlets->reject(function($outlet) use($item) {
+            //     return $outlet->id == $item->id;
+            // });
+    		$output['outlets'] = OutletTransformer::transform($item->outlets);
     	}         	
 
     	return $output;

@@ -18,7 +18,7 @@ class OutletTransformer extends AbstractTransformer
         }     
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
-    		$output['merchant'] = MerchantTransformer::transform($item);
+    		$output['merchant'] = MerchantTransformer::transform($item->merchant);
     	}      
 
     	if( $this->isRelationshipLoaded($item, 'clerks') ) {
