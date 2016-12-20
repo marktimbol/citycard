@@ -25,4 +25,14 @@ class OutletFollowersController extends Controller
     		'success'	=> true,
     	]);
     }
+
+    public function destroy(Outlet $outlet)
+    {
+        $user = auth()->guard('user_api')->user();
+        $user->outlets()->detach($outlet);
+
+        return response()->json([
+            'success'   => true,
+        ]); 
+    }
 }
