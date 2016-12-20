@@ -38,7 +38,6 @@ class FiltersTest extends TestCase
         $post = $this->createPost([
             'merchant_id'   => $zara->id,
             'title' => 'Zara Offer in Dubai',
-            'published' => true,
         ]);
 
         $zaraOutletDubai->posts()->attach($post);
@@ -111,13 +110,14 @@ class FiltersTest extends TestCase
         $outlet->posts()->attach($post);
 
         $endpoint = sprintf('/api/posts');
-        $this->json('GET', $endpoint, [
+        $request = $this->json('GET', $endpoint, [
             'filter'    => true,
             'city'   => '',
             'areas' => '1',
             'categories' => ''
-        ])
-        ->seeJson([
+        ]);
+
+        $this->seeJson([
             'title' => 'Zara Offer in Al Rigga Area'
         ]);
     }

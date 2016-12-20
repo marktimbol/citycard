@@ -1,5 +1,7 @@
 <?php
 
+use Carbon\Carbon;
+
 /*
 |--------------------------------------------------------------------------
 | Model Factories
@@ -100,7 +102,7 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
             return factory(App\Category::class)->create()->id;
         },
         'type'  => 'notification',
-        'event_date'  => '',
+        'event_date'  => Carbon::now(),
         'event_time'  => '',
         'title' => $faker->sentence,
         'slug'  => $faker->slug,

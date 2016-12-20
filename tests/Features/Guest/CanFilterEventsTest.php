@@ -57,45 +57,32 @@ class CanFilterEventsTest extends TestCase
             ]);
     }
 
-    public function test_a_guest_user_can_view_all_the_events_on_a_specific_date()
+    public function test_a_guest_user_can_view_all_the_events_on_a_given_date()
     {
-        $decemberFifteen = Carbon::create(2016, 12, 15, 0);
-        $decemberFifteen = $decemberFifteen->toDateTimeString();
+        $today = Carbon::now()->addHour();
+        $tomorrow = Carbon::tomorrow();
 
-        // dd($decemberFifteen);
-
-        $decemberThirty = Carbon::create(2016, 12, 30, 0);
-        $decemberThirty = $decemberThirty->toDateTimeString();        
+        $post = $this->createPost([
+            'title' => 'Event today',
+            'type'  => 'events',
+            'event_date'    => $today->toDateTimeString()
+        ]); 
 
         $this->createPost([
-            'title' => 'Event on December 15',
+            'title' => 'Event tomorrow',
             'type'  => 'events',
-            'event_date'    => $decemberFifteen
-        ]);
+            'event_date'    => $tomorrow->toDateTimeString()
+        ]);           
 
-        $this->createPost([
-            'title' => 'Another Event on December 15',
-            'type'  => 'events',
-            'event_date'    => $decemberFifteen,
-        ]);     
-
-        $this->createPost([
-            'title' => 'Event on December 30',
-            'type'  => 'events',
-            'event_date'    => $decemberThirty
-        ]);     
-
-        $endpoint = sprintf('/api/events/?filter=true&from=%s&to=%s', '2016-12-15', '2016-12-15');
+        $endpoint = 
+            sprintf('/api/events/?filter=1&from=%s&to=%s', $today->toDateString(), $today->toDateString());
 
         $this->json('GET', $endpoint)
             ->seeJson([
-                'title' => 'Event on December 15'
-            ])
-            ->seeJson([
-                'title' => 'Another Event on December 15'
+                'title' => 'Event today'
             ])
             ->dontSeeJson([
-                'title' => 'Event on December 30'
+                'title' => 'Event tomorrow'
             ]);
     }    
 }

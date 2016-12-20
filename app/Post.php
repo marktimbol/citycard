@@ -47,7 +47,7 @@ class Post extends Model
         $array = [];
 
         if( $this->isPublished() )
-        {
+        {            
             $array = $this->toArray();
             $array = [
                 'id'    => $this->id,
