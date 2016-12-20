@@ -12,7 +12,7 @@ class CanFilterEventsTest extends TestCase
     public function test_a_guest_user_can_filter_events_by_from_and_to_date()
     {
         $yesterday = Carbon::yesterday();
-        $today = Carbon::now()->subHour();
+        $today = Carbon::now()->addHour();
         $tomorrow = Carbon::tomorrow();
         $nextYear = Carbon::now()->addYear(1);
 
