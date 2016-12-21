@@ -59,7 +59,10 @@
 
 			<ul class="list-group">
 				<li class="list-group-item">
-					Category: <a href="#">{{ $post->category->name }}</a><br />
+					Category: 
+					<a href="{{ route('dashboard.categories.posts.index', $post->category->id) }}">
+						{{ $post->category->name }}
+					</a><br />
 					Sub-Categories:
 					@foreach( $post->subcategories as $subcategory )
 						<label class="label label-success">{{ $subcategory->name }}</label>

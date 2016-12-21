@@ -25,7 +25,9 @@ class RolesController extends Controller
 
     	$role = Role::create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $role->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $role->name)
+        );
     	return back();    	
     }
 
@@ -33,7 +35,9 @@ class RolesController extends Controller
     {
         $role->delete();
 
-        flash()->success(sprintf('%s Role has been successfully removed.', $role->label));
+        flash()->success(
+            sprintf('%s Role has been successfully removed.', $role->label)
+        );
         return back();         
     }
 }

@@ -15,7 +15,7 @@ class PostsController extends Controller
 		$paginator = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
                     ->published()
 					->latest()
-					->paginate(10);
+					->paginate(config('pagination.count'));
 
         if( $request->has('s') )
         {
@@ -23,7 +23,7 @@ class PostsController extends Controller
             $posts = Post::search($key)->get();
             $paginator = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
                     ->whereIn('id', $posts->pluck('id'))
-                    ->paginate(10);
+                    ->paginate(config('pagination.count'));
         }   
 
     	if( $request->has('filter') && $request->filter == 'true' )
@@ -31,7 +31,7 @@ class PostsController extends Controller
 	        $paginator = Post::filterBy($request)
                         ->published()
 		    			->latest()
-		    			->paginate(10);
+		    			->paginate(config('pagination.count'));
     	}     
 
 		return PostTransformer::transform($paginator->getCollection());

@@ -23,7 +23,9 @@ class PermissionsController extends Controller
 
     	$permission = Permission::create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $permission->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $permission->name)
+        );
     	return back();    	
     }    
 }

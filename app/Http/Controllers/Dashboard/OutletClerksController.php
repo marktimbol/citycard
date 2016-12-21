@@ -40,6 +40,7 @@ class OutletClerksController extends Controller
     public function destroy(Outlet $outlet, Clerk $clerk)
     {
         $outlet->clerks()->detach($clerk);
+        
         flash()->success('A Clerk has been successfully removed from the Outlet.');
         return back();
     }

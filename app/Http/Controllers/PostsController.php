@@ -14,7 +14,7 @@ class PostsController extends Controller
     	$posts = Post::with('merchant', 'outlets:id,name', 'photos')
                 ->published()
                 ->latest()
-                ->paginate(15);
+                ->paginate(config('pagination.count'));
 
         if( request()->has('s') )
         {
@@ -22,7 +22,7 @@ class PostsController extends Controller
             $posts = Post::search($key)->get();
             $posts = Post::with('merchant', 'outlets:id,name', 'photos')
                     ->whereIn('id', $posts->pluck('id'))
-                    ->paginate(15);
+                    ->paginate(config('pagination.count'));
         }
 
     	JavaScript::put([

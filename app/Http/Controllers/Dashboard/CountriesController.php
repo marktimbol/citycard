@@ -24,7 +24,9 @@ class CountriesController extends Controller
 
     	$country = Country::create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $country->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $country->name)
+        );
     	return back();
     }
 
@@ -37,7 +39,9 @@ class CountriesController extends Controller
     {
         $country->update($request->all());
 
-        flash()->success(sprintf('%s has been successfully updated.', $country->name));
+        flash()->success(
+            sprintf('%s has been successfully updated.', $country->name)
+        );
         return back();        
     }
 }

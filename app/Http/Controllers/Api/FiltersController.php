@@ -14,7 +14,8 @@ class FiltersController extends Controller
 {
     public function index()
     {
-        $paginator = Post::filterBy(request())->paginate(10);
+        $paginator = Post::filterBy(request())
+        			->paginate(config('pagination.count'));
         return PostTransformer::transform($paginator->getCollection());
     }
 }

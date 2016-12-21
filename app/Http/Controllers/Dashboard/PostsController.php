@@ -16,15 +16,13 @@ class PostsController extends Controller
         $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
                     ->published()
                     ->latest()
-                    ->paginate(20);
+                    ->paginate(config('pagination.count'));
 
-        if( request()->has('view') ) {
-            if( request()->view == 'for-review' ) {
-                $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
-                            ->unpublished()
-                            ->latest()
-                            ->paginate(20);
-            }
+        if( request()->has('view') && request()->view == 'for-review' ) {
+            $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
+                    ->unpublished()
+                    ->latest()
+                    ->paginate(config('pagination.count'));
         }
 
         JavaScript::put([

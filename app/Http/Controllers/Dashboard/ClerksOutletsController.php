@@ -14,6 +14,7 @@ class ClerksOutletsController extends Controller
 
         if( $request->has('outlets') ) {
             $clerk->outlets()->sync($request->outlets);
+            
 	        flash()->success('A Clerk has been successfully assigned on the Outlet.');
         }
 

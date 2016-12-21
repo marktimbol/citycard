@@ -12,8 +12,8 @@ class SubcategoryPostsController extends Controller
     public function index(Subcategory $subcategory)
     {
 		$posts = $subcategory->posts()->with(['category', 'outlets', 'merchant', 'photos', 'sources'])
-					->latest()
-					->paginate(10);
+				->latest()
+				->paginate(config('pagination.count'));
 
 		return view('dashboard.posts.index', compact('posts'));
     }

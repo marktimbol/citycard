@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Transformers\OutletTransformer;
 use App\Transformers\PostTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
@@ -52,8 +53,7 @@ class Post extends Model
             $array = [
                 'id'    => $this->id,
                 'title' => $this->title,
-                'desc' => $this->desc,
-                'category' => $this['category']['name']
+                'outlet' => OutletTransformer::transform($this->outlets)
             ];
         }
 

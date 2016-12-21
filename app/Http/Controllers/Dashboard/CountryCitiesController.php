@@ -26,7 +26,9 @@ class CountryCitiesController extends Controller
 
     	$city = $country->cities()->create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $city->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $city->name)
+        );
     	return back();
     }
 }

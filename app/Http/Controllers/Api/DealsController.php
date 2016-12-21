@@ -12,13 +12,14 @@ class DealsController extends Controller
     public function index(Request $request)
     {
     	$posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-    				->where('type', 'deals')->paginate(10);
+    				->where('type', 'deals')
+                    ->paginate(config('pagination.count'));
     				
     	if( $request->has('filter') && $request->filter == 'true' )
     	{
 	        $posts = Post::filterBy($request)
 		    			->where('type', 'deals')
-		    			->paginate(10);
+		    			->paginate(config('pagination.count'));
     	}
 
 		return PostTransformer::transform($posts->getCollection());    	

@@ -10,7 +10,9 @@ class CategoriesController extends Controller
 {
     public function index()
     {
-        $categories = Category::with('posts', 'subcategories')->orderBy('name', 'asc')->get();
+        $categories = Category::with('posts', 'subcategories')
+                        ->orderBy('name', 'asc')
+                        ->get();
         
         return view('dashboard.categories.index', compact('categories'));
     }
@@ -28,7 +30,9 @@ class CategoriesController extends Controller
 
     	$category = Category::create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $category->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $category->name)
+        );
     	return back();
     }
 
@@ -36,7 +40,9 @@ class CategoriesController extends Controller
     {
         $category->delete();
 
-        flash()->success(sprintf('%s has been successfully removed.', $category->name));
+        flash()->success(
+            sprintf('%s has been successfully removed.', $category->name)
+        );
     	return redirect()->route('dashboard.categories.index');
     }
 }

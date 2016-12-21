@@ -13,14 +13,21 @@ Notifications
 	notificationable_type
 
 Posts
+	id
+	merchant_id
+	category_id
 	type
+		is events?
+			event_date
+			event_time
 	title
 	slug
-	description
-	approved
-	<!-- image -->
-	<!-- start_date -->
-	<!-- end_date -->
+	desc
+	isExternal
+	for_reservation
+	for_purchase
+	published
+
 Offers
 
 Tickets

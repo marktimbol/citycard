@@ -20,29 +20,32 @@ class UserReservationTest extends TestCase
 
     public function test_an_authenticated_user_can_reserve_an_item_or_service_from_the_outlet()
     {
-        $tomorrow = Carbon::tomorrow()->toDateTimeString();
+        $date = Carbon::create(2016, 12, 31, 0)->toDateTimeString();
 
     	$outlet = $this->createOutlet([
-    		'name'	=> 'Burj Khalifa'
+    		'name'	=> 'Dubai Mall',
+            'has_reservation'   => true,
     	]);
 
-        $outletItem = $this->createOutletItem([
+        $itemForReservation = $this->createItemForReservation([
             'outlet_id' => $outlet->id,
             'title' => 'Burj Khalifa - At the Top'
         ]);
 
     	$endpoint = sprintf('/api/outlets/%s/reservations', $outlet->id);
     	$request = $this->json('POST', $endpoint, [
-            'item_id'  => $outletItem->id,
-            'date'  => $tomorrow,
+            'item_id'  => $itemForReservation->id,
+            'date'  => $date,
             'time'  => '17:00',
-    		'note'	=> 'Some notes on my reservations'
+            'quantity'  => 2,
+    		'note'	=> 'The note'
     	]);
 
     	$this->seeInDatabase('reservations', [
     		'date'	=> $tomorrow,
     		'time'	=> '17:00',
-    		'note'	=> 'Some notes on the reservations',
+            'quantity'  => 2,
+    		'note'	=> 'The note',
     		'confirmed'	=> false
     	])
 	    	->seeInDatabase('outlet_reservations', [

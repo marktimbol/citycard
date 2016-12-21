@@ -31,7 +31,8 @@ class EventsController extends Controller
             ]);
         }
 
-        $posts = $posts->orderBy('event_date', 'asc')->paginate(15);
+        $posts = $posts->orderBy('event_date', 'asc')
+                    ->paginate(config('pagination.count'));
 
 		return PostTransformer::transform($posts->getCollection());
     }

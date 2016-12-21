@@ -32,15 +32,16 @@ class MerchantsController extends Controller
             $merchants = $merchants->where('name', 'like', '%'.$search.'%');
         }
 
-        $merchants = $merchants->paginate(20);
+        $merchants = $merchants->paginate(config('pagination.count'));
 
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
     public function testing()
     {
-        $merchants = Merchant::with('areas.city.country')->latest()->paginate(10);
-        dd($merchants->toArray());
+        $merchants = Merchant::with('areas.city.country')
+            ->latest()
+            ->paginate(config('pagination.count'));
     }
 
     public function show(Merchant $merchant)
@@ -148,7 +149,6 @@ class MerchantsController extends Controller
         $merchant->delete();
 
         flash()->success('A merchant has been successfully removed.');
-
         return redirect()->route('dashboard.merchants.index');
     }
 

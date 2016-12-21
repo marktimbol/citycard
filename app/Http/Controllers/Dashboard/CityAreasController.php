@@ -26,7 +26,9 @@ class CityAreasController extends Controller
 
     	$area = $city->areas()->create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $area->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $area->name)
+        );
     	return back();
     }
 }

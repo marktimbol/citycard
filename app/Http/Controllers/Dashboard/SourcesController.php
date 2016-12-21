@@ -24,7 +24,9 @@ class SourcesController extends Controller
 
     	$source = Source::create($request->all());
 
-    	flash()->success(sprintf('%s has been successfully saved.', $source->name));
+    	flash()->success(
+            sprintf('%s has been successfully saved.', $source->name)
+        );
     	return back();
     }
 }

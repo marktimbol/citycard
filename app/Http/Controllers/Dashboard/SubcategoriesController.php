@@ -24,7 +24,9 @@ class SubcategoriesController extends Controller
 
         $subcategory = $category->subcategories()->create($request->all());
 
-        flash()->success(sprintf('%s has been successfully saved.', $subcategory->name));
+        flash()->success(
+            sprintf('%s has been successfully saved.', $subcategory->name)
+        );
     	return back();
     }
 }

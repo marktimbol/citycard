@@ -20,7 +20,7 @@ class PublishPostsController extends Controller
         $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
                     ->unpublished()
                     ->latest()
-                    ->paginate(20);
+                    ->paginate(config('pagination.count'));
 
         return response()->json([
             'posts' => $posts,
@@ -55,7 +55,7 @@ class PublishPostsController extends Controller
         $posts = Post::with(['category', 'outlets', 'merchant', 'photos', 'sources'])
                     ->published()
                     ->latest()
-                    ->paginate(20);
+                    ->paginate(config('pagination.count'));
 
         return response()->json([
             'posts' => $posts,
