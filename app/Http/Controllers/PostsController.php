@@ -22,6 +22,7 @@ class PostsController extends Controller
             $posts = Post::search($key)->get();
             $posts = Post::with('merchant', 'outlets:id,name', 'photos')
                     ->whereIn('id', $posts->pluck('id'))
+                    ->latest()                    
                     ->paginate(config('pagination.count'));
         }
 
