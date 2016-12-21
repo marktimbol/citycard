@@ -42,7 +42,9 @@ class UserReservationTest extends TestCase
     	]);
 
     	$this->seeInDatabase('reservations', [
-    		'date'	=> $tomorrow,
+            'user_id'   => $this->user->id,
+            'item_id'  => $itemForReservation->id,
+    		'date'	=> $date,
     		'time'	=> '17:00',
             'quantity'  => 2,
     		'note'	=> 'The note',
@@ -51,10 +53,6 @@ class UserReservationTest extends TestCase
 	    	->seeInDatabase('outlet_reservations', [
 	    		'outlet_id'	=> $outlet->id,
 	    		'reservation_id'	=> 1,
-	    	])
-            ->seeInDatabase('user_reservations', [
-                'user_id'   => $this->user->id,
-                'reservation_id'    => 1,
-            ]);
+	    	]);
     }
 }

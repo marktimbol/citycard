@@ -14,6 +14,7 @@ class OutletTransformer extends AbstractTransformer
     	]);    
 
         $output['is_following'] = false;
+
         
         if( auth()->guard('user_api')->check() )
         {

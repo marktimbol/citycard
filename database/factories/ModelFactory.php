@@ -76,6 +76,15 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\ItemForReservation::class, function (Faker\Generator $faker) {
+    return [
+        'outlet_id'   => function() {
+            return factory(App\Outlet::class)->create()->id;
+        },
+        'title' => $faker->sentence
+    ];
+});
+
 $factory->define(App\Clerk::class, function (Faker\Generator $faker) {
     static $password;
 

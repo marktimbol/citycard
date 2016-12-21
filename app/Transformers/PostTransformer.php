@@ -16,9 +16,10 @@ class PostTransformer extends AbstractTransformer
 
         if( $item->type == 'events' )
         {
-            $output['event_date'] = $item->event_date->toDateTimeString();
+            $output['event_date'] = ! empty($item->event_date) ? $item->event_date->toDateTimeString() : null;
             $output['event_time'] = $item->event_time;
         }
+
         
         $output['is_favourited'] = false;
         
@@ -30,13 +31,14 @@ class PostTransformer extends AbstractTransformer
             $output['is_favourited'] = $user->favourites->contains($item->id);
         }
 
-    	if( $this->isRelationshipLoaded($item, 'category') ) {
-    		$output['category'] = CategoryTransformer::transform($item->category);
-    	}
+        
+        if( $this->isRelationshipLoaded($item, 'category') ) {
+            $output['category'] = CategoryTransformer::transform($item->category);
+        }
 
-    	if( $this->isRelationshipLoaded($item, 'outlets') ) {
-    		$output['outlets'] = OutletTransformer::transform($item->outlets);
-    	}    	
+        if( $this->isRelationshipLoaded($item, 'outlets') ) {
+            $output['outlets'] = OutletTransformer::transform($item->outlets);
+        }       
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
     		$output['merchant'] = MerchantTransformer::transform($item->merchant);
