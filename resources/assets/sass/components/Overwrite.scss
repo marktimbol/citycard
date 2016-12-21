@@ -12,6 +12,17 @@
 	}
 }
 
+.label-success {
+	a {
+		color: white;
+		text-decoration: none;
+		&:hover {
+			color: white;
+			text-decoration: none;
+		}
+	}
+}
+
 .fr-box {
 	z-index: 0;
 }

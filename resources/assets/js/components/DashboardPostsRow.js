@@ -1,5 +1,4 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
 
 class DashboardPostsRow extends React.Component
 {
@@ -8,6 +7,30 @@ class DashboardPostsRow extends React.Component
         let post = this.props.post;
         let checked = this.props.checked;
         let url = '/dashboard/posts/' + post.id;
+
+        let merchant_url = '/dashboard/merchants/' + post.merchant.id;
+
+        let outlets = post.outlets.map(outlet => {
+            let outlet_url = '/dashboard/merchants/' + post.merchant.id + '/outlets/' + outlet.id; 
+            return (
+                <span className="label label-success" key={outlet.id}>
+                    <a href={outlet_url}>
+                        {outlet.name}
+                    </a>
+                </span>
+            )
+        })
+
+        let sources = post.sources.map(source => {
+            let source_posts_url = '/dashboard/sources/' + source.id + '/posts';
+            return (
+                <span className="label label-success" key={source.id}>
+                    <a href={source_posts_url}>
+                        {source.name}
+                    </a>
+                </span>
+            )
+        })        
 
         return (
             <tr>
@@ -19,9 +42,14 @@ class DashboardPostsRow extends React.Component
                         </label>
                     </div>
                 </td>
-                <td width="100">
-                    <TimeAgo date={post.created_at} />
+                <td>{post.type}</td>
+                <td>
+                    <a href={merchant_url}>
+                        {post.merchant.name}
+                    </a>
                 </td>
+                <td>{sources}</td>
+                <td>{outlets}</td>
             </tr>
         )
     }

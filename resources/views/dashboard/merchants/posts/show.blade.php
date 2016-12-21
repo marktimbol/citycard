@@ -26,7 +26,28 @@
 		<div class="col-md-7">
 			<ul class="list-group">
 				<li class="list-group-item">
-					Post Type: {{ ucfirst($post->type) }}
+					Merchant: 
+					<a href="{{ route('dashboard.merchants.show', $post->merchant->id) }}">
+						{{ $post->merchant->name }}
+					</a>
+				</li>
+				<li class="list-group-item">
+					Outlets:
+					@foreach( $post->outlets as $outlet )
+						<a href="{{ route('dashboard.merchants.outlets.show', [
+							$post->merchant->id,
+							$outlet->id
+						]) }}"
+						>
+							{{ $outlet->name }}
+						</a>
+					@endforeach
+				</li>				
+			</ul>
+			<ul class="list-group">
+				<li class="list-group-item">
+					Post Type: 
+					<a href="#">{{ ucfirst($post->type) }}</a>
 				</li>
 				@if( $post->type == 'events' )
 					<li class="list-group-item">
@@ -34,18 +55,11 @@
 						Event Time: {{ $post->event_time }}
 					</li>
 				@endif
-				@if( $post->isExternal )
-					<a class="list-group-item" href="{{ $post->sources->first()->pivot->link }}" target="_blank">
-						From {{ $post->sources->first()->name }}
-					</a>
-				@endif
 			</ul>
 
 			<ul class="list-group">
 				<li class="list-group-item">
-					Category: {{ $post->category->name }}
-				</li>
-				<li class="list-group-item">
+					Category: <a href="#">{{ $post->category->name }}</a><br />
 					Sub-Categories:
 					@foreach( $post->subcategories as $subcategory )
 						<label class="label label-success">{{ $subcategory->name }}</label>
@@ -58,6 +72,13 @@
 						{{ $post->creator()->first()->name }}
 					</a>
 				</li>
+				@if( $post->isExternal )
+					<li class="list-group-item">
+						From <a href="{{ $post->sources->first()->pivot->link }}" target="_blank">
+							{{ $post->sources->first()->name }}
+						</a>
+					</li>
+				@endif				
 			</ul>
 
 			{!! $post->desc !!}

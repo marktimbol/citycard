@@ -194,7 +194,10 @@ class DashboardPosts extends React.Component
 										</label>
 									</div>
 								</th>
-								<th></th>
+								<th>Type</th>
+								<th>Merchant</th>
+								<th>Source</th>
+								<th>Outlet</th>
 							</tr>
 						</thead>
 						<tbody>
