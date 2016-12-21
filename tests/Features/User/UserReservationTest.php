@@ -54,5 +54,9 @@ class UserReservationTest extends TestCase
 	    		'outlet_id'	=> $outlet->id,
 	    		'reservation_id'	=> 1,
 	    	]);
+
+        $this->seeJson([
+            'success'   => true,
+        ]);
     }
 }

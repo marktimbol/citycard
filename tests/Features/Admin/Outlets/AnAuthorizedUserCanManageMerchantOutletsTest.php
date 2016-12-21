@@ -83,6 +83,19 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		]);
     }
 
+    public function test_an_authorized_user_can_activate_the_reservation_of_an_outlet()
+    {
+    	$outlet = $this->createOutlet([
+    		'name'	=> 'Dubai Mall',
+    		'has_reservation'	=> false
+    	]);
+
+    	// OutletActivateReservationController@update
+    	// OutletDeactivateReservationController@delete
+
+    	// outlets/8/activate
+    }
+
     public function test_an_authorized_user_can_edit_a_merchants_outlet_information()
     {
     	$merchant = $this->createMerchant([
