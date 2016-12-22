@@ -25,6 +25,8 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/change-password', 'Api\User\ChangePasswordController@update');
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 
+	// User reservations list
+	Route::get('user/reservations', 'Api\User\ReservationsController@index');
 	// User reserve a services from the outlet
 	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
 	// User follows an outlet

@@ -15,7 +15,7 @@ class OutletReservationsController extends Controller
 
     	$reservation = $user->reservations()->create($request->all());
 
-    	$outlet->reservations()->attach($reservation);
+    	$outlet->reservations()->attach($reservation->id);
 
     	return response()->json([
     		'success'	=> true,
