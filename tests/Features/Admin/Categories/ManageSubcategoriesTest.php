@@ -49,18 +49,18 @@ class ManageSubcategoriesTest extends TestCase
             ]);
     }
 
-    public function test_an_admin_can_delete_a_category()
-    {
-        $category = $this->createCategory([
-            'name'  => 'Food'
-        ]);
+    // public function test_an_admin_can_delete_a_category()
+    // {
+    //     $category = $this->createCategory([
+    //         'name'  => 'Food'
+    //     ]);
 
-        $url = sprintf(adminPath() . '/dashboard/categories/%s', $category->id);
-        $this->visit($url)
-            ->press('Delete')
+    //     $url = sprintf(adminPath() . '/dashboard/categories/%s', $category->id);
+    //     $this->visit($url)
+    //         ->press('Delete')
 
-            ->dontSeeInDatabase('categories', [
-                'id'    => $category->id,
-            ]);
-    }
+    //         ->dontSeeInDatabase('categories', [
+    //             'id'    => $category->id,
+    //         ]);
+    // }
 }

@@ -101,11 +101,10 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
             'merchant_id'   => $merchant->id
         ]);
 
-		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/'.$clerk->id)
-			->press('Delete')
-
-			->dontSeeInDatabase('clerks', [
-				'id'	=> $clerk->id
-			]);
+        $endpoint = sprintf('%s/dashboard/merchants/%s/clerks/%s', adminPath(), $merchant->id, $clerk->id);
+        $this->delete($endpoint);
+		$this->dontSeeInDatabase('clerks', [
+			'id'	=> $clerk->id
+		]);
     }
 }

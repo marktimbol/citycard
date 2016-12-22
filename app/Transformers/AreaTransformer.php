@@ -12,6 +12,7 @@ class AreaTransformer extends AbstractTransformer
     	return [
     		'id'	=> $item->id,
     		'name'	=> $item->name,
+    		'posts_count'	=> $item->posts_count,
     	];
     }
 }

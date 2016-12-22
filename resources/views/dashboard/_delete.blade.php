@@ -8,13 +8,9 @@
 				<p>Once you delete this record, there is no going back. Please be certain.</p>
 			</div>
 			<div class="col-md-2">
-				<form method="POST" action="{{ $route }}">
-					{{ csrf_field() }}
-					{!! method_field('DELETE') !!}
-					<div class="form-group">
-						<button type="submit" class="btn btn-danger">Delete</button>
-					</div>
-				</form>
+				@include('dashboard._confirm-delete', [
+					'route'	=> $route
+				])
 			</div>
 		</div>
 	</div>

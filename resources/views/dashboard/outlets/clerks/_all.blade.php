@@ -18,7 +18,7 @@
 		</tr>
 	</thead>
 	<tbody>
-		@forelse( $clerks as $clerk )
+		@forelse( $outletClerks as $clerk )
 		<tr>
 			<td width="200">
 				<a href="{{ route('dashboard.merchants.clerks.show', [$merchant->id, $clerk->id]) }}">

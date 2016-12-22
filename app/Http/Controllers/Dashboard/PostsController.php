@@ -84,6 +84,7 @@ class PostsController extends Controller
     {
         $post->delete();
 
+        flash()->success(sprintf('%s has been successfully removed.', $post->title));
         return redirect()->route('dashboard.merchants.posts.index', $merchant->id);
     }
 }

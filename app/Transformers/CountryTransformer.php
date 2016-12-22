@@ -10,7 +10,7 @@ class CountryTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'iso_code'
+    		'id', 'name', 'iso_code', 'posts_count'
     	]);
 
     	if( $this->isRelationshipLoaded($item, 'cities') ) {

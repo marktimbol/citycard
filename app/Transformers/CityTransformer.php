@@ -10,7 +10,7 @@ class CityTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name'
+    		'id', 'name', 'posts_count'
     	]);
 
     	if( $this->isRelationshipLoaded($item, 'areas') ) {

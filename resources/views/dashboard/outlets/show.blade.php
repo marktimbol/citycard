@@ -10,7 +10,10 @@
 
 	<ul class="list-group">
 		<li class="list-group-item">
-			Merchant: {{ $outlet->merchant->name }}
+			Merchant: 
+			<a href="{{ route('dashboard.merchants.show', $outlet->merchant->id) }}">
+				{{ $outlet->merchant->name }}
+			</a>
 		</li>
 		<li class="list-group-item">
 			eMail: {{ $outlet->email }} <label class="label label-danger">Not Verified</label>
@@ -40,6 +43,8 @@
 		</li>
 	</ul>
 
+	<div id="OutletReservationSettings"></div>
+
 	<div class="btn-group">
 		<button class="btn btn-sm btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
 			<i class="fa fa-file-photo-o"></i> Manage Shop Front
@@ -55,6 +60,10 @@
 
 	@include('dashboard.outlets.clerks._all')
 
+	@include('dashboard.outlets.items-for-reservation._all', [
+		'items'	=> $itemsForReservation
+	])
+
 	@include('dashboard.outlets._upload-outlet-gallery')
 	@include('dashboard.outlets._select-existing-clerks')
 
@@ -62,4 +71,8 @@
 		'route'	=> route('dashboard.merchants.outlets.destroy', [$merchant->id, $outlet->id])
 	])
 
+@endsection
+
+@section('footer_scripts')
+	<script src="{{ elixir('js/OutletReservationSettings.js') }}"></script>
 @endsection

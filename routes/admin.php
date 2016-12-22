@@ -55,9 +55,22 @@ Route::group([
 
 	Route::resource('posts', 'Dashboard\PostsController');
 	Route::resource('posts.photos', 'Dashboard\PostPhotosController');
+
+	Route::resource('outlets', 'Dashboard\OutletsController');
 	Route::resource('outlets.photos', 'Dashboard\OutletPhotosController');
 	Route::resource('outlets.posts', 'Dashboard\OutletPostsController');
 	Route::resource('outlets.clerks', 'Dashboard\OutletClerksController');
+	Route::resource('outlets.for-reservations', 'Dashboard\ItemsForReservationController');
+	Route::put('outlets/{outlet}/activate-reservation', [
+		'as' => 'outlet.activate-reservation',
+		'uses' => 'Dashboard\ActivateOutletReservationController@update'
+	]);	
+
+	Route::delete('outlets/{outlet}/deactivate-reservation', [
+		'as' => 'outlet.deactivate-reservation',
+		'uses' => 'Dashboard\DeactivateOutletReservationController@destroy'
+	]);		
+
 	Route::resource('countries', 'Dashboard\CountriesController');
 	Route::resource('countries.cities', 'Dashboard\CountryCitiesController');
 	Route::resource('cities.areas', 'Dashboard\CityAreasController');

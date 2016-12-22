@@ -10,12 +10,11 @@ class OutletTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude'
+    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude', 'has_reservation'
     	]);    
 
         $output['is_following'] = false;
 
-        
         if( auth()->guard('user_api')->check() )
         {
             $user = auth()->guard('user_api')->user();

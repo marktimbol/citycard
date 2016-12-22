@@ -254,9 +254,8 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     	$merchant = $this->createMerchant();
 		$area->merchants()->attach($merchant);
 
-		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id)
-			->press('Delete')
-
+		$endpoint = sprintf('%s/dashboard/merchants/%s', adminPath(), $merchant->id);
+		$this->delete($endpoint)
 			->dontSeeInDatabase('merchants', [
 				'id'	=> $merchant->id
 			]);

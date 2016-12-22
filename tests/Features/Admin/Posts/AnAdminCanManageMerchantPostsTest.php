@@ -496,9 +496,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts/%s', $merchant->id, $post->id);
 
-        $this->visit($url)
-            ->press('Delete')
-
+        $this->delete($url)
             ->dontSeeInDatabase('posts', [
                 'id'    => $post->id
             ]);

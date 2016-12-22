@@ -29,14 +29,19 @@ class MerchantOutletsController extends Controller
     public function show(Merchant $merchant, Outlet $outlet)
     {
         $merchant->load('clerks');
-        $outlet->load('posts', 'clerks', 'photos', 'areas.city.country');
-		// dd($outlet->toArray());
+        $outlet->load('posts', 'clerks', 'photos', 'itemsForReservation', 'areas.city.country');
 
         $posts = $outlet->posts()->latest()->get();
-        $clerks = $outlet->clerks;
-        $merchantClerks = $merchant->clerks->diff($clerks);
+        $outletClerks = $outlet->clerks;
+        $merchantClerks = $merchant->clerks->diff($outletClerks);
+        $itemsForReservation = $outlet->itemsForReservation;
 
-        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'clerks', 'merchantClerks'));
+        JavaScript::put([
+            'outlet_id' => $outlet->id,
+            'has_reservation'   => $outlet->has_reservation,
+        ]);
+
+        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'outletClerks', 'merchantClerks', 'itemsForReservation'));
     }
 
     public function create(Merchant $merchant)

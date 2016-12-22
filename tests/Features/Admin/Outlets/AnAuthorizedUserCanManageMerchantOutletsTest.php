@@ -90,11 +90,30 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     		'has_reservation'	=> false
     	]);
 
-    	// OutletActivateReservationController@update
-    	// OutletDeactivateReservationController@delete
+    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/activate-reservation', $outlet->id);
+    	$request = $this->put($endpoint);
 
-    	// outlets/8/activate
+    	$this->seeInDatabase('outlets', [
+    		'id'	=> $outlet->id,
+    		'has_reservation'	=> true,
+    	]);
     }
+
+    public function test_an_authorized_user_can_deactivate_the_reservation_of_an_outlet()
+    {
+    	$outlet = $this->createOutlet([
+    		'name'	=> 'Dubai Mall',
+    		'has_reservation'	=> true
+    	]);
+
+    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/deactivate-reservation', $outlet->id);
+    	$request = $this->delete($endpoint);
+
+    	$this->seeInDatabase('outlets', [
+    		'id'	=> $outlet->id,
+    		'has_reservation'	=> false,
+    	]);
+    }    
 
     public function test_an_authorized_user_can_edit_a_merchants_outlet_information()
     {
@@ -157,9 +176,9 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     		'merchant_id'	=> $merchant->id
     	]);
 
-		$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/outlets/'.$outlet->id)
-			->press('Delete')
+    	$endpoint = sprintf('%s/dashboard/merchants/%s/outlets/%s', adminPath(), $merchant->id, $outlet->id);
 
+    	$this->delete($endpoint)
 			->dontSeeInDatabase('outlets', [
 				'id'	=> $outlet->id
 			]);

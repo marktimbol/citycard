@@ -41,12 +41,11 @@ class ManageCategoriesTest extends TestCase
             'name'  => 'Food'
         ]);
 
-        $url = sprintf(adminPath() . '/dashboard/categories/%s', $category->id);
-        $this->visit($url)
-            ->press('Delete')
+        $url = sprintf('%s/dashboard/categories/%s', adminPath(), $category->id);
 
-            ->dontSeeInDatabase('categories', [
-                'id'    => $category->id,
-            ]);
+        $this->delete($url);
+        $this->dontSeeInDatabase('categories', [
+            'id'    => $category->id,
+        ]);
     }
 }
