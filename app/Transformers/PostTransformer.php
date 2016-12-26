@@ -25,11 +25,20 @@ class PostTransformer extends AbstractTransformer
         $forReservation = false;
         foreach( $post->outlets as $outlet ) {
             if( $outlet->has_reservation ) {
-                $forReservation = $outlet->itemsForReservation->contains('title', $item->title);
+                $result = $outlet->itemsForReservation->where('title', $item->title)->first();
+                if( ! empty($result) ) {
+                    $forReservation = true;
+                    $item_id = $result->id;
+                }
             }
         }
 
         $output['for_reservation'] = $forReservation;
+
+        if( $forReservation )
+        {
+            $output['for_reservation_id'] = $item_id;
+        }
 
         $output['is_favourited'] = false;
         

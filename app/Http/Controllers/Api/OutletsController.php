@@ -20,7 +20,7 @@ class OutletsController extends Controller
     	$outlet->load(
     		'merchant.outlets', 'clerks', 'posts.sources', 
     		'posts.merchant', 'posts.outlets:id,name', 
-    		'posts.category', 'posts.photos', 'itemsForReservation'
+    		'posts.category', 'posts.photos'
     	);
 
     	return OutletTransformer::transform($outlet);
