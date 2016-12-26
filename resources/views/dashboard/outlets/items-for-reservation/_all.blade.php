@@ -17,9 +17,7 @@
 		@forelse( $items as $item )
 		<tr>
 			<td>
-				<a href="#">
-					{{ $item->title }}
-				</a>
+				{{ $item->title }}
 			</td>
 			<td>
 

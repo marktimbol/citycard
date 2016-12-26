@@ -22,6 +22,11 @@
 				<a href="{{ route('dashboard.merchants.outlets.show', [$merchant->id, $outlet->id]) }}">
 					{{ $outlet->name }}
 				</a>
+				@if( $outlet->has_reservation )
+					<span class="label label-success">Has reservation</span>
+				@else
+					<span class="label label-danger">No reservation</span>
+				@endif
 			</td>
 			<td></td>
 			<td><label class="label label-danger">Close</label></td>
