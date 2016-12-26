@@ -19,86 +19,58 @@ class OutletSettings extends React.Component
 		this.toggleMenus = this.toggleMenus.bind(this)
 	}
 
-	toggleReservation()
+	updateSettings()
 	{
 		let that = this;
-		let type = 'PUT';
-		let has_reservation = this.state.has_reservation;
-		let url = '/dashboard/outlets/' + app.outlet_id + '/activate-reservation';
+		let url = '/dashboard/outlets/' + app.outlet_id + '/settings';
 
-		if( has_reservation )
-		{
-			url = '/dashboard/outlets/' + app.outlet_id + '/deactivate-reservation';
-			type = 'DELETE';	
+		let data = {
+			'has_reservation': this.state.has_reservation,
+			'has_messaging': this.state.has_messaging,
+			'has_menus': this.state.has_menus
 		}
 
 		$.ajax({
-			type: type,
+			type: 'PUT',
 			url: url,
 			headers: {
 				'X-CSRF-Token': App.csrfToken,
 			},
+			data: data,
 			success: function(response) {
 				that.setState({
-					has_reservation: response.has_reservation
-				});
-			}
-		})		
-	}
-
-	toggleMessaging()
-	{
-		let that = this;
-		let type = 'PUT';
-		let has_messaging = this.state.has_messaging;
-		let url = '/dashboard/outlets/' + app.outlet_id + '/activate-messaging';
-
-		if( has_messaging )
-		{
-			url = '/dashboard/outlets/' + app.outlet_id + '/deactivate-messaging';
-			type = 'DELETE';	
-		}
-
-		$.ajax({
-			type: type,
-			url: url,
-			headers: {
-				'X-CSRF-Token': App.csrfToken,
-			},
-			success: function(response) {
-				that.setState({
-					has_messaging: response.has_messaging
-				});
-			}
-		})		
-	}
-
-	toggleMenus()
-	{
-		let that = this;
-		let type = 'PUT';
-		let has_menus = this.state.has_menus;
-		let url = '/dashboard/outlets/' + app.outlet_id + '/activate-menus';
-
-		if( has_menus )
-		{
-			url = '/dashboard/outlets/' + app.outlet_id + '/deactivate-menus';
-			type = 'DELETE';	
-		}
-
-		$.ajax({
-			type: type,
-			url: url,
-			headers: {
-				'X-CSRF-Token': App.csrfToken,
-			},
-			success: function(response) {
-				that.setState({
+					has_reservation: response.has_reservation,
+					has_messaging: response.has_messaging,
 					has_menus: response.has_menus
 				});
 			}
-		})		
+		})	
 	}
+
+	toggleReservation() {
+		this.setState({
+			has_reservation: ! this.state.has_reservation
+		})
+
+		this.updateSettings();
+	}
+
+	toggleMessaging() {
+		this.setState({
+			has_messaging: ! this.state.has_messaging
+		})
+
+		this.updateSettings();
+	}
+
+	toggleMenus() {
+		this.setState({
+			has_menus: ! this.state.has_menus
+		})
+
+		this.updateSettings();
+	}
+
 
 	render()
 	{

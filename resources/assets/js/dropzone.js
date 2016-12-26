@@ -1,11 +1,4 @@
-var Dropzone = require('dropzone');
-
-// Dropzone.options.UploadProjectLogo = {
-// 	uploadMultiple: false,
-// 	maxFilesize: .02, // 50kb
-// 	acceptedFiles: 'image/*',
-// 	dictDefaultMessage: 'Upload Project Logo. Recommended dimensions: 230 x 85px. Maximum 20kb'
-// };
+import Dropzone from 'dropzone';
 
 Dropzone.options.UploadPostPhotos = {
   init: function() {
@@ -14,3 +7,11 @@ Dropzone.options.UploadPostPhotos = {
     });
   }
 };
+
+// let UploadPostPhotos = new Dropzone('#UploadPostPhotos', function() {
+// 	init: function() {
+// 		this.on("queuecomplete", function(file) {
+//     		window.location='/dashboard/merchants/'+app.merchant.id;
+//     	});
+// 	}
+// })

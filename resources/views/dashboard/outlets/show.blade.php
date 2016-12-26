@@ -45,6 +45,8 @@
 
 	<div id="OutletSettings"></div>
 
+	<p>&nbsp;</p>
+	
 	<div class="btn-group">
 		<button class="btn btn-sm btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
 			<i class="fa fa-file-photo-o"></i> Manage Shop Front
