@@ -6,6 +6,7 @@ use App\Outlet;
 use App\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Transformers\ItemsForReservationTransformer;
 
 class OutletReservationsController extends Controller
 {

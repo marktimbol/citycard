@@ -27,6 +27,9 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 
 	// User reservations list
 	Route::get('user/reservations', 'Api\User\ReservationsController@index');
+
+	// List all the outlet's item for reservation
+	Route::get('outlets/{outlet}/reservations', 'Api\Outlet\OutletReservationsController@index');
 	// User reserve a services from the outlet
 	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
 	// User follows an outlet

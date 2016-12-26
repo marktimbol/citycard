@@ -61,15 +61,42 @@ Route::group([
 	Route::resource('outlets.posts', 'Dashboard\OutletPostsController');
 	Route::resource('outlets.clerks', 'Dashboard\OutletClerksController');
 	Route::resource('outlets.for-reservations', 'Dashboard\ItemsForReservationController');
+
+	// Activate Outlet Reservation
 	Route::put('outlets/{outlet}/activate-reservation', [
 		'as' => 'outlet.activate-reservation',
 		'uses' => 'Dashboard\ActivateOutletReservationController@update'
 	]);	
 
+	// Deactivate Outlet Reservation
 	Route::delete('outlets/{outlet}/deactivate-reservation', [
 		'as' => 'outlet.deactivate-reservation',
 		'uses' => 'Dashboard\DeactivateOutletReservationController@destroy'
-	]);		
+	]);
+
+	// Activate Outlet Messaging
+	Route::put('outlets/{outlet}/activate-messaging', [
+		'as' => 'outlet.activate-messaging',
+		'uses' => 'Dashboard\ActivateOutletMessagingController@update'
+	]);	
+
+	// Deactivate Outlet Messaging
+	Route::delete('outlets/{outlet}/deactivate-messaging', [
+		'as' => 'outlet.deactivate-messaging',
+		'uses' => 'Dashboard\DeactivateOutletMessagingController@destroy'
+	]);
+
+	// Activate Outlet Menus
+	Route::put('outlets/{outlet}/activate-menus', [
+		'as' => 'outlet.activate-menus',
+		'uses' => 'Dashboard\ActivateOutletMenusController@update'
+	]);	
+
+	// Deactivate Outlet Messaging
+	Route::delete('outlets/{outlet}/deactivate-menus', [
+		'as' => 'outlet.deactivate-menus',
+		'uses' => 'Dashboard\DeactivateOutletMenusController@destroy'
+	]);	
 
 	Route::resource('countries', 'Dashboard\CountriesController');
 	Route::resource('countries.cities', 'Dashboard\CountryCitiesController');

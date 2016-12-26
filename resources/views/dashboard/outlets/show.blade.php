@@ -43,7 +43,7 @@
 		</li>
 	</ul>
 
-	<div id="OutletReservationSettings"></div>
+	<div id="OutletSettings"></div>
 
 	<div class="btn-group">
 		<button class="btn btn-sm btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
@@ -74,5 +74,5 @@
 @endsection
 
 @section('footer_scripts')
-	<script src="{{ elixir('js/OutletReservationSettings.js') }}"></script>
+	<script src="{{ elixir('js/OutletSettings.js') }}"></script>
 @endsection
