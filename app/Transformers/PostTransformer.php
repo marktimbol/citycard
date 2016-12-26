@@ -20,7 +20,17 @@ class PostTransformer extends AbstractTransformer
             $output['event_time'] = $item->event_time;
         }
 
-        
+        $post = $item->load('outlets.itemsForReservation');
+
+        $forReservation = false;
+        foreach( $post->outlets as $outlet ) {
+            if( $outlet->has_reservation ) {
+                $forReservation = $outlet->itemsForReservation->contains('title', $item->title);
+            }
+        }
+
+        $output['for_reservation'] = $forReservation;
+
         $output['is_favourited'] = false;
         
         if( auth()->guard('user_api')->check() )

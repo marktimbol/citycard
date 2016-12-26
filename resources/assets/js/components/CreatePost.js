@@ -25,6 +25,8 @@ class CreatePost extends Component
 			desc: '',
 			outlet_ids: [],
 
+			allow_for_reservation: false,
+
 			errors: [],
 		}
 
@@ -34,6 +36,7 @@ class CreatePost extends Component
 		this.handleTypeChange = this.handleTypeChange.bind(this);
 		this.handleEventDateChange = this.handleEventDateChange.bind(this);
 		this.handleSelectedOutletsChange = this.handleSelectedOutletsChange.bind(this);
+		this.handleAllowForReservation = this.handleAllowForReservation.bind(this);
 	}
 
 	handleChange(e) {
@@ -81,6 +84,12 @@ class CreatePost extends Component
 		this.setState({
 			outlet_ids: value
 		})
+	}
+
+	handleAllowForReservation() {
+		this.setState({
+			allow_for_reservation: ! this.state.allow_for_reservation
+		});
 	}
 
 	onSubmit(e) {
@@ -153,7 +162,7 @@ class CreatePost extends Component
 		})
 
 		let availableSources = [
-			{ value: '', label: '' },
+			{ value: 'citycard', label: 'City Card' },
 			{ value: 'external', label: 'External' }
 		]
 
@@ -347,6 +356,17 @@ class CreatePost extends Component
 						<span className="help-block">{ errors['desc'] }</span>
 						: <span></span>
 					}					
+				</div>
+
+				<div className="checkbox">
+					<label>
+						<input type="checkbox" 
+							name="allow_for_reservation" 
+							id="allow_for_reservation" 
+							checked={this.state.allow_for_reservation} 
+							onChange={this.handleAllowForReservation} />
+							Available for Reservation
+					</label>
 				</div>
 
 				<div className="form-group">

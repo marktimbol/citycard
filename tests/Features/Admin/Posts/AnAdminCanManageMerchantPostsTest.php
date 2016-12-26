@@ -144,7 +144,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
         ]);
     }
 
-    public function test_an_admin_can_add_an_internal_post_to_a_merchant_and_allow_the_post_to_be_ordered_by_users()
+    public function test_an_admin_can_add_an_internal_post_to_a_merchant_and_allow_the_post_to_be_reserve_by_users()
     {
         $country = $this->createCountry([
             'name'  => 'UAE'
@@ -157,11 +157,11 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $area = $this->createArea([
             'city_id'   => $city->id,
-            'name'  => 'Al Barsha'
+            'name'  => 'Downtown Dubai'
         ]);
 
         $merchant = $this->createMerchant([
-            'name'  => 'McDonalds'
+            'name'  => 'Dubai Mall'
         ]);
 
         $area->merchants()->attach($merchant);
@@ -172,75 +172,49 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $area->outlets()->attach($outlet);
 
-        $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
-
-        $source = $this->createSource([
-            'name'  => 'Cobone'
-        ]);
-
         $category = $this->createCategory([
-            'name'  => 'Food',
-        ]);
-
-        $buffet = $this->createSubcategory([
-            'category_id'   => $category->id,
-            'name'  => 'Buffet'
-        ]);
-
-        $brunch = $this->createSubcategory([
-            'category_id'   => $category->id,
-            'name'  => 'Brunch'
+            'name'  => 'Travel',
         ]);
 
         $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
         $request = $this->post($endpoint, [
-            'source'    => 'external',
-            'isExternal'    => true,
-            'source_from'   => $source->id,
-            'source_link'   => 'http://google.com',
+            'source'    => 'citycard',
+            'isExternal'    => false,
 
             'category'  => 1,
-            'subcategories' => '1,2',
+            'subcategories' => 'Visit Dubai',
 
-            'type'  => 'newsfeed',
-            'outlet_ids'    => '1,2',
-            'title' => 'The Title',
-            'desc'  => 'The description',
+            'type'  => 'deals',
+            'outlet_ids'    => '1',
+            'title' => 'Burj Khalifa - At the Top',
+            'desc'  => 'View the world',
+
+            'allow_for_reservation'   => true,
         ]);
 
         $this->seeInDatabase('posts', [
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
-            'type'  => 'newsfeed',
-            'title' => 'The Title',
-            'slug'  => 'the-title',
-            'desc'=> 'The description',
-            'isExternal'    => true,
+            'type'  => 'deals',
+            'title' => 'Burj Khalifa - At the Top',
+            'desc'=> 'View the world',
+            'isExternal'    => false,
             'published'  => true
         ]);
 
         $this->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => $buffet->id,
+            'subcategory_id'    => 1,
             'post_id'   => 1,
-        ])
-
-            ->seeInDatabase('subcategory_posts', [
-                'subcategory_id'    => $brunch->id,
-                'post_id'   => 1
-            ]);
-
-        $this->seeInDatabase('source_posts', [
-            'source_id' => $source->id,
-            'post_id'   => 1,
-            'link'  => 'http://google.com'
         ]);
 
         $this->seeInDatabase('outlet_posts', [
             'outlet_id' => 1,
             'post_id'   => 1
-        ]);
+        ])
+            ->seeInDatabase('item_for_reservations', [
+                'outlet_id' => 1,
+                'title' => 'Burj Khalifa - At the Top'
+            ]);
 
         $this->seeInDatabase('country_posts', [
             'country_id'    => 1,

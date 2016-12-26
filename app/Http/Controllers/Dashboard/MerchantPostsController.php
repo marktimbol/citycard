@@ -6,6 +6,7 @@ use App\Category;
 use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\CreateMerchantPostRequest;
+use App\ItemForReservation;
 use App\Merchant;
 use App\Post;
 use App\Source;
@@ -73,6 +74,7 @@ class MerchantPostsController extends Controller
         $validator->validate();
 
         // When the validation passes
+
         $merchant->load('areas.city.country');
         $country = $merchant->areas->first()->city->country;
         $city = $merchant->areas->first()->city;
@@ -80,7 +82,7 @@ class MerchantPostsController extends Controller
 
         $request['category_id'] = $request->category;
 
-        if( auth()->guard('admin')->user()->hasRole('admin') ) {
+        if( auth()->user()->hasRole('admin') ) {
             $request['published'] = true;
         }
 
@@ -108,10 +110,20 @@ class MerchantPostsController extends Controller
             }
         }
 
-    	if( $request->has('outlet_ids') ) {
-            $outlet_ids = collect(explode(',', $request->outlet_ids));
-    		$post->outlets()->attach($outlet_ids->all());
-    	}
+        // Attach the post on the selected outlets
+        $outlet_ids = collect(explode(',', $request->outlet_ids));
+		$post->outlets()->attach($outlet_ids->all());
+
+        if( $request->allow_for_reservation == true )
+        {
+            foreach( $outlet_ids as $outlet_id )
+            {
+                ItemForReservation::create([
+                    'outlet_id' => $outlet_id,
+                    'title' => $post->title
+                ]);
+            }
+        }     
 
         if( $post->isExternal ) {
             $post->sources()->attach($request->source_from, [

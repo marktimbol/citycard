@@ -23,9 +23,14 @@ class OutletTransformer extends AbstractTransformer
             $output['is_following'] = $user->outlets->contains($item->id);
         }
 
-        if( $this->isRelationshipLoaded($item, 'areas') ) {
-            $output['areas'] = AreaTransformer::transform($item->areas);
-        }     
+        if( $this->isRelationshipLoaded($item, 'posts') ) {
+            $output['posts_count'] = $item->posts->count();
+            $output['posts'] = PostTransformer::transform($item->posts);
+        }  
+
+        if( $this->isRelationshipLoaded($item, 'itemsForReservation') ) {
+            $output['for_reservations'] = ItemsForReservationTransformer::transform($item->itemsForReservation);
+        }                
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
             $output['merchant'] = MerchantTransformer::transform($item->merchant);
@@ -33,12 +38,7 @@ class OutletTransformer extends AbstractTransformer
 
     	if( $this->isRelationshipLoaded($item, 'clerks') ) {
     		$output['clerks'] = ClerkTransformer::transform($item->clerks);
-    	}      
-
-    	if( $this->isRelationshipLoaded($item, 'posts') ) {
-            $output['posts_count'] = $item->posts->count();
-    		$output['posts'] = PostTransformer::transform($item->posts);
-    	}      
+    	}                
 
     	return $output;	
     }

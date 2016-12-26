@@ -73,6 +73,7 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         'longitude'  => $faker->longitude,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
+        'has_reservation' => false,
     ];
 });
 
