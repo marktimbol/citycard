@@ -9,12 +9,11 @@ use App\Http\Controllers\Controller;
 class OutletSettingsController extends Controller
 {
     public function update(Request $request, Outlet $outlet)
-    {    	
-    	$outlet->has_reservation = $request->has_reservation;
-    	$outlet->has_messaging = $request->has_messaging;
-    	$outlet->has_menus = $request->has_menus;
-
-    	$outlet->save();
+    {
+    	$outlet->has_reservation = (int) $request->has_reservation;
+    	$outlet->has_messaging = (int) $request->has_messaging;
+    	$outlet->has_menus = (int) $request->has_menus;
+    	$outlet->update();
 
     	return response()->json([
     		'success'	=> true,

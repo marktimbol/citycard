@@ -28,6 +28,12 @@ class Outlet extends Authenticatable
 	    'password', 'remember_token', 'api_token'
 	];
 
+	protected $casts = [
+		'has_reservation'	=> 'int',
+		'has_messaging'	=> 'int',
+		'has_menus'	=> 'int',
+	];
+
     public function setEmailAttribute($email)
     {
         $this->attributes['email'] = $email;
