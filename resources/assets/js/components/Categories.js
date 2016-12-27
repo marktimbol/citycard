@@ -8,8 +8,6 @@ class Categories extends React.Component
         super(props);
 
         this.state = {
-            selectedCategory: '',
-            selectedSubcategories: [],
             availableSubcategories: [],
             isFetchingSubcategories: false,
         }
@@ -19,10 +17,13 @@ class Categories extends React.Component
     }
 
     handleCategoryChange(e) {
+
         this.setState({ 
-            selectedCategory: e.value, 
             isFetchingSubcategories: true 
         });
+        
+        this.props.handleCategoryChange(e.value);
+
         this.fetchSubcategories(e.value);
     }
 
@@ -38,9 +39,12 @@ class Categories extends React.Component
     }
 
     handleSubcategoryChange(value) {
-        this.setState({
-            selectedSubcategories: value
-        })
+        console.log('handleSubcategoryChange', value);
+
+        this.props.handleSubcategoryChange(value);        
+        // this.setState({
+        //     selectedSubcategories: value
+        // })
     }
 
     render()
@@ -71,7 +75,7 @@ class Categories extends React.Component
                         <label htmlFor="category" className="control-label">Category</label>
                         <Select
                             name="category"
-                            value={this.state.selectedCategory}
+                            value={this.props.selectedCategory}
                             options={availableCategories}
                             onChange={this.handleCategoryChange} />
                         { errors.hasOwnProperty('category') ?
@@ -85,7 +89,7 @@ class Categories extends React.Component
                         <label htmlFor="category" className="control-label">Subcategories</label>
                         <Creatable
                             name="subcategories"
-                            value={this.state.selectedSubcategories}
+                            value={this.props.selectedSubcategories}
                             options={availableSubcategories}
                             isLoading={this.state.isFetchingSubcategories}
                             multi={true}

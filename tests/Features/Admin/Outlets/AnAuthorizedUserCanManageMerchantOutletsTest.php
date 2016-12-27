@@ -87,33 +87,25 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     {
     	$outlet = $this->createOutlet([
     		'name'	=> 'Dubai Mall',
-    		'has_reservation'	=> false
+    		'has_reservation'	=> 0,
+    		'has_messaging'	=> 0,
+    		'has_menus'	=> 0
     	]);
 
-    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/activate-reservation', $outlet->id);
-    	$request = $this->put($endpoint);
+    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/settings', $outlet->id);
+    	$request = $this->put($endpoint, [
+    		'has_reservation'	=> 1,
+    		'has_messaging'	=> 1,
+    		'has_menus'	=> 1,
+    	]);
 
     	$this->seeInDatabase('outlets', [
     		'id'	=> $outlet->id,
-    		'has_reservation'	=> true,
+    		'has_reservation'	=> 1,
+    		'has_messaging'	=> 1,
+    		'has_menus'	=> 1,
     	]);
-    }
-
-    public function test_an_authorized_user_can_deactivate_the_reservation_of_an_outlet()
-    {
-    	$outlet = $this->createOutlet([
-    		'name'	=> 'Dubai Mall',
-    		'has_reservation'	=> true
-    	]);
-
-    	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/deactivate-reservation', $outlet->id);
-    	$request = $this->delete($endpoint);
-
-    	$this->seeInDatabase('outlets', [
-    		'id'	=> $outlet->id,
-    		'has_reservation'	=> false,
-    	]);
-    }    
+    } 
 
     public function test_an_authorized_user_can_edit_a_merchants_outlet_information()
     {

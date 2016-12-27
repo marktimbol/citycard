@@ -2,8 +2,11 @@ import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
 import Select from 'react-select';
 import DatePicker from 'react-datepicker';
+import Dropzone from 'dropzone';
 import moment from 'moment';
 import Categories from './Categories';
+
+let CreatePostPhotos;
 
 class CreatePost extends Component
 {
@@ -18,15 +21,15 @@ class CreatePost extends Component
 			source_from: '',
 			source_link: '',
 			type: '',
-			event_date: moment(),
+			event_date: moment().format('YYYY-MM-DD'),
 			event_time: '',
 			outlets: [],
 			title: '',
 			desc: '',
-			outlet_ids: [],
-
+			outlet_ids: '',
 			allow_for_reservation: false,
-
+			selectedCategory: '',
+			selectedSubcategories: '',
 			errors: [],
 		}
 
@@ -37,6 +40,85 @@ class CreatePost extends Component
 		this.handleEventDateChange = this.handleEventDateChange.bind(this);
 		this.handleSelectedOutletsChange = this.handleSelectedOutletsChange.bind(this);
 		this.handleAllowForReservation = this.handleAllowForReservation.bind(this);
+
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);   
+	}
+
+	componentDidMount() {		
+		let that = this;
+
+		Dropzone.autoDiscover = false;
+		CreatePostPhotos = new Dropzone('div#CreatePostPhotos', {
+			url: '/dashboard/merchants/' + app.merchant.id + '/posts/',
+			autoProcessQueue: false,
+			uploadMultiple: true,
+			parallelUploads: 5,
+			maxFilesize: 1, // 1 MB
+		    headers: {
+		    	'X-CSRF-Token': App.csrfToken
+		    },
+		    init: function() {
+				this.on('sending', function(file, xhr, formData) {
+					that.isSubmitting();
+					
+					let outlet_ids = [];
+					if( that.state.outlet_ids.length != '' ) {					
+						that.state.outlet_ids.map(outlet => {
+							outlet_ids.push(outlet.value);
+						});
+					}
+
+					let subcategories = [];
+					if( that.state.selectedSubcategories != '' ) {					
+						that.state.selectedSubcategories.map(subcategory => {
+							subcategories.push(subcategory.value);
+						});	
+					}				
+
+					formData.append('isExternal', that.state.isExternal);
+					formData.append('source', that.state.source);
+					formData.append('source_from', that.state.source_from);
+					formData.append('source_link', that.state.source_link);
+					formData.append('type', that.state.type);
+					formData.append('event_date', that.state.event_date);
+					formData.append('event_time', that.state.event_time);
+					formData.append('title', that.state.title);
+					formData.append('desc', that.state.desc);
+					formData.append('outlet_ids', outlet_ids.join());
+					formData.append('allow_for_reservation', that.state.allow_for_reservation);
+					formData.append('category', that.state.selectedCategory);
+					formData.append('subcategories', subcategories.join());
+				});		
+
+				this.on('success', function(response, serverResponse) {
+
+					that.setState({
+						submitButtonText: 'Save',
+						isSubmitted: false
+					})
+
+			        swal({
+			            title: "City Card",
+			            text: "You have successfully created a post.",
+			            type: "success",
+			            showConfirmButton: true
+			        }, function() {
+						window.location = '/dashboard/merchants/' + app.merchant.id + '/posts/' + serverResponse.id;
+					});					
+				})
+
+				this.on('queuecomplete', function(response) {
+					console.log('queuecomplete', response);
+				})
+
+				// per file
+				this.on('error', function(response, errorMessage, xhr) {
+					that.resetSubmitButton();
+					that.setState({ errors: errorMessage });
+				})	    	
+		    }
+		});
 	}
 
 	handleChange(e) {
@@ -80,9 +162,9 @@ class CreatePost extends Component
 		})
 	}
 
-	handleSelectedOutletsChange(value) {
+	handleSelectedOutletsChange(values) {
 		this.setState({
-			outlet_ids: value
+			outlet_ids: values
 		})
 	}
 
@@ -92,42 +174,22 @@ class CreatePost extends Component
 		});
 	}
 
+    handleCategoryChange(value) {
+    	this.setState({
+    		selectedCategory: value
+    	})
+    }	
+
+    handleSubcategoryChange(value) {        
+        this.setState({
+            selectedSubcategories: value
+        })
+    }    
+
 	onSubmit(e) {
 		e.preventDefault();
-		this.isSubmitting();
 
-		let merchant = app.merchant;
-		let url = '/dashboard/merchants/' + merchant.id + '/posts/';
-
-		$.ajax({
-		    url: url,
-		    type: 'POST',
-		    data: $('#CreatePostForm').serialize(),
-		    headers: { 'X-CSRF-Token': App.csrfToken },
-		    success: function(response) {
-				this.setState({
-					submitButtonText: 'Save',
-					isSubmitted: false
-				})
-
-		        swal({
-		            title: "City Card",
-		            text: "You have successfully created a post.",
-		            type: "success",
-		            showConfirmButton: true
-		        }, function() {
-					window.location = '/dashboard/merchants/' + merchant.id + '/posts/' + response.id;
-				});
-
-		    }.bind(this),
-		    error: function(error) {
-		    	this.resetSubmitButton();
-
-				let errors = error.responseJSON;
-		    	console.log('errors', errors);
-				this.setState({ errors });
-		    }.bind(this)
-		});
+		CreatePostPhotos.processQueue();
 	}
 
 	isSubmitting() {
@@ -327,7 +389,11 @@ class CreatePost extends Component
 					}						
 				</div>
 
-				<Categories errors={errors} />
+				<Categories errors={errors} 
+					selectedCategory={this.state.selectedCategory}
+					selectedSubcategories={this.state.selectedSubcategories}
+					handleCategoryChange={this.handleCategoryChange}
+					handleSubcategoryChange={this.handleSubcategoryChange} />
 
 				<div className={titleClass}>
 					<label htmlFor="title" className="control-label">Title</label>
@@ -358,6 +424,10 @@ class CreatePost extends Component
 					}					
 				</div>
 
+				<div className="form-group">
+					<div className="dropzone" id="CreatePostPhotos"></div>
+				</div>
+
 				<div className="checkbox">
 					<label>
 						<input type="checkbox" 
@@ -374,6 +444,7 @@ class CreatePost extends Component
 						type="submit"
 						className="btn btn-primary"
 						onClick={this.onSubmit.bind(this)}
+						disabled={this.state.isSubmitted}
 					>
 						{ this.state.submitButtonText }
 						{ this.state.isSubmitted ? <span>&nbsp; <i className="fa fa-spinner fa-spin"></i></span> : <span></span> }

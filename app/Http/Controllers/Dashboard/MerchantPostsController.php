@@ -52,28 +52,8 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {        
-        $validator = Validator::make($request->all(), [
-            'source'    => 'required',
-            'type'  => 'required',
-            'outlet_ids'    => 'required',
-            'title' => 'required|unique:posts',
-            'category'  => 'required',
-            'subcategories' => 'required',
-            'desc' => 'required',
-        ]);
-
-        $validator->sometimes(['source_from', 'source_link'], 'required', function($input) {
-            return $input->isExternal == 1;
-        });
-
-        $validator->sometimes(['event_date', 'event_time'], 'required', function($input) {
-            return $input->type == 'events';
-        });
-
-        $validator->validate();
-
-        // When the validation passes
+    {                        
+        $this->validateRequest($request);
 
         $merchant->load('areas.city.country');
         $country = $merchant->areas->first()->city->country;
@@ -90,6 +70,7 @@ class MerchantPostsController extends Controller
 
         // Store Sub Categories
         $category = Category::findOrFail($request->category);
+
         $subcategories = collect(explode(',', $request->subcategories));
         $subcategories = $subcategories->partition(function($value) {
             return is_numeric($value);
@@ -137,6 +118,17 @@ class MerchantPostsController extends Controller
 
         auth()->guard('admin')->user()->posts()->attach($post->id);
 
+        // Need to process this in background
+        // Upload Photo to S3
+        $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($merchant->name), $post->id);
+        foreach( $request->file as $file )
+        {  
+            $path = $file->store($uploadPath, 's3');
+            $photo = $post->photos()->create([
+                'url'   => $path
+            ]);        
+        }
+
         return $post;
     }
 
@@ -167,5 +159,28 @@ class MerchantPostsController extends Controller
 
         flash()->success(sprintf('%s has been successfully removed.', $post->title));
         return redirect()->route('dashboard.merchants.posts.index', $merchant->id);
+    }
+
+    protected function validateRequest($request)
+    {
+        $validator = Validator::make($request->all(), [
+            'source'    => 'required',
+            'type'  => 'required',
+            'outlet_ids'    => 'required',
+            'title' => 'required|unique:posts',
+            'category'  => 'required',
+            'subcategories' => 'required',
+            // 'desc' => 'required',
+        ]);
+
+        $validator->sometimes(['source_from', 'source_link'], 'required', function($input) {
+            return $input->isExternal == 1;
+        });
+
+        $validator->sometimes(['event_date', 'event_time'], 'required', function($input) {
+            return $input->type == 'events';
+        });
+
+        $validator->validate();        
     }
 }
