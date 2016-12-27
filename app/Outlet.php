@@ -29,9 +29,9 @@ class Outlet extends Authenticatable
 	];
 
 	protected $casts = [
-		'has_reservation'	=> 'int',
-		'has_messaging'	=> 'int',
-		'has_menus'	=> 'int',
+		'has_reservation'	=> 'boolean',
+		'has_messaging'	=> 'boolean',
+		'has_menus'	=> 'boolean',
 	];
 
     public function setEmailAttribute($email)
