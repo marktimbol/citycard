@@ -104,13 +104,12 @@ class OutletSettings extends React.Component
 						</div>
 					</li>
 					<li className="list-group-item">
-						<button className="btn btn-sm btn-default" onClick={this.updateSettings} disabled={this.state.isUpdating}>
-							{ this.state.isUpdating ? <span></span> : <span><i className="fa fa-check"></i>&nbsp; </span> }
-							{ this.state.updateButtonText }
+						<button className="btn btn-sm btn-default btn-has-icon" onClick={this.updateSettings} disabled={this.state.isUpdating}>
 							{ this.state.isUpdating ? 
-								<span>&nbsp; <i className="fa fa-spinner fa-spin"></i></span> : 
-								<span></span> 
+								<i className="fa fa-spinner fa-spin"></i> : 
+								<i className="fa fa-check"></i>
 							}
+							{ this.state.updateButtonText }
 						</button>
 					</li>
 				</ul>
