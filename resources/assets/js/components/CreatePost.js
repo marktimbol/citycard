@@ -116,9 +116,21 @@ class CreatePost extends Component
 				this.on('error', function(response, errorMessage, xhr) {
 					that.resetSubmitButton();
 					that.setState({ errors: errorMessage });
-				})	    	
+				})	 
+
+				this.on('addedfile', function(file) {
+					file.previewElement.addEventListener('click', function() {
+						this.removeFile(file)
+					}.bind(this))
+				})
 		    }
 		});
+
+		$('#editor').on('froalaEditor.contentChanged', function (e, editor) {
+			that.setState({
+				desc: e.target.value
+			})
+		});		
 	}
 
 	handleChange(e) {
@@ -416,7 +428,6 @@ class CreatePost extends Component
 						id="editor"
 						className="form-control"
 						defaultValue={this.state.desc}
-						onChange={this.handleChange}
 					></textarea>
 					{ errors.hasOwnProperty('desc') ?
 						<span className="help-block">{ errors['desc'] }</span>

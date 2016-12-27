@@ -49,7 +49,7 @@ elixir(mix => {
           modulesPath + 'froala-editor/js/froala_editor.min.js',
           modulesPath + 'froala-editor/js/plugins/table.min.js',
           modulesPath + 'froala-editor/js/plugins/lists.min.js',
-          // modulesPath + 'froala-editor/js/plugins/font_family.min.js',
+          modulesPath + 'froala-editor/js/plugins/font_family.min.js',
           modulesPath + 'froala-editor/js/plugins/paragraph_format.min.js',
           'editor.js'
       ], 'public/js/editor.js')
