@@ -21,7 +21,7 @@ class CreatePost extends Component
 			source_from: '',
 			source_link: '',
 			type: '',
-			event_date: moment().format('YYYY-MM-DD'),
+			event_date: moment(),
 			event_time: '',
 			outlets: [],
 			title: '',
@@ -81,7 +81,7 @@ class CreatePost extends Component
 					formData.append('source_from', that.state.source_from);
 					formData.append('source_link', that.state.source_link);
 					formData.append('type', that.state.type);
-					formData.append('event_date', that.state.event_date);
+					formData.append('event_date', that.state.event_date.format('YYYY-MM-DD'));
 					formData.append('event_time', that.state.event_time);
 					formData.append('title', that.state.title);
 					formData.append('desc', that.state.desc);
@@ -352,7 +352,7 @@ class CreatePost extends Component
 							<div className="col-md-6">
 								<div className={eventDateClass}>
 									<label htmlFor="event_date" className="control-label">Event Date</label>
-									<input type="hidden" name="event_date" value={this.state.event_date} />
+									<input type="hidden" name="event_date" value={this.state.event_date.format('YYYY-MM-DD')} />
 									<DatePicker
 										dateFormat="YYYY-MM-DD"
 										selected={this.state.event_date}
