@@ -352,7 +352,7 @@ class CreatePost extends Component
 							<div className="col-md-6">
 								<div className={eventDateClass}>
 									<label htmlFor="event_date" className="control-label">Event Date</label>
-									<input type="hidden" name="event_date" value={this.state.event_date.format('YYYY-MM-DD')} />
+									<input type="hidden" name="event_date" value={this.state.event_date} />
 									<DatePicker
 										dateFormat="YYYY-MM-DD"
 										selected={this.state.event_date}
