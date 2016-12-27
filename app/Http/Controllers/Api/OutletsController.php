@@ -17,11 +17,11 @@ class OutletsController extends Controller
 
     public function show(Outlet $outlet)
     {
-    	$outlet->load(
-    		'merchant.outlets', 'clerks', 'posts.sources', 
-    		'posts.merchant', 'posts.outlets:id,name', 
-    		'posts.category', 'posts.photos'
-    	);
+        $outlet->load(
+            'merchant.outlets', 'clerks', 'posts.sources', 
+            'posts.merchant', 'posts.outlets:id,name', 
+            'posts.category', 'posts.photos', 'itemsForReservation'
+        );
 
     	return OutletTransformer::transform($outlet);
     }

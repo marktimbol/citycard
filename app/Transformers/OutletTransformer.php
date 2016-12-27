@@ -29,7 +29,8 @@ class OutletTransformer extends AbstractTransformer
         }  
 
         if( $this->isRelationshipLoaded($item, 'itemsForReservation') ) {
-            $output['for_reservations'] = ItemsForReservationTransformer::transform($item->itemsForReservation);
+            $output['reservation_items_count'] = $item->itemsForReservation->count();
+            // $output['for_reservations'] = ItemsForReservationTransformer::transform($item->itemsForReservation);
         }                
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
