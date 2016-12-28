@@ -71,12 +71,15 @@ class RegisterController extends Controller
             'name'  => $data['name'],
             'email' => $data['email'],
             'mobile' => $data['mobile'],
+            'verification_code' => mt_rand(100000,999999),
             'password' => bcrypt($data['password']),
         ]);
     }
 
     public function register(Request $request)
     {
+        dd($request->all());
+        
         $validator = $this->validator($request->all());
         if( $validator->fails() ) {
             return response()->json([
