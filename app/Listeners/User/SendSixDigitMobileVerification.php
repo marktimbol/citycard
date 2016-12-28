@@ -6,7 +6,6 @@ use App\CityCard\Contracts\MessagingInterface;
 use App\Events\User\UserRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
-use Twilio;
 
 class SendSixDigitMobileVerification implements ShouldQueue
 {
