@@ -173,7 +173,7 @@ return [
         Stevebauman\Location\LocationServiceProvider::class,
         Themsaid\Transformers\TransformersServiceProvider::class,
         Aloha\Twilio\Support\Laravel\ServiceProvider::class,
-
+        Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,6 +233,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
+        'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 
 ];
