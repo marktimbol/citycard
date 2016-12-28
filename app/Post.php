@@ -18,7 +18,7 @@ class Post extends Model
     protected $dates = ['event_date'];
 
     protected $casts = [
-        'isExternal'    => 'boolean'
+        'isExternal'    => 'boolean',
     ];
 
     public function setTitleAttribute($title)

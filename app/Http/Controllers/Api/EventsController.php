@@ -15,20 +15,17 @@ class EventsController extends Controller
     {        
         $posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
                     ->where('type', 'events')
-                    ->where('event_date', '>=', Carbon::now());                
-                    
+                    ->where('event_date', '>=', Carbon::now());                          
+        
         if( $request->has('filter') && $request->filter == '1' )
         {        
             $from = explode('-', $request->from);
             $to = explode('-', $request->to);
 
-            $from = Carbon::create($from[0], $from[1], $from[2], 0);
-            $to = Carbon::create($to[0], $to[1], $to[2], 23, 59, 59);
+            $from = Carbon::create($from[0], $from[1], $from[2], 0)->toDateTimeString();
+            $to = Carbon::create($to[0], $to[1], $to[2], 23, 59, 59)->toDateTimeString();
             
-        	$posts = $posts->whereBetween('event_date', [
-                $from->toDateTimeString(), 
-                $to->toDateTimeString()
-            ]);
+        	$posts = $posts->whereBetween('event_date', [$from, $to]);
         }
 
         $posts = $posts->orderBy('event_date', 'asc')
