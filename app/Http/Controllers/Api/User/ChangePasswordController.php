@@ -10,7 +10,8 @@ class ChangePasswordController extends Controller
 {
     public function update(ChangePasswordRequest $request)
     {
-    	$user = auth()->guard('user_api')->user();	
+    	$user = auth()->guard('user_api')->user();
+        
     	$credentials = [
     		'email'	=> $user->email,
     		'password'	=> $request->old_password

@@ -11,33 +11,58 @@ class UpdateProfileTest extends TestCase
 	public function setUp()
 	{
 		parent::setUp();
+
 		$this->actingAsUser([
-			'name'	=> 'John Doe',
-			'email'	=> 'john@doe.com',
-			'mobile'	=> '0563759865'
+			'name'	=> 'John',
+			'email'	=> 'johns@example.com',
+			'mobile'	=> '0568207189',
+	        'mobile_verified' => false,
+	        'email_verified' => false,			
 		]);
 	}
 
-    public function test_a_user_can_update_his_or_her_profile()
+    public function test_an_authenticated_user_can_update_their_profile()
     {
-    	$user = auth()->guard('user_api')->user();
-
-    	$this->json('PUT', '/api/user/profile', [
-    		'name'	=> 'Mark Timbol',
-    		'email'	=> 'mark.timbol@hotmail.com',
-    		'mobile'	=> '+971 56 820 7189'
+    	$request = $this->put('/api/user/profile', [
+    		'name'	=> 'John Doe'
     	]);
 
-    	$this->seeJson([
-            'success'   => true,
-    		'message'	=> 'Your profile has been successfully updated.',
+    	$this->seeInDatabase('users', [
+    		'id'	=> $this->user->id,
+    		'name'	=> 'John Doe'
     	])
-    	->seeInDatabase('users', [
-    		'id'	=> $user->id,
-    		'name'	=> 'Mark Timbol',
-    		'email'	=> 'mark.timbol@hotmail.com',
+    		->seeJson([
+    			'success'	=> true,
+    		]);
+    }
+
+    public function test_an_authenticated_user_can_update_their_email_address()
+    {
+    	$request = $this->put('/api/user/email', [
+    		'email'	=> 'john@example.com'
+    	]);
+
+    	$this->seeInDatabase('users', [
+    		'id'	=> $this->user->id,
+    		'email'	=> 'john@example.com'
+    	])
+    		->seeJson([
+    			'success'	=> true,
+    		]);
+    }
+
+    public function test_an_authenticated_user_can_update_their_mobile_number()
+    {
+    	$request = $this->put('/api/user/mobile', [
     		'mobile'	=> '+971 56 820 7189'
     	]);
 
-    }
+    	$this->seeInDatabase('users', [
+    		'id'	=> $this->user->id,
+    		'mobile'	=> '+971 56 820 7189'
+    	])
+    		->seeJson([
+    			'success'	=> true,
+    		]);
+    }    
 }
