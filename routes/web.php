@@ -12,6 +12,8 @@
 |
 */
 
+Bugsnag::notifyError('ErrorType', 'Test Error');
+
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 
