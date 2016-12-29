@@ -6,10 +6,10 @@ use App\CityCard\Contracts\MessagingInterface;
 use App\Events\User\UserRegistered;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Support\Facades\Log;
 
-class SendSixDigitMobileVerification implements ShouldQueue
+class SendMobileVerification
 {
-    use InteractsWithQueue;
 
     protected $sms;
 
@@ -32,7 +32,10 @@ class SendSixDigitMobileVerification implements ShouldQueue
     {
         $mobile = $event->user->mobile;
         $verification_code = $event->user->verification_code;
-        $message = sprintf('Your City Card verification code is %s', $verification_code);
+        $message = 'Your City Card verification code is ' . $verification_code;
+
+        Log::info($mobile);
+        Log::info($message);
 
         $this->sms->message($mobile, $message);
     }
