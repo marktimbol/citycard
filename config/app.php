@@ -12,7 +12,9 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'City Card',
+    'name' => env('APP_NAME', 'City Card'),
+    
+    'email' => env('APP_EMAIL', 'info@citycard.me'),
 
     /*
     |--------------------------------------------------------------------------
