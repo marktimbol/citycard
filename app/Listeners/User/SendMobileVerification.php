@@ -8,7 +8,7 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Support\Facades\Log;
 
-class SendMobileVerification implements ShouldQueue
+class SendMobileVerification implments ShouldQueue
 {
     use InteractsWithQueue;
     
@@ -34,9 +34,6 @@ class SendMobileVerification implements ShouldQueue
         $mobile = $event->user->mobile;
         $verification_code = $event->user->verification_code;
         $message = 'Your City Card verification code is ' . $verification_code;
-
-        Log::info($mobile);
-        Log::info($message);
 
         $this->sms->message($mobile, $message);
     }
