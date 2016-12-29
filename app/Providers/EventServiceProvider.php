@@ -14,8 +14,8 @@ class EventServiceProvider extends ServiceProvider
      */
     protected $listen = [
         'App\Events\User\UserRegistered' => [
-            // 'App\Listeners\User\SendWelcomeEmail',
-            // 'App\Listeners\User\SendEmailVerification',
+            'App\Listeners\User\SendWelcomeEmail',
+            'App\Listeners\User\SendEmailVerification',
             'App\Listeners\User\SendMobileVerification',
             // 'App\Listeners\User\RegisterUserInQuickBlox',
         ],
