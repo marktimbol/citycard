@@ -38,7 +38,10 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function($user) {
+            // Email confirmation token
             $user->token = str_random(30);
+            // Mobile verification code
+            $user->verification_code = mt_rand(100000,999999);
         });
     }
 
