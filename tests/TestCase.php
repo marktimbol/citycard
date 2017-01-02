@@ -13,6 +13,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
 
     protected $admin;
     protected $user;
+    protected $clerk;
     protected $merchant;
 
 
@@ -62,7 +63,13 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         $this->user = $this->createUser($attributes);
         $this->actingAs($this->user, 'user_api');
-    }    
+    }   
+
+    protected function actingAsClerk($attributes=[])
+    {
+        $this->clerk = $this->createClerk($attributes);
+        $this->actingAs($this->clerk, 'clerk_api');
+    }        
 
     protected function createUser($attributes = [])
     {

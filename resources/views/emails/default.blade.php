@@ -296,8 +296,8 @@
               <table border="0" cellpadding="0" cellspacing="0">
                 <tr>
                   <td class="content-block">
-                    <span class="apple-link">City Card</span>
-                    <br> Don't like these emails? <a href="http://i.imgur.com/CScmqnj.gif">Unsubscribe</a>.
+                    <span class="apple-link">{{ config('app.name') }}</span>
+                    <br> Don't like these emails? <a href="#">Unsubscribe</a>.
                   </td>
                 </tr>
               </table>

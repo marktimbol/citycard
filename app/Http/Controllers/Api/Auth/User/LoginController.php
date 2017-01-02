@@ -52,13 +52,14 @@ class LoginController extends Controller
         $this->validateLogin($request);
 
         $credentials = $this->credentials($request);
-        $attempt = Auth::attempt($credentials);
+        // $attempt = Auth::attempt($credentials);
+        $attempt = Auth::guard('user')->attempt($credentials);
             
         if( $attempt ) {
             return response()->json([
                 'authenticated' => true,
                 'message'   => 'success',
-                'user'  => UserTransformer::transform(auth()->user())
+                'user'  => UserTransformer::transform(auth()->guard('user')->user())
             ]);
         }
 

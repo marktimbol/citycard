@@ -108,3 +108,98 @@ Manage Outlet Promotions
 	/dashboard/merchants/{merchant}/promos/{promo}/outlets/{outlet}
 		- DELETE Request
 		- Detach (Remove) outlet from a Promotion
+
+
+Merchant
+
+	Login as clerk
+
+	POST http://merchant.citycard.dev/api/login
+	PARAMS email, password
+	RESPONSE
+	{
+	  "authenticated": true,
+	  "message": "success",
+	  "auto_logout": false,
+	  "clerk": {
+	    "id": 3,
+	    "first_name": "Clark",
+	    "last_name": "Kent",
+	    "email": "clarkkent@citycard.me",
+	    "phone": "568207189",
+	    "photo": null,
+	    "api_token": "my0zXZBFJ5NYtcctrplVvAIS7K5FLms1MruKhFtv3yCjGwUvNHdK3SsZwI9n",
+	    "online": 1,
+	    "outlets": [
+		    {
+		        "id": 9,
+		        "name": "Batman - Al Barsha",
+		        "email": "batman@citycard.me",
+		        "phone": "568207189",
+		        "address1": "",
+		        "address2": "",
+		        "latitude": "",
+		        "longitude": "",
+		        "has_reservation": false,
+		        "has_messaging": false,
+		        "has_menus": false,
+		        "is_following": false
+		    },
+		    {}
+	    ]
+	  }
+	}	
+
+	Get all outlet reservations
+	GET http://merchant.citycard.dev/api/outlets/{outlet}/reservations
+	RESPONSE
+	[
+		{
+		    "id": 1,
+		    "date": "2016-12-31 21:00:00",
+		    "time": "9pm",
+		    "quantity": 1,
+		    "note": "My reservation on New Year's eve at 9pm",
+		    "confirmed": 0,
+		    "item": {
+		    	"id": 2,
+		    	"title": "Dinner for 2 at 5 star hotel"
+		    },
+		    "user": {
+		    	"id": 1,
+		    	"name": "John Doe",
+		    	"email": "john@example.com",
+		    	"mobile": "+971 56 820 7189"
+		    }
+		}
+	]
+
+	View an outlet reservation
+	GET http://merchant.citycard.dev/api/outlets/{outlet}/reservations/{reservation}
+	RESPONSE
+	{
+		"id": 1,
+		"date": "2016-12-31 21:00:00",
+		"time": "9pm",
+		"quantity": 1,
+		"note": "My reservation on New Year's eve at 9pm",
+		"confirmed": 0,
+		"item": {
+			"id": 2,
+			"title": "Dinner for 2 at 5 star hotel"
+		},
+		"user": {
+			"id": 1,
+			"name": "City Card User",
+			"email": "user@timbol.com",
+			"mobile": "+971 56 820 7189"
+		}
+	}	
+
+	Confirm a reservation
+	PUT http://merchant.citycard.dev/api/reservations/{reservation}/confirm
+	RESPONSE
+	{
+		"success": true,
+		"message": "The reservation has been successfully confirmed."
+	}	

@@ -74,6 +74,8 @@ class RouteServiceProvider extends ServiceProvider
             'namespace' => $this->namespace,
             'prefix' => 'api',
         ], function ($router) {
+            require base_path('routes/user_api.php');
+            require base_path('routes/clerk_api.php');
             require base_path('routes/api.php');
         });
     }

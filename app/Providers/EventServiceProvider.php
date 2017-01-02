@@ -19,6 +19,9 @@ class EventServiceProvider extends ServiceProvider
             // 'App\Listeners\User\SendMobileVerification',
             // 'App\Listeners\User\RegisterUserInQuickBlox',
         ],
+        'App\Events\Reservation\ReservationWasConfirmed' => [
+            'App\Listener\Reservation\SendEmailConfirmedReservation',
+        ],
     ];
 
     /**
