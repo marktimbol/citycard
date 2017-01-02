@@ -12,6 +12,7 @@ class CreateMerchant extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
+
 			name: '',
 			phone: '',
 			currency: 'AED',
@@ -19,10 +20,16 @@ class CreateMerchant extends Component
 			email: '@citycard.me',
 			password: '',
 			password_confirmation: '',
+
+			selectedCategory: '',
+			selectedSubcategories: '',
+
 			errors: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);  		
 	}
 
 	handleChange(e) {
@@ -30,6 +37,18 @@ class CreateMerchant extends Component
 			[e.target.name]: e.target.value
 		});
 	}
+
+    handleCategoryChange(value) {
+    	this.setState({
+    		selectedCategory: value
+    	})
+    }	
+
+    handleSubcategoryChange(value) {        
+        this.setState({
+            selectedSubcategories: value
+        })
+    }    	
 
 	onSubmit(e) {
 		e.preventDefault();
@@ -94,6 +113,8 @@ class CreateMerchant extends Component
 	}
 
 	render() {
+		let errors = this.state.errors;
+		
 		return (
 			<form method="POST" id="CreateMerchantForm" onSubmit={this.onSubmit.bind(this)}>
 				<div className="form-group">
@@ -118,7 +139,11 @@ class CreateMerchant extends Component
 
 				<h3>What is the nature of your business?</h3>
 
-				<Categories errors={this.state.errors} />
+				<Categories errors={errors} 
+					selectedCategory={this.state.selectedCategory}
+					selectedSubcategories={this.state.selectedSubcategories}
+					handleCategoryChange={this.handleCategoryChange}
+					handleSubcategoryChange={this.handleSubcategoryChange} />
 
 				<h3>And where it is located?</h3>
 				<Countries />

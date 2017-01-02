@@ -16,6 +16,7 @@ class CreatePost extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
+
 			isExternal: 0,
 			source: '',
 			source_from: '',
@@ -28,8 +29,10 @@ class CreatePost extends Component
 			desc: '',
 			outlet_ids: '',
 			allow_for_reservation: false,
+
 			selectedCategory: '',
 			selectedSubcategories: '',
+			
 			errors: [],
 		}
 

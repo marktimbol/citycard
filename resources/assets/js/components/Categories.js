@@ -17,7 +17,6 @@ class Categories extends React.Component
     }
 
     handleCategoryChange(e) {
-
         this.setState({ 
             isFetchingSubcategories: true 
         });
@@ -39,12 +38,7 @@ class Categories extends React.Component
     }
 
     handleSubcategoryChange(value) {
-        console.log('handleSubcategoryChange', value);
-
         this.props.handleSubcategoryChange(value);        
-        // this.setState({
-        //     selectedSubcategories: value
-        // })
     }
 
     render()
