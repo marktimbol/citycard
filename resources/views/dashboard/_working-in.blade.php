@@ -13,7 +13,7 @@
 <table class="table table-bordered">
 	<thead>
 		<tr>
-			<th>Name</th>
+			<th>Outlet</th>
 			<th>eMail</th>
 			<th>Phone</th>
 			<th>Status</th>

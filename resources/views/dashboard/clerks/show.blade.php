@@ -12,43 +12,42 @@
 
 	<div class="row">
 		<div class="col-md-2">
-			@if( $clerk->photo !== '' )
-				<div class="has-camera-icon">
-					<img src="{{ getPhotoPath($clerk->photo) }}"
-						alt="{{ $clerk->fullName() }}"
-						title="{{ $clerk->fullName() }}"
-						class="img-responsive img-circle" />
-					<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#ChangeClerkPhoto">
-						<i class="fa fa-camera fa-2x"></i>
-					</button>
-				</div>
+			<?php
+				$photo = 'http://placehold.it/150x150';
+				if( $clerk->photo !== null ) {
+					$photo = getPhotoPath($clerk->photo);
+				}
+			?>
 
-				<div class="modal fade" id="ChangeClerkPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-					<div class="modal-dialog" role="document">
-				    	<div class="modal-content">
-				      		<div class="modal-header">
-				        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-				        		<h4 class="modal-title" id="myModalLabel">Change Photo</h4>
-				      		</div>
-					    	<div class="modal-body">
-								<form class="dropzone" method="POST" action="/dashboard/clerks/{{$clerk->id}}/photos">
-									{{ csrf_field() }}
-									{{ method_field('PUT') }}
-								</form>
-							</div>
-				      		<div class="modal-footer">
-				    			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-				      		</div>
-				    	</div>
-				  	</div>
-				</div>
+			<div class="has-camera-icon">
+				<img src="{{ $photo }}"
+					alt="{{ $clerk->fullName() }}"
+					title="{{ $clerk->fullName() }}"
+					class="img-responsive img-circle" />
+				<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#ChangeClerkPhoto">
+					<i class="fa fa-camera fa-2x"></i>
+				</button>
+			</div>
 
-			@else
-				<form method="POST" class="dropzone" action="/dashboard/clerks/{{$clerk->id}}/photos">
-					{{ csrf_field() }}
-					{{ method_field('PUT') }}
-				</form>
-			@endif
+			<div class="modal fade" id="ChangeClerkPhoto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+				<div class="modal-dialog" role="document">
+			    	<div class="modal-content">
+			      		<div class="modal-header">
+			        		<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+			        		<h4 class="modal-title" id="myModalLabel">Change Photo</h4>
+			      		</div>
+				    	<div class="modal-body">
+							<form class="dropzone" method="POST" action="/dashboard/clerks/{{$clerk->id}}/photos">
+								{{ csrf_field() }}
+								{{ method_field('PUT') }}
+							</form>
+						</div>
+			      		<div class="modal-footer">
+			    			<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+			      		</div>
+			    	</div>
+			  	</div>
+			</div>
 
 			<br />
 			<p>
@@ -69,6 +68,12 @@
 				<li class="list-group-item">
 					Address:  {{ sprintf('%s, %s', $clerk->city, $clerk->country) }}
 				</li>
+				<li class="list-group-item">
+					Merchant:
+					<a href="{{ route('dashboard.merchants.show', $merchant->id) }}">
+						{{ $merchant->name }}
+					</a>
+				</li>				
 			</ul>
 		</div>
 	</div>
