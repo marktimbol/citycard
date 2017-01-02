@@ -16,7 +16,7 @@ class EventServiceProvider extends ServiceProvider
         'App\Events\User\UserRegistered' => [
             'App\Listeners\User\SendWelcomeEmail',
             'App\Listeners\User\SendEmailVerification',
-            'App\Listeners\User\SendMobileVerification',
+            // 'App\Listeners\User\SendMobileVerification',
             // 'App\Listeners\User\RegisterUserInQuickBlox',
         ],
     ];
