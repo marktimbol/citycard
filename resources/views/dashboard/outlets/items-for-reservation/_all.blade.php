@@ -10,7 +10,6 @@
 	<thead>
 		<tr>
 			<th>Title</th>
-			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -18,9 +17,6 @@
 		<tr>
 			<td>
 				{{ $item->title }}
-			</td>
-			<td>
-
 			</td>
 		</tr>
 

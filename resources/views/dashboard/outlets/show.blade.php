@@ -62,9 +62,7 @@
 		</a>
 	</div>
 
-	@include('dashboard._outlet-posts', [
-		'posts'	=> $posts,
-	])
+	@include('dashboard.merchants._posts')
 
 	{{-- @include('dashboard.outlets.clerks._all') --}}
 	@include('dashboard.merchants._clerks', [

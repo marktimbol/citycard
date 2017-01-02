@@ -11,7 +11,6 @@
 		<tr>
 			<th>Type</th>
 			<th>Title</th>
-			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -22,15 +21,6 @@
 				<a href="{{ route('dashboard.merchants.posts.show', [$merchant->id, $post->id]) }}">
 					{{ $post->title }}
 				</a>
-			</td>
-			<td>
-				@if( adminCan('update', $post) )
-					<a href="{{ route('dashboard.merchants.posts.edit', [$merchant->id, $post->id]) }}" 
-						class="btn btn-sm btn-default"
-					>
-						Edit
-					</a>
-				@endif
 			</td>
 		</tr>
 
