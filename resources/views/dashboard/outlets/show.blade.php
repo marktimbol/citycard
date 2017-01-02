@@ -4,7 +4,15 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">{{ $outlet->name }}</h1>
+		<h1 class="Heading__title">{{ $outlet->name }}
+			@can('update', $outlet)
+				<small>
+					<a href="{{ route('dashboard.merchants.outlets.edit', [$outlet->merchant->id, $outlet->id]) }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</small>
+			@endcan
+		</h1>
 		@include('dashboard._go-back')
 	</div>
 
@@ -58,7 +66,10 @@
 		'posts'	=> $posts,
 	])
 
-	@include('dashboard.outlets.clerks._all')
+	{{-- @include('dashboard.outlets.clerks._all') --}}
+	@include('dashboard.merchants._clerks', [
+		'clerks'	=> $outletClerks
+	])
 
 	@include('dashboard.outlets.items-for-reservation._all', [
 		'items'	=> $itemsForReservation

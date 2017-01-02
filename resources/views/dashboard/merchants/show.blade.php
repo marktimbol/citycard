@@ -7,7 +7,15 @@
 		$area = $merchant->areas->first();
 	?>
 	<div class="Heading">
-		<h1 class="Heading__title">{{ $merchant->name }}</h1>
+		<h1 class="Heading__title">{{ $merchant->name }}
+			@can('update', $merchant)		
+				<small>
+					<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</small>
+			@endcan
+		</h1>
 		@include('dashboard._go-back')
 	</div>
 

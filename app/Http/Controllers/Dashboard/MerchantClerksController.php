@@ -34,12 +34,20 @@ class MerchantClerksController extends Controller
             'merchant' => $merchant
         ]);
 
-    	return view('dashboard.clerks.create', compact('merchant'));
+        $merchant->load('outlets');
+        $merchantOutlets = $merchant->outlets;
+
+    	return view('dashboard.clerks.create', compact('merchant', 'merchantOutlets'));
     }
 
     public function store(CreateMerchantClerksRequest $request, Merchant $merchant)
-    {
+    {        
         $clerk = $merchant->clerks()->create($request->all());
+
+        // Assign clerk to outlet(s)
+        if( $request->has('outlets') ) {
+            $clerk->outlets()->attach($request->outlets);
+        }
 
         auth()->guard('admin')->user()->clerks()->attach($clerk);
         

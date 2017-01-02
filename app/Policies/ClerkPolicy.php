@@ -11,6 +11,11 @@ class ClerkPolicy
 {
     use HandlesAuthorization;
 
+    public function before(Admin $admin)
+    {
+        return $admin->hasRole('admin');
+    }
+    
     /**
      * Determine whether the user can view the clerk.
      *

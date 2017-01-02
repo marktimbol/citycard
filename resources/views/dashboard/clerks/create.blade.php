@@ -86,6 +86,18 @@
 			</div>
 		</div>
 
+		@if( $merchantOutlets->count() > 0 )
+			<div class="form-group">
+				@foreach( $merchantOutlets as $outlet )
+				<div class="checkbox">
+					<label>
+						<input type="checkbox" name="outlets[]" value="{{ $outlet->id }}" /> {{ $outlet->name }}
+					</label>
+				</div>
+				@endforeach
+			</div>
+		@endif		
+
 		<div class="form-group">
 			<button type="submit" class="btn btn-primary">Save</button>
 			@include('dashboard._cancel')

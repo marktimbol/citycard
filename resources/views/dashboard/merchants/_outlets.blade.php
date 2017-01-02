@@ -12,7 +12,6 @@
 			<th>Name</th>
 			<th>Transactions Today</th>
 			<th>Status</th>
-			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -30,15 +29,6 @@
 			</td>
 			<td></td>
 			<td><label class="label label-danger">Close</label></td>
-			<td>
-				@if( adminCan('update', $outlet) )
-					<a href="{{ route('dashboard.merchants.outlets.edit', [$merchant->id, $outlet->id]) }}" 
-						class="btn btn-sm btn-default"
-					>
-						Edit
-					</a>
-				@endif
-			</td>
 		</tr>
 
 		@empty

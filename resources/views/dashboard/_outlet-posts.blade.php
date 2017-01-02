@@ -36,7 +36,7 @@
 
 		@empty
 		<tr>
-			<td colspan="6">No promos yet.</td>
+			<td colspan="6">No posts yet.</td>
 		</tr>
 		@endforelse
 	</tbody>

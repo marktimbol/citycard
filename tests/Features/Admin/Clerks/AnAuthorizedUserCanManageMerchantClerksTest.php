@@ -44,28 +44,40 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 
     public function test_an_authorized_user_can_add_a_clerk_to_a_merchant()
     {
-		$area = $this->createArea();
     	$merchant = $this->createMerchant();
-		$area->merchants()->attach($merchant);
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id
+        ]);
 
+        $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+        ]);
 
-    	$this->visit(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks/create')
-    		->see('Create Clerk')
-			->type('John', 'first_name')
-			->type('Doe', 'last_name')
-			->type('email@citycard.me', 'email')
-			->type('0563759865', 'phone')
-			->type('123456', 'password')
-			->type('123456', 'password_confirmation')
-			->press('Save')
+        $request = $this->post(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks', [
+            'first_name'    => 'John',
+            'last_name' => 'Doe',
+            'email' => 'john@example.com',
+            'phone' => '0568207189',
+            'password'  => 'secret',
+            'password_confirmation' => 'secret',
+            'outlets'   => [1, 2]
+        ]);
 
-			->seeInDatabase('clerks', [
-				'merchant_id'	=> $merchant->id,
-				'first_name'	=> 'John',
-				'last_name'	=> 'Doe',
-				'email'	=> 'email@citycard.me',
-				'phone'	=> '0563759865',
-			]);
+		$this->seeInDatabase('clerks', [
+			'merchant_id'	=> $merchant->id,
+			'first_name'	=> 'John',
+			'last_name'	=> 'Doe',
+			'email'	=> 'john@example.com',
+			'phone'	=> '0568207189',
+		])
+            ->seeInDatabase('outlet_clerks', [
+                'outlet_id' => 1,
+                'clerk_id'  => 1,
+            ])
+            ->seeInDatabase('outlet_clerks', [
+                'outlet_id' => 2,
+                'clerk_id'  => 1,
+            ]);
     }
 
     public function test_an_authorized_user_can_edit_a_merchants_clerk_information()

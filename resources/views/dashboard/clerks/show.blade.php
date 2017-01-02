@@ -6,6 +6,13 @@
 	<div class="Heading">
 		<h1 class="Heading__title">
 			Clerk: {{ sprintf('%s %s', $clerk->first_name, $clerk->last_name) }}
+			@can('update', $clerk)
+				<small>
+					<a href="{{ route('dashboard.merchants.clerks.edit', [$merchant->id, $clerk->id]) }}">
+						<i class="fa fa-pencil"></i>
+					</a>
+				</small>
+			@endcan
 		</h1>
 		@include('dashboard._go-back')
 	</div>
