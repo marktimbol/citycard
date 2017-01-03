@@ -2,6 +2,7 @@
 
 namespace App\Transformers;
 
+use App\Transformers\ReservationTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
@@ -32,6 +33,10 @@ class OutletTransformer extends AbstractTransformer
             $output['reservation_items_count'] = $item->itemsForReservation->count();
             // $output['for_reservations'] = ItemsForReservationTransformer::transform($item->itemsForReservation);
         }                
+
+        if( $this->isRelationshipLoaded($item, 'reservations') ) {
+            $output['reservations'] = ReservationTransformer::transform($item->reservations);
+        }  
 
     	if( $this->isRelationshipLoaded($item, 'merchant') ) {
             $output['merchant'] = MerchantTransformer::transform($item->merchant);

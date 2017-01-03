@@ -21,7 +21,7 @@ class OutletsController extends Controller
             'merchant.outlets', 'clerks', 'posts.sources', 
             'posts.merchant', 'posts.outlets:id,name', 
             'posts.category', 'posts.photos', 'itemsForReservation'
-        );
+        );        
 
     	return OutletTransformer::transform($outlet);
     }
