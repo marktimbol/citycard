@@ -44,7 +44,7 @@ class OutletReservationTest extends TestCase
     	// Attach the user reservation on the outlet
     	$outlet->reservations()->attach($reservation);
 
-    	$request = $this->get('/api/outlets/'.$outlet->id.'/reservations');
+    	$request = $this->get('/api/clerk/outlets/'.$outlet->id.'/reservations');
     	$this->seeJson([
             'name'  => 'Mark Timbol',
     		'title'	=> 'Burj Khalifa - At the Top',
@@ -80,7 +80,7 @@ class OutletReservationTest extends TestCase
         // Attach the user reservation on the outlet
         $outlet->reservations()->attach($reservation);
 
-        $request = $this->get('/api/outlets/'.$outlet->id.'/reservations/1');
+        $request = $this->get('/api/clerk/outlets/'.$outlet->id.'/reservations/1');
         $this->seeJson([
             'name'  => 'Mark Timbol',
             'title' => 'Burj Khalifa - At the Top',
@@ -116,7 +116,7 @@ class OutletReservationTest extends TestCase
         // Attach the user reservation on the outlet
         $outlet->reservations()->attach($reservation);
 
-        $request = $this->put('/api/reservations/'.$reservation->id.'/confirm');
+        $request = $this->put('/api/clerk/reservations/'.$reservation->id.'/confirm');
         $this->seeInDatabase('reservations', [
             'id'    => $reservation->id,
             'confirmed' => true,

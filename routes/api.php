@@ -26,16 +26,32 @@ Route::group(['as' => 'api.'], function() {
 	Route::post('password/email', 'Api\Auth\User\ForgotPasswordController@sendResetLinkEmail');
 	Route::post('register', 'Api\Auth\User\RegisterController@register');
 	
-	Route::resource('outlets', 'Api\OutletsController');
-	Route::resource('outlets.posts', 'Api\OutletPostsController');
-	Route::resource('outlets.photos', 'Api\OutletPhotosController');
-	Route::resource('posts', 'Api\PostsController');
+	Route::resource('outlets', 'Api\OutletsController', [
+		'only'	=> ['index', 'show']
+	]);
+	Route::resource('outlets.posts', 'Api\OutletPostsController', [
+		'only'	=> ['index', 'show']
+	]);
+	Route::resource('outlets.photos', 'Api\OutletPhotosController', [
+		'only'	=> ['index']
+	]);
+	Route::resource('posts', 'Api\PostsController', [
+		'only'	=> ['index']
+	]);
 	Route::post('posts/{post}/favourite', ['uses' => 'Api\FavouritePostsController@store']);
 	Route::delete('posts/{post}/unfavourite', ['uses' => 'Api\FavouritePostsController@destroy']);
-	Route::resource('favourites', 'Api\FavouritesController');
-	Route::resource('deals', 'Api\DealsController');
-	Route::resource('events', 'Api\EventsController');
-	Route::resource('posts.purchase', 'Api\PurchasesController');
+	Route::resource('favourites', 'Api\FavouritesController', [
+		'only'	=> ['index']
+	]);
+	Route::resource('deals', 'Api\DealsController', [
+		'only'	=> ['index']
+	]);
+	Route::resource('events', 'Api\EventsController', [
+		'only'	=> ['index']
+	]);
+	Route::resource('posts.purchase', 'Api\PurchasesController', [
+		'only'	=> ['store']
+	]);
 	
 	// Filters
 	// api/posts/?filter=yes&country=1&cities=1,2,3&categories=1,2,3&distance=&page=1

@@ -61,7 +61,7 @@ class UserReservationTest extends TestCase
         $this->seeJson([
             'date'  => $date,
             'time'  => '17:00',
-            'quantity'  => '2',
+            'quantity'  => 2,
             'title' => 'Burj Khalifa - At the Top'
         ]);
     }

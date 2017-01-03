@@ -12,7 +12,9 @@
 */
 
 Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
-	Route::resource('clerks.messages', 'Api\User\MessagesController');
+	Route::resource('clerks.messages', 'Api\User\MessagesController', [
+		'only'	=> ['store']
+	]);
 	Route::put('user/email', 'Api\User\UpdateEmailController@update');
 	Route::put('user/mobile', 'Api\User\UpdateMobileController@update');
 	Route::put('user/change-password', 'Api\User\ChangePasswordController@update');

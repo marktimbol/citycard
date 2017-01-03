@@ -11,9 +11,12 @@
 |
 */
 
-Route::group(['as' => 'api.', 'middleware' => 'auth:clerk_api'], function() {
-	Route::resource('users.messages', 'Api\Clerk\MessagesController');
+Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_api'], function() {
+	Route::resource('users.messages', 'Api\Clerk\MessagesController', [
+		'only'	=> ['store']
+	]);
 
+	Route::get('outlets/{outlet}', 'Api\Clerk\OutletsController@show');	
 	// Get all the reservations of an outlet
 	Route::get('outlets/{outlet}/reservations', 'Api\Clerk\OutletReservationsController@index');	
 	Route::get('outlets/{outlet}/reservations/{reservation}', 'Api\Clerk\OutletReservationsController@show');

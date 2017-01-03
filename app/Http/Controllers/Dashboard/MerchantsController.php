@@ -37,13 +37,6 @@ class MerchantsController extends Controller
     	return view('dashboard.merchants.index', compact('merchants'));
     }
 
-    public function testing()
-    {
-        $merchants = Merchant::with('areas.city.country')
-            ->latest()
-            ->paginate(config('pagination.count'));
-    }
-
     public function show(Merchant $merchant)
     {
 		$merchant->load('areas.city.country', 'categories.subcategories');
@@ -150,14 +143,5 @@ class MerchantsController extends Controller
 
         flash()->success('A merchant has been successfully removed.');
         return redirect()->route('dashboard.merchants.index');
-    }
-
-    public function import()
-    {
-        Excel::load('merchants.xls', function($reader) {
-
-            // reader methods
-
-        });
     }
 }
