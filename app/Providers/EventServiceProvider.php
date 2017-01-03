@@ -20,7 +20,7 @@ class EventServiceProvider extends ServiceProvider
             // 'App\Listeners\User\RegisterUserInQuickBlox',
         ],
         'App\Events\Reservation\ReservationWasConfirmed' => [
-            'App\Listener\Reservation\SendEmailConfirmedReservation',
+            'App\Listeners\Reservation\SendEmailConfirmedReservation',
         ],
     ];
 

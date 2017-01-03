@@ -38,14 +38,14 @@ class SocialiteAuthController extends Controller
      */
     private function findOrCreateUser($user)
     {
-    	if( $authUser = User::whereEmail($user->email)->first() ) {
+    	if( $authUser = User::whereEmail($user->email ?: $user->nickname)->first() ) {
     		return $authUser;
     	}
 
     	return User::create([
     		'name'	=> $user->name,
-    		'email'	=> $user->email,
-    		'password'	=> bcrypt($user->email),
+    		'email'	=> $user->email ?: $user->nickname,
+    		'password'	=> bcrypt($user->email ?: $user->nickname),
     	]);
     }
 }
