@@ -1,7 +1,11 @@
 <header>
     <div class="Header__content">
         <div class="Logo--container">
-            <h1>{{ config('app.name') }}</h1>
+            <h1>
+                <a href="/">
+                    {{ config('app.name', 'City Card') }}
+                </a>
+            </h1>
         </div>
         <div class="Search--container">
             <form method="GET">
@@ -23,7 +27,7 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#">
+                    <a href="/user/{{ auth()->user()->id }}">
                         <i class="fa fa-user-o fa-2x"></i>
                     </a>
                 </li>                                

@@ -94,5 +94,4 @@
 		</footer>
 	</main>
 
-
 @endsection

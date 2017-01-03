@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>@yield('pageTitle', config('app.name', 'Laravel'))</title>
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
     
     <!-- Styles -->
@@ -23,10 +23,11 @@
         ]); ?>
     </script>
 </head>
-<body class="@yield('bodyClass')">
-    
-    @yield('content')
+    <body class="@yield('bodyClass')">
 
-    <script src="{{ elixir('js/public.js') }}"></script>
+        @yield('content')
 
-@include('layouts.public._footer')
+        <script src="{{ elixir('js/public.js') }}"></script>
+        @include('layouts.public._footer')
+    </body>
+</html>
