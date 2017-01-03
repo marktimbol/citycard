@@ -2,7 +2,6 @@
 
 namespace App\Transformers;
 
-use App\Transformers\ReservationTransformer;
 use Illuminate\Database\Eloquent\Model;
 use Themsaid\Transformers\AbstractTransformer;
 
