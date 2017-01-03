@@ -1,5 +1,4 @@
 const elixir = require('laravel-elixir');
-const bowersPath = '../../../bower_components/';
 const modulesPath = '../../../node_modules/';
 
 /*
@@ -18,11 +17,12 @@ elixir(mix => {
 
       .styles([
         modulesPath + 'font-awesome/css/font-awesome.css',
+        modulesPath + 'sweetalert/dist/sweetalert.css',
         'public.css'
       ], 'public/css/public.css')
 
       .webpack('public.js')
-        .webpack('components/PostsInfinite.js');
+      .webpack('components/PostsInfinite.js');
 
     mix.sass('app.scss', 'resources/assets/css/app.css')
    	    .styles([

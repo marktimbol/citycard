@@ -17,10 +17,10 @@
 						</p>
 						<div class="Registration__form">
 							<div class="Social__login">
-								<button type="submit" class="btn btn-block btn-primary">
+								<a href="/auth/facebook" class="btn btn-block btn-primary">
 									<i class="fa fa-facebook-official"></i> 
 									Login with Facebook
-								</button>									
+								</a>									
 							</div>
 
 							<div class="or--divider">

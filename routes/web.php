@@ -14,6 +14,9 @@ use App\Post;
 |
 */
 
+Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
+Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
+
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 

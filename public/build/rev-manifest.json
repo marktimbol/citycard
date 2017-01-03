@@ -3,7 +3,7 @@
   "css/datepicker.css": "css/datepicker-3980092796.css",
   "css/editor.css": "css/editor-5b15c44c21.css",
   "css/mobile.css": "css/mobile-db182176d9.css",
-  "css/public.css": "css/public-635724dc6d.css",
+  "css/public.css": "css/public-5af9ea0dc2.css",
   "css/select.css": "css/select-7b4c89c520.css",
   "css/telephone.css": "css/telephone-1971b40ba8.css",
   "js/CreateMerchant.js": "js/CreateMerchant-b4425ee3dd.js",
@@ -13,6 +13,6 @@
   "js/OutletSettings.js": "js/OutletSettings-a751440e7c.js",
   "js/app.js": "js/app-999ac8d44a.js",
   "js/editor.js": "js/editor-e994459ea0.js",
-  "js/public.js": "js/public-54d0fb2750.js",
+  "js/public.js": "js/public-1a033cbf67.js",
   "js/telephone.js": "js/telephone-8bae9851e5.js"
 }

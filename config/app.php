@@ -172,10 +172,12 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
         Themsaid\Transformers\TransformersServiceProvider::class,
+        Laravel\Socialite\SocialiteServiceProvider::class,
         Aloha\Twilio\Support\Laravel\ServiceProvider::class,
+        Stevebauman\Location\LocationServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        
         /*
          * Application Service Providers...
          */
@@ -235,6 +237,7 @@ return [
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
         'Location' => Stevebauman\Location\Facades\Location::class,
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
+        'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
     ],
 

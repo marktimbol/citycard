@@ -5,7 +5,7 @@
 
     @yield('footer_scripts')
     
-    @include('dashboard._flash')
+    @include('flash')
     
 </body>
 </html>
