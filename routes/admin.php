@@ -27,7 +27,7 @@ Route::group([
 		'only'	=> ['index', 'show']
 	]);
 	Route::resource('admins', 'Dashboard\AdminsController', [
-		'only'	=> ['index', 'show', 'create', 'store']
+		'only'	=> ['index', 'show', 'create', 'store', 'edit']
 	]);
 	Route::resource('roles', 'Dashboard\RolesController', [
 		'only'	=> ['index', 'store', 'destroy']
@@ -125,6 +125,8 @@ Route::group([
 		'only'	=> ['index']
 	]);
 	
+	Route::resource('faqs', 'Dashboard\FAQsController');
+
 	// Route::resource('staffs', 'Dashboard\StaffsController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
 	Route::post('import/categories/{category}/subcategories', 'Dashboard\ImportSubcategoriesController@store');

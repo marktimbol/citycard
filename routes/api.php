@@ -66,4 +66,5 @@ Route::group(['as' => 'api.'], function() {
 	Route::get('categories', 'Api\CategoriesController@index');
 	Route::get('categories/{category}/subcategories', 'Api\SubcategoriesController@index');
 
+	Route::get('faqs', 'Api\FaqsController@index');
 });
