@@ -63,5 +63,10 @@ class User extends Authenticatable
     public function outlets()
     {
         return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id');
+    }
+
+    public function invitations()
+    {
+        return $this->hasMany(Invitation::class);
     }    
 }
