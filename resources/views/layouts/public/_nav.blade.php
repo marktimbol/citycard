@@ -26,11 +26,13 @@
                         <i class="fa fa-heart-o fa-2x"></i>
                     </a>
                 </li>
-                <li>
-                    <a href="/user/{{ auth()->user()->id }}">
-                        <i class="fa fa-user-o fa-2x"></i>
-                    </a>
-                </li>                                
+                @if( auth()->check() )
+                    <li>
+                        <a href="/user/{{ auth()->user()->id }}">
+                            <i class="fa fa-user-o fa-2x"></i>
+                        </a>
+                    </li> 
+                @endif                         
             </ul>
         </div>
     </div>
