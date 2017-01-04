@@ -42,9 +42,15 @@
                         </a>
                         @endcan
                         @can('manage_terms')
-                        <a href="" class="list-group-item">
-                            Terms &amp; Conditions
-                        </a>     
+                            <a href="{{ route('dashboard.company.index') }}" class="list-group-item">
+                                About City Card
+                            </a>                          
+                            <a href="{{ route('dashboard.company.index') }}" class="list-group-item">
+                                Terms &amp; Conditions
+                            </a>  
+                            <a href="{{ route('dashboard.company.index') }}" class="list-group-item">
+                                Privacy Policy
+                            </a>                                 
                         @endcan                   
                     </ul>
 

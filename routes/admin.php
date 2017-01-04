@@ -126,6 +126,7 @@ Route::group([
 	]);
 	
 	Route::resource('faqs', 'Dashboard\FAQsController');
+	Route::resource('company', 'Dashboard\CompanyController');
 
 	// Route::resource('staffs', 'Dashboard\StaffsController');
 	Route::post('import/categories', 'Dashboard\ImportCategoriesController@store');
