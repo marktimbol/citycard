@@ -36,12 +36,16 @@
                         @endcan
                     </ul>
                     <ul class="list-group">
+                        @can('manage_faqs')
                         <a href="{{ route('dashboard.faqs.index') }}" class="list-group-item">
                             FAQ's
                         </a>
+                        @endcan
+                        @can('manage_terms')
                         <a href="" class="list-group-item">
                             Terms &amp; Conditions
-                        </a>                        
+                        </a>     
+                        @endcan                   
                     </ul>
 
                     @can('manage_users')
