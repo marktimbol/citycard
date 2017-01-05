@@ -97,7 +97,12 @@ class RegisterUser extends React.Component
 							<a href="/auth/facebook" className="btn btn-block btn-primary">
 								<i className="fa fa-facebook-official"></i> 
 								Login with Facebook
-							</a>									
+							</a>
+
+							<a href="/auth/google" className="btn btn-block btn-danger">
+								<i className="fa fa-google-plus"></i> 
+								Login with Google
+							</a>																
 						</div>
 
 						<div className="or--divider">
