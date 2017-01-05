@@ -25,8 +25,6 @@ class PostsInfinite extends React.Component {
 	    		nextPageUrl: response.nextPageUrl,
 	    		posts: that.state.posts.concat(response.posts)
 	    	})
-
-	    	console.log(response);
         });
     }
 

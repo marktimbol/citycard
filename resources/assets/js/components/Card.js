@@ -1,5 +1,6 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
+import moment from 'moment';
 
 class Card extends React.Component
 {
@@ -37,7 +38,7 @@ class Card extends React.Component
 					</div>
 					<div>
 						<span className="timeago">
-							<TimeAgo date={item.created_at} />
+							<TimeAgo date={moment(item.created_at).format('LLL')} />
 						</span>
 					</div>
 				</div>
