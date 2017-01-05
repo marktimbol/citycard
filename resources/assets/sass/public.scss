@@ -25,6 +25,12 @@ body {
 	font-family: 'ProximaRegular', 'Montserrat', sans-serif;
 }
 
+.public {
+	.container {
+		max-width: 935px;
+	}
+}
+
 h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
@@ -49,16 +55,18 @@ h1, h2, h3, h4, h5, h6 {
 	main {
 		width: 100%;
 		max-width: 935px;
-		margin: 30px auto 0;
+		margin: 15px auto 0;
 	}
 
 	.PhoneMockup {
 		height: 618px;
 
+		position: relative;
 		background: url('/images/home-phones-mockup.png') no-repeat;
 		background-position: 0 0;
 		background-size: 454px 618px;	
 	}
+
 	.Authentication {
 		height: 100%;
 	    display: flex;
@@ -153,7 +161,7 @@ header {
 
 .Header__content {
 	width: 100%;
-	max-width: 1010px;
+	max-width: 935px;
 	padding: 0 20px;
 	
     display: flex;
@@ -233,6 +241,7 @@ footer {
 	}
 }
 
+@import 'components/HomeMobile';
 @import 'components/Grid';
 @import 'components/Card';
 @import 'components/Posts';

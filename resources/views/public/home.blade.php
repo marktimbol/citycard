@@ -6,7 +6,13 @@
 	<main>
 		<article class="Flex Flex--center">
 			<div class="Column-6 PhoneMockup--container">
-				<div class="PhoneMockup"></div>
+				<div class="PhoneMockup">
+					<div class="PhoneMockup__slides">
+						<img src="/images/iphone-slide.jpg" alt="" title="" class="PhoneMockup__slide1" />
+						<img src="/images/iphone-slide2.jpg" alt="" title="" class="PhoneMockup__slide2" />
+						<img src="/images/iphone-slide3.jpg" alt="" title="" class="PhoneMockup__slide3" />
+					</div>
+				</div>
 			</div>
 			<div class="Column-6 max-350">
 				<div class="Authentication">

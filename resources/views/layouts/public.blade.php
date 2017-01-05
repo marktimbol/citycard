@@ -23,7 +23,7 @@
         ]); ?>
     </script>
 </head>
-    <body class="@yield('bodyClass')">
+    <body class="public @yield('bodyClass')">
 
         @yield('content')
 
