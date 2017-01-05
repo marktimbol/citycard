@@ -84,15 +84,19 @@ h1, h2, h3, h4, h5, h6 {
 	    }
 
 	    p.lead {
-	    	font-size: 17px;
+	    	font-size: 14px;
 		    color: #999;
 		    font-weight: 600;
 	    }
 
 	    form {
-	    	.help-block {
+	    	.Accept-terms {
 	    		margin-top: 20px;
 	    	}
+	    }
+
+	    .btn i {
+	    	font-size: 14px !important;
 	    }
 	}
 
@@ -214,7 +218,7 @@ header {
 
 footer {
 	display: flex;
-	justify-content: center;
+	justify-content: space-between;
 	ul {
 	    padding-left: 0;
 	    display: flex;
