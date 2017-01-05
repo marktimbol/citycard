@@ -15,6 +15,14 @@
 		display: none;
 	}
 
+	.Footer--container {
+		flex-direction: column-reverse;
+	}
+
+	.Download-app {
+		margin-bottom: 30px;
+	}
+
 	.hide-on-mobile {
 		display: none;
 	}

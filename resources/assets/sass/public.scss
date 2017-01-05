@@ -109,7 +109,6 @@ h1, h2, h3, h4, h5, h6 {
 	}
 
 	.Download-app {
-		margin-top: 30px;
 		p {
 			color: #262626;
 			text-align: center;
@@ -209,16 +208,19 @@ header {
 	}
 }
 
+.Footer--container {
+	margin-top: 30px;
+}
+
 footer {
 	display: flex;
-	margin-top: 20px;
-	justify-content: space-between;
+	justify-content: center;
 	ul {
 	    padding-left: 0;
 	    display: flex;
-	    list-style: none;    		
+	    list-style: none;   
+	    margin-bottom: 0; 		
 		li {
-		    margin-bottom: 7px;
 		    margin-right: 16px;    
 		    &.copyright {
 			    color: #999;

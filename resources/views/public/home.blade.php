@@ -62,8 +62,25 @@
 					<div class="Box Login">
 						<p>Have an account? <a href="#">Log in</a></p>
 					</div>							
-				</div>
+				</div>			
+			</div>
+		</article>
+		<div class="Flex Flex--center Footer--container">
+			<div class="Column-6">
+				<footer>
+					<ul>
+						<li><a href="/posts">Deals</a></li>
+						<li><a href="#">About Us</a></li>
+						<li><a href="#">Support</a></li>
+						<li><a href="#">Directory</a></li>
+						<li><a href="#">Jobs</a></li>
+						<li><a href="#">Privacy</a></li>
+						<li><a href="#">Terms</a></li>
+					</ul>
+				</footer>
+			</div>
 
+			<div class="Column-6">
 				<div class="Download-app">
 					<p>Get the app.</p>
 					<ul>
@@ -78,22 +95,13 @@
 							</a>
 						</li>								
 					</ul>
-				</div>				
+				</div>
 			</div>
-		</article>
+		</div>
 
 		<footer>
 			<ul>
-				<li><a href="/posts">Deals</a></li>
-				<li><a href="#">About Us</a></li>
-				<li><a href="#">Support</a></li>
-				<li><a href="#">Directory</a></li>
-				<li><a href="#">Jobs</a></li>
-				<li><a href="#">Privacy</a></li>
-				<li><a href="#">Terms</a></li>
-			</ul>
-			<ul>
-				<li class="copyright">
+				<li class="copyright text-center">
 					&copy; {{ sprintf('%s %s', date('Y'), config('app.name')) }}
 				</li>
 			</ul>
