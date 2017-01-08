@@ -86,6 +86,7 @@
 		Change Password
 	</a>
 
+	
 	@include('dashboard.merchants._posts')
 
 	@include('dashboard.merchants._outlets')
@@ -97,4 +98,8 @@
 			'route'	=> route('dashboard.merchants.destroy', $merchant->id)
 		])
 	@endif
+@endsection
+
+@section('footer_scripts')
+	 <script src="{{ elixir('js/MerchantPosts.js') }}"></script>
 @endsection
