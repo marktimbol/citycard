@@ -45,6 +45,11 @@ class User extends Authenticatable
         });
     }
 
+    public function photos()
+    {
+        return $this->morphMany(Photo::class, 'imageable');
+    }
+    
     public function favourites()
     {
         return $this->belongsToMany(Post::class, 'user_favourites', 'user_id', 'post_id');
