@@ -60,6 +60,8 @@ class Post extends Model
                 'title' => $this->title,
                 'outlet' => OutletTransformer::transform($this->outlets)
             ];
+        } else {
+            $this->unsearchable();
         }
 
         return $array;
