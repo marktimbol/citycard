@@ -46,6 +46,8 @@ class MerchantsController extends Controller
         $categories = $merchant->categories;
 
         JavaScript::put([
+            'admin_path'    => adminPath(),
+            'merchant_id'  => $merchant->id,
             'posts' => $posts
         ]);
         
