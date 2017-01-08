@@ -45,6 +45,12 @@ class MerchantsController extends Controller
         $posts = $merchant->posts()->latest()->get();
         $categories = $merchant->categories;
 
+        JavaScript::put([
+            'admin_path'    => adminPath(),
+            'merchant_id'  => $merchant->id,
+            'posts' => $posts
+        ]);
+        
         return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts', 'categories'));
     }
 

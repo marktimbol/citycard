@@ -49,6 +49,7 @@ Route::group([
 	Route::resource('merchants.promos', 'Dashboard\PromosController');
 	Route::resource('merchants.posts', 'Dashboard\MerchantPostsController');
 	Route::put('merchants/{merchant}/photos', 'Dashboard\MerchantPhotosController@update');
+	Route::put('merchants/{merchant}/posts/{post}/toggle', 'Dashboard\ToggleMerchantPostVisibilityController@update');
 	Route::resource('clerks', 'Dashboard\ClerksController', [
 		'only'	=> ['index']
 	]);

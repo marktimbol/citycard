@@ -37,6 +37,7 @@ elixir(mix => {
       .webpack('components/EditOutlet.js')
       .webpack('components/CreatePost.js')
       .webpack('components/CreateMerchant.js')
+      .webpack('components/MerchantPosts.js')
       .webpack('components/OutletSettings.js')
       .webpack('components/DashboardPosts.js', 'public/js/DashboardPosts.js')
 
@@ -95,6 +96,7 @@ elixir(mix => {
           'public/css/telephone.css',
           'public/js/telephone.js',
           'public/js/CreateMerchant.js',
+          'public/js/MerchantPosts.js',
           'public/js/CreateOutlet.js',
           'public/js/CreatePost.js',
           'public/js/DashboardPosts.js',

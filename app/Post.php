@@ -19,6 +19,7 @@ class Post extends Model
 
     protected $casts = [
         'isExternal'    => 'boolean',
+        'published' => 'int'
     ];
 
     public function setTitleAttribute($title)

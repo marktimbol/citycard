@@ -41,7 +41,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         $this->actingAsAdmin($attributes);
     }
 
-    protected function actingAsAdmin($attributes)
+    protected function actingAsAdmin($attributes = [])
     {
         $role = factory(App\Role::class)->create([
             'name'  => 'admin'
