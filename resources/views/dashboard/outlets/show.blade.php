@@ -40,9 +40,6 @@
 		<li class="list-group-item">
 			Area:  {{ $outlet->getLocation() }}
 		</li>
-		<li class="list-group-item">
-			Status: <label class="label label-danger">Close</label>
-		</li>
 	</ul>
 
 	<ul class="list-group">

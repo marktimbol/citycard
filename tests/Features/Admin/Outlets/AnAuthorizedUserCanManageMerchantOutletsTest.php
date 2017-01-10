@@ -83,10 +83,11 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		]);
     }
 
-    public function test_an_authorized_user_can_activate_the_reservation_of_an_outlet()
+    public function test_an_authorized_user_can_toggle_the_settings_of_an_outlet()
     {
     	$outlet = $this->createOutlet([
     		'name'	=> 'Dubai Mall',
+    		'is_open'	=> 0,
     		'has_reservation'	=> 0,
     		'has_messaging'	=> 0,
     		'has_menus'	=> 0
@@ -94,6 +95,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
     	$endpoint = sprintf(adminPath() . '/dashboard/outlets/%s/settings', $outlet->id);
     	$request = $this->put($endpoint, [
+    		'is_open'	=> 1,
     		'has_reservation'	=> 1,
     		'has_messaging'	=> 1,
     		'has_menus'	=> 1,
@@ -101,6 +103,7 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 
     	$this->seeInDatabase('outlets', [
     		'id'	=> $outlet->id,
+    		'is_open'	=> 1,
     		'has_reservation'	=> 1,
     		'has_messaging'	=> 1,
     		'has_menus'	=> 1,

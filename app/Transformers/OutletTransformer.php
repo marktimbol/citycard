@@ -10,7 +10,7 @@ class OutletTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude', 'has_reservation', 'has_messaging', 'has_menus'
+    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude', 'has_reservation', 'has_messaging', 'has_menus', 'is_open'
     	]);    
 
         $output['is_following'] = false;

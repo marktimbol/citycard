@@ -40,7 +40,8 @@ class MerchantOutletsController extends Controller
             'outlet_id' => $outlet->id,
             'has_reservation'   => $outlet->has_reservation,
             'has_messaging'   => $outlet->has_messaging,
-            'has_menus'   => $outlet->has_menus
+            'has_menus'   => $outlet->has_menus,
+            'is_open'   => $outlet->is_open
         ]);
 
         return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'outletClerks', 'merchantClerks', 'itemsForReservation'));

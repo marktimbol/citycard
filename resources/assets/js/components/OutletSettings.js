@@ -12,6 +12,7 @@ class OutletSettings extends React.Component
 			has_reservation: app.has_reservation,
 			has_messaging: app.has_messaging,
 			has_menus: app.has_menus,
+			is_open: app.is_open,
 			isUpdating: false,
 			updateButtonText: 'Update'
 		}
@@ -19,6 +20,7 @@ class OutletSettings extends React.Component
 		this.toggleReservation = this.toggleReservation.bind(this)
 		this.toggleMessaging = this.toggleMessaging.bind(this)
 		this.toggleMenus = this.toggleMenus.bind(this)
+		this.toggleOpen = this.toggleOpen.bind(this)
 		this.updateSettings = this.updateSettings.bind(this)
 	}
 
@@ -33,9 +35,10 @@ class OutletSettings extends React.Component
 		let url = '/dashboard/outlets/' + app.outlet_id + '/settings';
 
 		let data = {
-			'has_reservation': this.state.has_reservation,
-			'has_messaging': this.state.has_messaging,
-			'has_menus': this.state.has_menus
+			'has_reservation': that.state.has_reservation,
+			'has_messaging': that.state.has_messaging,
+			'has_menus': that.state.has_menus,
+			'is_open': that.state.is_open
 		}
 
 		$.ajax({
@@ -50,6 +53,7 @@ class OutletSettings extends React.Component
 					has_reservation: response.has_reservation,
 					has_messaging: response.has_messaging,
 					has_menus: response.has_menus,
+					is_open: response.is_open,
 					isUpdating: false,
 					updateButtonText: 'Update'						
 				});
@@ -75,12 +79,27 @@ class OutletSettings extends React.Component
 		})
 	}
 
+	toggleOpen() {
+		this.setState({
+			is_open: this.state.is_open == 0 ? 1 : 0
+		})
+	}	
 
 	render()
 	{
 		return (
 			<div>
 				<h3>Outlet Settings</h3>
+				<ul className="list-group">
+					<li className="list-group-item">
+						<div className="checkbox-inline">
+							<label>
+								<input type="checkbox" defaultChecked={this.state.is_open} onChange={this.toggleOpen} />
+								{ this.state.is_open ? <span className="label label-success">Open</span> : <span className="label label-danger">Closed</span> }
+							</label>
+						</div>
+					</li>	
+				</ul>
 				<ul className="list-group">
 					<li className="list-group-item">
 						<div className="checkbox-inline">
