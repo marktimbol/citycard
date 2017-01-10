@@ -73,6 +73,12 @@ h1, h2, h3, h4, h5, h6 {
 	    flex-direction: column;		
 	}
 
+	.Social__login {
+		.btn-danger {
+			background: #d34836 !important;
+			border-color: #d34836 !important;
+		}
+	}
 	.Registration {
 		flex: 0.9;
 	    margin-bottom: 10px;		

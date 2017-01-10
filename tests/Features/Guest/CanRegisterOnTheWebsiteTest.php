@@ -10,12 +10,12 @@ class CanRegisterOnTheWebsiteTest extends TestCase
 
     public function test_a_guest_user_can_register_on_the_website()
     {
-    	$this->visit('/')
-    		->type('john@example.com', 'email')
-    		->type('John Doe', 'name')
-    		->type('secret', 'password')
-    		->type('secret', 'password_confirmation')
-    		->press('Sign Up');
+        $request = $this->post('/register', [
+            'email' => 'john@example.com',
+            'name'  => 'John Doe',
+            'password'  => 'secret',
+            'password_confirmation' => 'secret'
+        ]);
 
     	$this->seeInDatabase('users', [
     		'email'	=> 'john@example.com',
