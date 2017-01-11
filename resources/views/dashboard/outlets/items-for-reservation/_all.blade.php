@@ -10,6 +10,7 @@
 	<thead>
 		<tr>
 			<th>Title</th>
+			<th>Options</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -17,6 +18,13 @@
 		<tr>
 			<td>
 				{{ $item->title }}
+			</td>
+			<td>
+				@if( $item->options !== null )
+					@foreach($item->options as $option)
+						<span class="label label-success">{{ $option }}</span>
+					@endforeach
+				@endif
 			</td>
 		</tr>
 

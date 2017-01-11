@@ -39,6 +39,7 @@ elixir(mix => {
       .webpack('components/CreateMerchant.js')
       .webpack('components/MerchantPosts.js')
       .webpack('components/OutletSettings.js')
+      .webpack('components/CreateItemForReservation.js')
       .webpack('components/DashboardPosts.js', 'public/js/DashboardPosts.js')
 
       .styles([
@@ -102,6 +103,7 @@ elixir(mix => {
           'public/js/DashboardPosts.js',
           'public/js/OutletSettings.js',
           'public/css/mobile.css',
-          'public/css/datepicker.css'
+          'public/css/datepicker.css',
+          'public/js/CreateItemForReservation.js',
       ]);
 });

@@ -37,11 +37,14 @@ class MerchantOutletsController extends Controller
         $itemsForReservation = $outlet->itemsForReservation;
 
         JavaScript::put([
+            'merchant_id' => $merchant->id,
             'outlet_id' => $outlet->id,
+            'admin_path'    => adminPath(),
+            
             'has_reservation'   => $outlet->has_reservation,
             'has_messaging'   => $outlet->has_messaging,
             'has_menus'   => $outlet->has_menus,
-            'is_open'   => $outlet->is_open
+            'is_open'   => $outlet->is_open,
         ]);
 
         return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'outletClerks', 'merchantClerks', 'itemsForReservation'));
