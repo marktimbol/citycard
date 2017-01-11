@@ -14,7 +14,7 @@ class AddOptionsColumnInItemForReservationsTable extends Migration
     public function up()
     {
         Schema::table('item_for_reservations', function (Blueprint $table) {
-            $table->json('options')->nullable()->after('title');
+            $table->text('options')->nullable()->after('title');
         });
     }
 
