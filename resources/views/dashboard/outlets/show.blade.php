@@ -82,4 +82,5 @@
 @section('footer_scripts')
 	<script src="{{ elixir('js/OutletSettings.js') }}"></script>
 	<script src="{{ elixir('js/CreateItemForReservation.js') }}"></script>
+	<script src="{{ elixir('js/ItemsForReservation.js') }}"></script>
 @endsection

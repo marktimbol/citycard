@@ -6,6 +6,9 @@
 	</small>
 </h2>
 
+<div id="ItemsForReservation"></div>
+
+<?php /*
 <table class="table table-bordered">
 	<thead>
 		<tr>
@@ -35,5 +38,6 @@
 		@endforelse
 	</tbody>
 </table>
+*/ ?>
 
 @include('dashboard.outlets.items-for-reservation._create')

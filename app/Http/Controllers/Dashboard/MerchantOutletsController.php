@@ -34,12 +34,13 @@ class MerchantOutletsController extends Controller
         $posts = $outlet->posts()->latest()->get();
         $outletClerks = $outlet->clerks;
         $merchantClerks = $merchant->clerks->diff($outletClerks);
-        $itemsForReservation = $outlet->itemsForReservation;
+        $itemsForReservation = $outlet->itemsForReservation()->latest()->get();
 
         JavaScript::put([
             'merchant_id' => $merchant->id,
             'outlet_id' => $outlet->id,
             'admin_path'    => adminPath(),
+            'itemsForReservation'   => $itemsForReservation,
             
             'has_reservation'   => $outlet->has_reservation,
             'has_messaging'   => $outlet->has_messaging,

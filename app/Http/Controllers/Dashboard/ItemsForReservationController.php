@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Dashboard;
 
+use App\Http\Controllers\Controller;
+use App\ItemForReservation;
 use App\Outlet;
 use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ItemsForReservationController extends Controller
@@ -19,6 +20,17 @@ class ItemsForReservationController extends Controller
     	return response()->json([
             'success'    => true,
         ]);
+    }
+
+    public function destroy(Outlet $outlet, ItemForReservation $item)
+    {
+        $item->delete();
+        $outlet->load('itemsForReservation');
+
+        return response()->json([
+            'success'    => true,
+            'itemsForReservation'   => $outlet->itemsForReservation()->latest()->get()
+        ]);        
     }
 
     protected function validateRequest($request)

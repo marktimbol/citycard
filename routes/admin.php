@@ -90,6 +90,7 @@ Route::group([
 	Route::resource('outlets.for-reservations', 'Dashboard\ItemsForReservationController', [
 		'only'	=> ['store']
 	]);
+	Route::delete('outlets/{outlet}/items-for-reservation/{item}', 'Dashboard\ItemsForReservationController@destroy');	
 
 	// Outlet Settings
 	Route::put('outlets/{outlet}/settings', [
