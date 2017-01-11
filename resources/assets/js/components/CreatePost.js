@@ -33,6 +33,9 @@ class CreatePost extends Component
 			selectedCategory: '',
 			selectedSubcategories: '',
 			
+			// Options for reservation
+			reservationOptions: ['Table for 2'],
+
 			errors: [],
 		}
 
@@ -46,6 +49,10 @@ class CreatePost extends Component
 
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);   
+
+        this.createReservationOption = this.createReservationOption.bind(this);   
+        this.deleteReservationOption = this.deleteReservationOption.bind(this);   
+        this.handleReservationOptionChange = this.handleReservationOptionChange.bind(this);   
 	}
 
 	componentDidMount() {		
@@ -92,6 +99,10 @@ class CreatePost extends Component
 					formData.append('allow_for_reservation', that.state.allow_for_reservation);
 					formData.append('category', that.state.selectedCategory);
 					formData.append('subcategories', subcategories.join());
+
+					that.state.reservationOptions.map(option => {
+						formData.append('reservationOptions[]', option);
+					})
 				});		
 
 				this.on('success', function(response, serverResponse) {
@@ -199,7 +210,32 @@ class CreatePost extends Component
         this.setState({
             selectedSubcategories: value
         })
-    }    
+    }   
+
+    createReservationOption(e) {
+    	e.preventDefault();
+
+    	let newOption = ['New Option'];
+
+    	this.setState({
+    		reservationOptions: this.state.reservationOptions.concat(newOption)
+    	})
+    }
+
+    deleteReservationOption(selectedIndex) {
+    	console.log('deleteReservationOption', selectedIndex);
+
+    	this.setState({
+    		reservationOptions: this.state.reservationOptions.filter((option, index) => index !== selectedIndex)
+    	})
+    }
+
+    handleReservationOptionChange(index, e) {
+    	let newState = Object.assign({}, this.state);
+    	newState.reservationOptions[index] = e.target.value;
+
+    	this.setState({ newState })
+    }
 
 	onSubmit(e) {
 		e.preventDefault();
@@ -268,6 +304,28 @@ class CreatePost extends Component
 		let titleClass = errors.hasOwnProperty('title') ? 'form-group has-error' : 'form-group';
 		let descriptionClass = errors.hasOwnProperty('desc') ? 'form-group has-error' : 'form-group';
 
+		let that = this;
+		let reservationOptions = this.state.reservationOptions.map((reservationOption, index) => {
+			let className = errors.hasOwnProperty('reservationOptions.'+index) ? 'form-group input-group has-error' : 'form-group input-group';
+			return (
+				<div className={className} key={index}>
+					<input type="text" 
+						name="options[]" 
+						id="options" 
+						className="form-control" 
+						value={reservationOption} 
+						onChange={(e) => this.handleReservationOptionChange(index, e)} />
+					<span className="input-group-btn">
+						<button className="btn bnt-sm btn-default" onClick={this.createReservationOption}>
+							<i className="fa fa-plus"></i>
+						</button>
+						<button className="btn bnt-sm btn-danger" onClick={() => this.deleteReservationOption(index)}>
+							<i className="fa fa-minus"></i>
+						</button>						
+					</span>
+				</div>
+			)
+		})
 		return (
 			<form method="POST" id="CreatePostForm" onSubmit={this.onSubmit.bind(this)}>			
 				<input type="hidden" name="isExternal" id="isExternal" value={this.state.isExternal} />
@@ -438,6 +496,7 @@ class CreatePost extends Component
 					}					
 				</div>
 
+				<h3>Upload Photos</h3>
 				<div className="form-group">
 					<div className="dropzone" id="CreatePostPhotos"></div>
 				</div>
@@ -452,6 +511,16 @@ class CreatePost extends Component
 							Available for Reservation
 					</label>
 				</div>
+
+				{
+					this.state.allow_for_reservation ? 
+					<div className="row">
+						<div className="col-md-6">
+							{reservationOptions}
+						</div>
+					</div>
+					: <div></div>
+				}
 
 				<div className="form-group">
 					<button

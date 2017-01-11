@@ -1,5 +1,6 @@
 <?php
 
+use App\ItemForReservation;
 use App\Post;
 
 
@@ -13,6 +14,10 @@ use App\Post;
 | to using a Closure or controller method. Build something great!
 |
 */
+
+Route::get('/for-reservation/{item}', function(ItemForReservation $item) {
+	return $item;
+});
 
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');

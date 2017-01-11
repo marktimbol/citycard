@@ -52,7 +52,7 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {                        
+    {                             
         $this->validateRequest($request);
 
         $merchant->load('areas.city.country');
@@ -62,15 +62,10 @@ class MerchantPostsController extends Controller
 
         $request['category_id'] = $request->category;
 
-        if( auth()->user()->hasRole('admin') ) {
-            $request['published'] = true;
-        }
-
     	$post = $merchant->posts()->create($request->all());
 
         // Store Sub Categories
         $category = Category::findOrFail($request->category);
-
         $subcategories = collect(explode(',', $request->subcategories));
         $subcategories = $subcategories->partition(function($value) {
             return is_numeric($value);
@@ -95,13 +90,14 @@ class MerchantPostsController extends Controller
         $outlet_ids = collect(explode(',', $request->outlet_ids));
 		$post->outlets()->attach($outlet_ids->all());
 
-        if( $request->allow_for_reservation == true )
+        if( $this->isForReservation() )
         {
             foreach( $outlet_ids as $outlet_id )
             {
                 ItemForReservation::create([
                     'outlet_id' => $outlet_id,
-                    'title' => $post->title
+                    'title' => $post->title,
+                    'options'   => $request->has('reservationOptions') ? $request->reservationOptions : null,
                 ]);
             }
         }     
@@ -181,6 +177,15 @@ class MerchantPostsController extends Controller
             return $input->type == 'events';
         });
 
+        $validator->sometimes('reservationOptions.*', 'required', function($input) {
+            return $input->allow_for_reservation == true;
+        });        
+
         $validator->validate();        
+    }
+
+    private function isForReservation()
+    {
+        return request()->allow_for_reservation;
     }
 }

@@ -38,6 +38,17 @@ class Post extends Model
         return $query->where('published', false);
     }
 
+    public static function boot()
+    {
+        parent::boot();
+
+        static::creating(function($post) {
+            if( auth()->user()->hasRole('admin') ) {
+                $post->published = true;
+            }
+        });
+    }
+
     public function isPublished()
     {
         return $this->published == 1;
