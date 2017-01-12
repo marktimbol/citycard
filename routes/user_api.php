@@ -22,12 +22,13 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
-	// User reservations list
+	// Get all User reservations
 	Route::get('user/reservations', 'Api\User\ReservationsController@index');
 	
-	// List all the outlet items available for reservation
-	Route::get('outlets/{outlet}/reservations', 'Api\Outlet\OutletReservationsController@index');
+	// Get all the outlet items available for reservation
+	Route::get('outlets/{outlet}/items-for-reservation', 'Api\Outlet\ItemsForReservationController@index');
 
+	// Reservation actions (reserve, modify & cancel)
 	Route::resource('outlets.reservations', 'Api\User\OutletReservationsController', [
 		'only'	=> ['store', 'update', 'destroy']
 	]);

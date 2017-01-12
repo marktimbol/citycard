@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\ItemsForReservationTransformer;
 
-class OutletReservationsController extends Controller
+class ItemsForReservationController extends Controller
 {
     public function index(Outlet $outlet)
     {

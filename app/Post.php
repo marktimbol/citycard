@@ -43,8 +43,10 @@ class Post extends Model
         parent::boot();
 
         static::creating(function($post) {
-            if( auth()->user()->hasRole('admin') ) {
-                $post->published = true;
+            if( auth()->check() ) {            
+                if( auth()->user()->hasRole('admin') ) {
+                    $post->published = true;
+                }
             }
         });
     }
