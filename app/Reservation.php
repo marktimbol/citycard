@@ -6,12 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    protected $fillable = ['item_id', 'date', 'time', 'quantity', 'option', 'note'];
+    protected $fillable = ['item_id', 'date', 'time', 'flexible_dates', 'quantity', 'option', 'note'];
 
     protected $dates = ['date'];
     
     protected $casts = [
-    	'quantity'	=> 'int'
+    	'quantity'	=> 'int',
+        'flexible_dates'    => 'bool'
     ];
     
     public function item()

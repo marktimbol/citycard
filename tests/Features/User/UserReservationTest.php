@@ -86,6 +86,7 @@ class UserReservationTest extends TestCase
             'item_id'  => $itemForReservation->id,
             'date'  => $date,
             'time'  => '17:00',
+            'flexible_dates'    => true,
             'option'   => 'Silver',
             'quantity'  => 2,
     		'note'	=> 'The note'
@@ -96,6 +97,7 @@ class UserReservationTest extends TestCase
             'item_id'  => $itemForReservation->id,
     		'date'	=> $date,
     		'time'	=> '17:00',
+            'flexible_dates'    => true,
             'option'    => 'Silver',
             'quantity'  => 2,
     		'note'	=> 'The note',
