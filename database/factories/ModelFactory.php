@@ -82,7 +82,8 @@ $factory->define(App\ItemForReservation::class, function (Faker\Generator $faker
         'outlet_id'   => function() {
             return factory(App\Outlet::class)->create()->id;
         },
-        'title' => $faker->sentence
+        'title' => $faker->sentence,
+        'options'    => [],
     ];
 });
 

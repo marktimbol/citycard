@@ -77,7 +77,8 @@ class UserReservationTest extends TestCase
 
         $itemForReservation = $this->createItemForReservation([
             'outlet_id' => $outlet->id,
-            'title' => 'Burj Khalifa - At the Top'
+            'title' => 'Burj Khalifa - At the Top',
+            'options'   => ['Silver', 'Gold']
         ]);
 
     	$endpoint = sprintf('/api/outlets/%s/reservations', $outlet->id);
@@ -85,6 +86,7 @@ class UserReservationTest extends TestCase
             'item_id'  => $itemForReservation->id,
             'date'  => $date,
             'time'  => '17:00',
+            'option'   => 'Silver',
             'quantity'  => 2,
     		'note'	=> 'The note'
     	]);
@@ -94,6 +96,7 @@ class UserReservationTest extends TestCase
             'item_id'  => $itemForReservation->id,
     		'date'	=> $date,
     		'time'	=> '17:00',
+            'option'    => 'Silver',
             'quantity'  => 2,
     		'note'	=> 'The note',
     		'confirmed'	=> false
