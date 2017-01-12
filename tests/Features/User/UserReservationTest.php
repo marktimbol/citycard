@@ -112,4 +112,47 @@ class UserReservationTest extends TestCase
             'success'   => true,
         ]);
     }
+
+    public function test_an_authenticated_user_can_cancel_his_or_her_reservation_from_the_outlet()
+    {
+        $date = Carbon::tomorrow()->toDateTimeString();
+
+        $outlet = $this->createOutlet([
+            'name'  => 'Dubai Mall',
+            'has_reservation'   => true,
+        ]);
+
+        $itemForReservation = $this->createItemForReservation([
+            'outlet_id' => $outlet->id,
+            'title' => 'Burj Khalifa - At the Top',
+            'options'   => ['Silver', 'Gold']
+        ]);
+
+        $reservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation->id,
+            'date'  => $date,
+            'time'  => '17:00',
+            'flexible_dates'    => true,
+            'option'    => 'Silver',
+            'quantity'  => 2,
+            'note'  => 'The note',
+            'confirmed' => true
+        ]);
+
+        $outlet->reservations()->attach($reservation->id);
+
+        // Perform cancellation
+        $endpoint = sprintf('/api/outlets/%s/reservations/%s/cancel', $outlet->id, $reservation->id);
+        $request = $this->delete($endpoint);
+
+        $this->seeInDatabase('reservations', [
+            'id'    => $reservation->id,
+            'confirmed' => false,
+        ])
+            ->seeInDatabase('cancelled_reservations', [
+                'outlet_id' => $outlet->id,
+                'reservation_id'    => $reservation->id,
+            ]);
+    }
 }

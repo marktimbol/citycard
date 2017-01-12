@@ -86,6 +86,11 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
         return factory(App\Outlet::class)->create($attributes);
     }
 
+    protected function createReservation($attributes = [])
+    {
+        return factory(App\Reservation::class)->create($attributes);
+    }
+    
     protected function createItemForReservation($attributes = [])
     {
         return factory(App\ItemForReservation::class)->create($attributes);

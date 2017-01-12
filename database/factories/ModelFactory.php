@@ -77,6 +77,24 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\Reservation::class, function (Faker\Generator $faker) {
+    return [
+        'user_id'   => function() {
+            return factory(App\User::class)->create()->id;
+        },
+        'item_id'   => function() {
+            return factory(App\ItemForReservation::class)->create()->id;
+        },        
+        'date'  => \Carbon\Carbon::tomorrow()->toDateTimeString(),
+        'time'  => '17:00',
+        'flexible_dates'    => true,
+        'option'    => 'Silver',
+        'quantity'  => 2,
+        'note'  => 'The note',
+        'confirmed' => false
+    ];
+});
+
 $factory->define(App\ItemForReservation::class, function (Faker\Generator $faker) {
     return [
         'outlet_id'   => function() {

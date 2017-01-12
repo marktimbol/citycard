@@ -28,6 +28,9 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::get('outlets/{outlet}/reservations', 'Api\Outlet\OutletReservationsController@index');
 	// User reserve a services from the outlet
 	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
+	// User cancels a reservation
+	Route::delete('outlets/{outlet}/reservations/{reservation}/cancel', 'Api\User\CancelReservationsController@destroy');
+
 	// User follows an outlet
 	Route::post('outlets/{outlet}/follows', 'Api\User\OutletFollowersController@store');
 	// User unfollows an outlet

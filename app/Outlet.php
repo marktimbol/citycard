@@ -81,6 +81,11 @@ class Outlet extends Authenticatable
     	return $this->belongsToMany(Reservation::class, 'outlet_reservations', 'outlet_id', 'reservation_id');
     }
 
+    public function cancelledReservations()
+    {
+    	return $this->belongsToMany(Reservation::class, 'cancelled_reservations', 'outlet_id', 'reservation_id');
+    }
+
     public function itemsForReservation()
     {
     	return $this->hasMany(ItemForReservation::class);
