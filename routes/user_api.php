@@ -27,7 +27,11 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	
 	// Get all the outlet items available for reservation
 	Route::get('outlets/{outlet}/items-for-reservation', 'Api\Outlet\ItemsForReservationController@index');
+	Route::get('outlets/{outlet}/items-for-reservation/{item}', 'Api\Outlet\ItemsForReservationController@show');
 
+	// Get all the items for reservation
+	Route::get('posts/{post}/reservation-options', 'Api\Post\ItemsForReservationController@index');
+	
 	// Reservation actions (reserve, modify & cancel)
 	Route::resource('outlets.reservations', 'Api\User\OutletReservationsController', [
 		'only'	=> ['store', 'update', 'destroy']
