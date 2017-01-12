@@ -12,7 +12,8 @@ class Reservation extends Model
     
     protected $casts = [
     	'quantity'	=> 'int',
-        'flexible_dates'    => 'bool'
+        'flexible_dates'    => 'bool',
+        'confirmed' => 'bool'
     ];
     
     public function item()

@@ -91,7 +91,7 @@ class UserReservationTest extends TestCase
             'quantity'  => 2,
     		'note'	=> 'The note'
     	]);
-
+        
     	$this->seeInDatabase('reservations', [
             'user_id'   => $this->user->id,
             'item_id'  => $itemForReservation->id,
@@ -110,6 +110,60 @@ class UserReservationTest extends TestCase
 
         $this->seeJson([
             'success'   => true,
+        ]);
+    }
+
+    public function test_an_authenticated_user_can_modify_his_or_her_reservation_from_the_outlet()
+    {
+        $tomorrow = Carbon::tomorrow()->toDateTimeString();
+
+        $outlet = $this->createOutlet([
+            'name'  => 'Dubai Mall',
+            'has_reservation'   => true,
+        ]);
+
+        $itemForReservation = $this->createItemForReservation([
+            'outlet_id' => $outlet->id,
+            'title' => 'Burj Khalifa - At the Top',
+            'options'   => ['Silver', 'Gold']
+        ]);
+
+        $reservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation->id,
+            'date'  => $tomorrow,
+            'time'  => '17:00',
+            'flexible_dates'    => true,
+            'option'    => 'Silver',
+            'quantity'  => 2,
+            'note'  => 'The note',
+            'confirmed' => true
+        ]);
+
+        $outlet->reservations()->attach($reservation->id);
+
+        // Perform reservation modification
+
+        $dayAfterTomorrow = Carbon::now()->addDays(2)->toDateTimeString();
+        $endpoint = sprintf('/api/outlets/%s/reservations/%s', $outlet->id, $reservation->id);
+        $request = $this->put($endpoint, [
+            'date'  => $dayAfterTomorrow,
+            'time'  => '9:00pm',
+            'flexible_dates'    => false,
+            'option'    => 'Gold',
+            'quantity'  => 1,
+            'note'  => 'Updated',
+        ]);
+
+        $this->seeInDatabase('reservations', [
+            'id'    => $reservation->id,
+            'date'  => $dayAfterTomorrow,
+            'time'  => '9:00pm',
+            'flexible_dates'    => false,
+            'option'    => 'Gold',
+            'quantity'  => 1,
+            'note'  => 'Updated',
+            'confirmed' => false
         ]);
     }
 
@@ -143,7 +197,7 @@ class UserReservationTest extends TestCase
         $outlet->reservations()->attach($reservation->id);
 
         // Perform cancellation
-        $endpoint = sprintf('/api/outlets/%s/reservations/%s/cancel', $outlet->id, $reservation->id);
+        $endpoint = sprintf('/api/outlets/%s/reservations/%s', $outlet->id, $reservation->id);
         $request = $this->delete($endpoint);
 
         $this->seeInDatabase('reservations', [

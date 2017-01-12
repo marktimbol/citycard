@@ -24,12 +24,13 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 
 	// User reservations list
 	Route::get('user/reservations', 'Api\User\ReservationsController@index');
+	
 	// List all the outlet items available for reservation
 	Route::get('outlets/{outlet}/reservations', 'Api\Outlet\OutletReservationsController@index');
-	// User reserve a services from the outlet
-	Route::post('outlets/{outlet}/reservations', 'Api\User\OutletReservationsController@store');
-	// User cancels a reservation
-	Route::delete('outlets/{outlet}/reservations/{reservation}/cancel', 'Api\User\CancelReservationsController@destroy');
+
+	Route::resource('outlets.reservations', 'Api\User\OutletReservationsController', [
+		'only'	=> ['store', 'update', 'destroy']
+	]);
 
 	// User follows an outlet
 	Route::post('outlets/{outlet}/follows', 'Api\User\OutletFollowersController@store');
