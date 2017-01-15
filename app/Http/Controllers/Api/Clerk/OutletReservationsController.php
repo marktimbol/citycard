@@ -16,7 +16,12 @@ class OutletReservationsController extends Controller
         if( request()->has('show') && request()->show == 'pending' )
         {
             $reservations = $outlet->reservations()->pending()->get();      
-        }  
+        }
+
+        if( request()->has('show') && request()->show == 'cancelled' )
+        {
+            $reservations = $outlet->cancelledReservations;      
+        }
 
         $reservations->load('item', 'user');
 

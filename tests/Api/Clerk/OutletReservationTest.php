@@ -132,7 +132,66 @@ class OutletReservationTest extends TestCase
             ->seeJson([
                 'title' => 'Pending'
             ]);
-    }    
+    } 
+
+    public function test_a_clerk_can_view_all_the_outlet_cancelled_reservations()
+    {
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $this->clerk->merchant_id
+        ]);
+
+        $outlet->itemsForReservation()->create([
+            'title' => 'Confirmed Reservation'
+        ]);
+
+        $outlet->itemsForReservation()->create([
+            'title' => 'Cancelled Reservation'
+        ]);        
+
+        $user = $this->createUser([
+            'name'  => 'Mark Timbol'
+        ]);
+
+        $reservationDate = Carbon::today()->toDateTimeString();
+        $confirmedReservation = $this->createReservation([
+            'user_id'   => $user->id,
+            'item_id'   => 1,
+            'date'  => $reservationDate,
+            'time'  => '17:00',
+            'flexible_dates'    => true,
+            'quantity'  => 2,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
+        ]);  
+
+        $cancelledReservationDate = Carbon::tomorrow()->toDateTimeString();
+        $cancelledReservation = $this->createReservation([
+            'user_id'   => $user->id,
+            'item_id'   => 2,
+            'date'  => $cancelledReservationDate,
+            'time'  => '17:00',
+            'flexible_dates'    => true,
+            'quantity'  => 2,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
+        ]);  
+
+        // Attach the user reservation on the outlet
+        $outlet->reservations()->attach([$confirmedReservation->id, $cancelledReservation->id]);
+        
+        // Attach the cancelled reservation on the outlet
+        $outlet->cancelledReservations()->attach($cancelledReservation->id);
+
+        $request = $this->get('/api/clerk/outlets/'.$outlet->id.'/reservations?show=cancelled');
+        $this->dontSeeJson([
+            'title' => 'Confirmed Reservation',
+        ])
+        ->seeJson([
+            'title' => 'Cancelled Reservation'
+        ]);
+    }       
 
     public function test_a_clerk_can_view_an_outlet_reservation()
     {
