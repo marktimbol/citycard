@@ -9,9 +9,9 @@ class OutletTransformer extends AbstractTransformer
 {
     public function transformModel(Model $item)
     {
-    	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude', 'has_reservation', 'has_messaging', 'has_menus', 'is_open'
-    	]);    
+        $output = array_only($item->toArray(), [
+            'id', 'name', 'email', 'phone', 'address1', 'address2', 'latitude' ,'longitude', 'has_reservation', 'has_messaging', 'has_menus', 'is_open'
+        ]);    
 
         $output['is_following'] = false;
 
@@ -24,8 +24,11 @@ class OutletTransformer extends AbstractTransformer
         }
 
         if( $this->isRelationshipLoaded($item, 'posts') ) {
-            $output['posts_count'] = $item->posts->count();
-            $output['posts'] = PostTransformer::transform($item->posts);
+            if( auth()->guard('clerk_api')->check() ) {
+                $output['posts_count'] = $item->posts->count();
+            } else {
+                $output['posts'] = PostTransformer::transform($item->posts);
+            }
         }  
 
         if( $this->isRelationshipLoaded($item, 'itemsForReservation') ) {
@@ -34,17 +37,41 @@ class OutletTransformer extends AbstractTransformer
         }                
 
         if( $this->isRelationshipLoaded($item, 'reservations') ) {
-            $output['reservations'] = ReservationTransformer::transform($item->reservations);
-        }  
+            if( auth()->guard('clerk_api')->check() ) {
+                $reservations = $item->reservations->partition(function($reservation) {
+                    return $reservation->confirmed == true;
+                });
+                $output['reservations_count'] = $item->reservations->count();
+                $output['confirmed_reservations_count'] = $reservations[0]->count();
+                $output['pending_reservations_count'] = $reservations[1]->count();
+            } else {
+                $output['reservations'] = ReservationTransformer::transform($item->reservations);
+            }            
+        }
 
-    	if( $this->isRelationshipLoaded($item, 'merchant') ) {
+        // Change these soon.
+        if( $this->isRelationshipLoaded($item, 'photos') ) {
+            if( auth()->guard('clerk_api')->check() ) {
+                $output['photos_count'] = $item->photos->count();
+                $output['menus_count'] = 0;
+                $output['albums_count'] = 0;
+            }
+        }
+
+        if( auth()->guard('clerk_api')->check() ) {
+            $output['messages_count'] = 25;
+            $output['read_messages_count'] = 20;
+            $output['unread_messages_count'] = 5;
+        }
+
+        if( $this->isRelationshipLoaded($item, 'merchant') ) {
             $output['merchant'] = MerchantTransformer::transform($item->merchant);
-    	}      
+        }      
 
-    	if( $this->isRelationshipLoaded($item, 'clerks') ) {
-    		$output['clerks'] = ClerkTransformer::transform($item->clerks);
-    	}                
+        if( $this->isRelationshipLoaded($item, 'clerks') ) {
+            $output['clerks'] = ClerkTransformer::transform($item->clerks);
+        }                
 
-    	return $output;	
+        return $output; 
     }
 }
