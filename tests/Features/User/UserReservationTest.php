@@ -18,7 +18,7 @@ class UserReservationTest extends TestCase
 		]);
 	}
 
-    public function test_a_user_can_view_all_his_or_her_reservations()
+    public function test_a_user_can_view_all_his_or_her_confirmed_reservations()
     {
         $date = Carbon::create(2016, 12, 31, 0)->toDateTimeString();
 
@@ -32,24 +32,49 @@ class UserReservationTest extends TestCase
             'title' => 'Burj Khalifa - At the Top'
         ]);
 
-        $reservation = $this->user->reservations()->create([
-            'item_id'  => $itemForReservation->id,
-            'date'  => $date,
-            'time'  => '17:00',
-            'quantity'  => 2,
-            'note'  => 'The note'
+        $itemForReservation2 = $this->createItemForReservation([
+            'outlet_id' => $outlet->id,
+            'title' => 'Pending Reservation Item'
         ]);
 
-        $outlet->reservations()->attach($reservation->id);
+        $confirmedReservationDate = Carbon::tomorrow()->toDateTimeString();
+        $confirmedReservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation->id,
+            'date'  => $confirmedReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
+        ]);
+
+        $pendingReservationDate = Carbon::today()->toDateTimeString();
+        $pendingReservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation2->id,
+            'date'  => $pendingReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => false,
+        ]);
+
+        $outlet->reservations()->attach([$confirmedReservation->id, $pendingReservation->id]);
 
         $this->seeInDatabase('reservations', [
             'user_id'   => $this->user->id,
             'item_id'  => $itemForReservation->id,
-            'date'  => $date,
-            'time'  => '17:00',
-            'quantity'  => 2,
-            'note'  => 'The note',
-            'confirmed' => false
+            'date'  => $confirmedReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
         ])
             ->seeInDatabase('outlet_reservations', [
                 'outlet_id' => $outlet->id,
@@ -59,12 +84,83 @@ class UserReservationTest extends TestCase
         $request = $this->json('GET', '/api/user/reservations');
         
         $this->seeJson([
-            'date'  => $date,
-            'time'  => '17:00',
-            'quantity'  => 2,
             'title' => 'Burj Khalifa - At the Top'
+        ])
+        ->dontSeeJson([
+            'title' => 'Pending Reservation Item',
         ]);
     }
+
+    public function test_a_user_can_view_all_his_or_her_pending_reservations()
+    {
+        $outlet = $this->createOutlet([
+            'name'  => 'Dubai Mall',
+            'has_reservation'   => true,
+        ]);
+
+        $itemForReservation = $this->createItemForReservation([
+            'outlet_id' => $outlet->id,
+            'title' => 'Burj Khalifa - At the Top'
+        ]);
+
+        $itemForReservation2 = $this->createItemForReservation([
+            'outlet_id' => $outlet->id,
+            'title' => 'Pending Reservation Item'
+        ]);
+
+        $confirmedReservationDate = Carbon::tomorrow()->toDateTimeString();
+        $confirmedReservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation->id,
+            'date'  => $confirmedReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
+        ]);
+
+        $pendingReservationDate = Carbon::today()->toDateTimeString();
+        $pendingReservation = $this->createReservation([
+            'user_id'   => $this->user->id,
+            'item_id'   => $itemForReservation2->id,
+            'date'  => $pendingReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => false,
+        ]);
+
+        $outlet->reservations()->attach([$confirmedReservation->id, $pendingReservation->id]);
+
+        $this->seeInDatabase('reservations', [
+            'user_id'   => $this->user->id,
+            'item_id'  => $itemForReservation->id,
+            'date'  => $confirmedReservationDate,
+            'time'  => '19:00',
+            'flexible_dates'    => true,
+            'quantity'  => 1,
+            'option'    => 'VIP',
+            'note'  => 'Reservation note',
+            'confirmed' => true,
+        ])
+            ->seeInDatabase('outlet_reservations', [
+                'outlet_id' => $outlet->id,
+                'reservation_id'    => 1,
+            ]);
+
+        $request = $this->json('GET', '/api/user/reservations?show=pending');
+        
+        $this->seeJson([
+            'title' => 'Pending Reservation Item',
+        ])
+        ->dontSeeJson([
+            'title' => 'Burj Khalifa - At the Top'
+        ]);
+    }    
 
     public function test_an_authenticated_user_can_reserve_an_item_or_service_from_the_outlet()
     {

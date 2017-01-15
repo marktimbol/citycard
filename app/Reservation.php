@@ -25,4 +25,14 @@ class Reservation extends Model
     {
     	return $this->belongsTo(User::class);
     }
+
+    public function scopeConfirmed($query)
+    {
+        return $query->where('confirmed', true);
+    }
+
+    public function scopePending($query)
+    {
+        return $query->where('confirmed', false);
+    }    
 }
