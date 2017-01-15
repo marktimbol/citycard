@@ -17,12 +17,14 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	]);
 
 	Route::get('outlets/{outlet}', 'Api\Clerk\OutletsController@show');
-	
+
 	// Create an item for reservation
 	Route::post('outlets/{outlet}/items-for-reservation', 'Api\Clerk\OutletItemsForReservationController@store');
 
 	// Confirm user's reservation
 	Route::put('/outlets/{outlet}/reservations/{reservation}/confirm', 'Api\Clerk\ConfirmUserReservationController@update');
+	
+	Route::get('/outlets/{outlet}/reservations/cancelled', 'Api\Clerk\OutletCancelledReservationsController@index');
 	
 	// Outlet Reservations
 	Route::resource('outlets.reservations', 'Api\Clerk\OutletReservationsController', [

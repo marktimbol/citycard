@@ -184,7 +184,7 @@ class OutletReservationTest extends TestCase
         // Attach the cancelled reservation on the outlet
         $outlet->cancelledReservations()->attach($cancelledReservation->id);
 
-        $request = $this->get('/api/clerk/outlets/'.$outlet->id.'/reservations?show=cancelled');
+        $request = $this->get('/api/clerk/outlets/'.$outlet->id.'/reservations/cancelled');
         $this->dontSeeJson([
             'title' => 'Confirmed Reservation',
         ])
