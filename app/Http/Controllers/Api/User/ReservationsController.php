@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers\Api\User;
 
+use App\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Transformers\ReservationTransformer;
 
 class ReservationsController extends Controller
 {
@@ -22,5 +24,12 @@ class ReservationsController extends Controller
     	$userReservations->load('item');
 
     	return $userReservations;
+    }
+
+    public function show(Reservation $reservation)
+    {
+        $reservation->load('item');
+        
+        return ReservationTransformer::transform($reservation);
     }
 }
