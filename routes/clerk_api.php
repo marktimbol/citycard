@@ -17,6 +17,7 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	]);
 
 	Route::get('outlets/{outlet}', 'Api\Clerk\OutletsController@show');	
+	// Create an item for reservation
 	Route::post('outlets/{outlet}/items-for-reservation', 'Api\Clerk\OutletItemsForReservationController@store');	
 	// Get all the reservations of an outlet
 	Route::get('outlets/{outlet}/reservations', 'Api\Clerk\OutletReservationsController@index');	
