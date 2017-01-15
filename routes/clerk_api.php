@@ -18,11 +18,18 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 
 	Route::get('outlets/{outlet}', 'Api\Clerk\OutletsController@show');	
 	// Create an item for reservation
-	Route::post('outlets/{outlet}/items-for-reservation', 'Api\Clerk\OutletItemsForReservationController@store');	
-	// Get all the reservations of an outlet
-	Route::get('outlets/{outlet}/reservations', 'Api\Clerk\OutletReservationsController@index');	
-	// View an outlet reservation
-	Route::get('outlets/{outlet}/reservations/{reservation}', 'Api\Clerk\OutletReservationsController@show');
-	// Confirm a reservation
-	Route::put('reservations/{reservation}/confirm', 'Api\Clerk\ConfirmReservationsController@update');	
+	Route::post('outlets/{outlet}/items-for-reservation', 'Api\Clerk\OutletItemsForReservationController@store');
+
+	// Confirm user's reservation
+	Route::put('/outlets/{outlet}/reservations/{reservation}/confirm', 'Api\Clerk\ConfirmUserReservationController@update');
+	
+	// Outlet Reservations
+	Route::resource('outlets.reservations', 'Api\Clerk\OutletReservationsController', [
+		'only'	=> ['index', 'show']
+	]);	
+
+	// User reservation actions (modify and cancel)
+	Route::resource('outlets.reservations', 'Api\Clerk\UserReservationsController', [
+		'only'	=> ['update', 'destroy']
+	]);	
 });

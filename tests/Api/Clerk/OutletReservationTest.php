@@ -88,38 +88,5 @@ class OutletReservationTest extends TestCase
             'time'  => '17:00',
             'quantity'  => 2,
         ]);
-    }   
-
-    public function test_a_clerk_can_confirm_an_outlet_reservation()
-    {
-        $outlet = $this->createOutlet([
-            'merchant_id'   => $this->clerk->merchant_id
-        ]);
-
-        $item = $outlet->itemsForReservation()->create([
-            'title' => 'Burj Khalifa - At the Top'
-        ]);
-
-        // User make a reservation
-        $user = $this->createUser([
-            'name'  => 'Mark Timbol'
-        ]);
-
-        $date = Carbon::tomorrow();
-        $reservation =$user->reservations()->create([
-            'item_id'   => $item->id,
-            'date'  => $date,
-            'time'  => '17:00',
-            'quantity'  => 2,
-            'note'  => 'The note'       
-        ]);
-        // Attach the user reservation on the outlet
-        $outlet->reservations()->attach($reservation);
-
-        $request = $this->put('/api/clerk/reservations/'.$reservation->id.'/confirm');
-        $this->seeInDatabase('reservations', [
-            'id'    => $reservation->id,
-            'confirmed' => true,
-        ]);
-    }        
+    }         
 }
