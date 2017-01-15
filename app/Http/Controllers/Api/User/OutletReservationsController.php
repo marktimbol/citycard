@@ -48,7 +48,7 @@ class OutletReservationsController extends Controller
      */
     public function destroy(Outlet $outlet, Reservation $reservation)
     {
-        $reservation->confirmed = 0;
+        $reservation->confirmed = false;
         $reservation->save();
 
         $outlet->cancelledReservations()->attach($reservation);

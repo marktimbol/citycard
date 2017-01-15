@@ -12,9 +12,15 @@ class OutletReservationsController extends Controller
 {
     public function index(Outlet $outlet)
     {    	
-    	$outlet->load('reservations.item', 'reservations.user');
+        $reservations = $outlet->reservations()->confirmed()->get();      
+        if( request()->has('show') && request()->show == 'pending' )
+        {
+            $reservations = $outlet->reservations()->pending()->get();      
+        }  
 
-    	return ReservationTransformer::transform($outlet->reservations);
+        $reservations->load('item', 'user');
+
+    	return ReservationTransformer::transform($reservations);
     }
 
     public function show(Outlet $outlet, Reservation $reservation)

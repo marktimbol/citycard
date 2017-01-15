@@ -12,11 +12,11 @@ class ReservationsController extends Controller
     	$user = auth()->guard('user_api')->user();
     	$user->load('reservations');
 
-    	$userReservations = $user->reservations()->where('confirmed', true)->get();
+    	$userReservations = $user->reservations()->confirmed()->get();
     	
     	if( request()->has('show') && request()->show == 'pending' )
     	{
-	    	$userReservations = $user->reservations()->where('confirmed', false)->get();
+	    	$userReservations = $user->reservations()->pending()->get();
     	}
     
     	$userReservations->load('item');
