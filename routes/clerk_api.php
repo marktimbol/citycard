@@ -12,6 +12,9 @@
 */
 
 Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_api'], function() {
+
+	Route::put('change-password', 'Api\Clerk\ChangePasswordController@update');
+
 	Route::resource('users.messages', 'Api\Clerk\MessagesController', [
 		'only'	=> ['store']
 	]);
