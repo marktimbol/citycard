@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Notifications\Clerk\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\Hash;
@@ -59,4 +60,15 @@ class Clerk extends Authenticatable
 	{
 		return $this->outlets()->attach($outlet);
 	}
+
+	/**
+	 * Send the password reset notification.
+	 *
+	 * @param  string  $token
+	 * @return void
+	 */
+	public function sendPasswordResetNotification($token)
+	{
+	    $this->notify(new ResetPasswordNotification($token));
+	}	
 }

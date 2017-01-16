@@ -15,25 +15,14 @@ use App\Post;
 |
 */
 
-Route::get('/for-reservation/{item}', function(ItemForReservation $item) {
-	return $item;
-});
-
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 
-Route::group([
-	'prefix' => 'user', 
-	'middleware' => 'auth:user'
-], function() {
-	Route::get('{user}', 'UsersController@show');
-});
-
-
 Auth::routes();
-Route::get('/register/confirm/{token}', 'Auth\ConfirmEmailController@confirm');
+Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');
 
-Route::get('/home', 'HomeController@index');
+Route::post('/clerk/password/reset', 'Auth\Clerk\ResetPasswordController@reset');
+Route::get('/clerk/password/reset/{token}', 'Auth\Clerk\ResetPasswordController@showResetForm');

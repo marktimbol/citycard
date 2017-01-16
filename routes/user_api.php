@@ -17,7 +17,7 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	]);
 	Route::put('user/email', 'Api\User\UpdateEmailController@update');
 	Route::put('user/mobile', 'Api\User\UpdateMobileController@update');
-	Route::put('user/change-password', 'Api\User\ChangePasswordController@update');
+	Route::put('user/change-password', 'Api\Auth\User\ChangePasswordController@update');
 	Route::post('user/photo', 'Api\User\UserPhotosController@store');
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
@@ -25,7 +25,7 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	// Get all User reservations
 	Route::get('user/reservations', 'Api\User\ReservationsController@index');
 	// Show single reservation
-	Route::get('user/reservations/{reservation}', 'Api\User\ReservationsController@show');
+	Route::get('user/reservations/{reservation}', 'Api\User\ReservationsController@show')->middleware('can:view,update,delete');
 	
 	// Get all the outlet items available for reservation
 	Route::get('outlets/{outlet}/items-for-reservation', 'Api\Outlet\ItemsForReservationController@index');

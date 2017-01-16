@@ -152,7 +152,7 @@ return [
 
         'clerks' => [
             'provider' => 'clerks',
-            'table' => 'password_resets',
+            'table' => 'clerk_password_resets',
             'expire' => 60,
         ],
     ],

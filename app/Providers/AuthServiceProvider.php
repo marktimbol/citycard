@@ -3,17 +3,7 @@
 namespace App\Providers;
 
 use App\Admin;
-use App\Clerk;
-use App\Merchant;
-use App\Outlet;
-use App\Faq;
-use App\Post;
 use App\Permission;
-use App\Policies\FaqPolicy;
-use App\Policies\ClerkPolicy;
-use App\Policies\MerchantPolicy;
-use App\Policies\OutletPolicy;
-use App\Policies\PostPolicy;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
@@ -26,11 +16,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        Merchant::class => MerchantPolicy::class,
-        Outlet::class => OutletPolicy::class,
-        Clerk::class => ClerkPolicy::class,
-        Post::class => PostPolicy::class,
-        Faq::class => FaqPolicy::class,
+        App\Merchant::class => App\Policies\MerchantPolicy::class,
+        App\Outlet::class => App\Policies\OutletPolicy::class,
+        App\Clerk::class => App\Policies\ClerkPolicy::class,
+        App\Post::class => App\Policies\PostPolicy::class,
+        App\Faq::class => App\Policies\FaqPolicy::class,
+        App\UserReservation::class => App\Policies\UserReservationPolicy::class,
+        App\OutletReservation::class => App\Policies\OutletReservationPolicy::class,
     ];
 
     /**

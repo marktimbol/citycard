@@ -1,28 +1,23 @@
 <?php
 
-namespace App\Http\Controllers\Api\Clerk;
+namespace App\Http\Controllers\Api\Auth\User;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ChangePasswordRequest;
+use Illuminate\Http\Request;
 
 class ChangePasswordController extends Controller
 {
-    public function update(Request $request)
+    public function update(ChangePasswordRequest $request)
     {
-    	$this->validate($request, [
-            'old_password'  => 'required',
-            'password'  => 'required|min:6|confirmed',
-            'password_confirmation' => 'required'
-    	]);
-
-    	$user = auth()->guard('clerk_api')->user();
+    	$user = auth()->guard('user_api')->user();
         
     	$credentials = [
     		'email'	=> $user->email,
     		'password'	=> $request->old_password
     	];
 
-    	if( auth()->guard('clerk')->attempt($credentials) )
+    	if( auth()->guard('user')->attempt($credentials) )
     	{
     		$user->password = bcrypt($request->password);
     		$user->save();
@@ -34,7 +29,7 @@ class ChangePasswordController extends Controller
     	}
 		return response()->json([
             'success'   => false,
-			'message'	=> 'Incorrect old password.'
+			'error'	=> 'Incorrect old password.'
 		]);
     }
 }

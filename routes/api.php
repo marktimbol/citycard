@@ -26,6 +26,8 @@ Route::group(['as' => 'api.'], function() {
 	Route::post('password/email', 'Api\Auth\User\ForgotPasswordController@sendResetLinkEmail');
 	Route::post('register', 'Api\Auth\User\RegisterController@register');
 	
+	Route::post('clerk/password/email', 'Api\Auth\Clerk\ForgotPasswordController@sendResetLinkEmail');
+
 	Route::resource('outlets', 'Api\OutletsController', [
 		'only'	=> ['index', 'show']
 	]);

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api\Auth\User;
+namespace App\Http\Controllers\Api\Auth\Clerk;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -64,4 +64,14 @@ class ForgotPasswordController extends Controller
             'message'    => trans($response)
         ]);
     }
+
+    /**
+     * Get the broker to be used during password reset.
+     *
+     * @return \Illuminate\Contracts\Auth\PasswordBroker
+     */
+    public function broker()
+    {
+        return Password::broker('clerks');
+    }    
 }
