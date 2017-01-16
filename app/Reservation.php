@@ -26,6 +26,11 @@ class Reservation extends Model
     	return $this->belongsTo(User::class);
     }
 
+    public function outlets()
+    {
+        return $this->belongsToMany(Outlet::class, 'outlet_reservations', 'reservation_id', 'outlet_id');
+    }    
+
     public function scopeConfirmed($query)
     {
         return $query->where('confirmed', true);

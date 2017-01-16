@@ -17,7 +17,13 @@ class ReservationTransformer extends AbstractTransformer
 
     	if( $this->isRelationshipLoaded($item, 'item') ) {
     		$output['item'] = ItemsForReservationTransformer::transform($item->item);
-    	}   
+    	}
+
+        if( $this->isRelationshipLoaded($item, 'outlets') ) {
+            if( auth()->guard('user_api')->check()) {
+                $output['outlet_id'] = $item->outlets()->first()->id;
+            }
+        }
 
         if( $this->isRelationshipLoaded($item, 'user') ) {
             $output['user'] = UserTransformer::transform($item->user);

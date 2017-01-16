@@ -17,9 +17,10 @@ class UserReservationPolicy
      * @param  \App\Reservation  $reservation
      * @return mixed
      */
-    public function view(User $user, Reservation $reservation)
+    public function view(Reservation $reservation)
     {
-        return $user->reservations()->contains($reservation);
+        $user = auth()->guard('user_api')->user();
+        return $reservation->user_id == $user->id;
     }
 
     /**

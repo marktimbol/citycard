@@ -21,7 +21,7 @@ class AuthServiceProvider extends ServiceProvider
         App\Clerk::class => App\Policies\ClerkPolicy::class,
         App\Post::class => App\Policies\PostPolicy::class,
         App\Faq::class => App\Policies\FaqPolicy::class,
-        App\UserReservation::class => App\Policies\UserReservationPolicy::class,
+        App\Reservation::class => App\Policies\UserReservationPolicy::class,
         App\OutletReservation::class => App\Policies\OutletReservationPolicy::class,
     ];
 

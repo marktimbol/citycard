@@ -23,9 +23,9 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
 	// Get all User reservations
-	Route::get('user/reservations', 'Api\User\ReservationsController@index');
-	// Show single reservation
-	Route::get('user/reservations/{reservation}', 'Api\User\ReservationsController@show')->middleware('can:view,update,delete');
+	Route::get('user/reservations', 'Api\User\UserReservationsController@index');
+	// Show single reserviation
+	Route::get('user/reservations/{reservation}', 'Api\User\UserReservationsController@show');
 	
 	// Get all the outlet items available for reservation
 	Route::get('outlets/{outlet}/items-for-reservation', 'Api\Outlet\ItemsForReservationController@index');
