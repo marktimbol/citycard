@@ -11,9 +11,11 @@ class OutletsController extends Controller
 {
     public function index()
     {
-        $user = auth()->guard('clerk_api')->user();
+        $clerk = auth()->guard('clerk_api')->user();
+        $clerkOutlets = $clerk->outlets;
+        $clerkOutlets->load('reservations');
 
-        return OutletTransformer::transform($user->outlets);
+        return OutletTransformer::transform($clerkOutlets);
     }
 
     public function show(Outlet $outlet)
