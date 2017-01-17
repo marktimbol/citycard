@@ -1,9 +1,5 @@
 <?php
 
-use App\ItemForReservation;
-use App\Post;
-
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,6 +16,7 @@ Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
+Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@about']);
 
 Auth::routes();
 Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');

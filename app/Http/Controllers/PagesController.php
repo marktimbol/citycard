@@ -14,4 +14,9 @@ class PagesController extends Controller
 
     	return view('public.home');
     }
+
+    public function about()
+    {
+    	return view('public.about');
+    }
 }

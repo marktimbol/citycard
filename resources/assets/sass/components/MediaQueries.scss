@@ -7,6 +7,17 @@
 	    margin-top: 0;
 	    margin-bottom: 60px;
 	}
+
+	.Features {
+		.Feature {
+			flex-direction: column;
+		}
+
+		.Feature__title {
+			font-size: 16px;
+			margin-top: 10px;
+		}
+	}
 }
 
 @media (max-width: 785px) {
@@ -27,6 +38,10 @@
 		display: none;
 	}
 
+	.Flex, .Row {
+		flex-direction: column;
+	}
+	
 	.Column-6 {
 		flex: 1;
 	}

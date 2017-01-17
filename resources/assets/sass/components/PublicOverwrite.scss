@@ -46,8 +46,20 @@ $blue: #3897f0;
 }
 
 .btn {
+	border-radius: 3px;
 	i {
 	    font-size: 20px;
 		margin-right: 5px;
 	}
+}
+
+.btn-primary {
+	font-weight: bold;
+	background: #3897f0 !important;
+    border-color: #3897f0 !important;	
+}
+
+.navbar {
+	border-radius: 0;
+	margin-bottom: 0;
 }

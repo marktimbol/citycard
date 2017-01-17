@@ -59,14 +59,14 @@ class Home extends React.Component
 					<div className="Column-6">
 						<footer>
 							<ul>
-								<li><a href="posts">Deals</a></li>
-								<li><a href="#">Events</a></li>
-								<li><a href="#">Directory</a></li>
+								<li><a href="/posts">Deals</a></li>
+								<li><a href="/events">Events</a></li>
+								<li><a href="/directory">Directory</a></li>
 							</ul>
 							<ul>
-								<li><a href="#">Merchants</a></li>
-								<li><a href="#">About Us</a></li>
-								<li><a href="#">Support</a></li>
+								<li><a href="/merchants">Merchants</a></li>
+								<li><a href="/about">About Us</a></li>
+								<li><a href="/support">Support</a></li>
 							</ul>
 						</footer>
 					</div>
