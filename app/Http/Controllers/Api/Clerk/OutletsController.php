@@ -9,6 +9,13 @@ use App\Transformers\OutletTransformer;
 
 class OutletsController extends Controller
 {
+    public function index()
+    {
+        $user = auth()->guard('clerk_api')->user();
+
+        return OutletTransformer::transform($user->outlets);
+    }
+
     public function show(Outlet $outlet)
     {
         // $outlet->load(
