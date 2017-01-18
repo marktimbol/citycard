@@ -21,5 +21,8 @@ Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@about']);
 Auth::routes();
 Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');
 
+Route::get('user/{user}', 'UsersController@show');
+
+// Clerk password reset
 Route::post('/clerk/password/reset', 'Auth\Clerk\ResetPasswordController@reset');
 Route::get('/clerk/password/reset/{token}', 'Auth\Clerk\ResetPasswordController@showResetForm');
