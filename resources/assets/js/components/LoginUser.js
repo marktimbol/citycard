@@ -47,8 +47,8 @@ class LoginUser extends React.Component
 		    	})
 
 		        swal({
-		            title: "City Card",
-		            text: "Welcome back to City Card",
+		            title: "CityCard",
+		            text: "Welcome back to CityCard",
 		            type: "success",
 		            showConfirmButton: true
 		        }, function() {
@@ -65,7 +65,7 @@ class LoginUser extends React.Component
 		    	})
 
 		        swal({
-		            title: "City Card",
+		            title: "CityCard",
 		            text: 'Oops. Email or password is incorrect.',
 		            type: "error",
 		            showConfirmButton: true
@@ -87,7 +87,9 @@ class LoginUser extends React.Component
 		return (
 			<div>
 				<div className="Box Registration">
-					<h1 className="text-center">City Card</h1>
+					<h1 className="text-center">
+						<img src="/images/citycard.png" alt="CityCard" title="CityCard" className="img-responsive" />
+					</h1>
 					<form method="POST" id="LoginUserForm" onSubmit={this.onLogin}>
 						<div className="form-group">
 							<input type="text" 

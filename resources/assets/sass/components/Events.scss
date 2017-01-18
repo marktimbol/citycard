@@ -57,3 +57,25 @@
     margin-bottom: 0px;
     margin-top: 0;
 }
+
+@media (max-width: 495px) {
+    .Events {
+        .Event {
+            flex: 1;
+        }
+    }
+
+    .Event__image {
+        img {
+            width: 100%;
+        }
+    }
+
+    .Event__title {
+        width: 280px;
+    }
+
+    .Event__info p {
+        width: 280px;
+    }
+}
