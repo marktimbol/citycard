@@ -39,4 +39,6 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	Route::resource('outlets.reservations', 'Api\Clerk\UserReservationsController', [
 		'only'	=> ['update', 'destroy']
 	]);	
+
+	Route::get('users/{user}', 'Api\Clerk\UsersController@show');
 });
