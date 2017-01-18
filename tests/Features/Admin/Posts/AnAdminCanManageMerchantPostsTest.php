@@ -272,6 +272,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'type'  => 'events',
             'event_date'    => date('Y-m-d'),
             'event_time'    => 'later',
+            'event_location'    => 'Event Location',
 
             'outlet_ids'    => '1',
             'title' => 'The Concert',
@@ -285,7 +286,8 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'type'  => 'events',
             'event_date'  => date('Y-m-d') . ' ' . '00:00:00',
             'event_time'  => 'later',
-
+            'event_location'   => 'Event Location',
+            
             'title' => 'The Concert',
             'slug'  => 'the-concert',
             'desc'=> '1 Day concert',

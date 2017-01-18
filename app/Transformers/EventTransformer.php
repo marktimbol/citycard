@@ -11,7 +11,7 @@ class EventTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'type', 'title', 'desc', 'isExternal', 'event_date', 'event_time', 'created_at', 'updated_at'
+    		'id', 'type', 'title', 'desc', 'isExternal', 'event_date', 'event_time', 'event_location', 'created_at', 'updated_at'
     	]);
 
         $output['is_favourited'] = false;

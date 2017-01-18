@@ -173,7 +173,7 @@ class MerchantPostsController extends Controller
             return $input->isExternal == 1;
         });
 
-        $validator->sometimes(['event_date', 'event_time'], 'required', function($input) {
+        $validator->sometimes(['event_date', 'event_time', 'event_location'], 'required', function($input) {
             return $input->type == 'events';
         });
 

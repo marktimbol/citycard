@@ -4,6 +4,7 @@ namespace App;
 
 use App\Transformers\OutletTransformer;
 use App\Transformers\PostTransformer;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Laravel\Scout\Searchable;
 
@@ -12,7 +13,7 @@ class Post extends Model
     use Searchable, Filterable;
 
     protected $fillable = [
-        'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'title', 'desc', 'isExternal', 'published'
+        'merchant_id', 'category_id', 'type', 'event_date', 'event_time', 'event_location', 'title', 'desc', 'isExternal', 'published'
     ];
 
     protected $dates = ['event_date'];
@@ -36,6 +37,12 @@ class Post extends Model
     public function scopeUnpublished($query)
     {
         return $query->where('published', false);
+    }
+
+    public function scopeUpcomingEvents($query)
+    {
+        return $query->where('type', 'events')
+            ->where('event_date', '>=', Carbon::now());
     }
 
     public static function boot()

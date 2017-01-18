@@ -1,0 +1,59 @@
+// events.scss
+
+.Events--container {
+	margin-top: 60px;
+}
+
+.Events {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+.Event {
+    min-width: 278.84px;
+	margin: 10px 10px 30px 10px;
+}
+
+.Event__content {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+    background: white;
+    padding: 15px;
+}
+
+.Event__date {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    line-height: 24px;
+
+    padding-right: 15px;    
+    border-right: 1px solid #ddd;
+}
+
+.Event__date--month {
+    font-size: 16px;
+	text-transform: uppercase;
+}
+
+.Event__date--day {
+    font-size: 30px;
+}
+
+.Event__info {
+	flex: 1;
+	margin-left: 15px;
+	p {
+		margin: 0;
+        width: 200px;
+	}
+}
+
+.Event__title {
+    width: 200px;
+    font-size: 18px;
+    margin-bottom: 0px;
+    margin-top: 0;
+}

@@ -24,6 +24,7 @@ class CreatePost extends Component
 			type: '',
 			event_date: moment(),
 			event_time: '',
+			event_location: '',
 			outlets: [],
 			title: '',
 			desc: '',
@@ -93,6 +94,7 @@ class CreatePost extends Component
 					formData.append('type', that.state.type);
 					formData.append('event_date', that.state.event_date.format('YYYY-MM-DD'));
 					formData.append('event_time', that.state.event_time);
+					formData.append('event_location', that.state.event_location);
 					formData.append('title', that.state.title);
 					formData.append('desc', that.state.desc);
 					formData.append('outlet_ids', outlet_ids.join());
@@ -300,6 +302,7 @@ class CreatePost extends Component
 		let postTypeClass = errors.hasOwnProperty('type') ? 'form-group has-error' : 'form-group';
 		let eventDateClass = errors.hasOwnProperty('event_date') ? 'form-group has-error' : 'form-group';
 		let eventTimeClass = errors.hasOwnProperty('event_time') ? 'form-group has-error' : 'form-group';
+		let eventLocationClass = errors.hasOwnProperty('event_location') ? 'form-group has-error' : 'form-group';
 		let selectOutletsClass = errors.hasOwnProperty('outlet_ids') ? 'form-group has-error' : 'form-group';
 		let titleClass = errors.hasOwnProperty('title') ? 'form-group has-error' : 'form-group';
 		let descriptionClass = errors.hasOwnProperty('desc') ? 'form-group has-error' : 'form-group';
@@ -408,40 +411,58 @@ class CreatePost extends Component
 				</div>
 
 				{
-					this.isEvent() ?				
-						<div className="row">
-							<div className="col-md-6">
-								<div className={eventDateClass}>
-									<label htmlFor="event_date" className="control-label">Event Date</label>
-									<input type="hidden" name="event_date" value={this.state.event_date.format('YYYY-MM-DD')} />
-									<DatePicker
-										dateFormat="YYYY-MM-DD"
-										selected={this.state.event_date}
-										onChange={this.handleEventDateChange}
-										className="form-control"
-										minDate={moment()}
-										monthsShown={2} />
-									{ errors.hasOwnProperty('event_date') ?
-										<span className="help-block">{ errors['event_date'] }</span>
-										: <span></span>
-									}	
+					this.isEvent() ?
+						<div>		
+							<div className="row">
+								<div className="col-md-6">
+									<div className={eventDateClass}>
+										<label htmlFor="event_date" className="control-label">Event Date</label>
+										<input type="hidden" name="event_date" value={this.state.event_date.format('YYYY-MM-DD')} />
+										<DatePicker
+											dateFormat="YYYY-MM-DD"
+											selected={this.state.event_date}
+											onChange={this.handleEventDateChange}
+											className="form-control"
+											minDate={moment()}
+											monthsShown={2} />
+										{ errors.hasOwnProperty('event_date') ?
+											<span className="help-block">{ errors['event_date'] }</span>
+											: <span></span>
+										}	
+									</div>
+								</div>
+								<div className="col-md-6">
+									<div className={eventTimeClass}>
+										<label htmlFor="event_time" className="control-label">Event Time</label>
+										<input type="text"
+											name="event_time"
+											id="event_time"
+											value={this.state.event_time}
+											onChange={this.handleChange}
+											className="form-control" />
+										{ errors.hasOwnProperty('event_time') ?
+											<span className="help-block">{ errors['event_time'] }</span>
+											: <span></span>
+										}	
+									</div>
 								</div>
 							</div>
-
-							<div className="col-md-6">
-								<div className={eventTimeClass}>
-									<label htmlFor="event_time" className="control-label">Event Time</label>
-									<input type="text"
-										name="event_time"
-										id="event_time"
-										value={this.state.event_time}
-										onChange={this.handleChange}
-										className="form-control" />
-									{ errors.hasOwnProperty('event_time') ?
-										<span className="help-block">{ errors['event_time'] }</span>
-										: <span></span>
-									}	
-								</div>
+							<div className="row">
+								<div className="col-md-6">
+									<div className={eventLocationClass}>
+										<label htmlFor="event_location" className="control-label">Event Location</label>
+										<input type="text"
+											name="event_location"
+											id="event_location"
+											value={this.state.event_location}
+											onChange={this.handleChange}
+											className="form-control" />
+										{ errors.hasOwnProperty('event_location') ?
+											<span className="help-block">{ errors['event_location'] }</span>
+											: <span></span>
+										}	
+									</div>
+								</div>								
 							</div>
 						</div>
 					: <div></div>

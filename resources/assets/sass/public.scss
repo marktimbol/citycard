@@ -33,6 +33,12 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 300;
 }
 
+.text-ellipsis {
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
 .max-350 {
 	max-width: 350px;
 }
@@ -258,6 +264,7 @@ footer {
 @import 'components/HomeMobile';
 @import 'components/Card';
 @import 'components/Posts';
+@import 'components/Events';
 @import 'components/About';
 @import 'components/PublicOverwrite';
 @import 'components/MediaQueries';
