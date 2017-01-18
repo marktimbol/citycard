@@ -72,5 +72,4 @@ class LoginController extends Controller
             'clerk'  => []
         ]);
     }
-
 }
