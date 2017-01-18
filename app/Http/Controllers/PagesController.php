@@ -19,4 +19,24 @@ class PagesController extends Controller
     {
     	return view('public.about');
     }
+
+    public function events()
+    {
+        return view('public.coming-soon');
+    }   
+
+    public function directory()
+    {
+        return view('public.coming-soon');
+    }
+
+    public function merchants()
+    {
+        return view('public.coming-soon');
+    }
+
+    public function support()
+    {
+        return view('public.coming-soon');
+    }                      
 }
