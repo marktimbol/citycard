@@ -40,6 +40,7 @@ class ConfirmedReservation extends Notification
      */
     public function toPushNotification($notifiable)
     {
+        dd($notifiable);
         // $body = sprintf('%s reservation was confirmed', $notifiable->item->title);
         $body = sprintf('%s: Your reservation was confirmed.', $notifiable->outlet->name);
 
