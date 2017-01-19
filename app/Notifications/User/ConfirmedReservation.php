@@ -11,8 +11,6 @@ use NotificationChannels\PusherPushNotifications\PusherMessage;
 
 class ConfirmedReservation extends Notification
 {
-    use Queueable;
-
     /**
      * Create a new notification instance.
      *
