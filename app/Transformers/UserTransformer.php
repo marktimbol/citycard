@@ -17,6 +17,10 @@ class UserTransformer extends AbstractTransformer
 			$output['api_token'] = auth()->guard('user')->user()->api_token;
     	}
 
+        if( $this->isRelationshipLoaded($item, 'photos') ) {
+            $output['photo'] = $item->photos->first()->url;
+        }        
+
     	return $output;	
     }
 }

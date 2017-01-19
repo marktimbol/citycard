@@ -12,12 +12,12 @@ class UserPhotosController extends Controller
     	$user = auth()->guard('user_api')->user();
 	    $uploadPath = sprintf('users/%s', $user->id);
 
-
 	    if( $file = $request->file->store($uploadPath, 's3') )
 	    {
 	    	$photo = $user->photos()->create([
 	    		'url'	=> $file
 	    	]);
+	    	
 	    	return response()->json([
 	    		'uploaded'	=> true,
 	    		'photo'	=> $photo

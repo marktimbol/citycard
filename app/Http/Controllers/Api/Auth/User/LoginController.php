@@ -56,10 +56,13 @@ class LoginController extends Controller
         $attempt = Auth::guard('user')->attempt($credentials);
             
         if( $attempt ) {
+            $user = auth()->guard('user')->user();
+            $user->load('photos');
+
             return response()->json([
                 'authenticated' => true,
                 'message'   => 'success',
-                'user'  => UserTransformer::transform(auth()->guard('user')->user())
+                'user'  => UserTransformer::transform($user)
             ]);
         }
 
