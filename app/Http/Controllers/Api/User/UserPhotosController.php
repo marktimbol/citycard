@@ -19,7 +19,7 @@ class UserPhotosController extends Controller
 	    	// User has existing photo
 	    	if( $user->photos()->count() > 0 )
 	    	{
-	    		$photo = Photo::where('imagable_type', 'App\User')
+	    		$photo = Photo::where('imageable_type', 'App\User')
 	    			->where('imageable_id', $user->id)
 	    			->get();
 
