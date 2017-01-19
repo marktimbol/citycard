@@ -22,8 +22,13 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
+
 	// Get all User reservations
 	Route::get('user/reservations', 'Api\User\UserReservationsController@index');
+
+	// User pending reservations count
+	Route::get('user/reservations/pending/count', 'Api\User\UserPendingReservationsCountController@index');
+
 	// Show single reserviation
 	Route::get('user/reservations/{reservation}', 'Api\User\UserReservationsController@show');
 	
