@@ -42,7 +42,7 @@ class ConfirmedReservation extends Notification
     {
         // $body = sprintf('%s reservation was confirmed', $notifiable->item->title);
         
-        return PusherMessage::create
+        return PusherMessage::create()
                 ->iOS()
                 ->badge(1)
                 ->sound('success')
