@@ -27,8 +27,8 @@ class UserTransformer extends AbstractTransformer
         }    
 
         if( $this->isRelationshipLoaded($item, 'qrcode') ) {
-            $output['qrcode'] = $item->qrcode->photo ? $item->qrcode->photo : null;
-        }                
+            $output['qrcode'] = null;
+        }
 
     	return $output;	
     }
