@@ -40,13 +40,17 @@ class ConfirmedReservation extends Notification
      */
     public function toPushNotification($notifiable)
     {
+        $reservation = $notifiable->reservation->load('outlets');
+        $outlet = $reservation->outlets()->first();
+
         // $body = sprintf('%s reservation was confirmed', $notifiable->item->title);
-        
+        $body = sprintf('%s: Your reservation was confirmed.', $outlet->name);
+
         return PusherMessage::create()
                 ->iOS()
                 ->badge(1)
                 ->sound('success')
                 ->title('CityCard')
-                ->body('Your reservation was confirmed.');
+                ->body($body);
     }
 }
