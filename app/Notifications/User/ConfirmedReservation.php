@@ -2,6 +2,7 @@
 
 namespace App\Notifications\User;
 
+use App\Outlet;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
@@ -11,14 +12,17 @@ use NotificationChannels\PusherPushNotifications\PusherMessage;
 
 class ConfirmedReservation extends Notification
 {
+
+    public $outlet;
+
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Outlet $outlet)
     {
-        //
+        $this->outlet = $outlet;
     }
 
     /**
@@ -40,9 +44,8 @@ class ConfirmedReservation extends Notification
      */
     public function toPushNotification($notifiable)
     {
-        dd($notifiable);
         // $body = sprintf('%s reservation was confirmed', $notifiable->item->title);
-        $body = sprintf('%s: Your reservation was confirmed.', $notifiable->outlet->name);
+        $body = sprintf('%s: Your reservation was confirmed.', $this->outlet->name);
 
         return PusherMessage::create()
                 ->iOS()
