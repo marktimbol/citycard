@@ -2,6 +2,7 @@
 
 namespace App\Events\Reservation;
 
+use App\Outlet;
 use App\Reservation;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -14,6 +15,7 @@ class ReservationWasConfirmed
 {
     use InteractsWithSockets, SerializesModels;
 
+    public $outlet;
     public $reservation;
 
     /**
@@ -21,8 +23,9 @@ class ReservationWasConfirmed
      *
      * @return void
      */
-    public function __construct(Reservation $reservation)
+    public function __construct(Outlet $outlet, Reservation $reservation)
     {
+        $this->outlet = $outlet;
         $this->reservation = $reservation;
     }
 
