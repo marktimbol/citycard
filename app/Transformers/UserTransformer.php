@@ -12,7 +12,7 @@ class UserTransformer extends AbstractTransformer
     	$output = array_only($item->toArray(), [
     		'id', 'name', 'email', 'mobile',
     	]);
-        
+
     	if( auth()->guard('user')->check() ) {
 			$output['api_token'] = auth()->guard('user')->user()->api_token;
     	}
@@ -24,7 +24,11 @@ class UserTransformer extends AbstractTransformer
 
         if( $this->isRelationshipLoaded($item, 'photos') ) {
             $output['photo'] = $item->photos->first()->url;
-        }        
+        }    
+
+        if( $this->isRelationshipLoaded($item, 'qrcode') ) {
+            $output['qrcode'] = $item->qrcode->photo;
+        }                
 
     	return $output;	
     }

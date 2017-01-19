@@ -11,8 +11,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = auth()->guard('user_api')->user();
-        $user->load('photos');
-        
+        $user->load('photos', 'qrcode');
+
         return UserTransformer::transform($user);
     }
 

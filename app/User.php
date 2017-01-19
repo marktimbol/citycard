@@ -74,4 +74,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Invitation::class);
     }    
+
+    public function qrcode()
+    {
+        return $this->hasOne(QRCode::class);
+    }
 }
