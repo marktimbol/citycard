@@ -19,6 +19,7 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/mobile', 'Api\User\UpdateMobileController@update');
 	Route::put('user/change-password', 'Api\Auth\User\ChangePasswordController@update');
 	Route::post('user/photo', 'Api\User\UserPhotosController@store');
+	Route::get('user/profile', 'Api\User\ProfileController@index');
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
