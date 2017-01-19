@@ -177,6 +177,7 @@ return [
         Aloha\Twilio\Support\Laravel\ServiceProvider::class,
         Stevebauman\Location\LocationServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
+        NotificationChannels\PusherPushNotifications\PusherPushNotificationsServiceProvider::class,
         
         /*
          * Application Service Providers...

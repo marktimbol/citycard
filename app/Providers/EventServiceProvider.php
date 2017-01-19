@@ -25,6 +25,7 @@ class EventServiceProvider extends ServiceProvider
         ],      
 
         'App\Events\Reservation\ReservationWasConfirmed' => [
+            'App\Listeners\Reservation\SendPushNotificationToUser',
             'App\Listeners\Reservation\SendEmailConfirmedReservation',
         ],
     ];
