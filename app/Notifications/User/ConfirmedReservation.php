@@ -47,7 +47,6 @@ class ConfirmedReservation extends Notification
                 ->badge(1)
                 ->sound('success')
                 ->title('CityCard')
-                ->setOption('device_token', 'a3b8f65cc9dacb7219b47e93d02fd7dc82207ece37a261ed36c2850897c886ef')
                 ->body('Your reservation was confirmed.');
     }
 }
