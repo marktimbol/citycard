@@ -21,7 +21,7 @@ class UserPhotosController extends Controller
 	    	{
 	    		$photo = Photo::where('imageable_type', 'App\User')
 	    			->where('imageable_id', $user->id)
-	    			->get();
+	    			->first();
 
 	    		// Delete the photo from S3
 	    		Storage::delete($photo->url);
