@@ -18,11 +18,6 @@ class PagesController extends Controller
     	return view('public.home');
     }
 
-    public function about()
-    {
-    	return view('public.about');
-    }
-
     public function events()
     {
         return view('public.coming-soon');
@@ -41,5 +36,15 @@ class PagesController extends Controller
     public function support()
     {
         return view('public.coming-soon');
-    }                   
+    }
+
+    public function company()
+    {
+        return view('public.about.company');
+    }
+    
+    public function faqs()
+    {
+        return view('public.about.faqs');
+    }                 
 }

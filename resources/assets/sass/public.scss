@@ -1,3 +1,4 @@
+
 // Variables
 @import "variables";
 
@@ -49,6 +50,10 @@ h1, h2, h3, h4, h5, h6 {
 
 .full-height {
 	height: 100%;
+}
+
+.white-bg {
+	background: white;
 }
 
 .Box {
@@ -229,6 +234,44 @@ header {
 	}
 }
 
+.Company__content--container {
+    margin: 40px 0px;
+    border-radius: 3px;
+    border: 1px solid #ddd;
+}
+
+.Company__nav {
+	min-width: 200px;
+	padding: 20px;
+    border-right: 1px solid #ddd;
+
+    h4 {
+		color: #999;
+		margin: 0;
+		font-size: 16px;
+		padding: 16px;
+		text-transform: uppercase;
+    }
+
+    ul {
+    	list-style: none;
+    }
+
+    li {
+	    line-height: 36px;
+    }
+
+    a {
+    	color: #262626;
+    	display: block;
+    }
+}
+
+.Company__content {
+	color: #262626;
+	padding: 20px 40px;
+}
+
 .Footer--container {
 	margin-top: 30px;
 }
@@ -270,6 +313,5 @@ footer {
 @import 'components/Posts';
 @import 'components/Events';
 @import 'components/About';
-@import 'components/FAQs';
 @import 'components/PublicOverwrite';
 @import 'components/MediaQueries';

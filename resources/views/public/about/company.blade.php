@@ -7,7 +7,7 @@
 		<div class="container-fluid">
 			<div class="navbar-header">
 				<a href="/" class="navbar-brand">
-					{{ config('app.name') }}
+					<img src="/images/logo.svg" alt="CityCard" title="CityCard" class="img-responsive" width="175" height="51" />
 				</a>
 	    	</div>
 	  	</div>
