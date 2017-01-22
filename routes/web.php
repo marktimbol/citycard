@@ -21,6 +21,7 @@ Route::get('/directory', ['as' => 'directory', 'uses' => 'PagesController@direct
 Route::get('/merchants', ['as' => 'merchants', 'uses' => 'PagesController@merchants']);
 Route::get('/about', ['as' => 'about', 'uses' => 'PagesController@about']);
 Route::get('/support', ['as' => 'support', 'uses' => 'PagesController@support']);
+Route::get('/about/faq', 'FAQsController@index');
 
 Auth::routes();
 Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');

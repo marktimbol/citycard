@@ -24,11 +24,8 @@ class OutletTransformer extends AbstractTransformer
         }
 
         if( $this->isRelationshipLoaded($item, 'posts') ) {
-            if( auth()->guard('clerk_api')->check() ) {
-                $output['posts_count'] = $item->posts->count();
-            } else {
-                $output['posts'] = PostTransformer::transform($item->posts);
-            }
+            $output['posts_count'] = $item->posts->count();
+            $output['posts'] = PostTransformer::transform($item->posts);
         }  
 
         if( $this->isRelationshipLoaded($item, 'itemsForReservation') ) {

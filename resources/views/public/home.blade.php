@@ -31,7 +31,7 @@
 					<ul>
 						<li><a href="/about">About Us</a></li>
 						<li><a href="#">Merchants</a></li>
-						<li><a href="#">FAQs</a></li>
+						<li><a href="/about/faq">FAQs</a></li>
 					</ul>
 					<ul>
 						<li class="copyright text-center">

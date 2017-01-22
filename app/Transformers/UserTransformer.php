@@ -10,13 +10,12 @@ class UserTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'mobile',
+    		'id', 'uuid', 'name', 'email', 'mobile',
     	]);
 
     	if( auth()->guard('user')->check() ) {
             $user = auth()->guard('user')->user();
 
-            $output['uuid'] = $user->uuid;
             $output['api_token'] =$user->api_token;                        
     	}
 
@@ -24,7 +23,6 @@ class UserTransformer extends AbstractTransformer
         if( auth()->guard('user_api')->check() ) {
             $user = auth()->guard('user_api')->user();
 
-            $output['uuid'] = $user->uuid;
             $output['api_token'] =$user->api_token;
         }        
 
