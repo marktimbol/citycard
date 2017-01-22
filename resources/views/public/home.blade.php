@@ -23,16 +23,21 @@
 		<div class="Flex Flex--center Footer--container">
 			<div class="Column-6">
 				<footer>
-					<ul>
+{{-- 					<ul>
 						<li><a href="/posts">Deals</a></li>
 						<li><a href="/events">Events</a></li>
 						<li><a href="/directory">Directory</a></li>
-					</ul>
+					</ul> --}}
 					<ul>
 						<li><a href="/about">About Us</a></li>
 						<li><a href="#">Merchants</a></li>
 						<li><a href="#">FAQs</a></li>
 					</ul>
+					<ul>
+						<li class="copyright text-center">
+							&copy; 2017 City Card
+						</li>
+					</ul>					
 				</footer>
 			</div>
 
@@ -52,15 +57,7 @@
 					</ul>
 				</div>
 			</div>
-		</div>
-
-		<footer>
-			<ul>
-				<li class="copyright text-center">
-					&copy; 2017 City Card
-				</li>
-			</ul>
-		</footer>				
+		</div>			
 	</main>
 
 @endsection
