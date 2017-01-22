@@ -14,12 +14,18 @@ class UserTransformer extends AbstractTransformer
     	]);
 
     	if( auth()->guard('user')->check() ) {
-			$output['api_token'] = auth()->guard('user')->user()->api_token;
+            $user = auth()->guard('user')->user();
+
+            $output['uuid'] = $user->uuid;
+            $output['api_token'] =$user->api_token;                        
     	}
 
         // Get user profile
         if( auth()->guard('user_api')->check() ) {
-            $output['api_token'] = auth()->guard('user_api')->user()->api_token;
+            $user = auth()->guard('user_api')->user();
+
+            $output['uuid'] = $user->uuid;
+            $output['api_token'] =$user->api_token;
         }        
 
         if( $this->isRelationshipLoaded($item, 'photos') ) {
