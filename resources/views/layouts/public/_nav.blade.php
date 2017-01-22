@@ -3,7 +3,7 @@
         <div class="Logo--container">
             <h1>
                 <a href="/">
-                    {{ config('app.name', 'City Card') }}
+                    <img src="/images/logo.svg" alt="CityCard" title="CityCard" class="img-responsive" width="175" height="51" />
                 </a>
             </h1>
         </div>
