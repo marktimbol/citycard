@@ -89,7 +89,7 @@ class RegisterUser extends React.Component
 			<div>
 				<div className="Box Registration">
 					<h1 className="text-center">
-						<img src="/images/citycard.png" alt="CityCard" title="CityCard" className="img-responsive" />
+						<img src="/images/logo.svg" alt="CityCard" title="CityCard" className="img-responsive" />
 					</h1>
 					<p className="lead text-center">
 						Sign up to see news, deals, and events from places around you.

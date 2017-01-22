@@ -88,7 +88,7 @@ class LoginUser extends React.Component
 			<div>
 				<div className="Box Registration">
 					<h1 className="text-center">
-						<img src="/images/citycard.png" alt="CityCard" title="CityCard" className="img-responsive" />
+						<img src="/images/logo.svg" alt="CityCard" title="CityCard" className="img-responsive" />
 					</h1>
 					<form method="POST" id="LoginUserForm" onSubmit={this.onLogin}>
 						<div className="form-group">
