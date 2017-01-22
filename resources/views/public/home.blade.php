@@ -29,9 +29,9 @@
 						<li><a href="/directory">Directory</a></li>
 					</ul>
 					<ul>
-						<li><a href="/merchants">Merchants</a></li>
 						<li><a href="/about">About Us</a></li>
-						<li><a href="/support">Support</a></li>
+						<li><a href="#">Merchants</a></li>
+						<li><a href="#">FAQs</a></li>
 					</ul>
 				</footer>
 			</div>
