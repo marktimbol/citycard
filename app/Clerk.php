@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Hash;
 
 class Clerk extends Authenticatable
 {
-	use CanReplyToAMessage, Notifiable;
+	use CanReplyToAMessage, Notifiable, Uuids;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -17,8 +17,8 @@ class Clerk extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'merchant_id', 'first_name', 'last_name',
-	    'email', 'password', 'phone'
+	    'uuid', 'merchant_id', 'first_name', 
+	    'last_name', 'email', 'password', 'phone'
 	];
 
 	/**

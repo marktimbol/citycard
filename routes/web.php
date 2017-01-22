@@ -15,6 +15,7 @@ Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
+Route::get('/uuids', ['as' => 'uuids', 'uses' => 'PagesController@uuids']);
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 Route::get('/events', ['as' => 'events', 'uses' => 'EventsController@index']);
 Route::get('/directory', ['as' => 'directory', 'uses' => 'PagesController@directory']);
