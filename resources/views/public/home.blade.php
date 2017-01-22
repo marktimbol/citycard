@@ -9,9 +9,9 @@
 			<div class="Column-6 PhoneMockup--container">
 				<div class="PhoneMockup">
 					<div class="PhoneMockup__slides">
-						<img src="/images/login-screenshot.png" alt="CityCard Login" title="CityCard Login" class="PhoneMockup__slide1" />
-						<img src="/images/iphone-slide2.jpg" alt="" title="" class="PhoneMockup__slide2" />
-						<img src="/images/iphone-slide3.jpg" alt="" title="" class="PhoneMockup__slide3" />
+						<img src="/images/screenshots/login-screenshot.jpg" alt="CityCard Login" title="CityCard Login" class="PhoneMockup__slide1" />
+						<img src="/images/screenshots/feeds-screenshot.jpg" alt="CityCard Feeds" title="CityCard Feeds" class="PhoneMockup__slide2" />
+						<img src="/images/screenshots/outlet-screenshot.jpg" alt="CityCard Outlet View" title="CityCard Outlet View" class="PhoneMockup__slide3" />
 					</div>
 				</div>
 			</div>
