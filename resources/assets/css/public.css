@@ -5948,17 +5948,17 @@ header {
   .Menus--container ul li {
     margin-left: 30px; }
     .Menus--container ul li a {
-      color: #333;
-      display: block;
-      overflow: hidden;
-      text-indent: 110%;
-      white-space: nowrap; }
+      color: #333; }
       .Menus--container ul li a:hover {
         cursor: pointer; }
 
 .citycard-icon {
   width: 24px;
   height: 24px;
+  display: block;
+  overflow: hidden;
+  text-indent: 110%;
+  white-space: nowrap;
   background-image: url("/images/sprites.png");
   background-size: 352px 311px; }
 
@@ -5973,6 +5973,12 @@ header {
 
 .icon-profile {
   background-position: -127px -225px; }
+
+.icon-verified {
+  width: 18px;
+  height: 18px;
+  margin-left: 5px;
+  background-position: -60px -273px; }
 
 .Company__content--container {
   margin: 40px 0px;
@@ -6366,6 +6372,8 @@ footer {
     margin-right: 13px; }
   .Explore__content--outlet-profile h3 {
     margin: 0;
+    display: -webkit-box;
+    display: flex;
     font-size: 15px;
     line-height: 18px; }
   .Explore__content--outlet-profile p {

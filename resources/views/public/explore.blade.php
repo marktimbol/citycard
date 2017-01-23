@@ -21,7 +21,7 @@
 								<div class="Explore__content--outlet-profile">
 									<img src="{{ $outlet->merchant->logo !== null ? getPhotoPath($outlet->merchant->logo) : '/images/tmp/outlet-photo.jpg' }}" alt="{{ $outlet->name }}" title="{{ $outlet->name }}" class="img-responsive img-circle" />
 									<div>
-										<h3>{{ $outlet->name }}</h3>
+										<h3>{{ $outlet->name }} <span class="citycard-icon icon-verified"></span></h3>
 										<p>
 											<small>
 												@forelse($outlet->merchant->subcategories as $subcategory )

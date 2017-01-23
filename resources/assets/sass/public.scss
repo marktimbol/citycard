@@ -225,10 +225,6 @@ header {
     	    margin-left: 30px;
     	    a {
     	    	color: #333;
-				display: block;
-				overflow: hidden;
-				text-indent: 110%;
-				white-space: nowrap;
 				&:hover {
 					cursor: pointer;
 				}
@@ -240,6 +236,12 @@ header {
 .citycard-icon {
 	width: 24px;	
 	height: 24px;
+
+    display: block;
+    overflow: hidden;
+    text-indent: 110%;
+    white-space: nowrap;
+
 	background-image: url('/images/sprites.png');
 	background-size: 352px 311px; 	
 }
@@ -258,6 +260,13 @@ header {
 
 .icon-profile {
     background-position: -127px -225px;
+}
+
+.icon-verified {
+	width: 18px;	
+	height: 18px;
+    margin-left: 5px;
+    background-position: -60px -273px;
 }
 
 .Company__content--container {
