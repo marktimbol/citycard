@@ -17,19 +17,24 @@
         <div class="Menus--container">
             <ul>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-calendar-check-o fa-2x"></i>
+                    <a href="/events" class="citycard-icon icon-calendar">
+                        Events
                     </a>
                 </li>
                 <li>
-                    <a href="#">
-                        <i class="fa fa-heart-o fa-2x"></i>
+                    <a href="#explore" class="citycard-icon icon-discover">
+                        Discover
+                    </a>
+                </li>
+                <li>
+                    <a href="#notifications" class="citycard-icon icon-heart">
+                        Notifications
                     </a>
                 </li>
                 @if( auth()->check() )
                     <li>
-                        <a href="/user/{{ auth()->user()->id }}">
-                            <i class="fa fa-user-o fa-2x"></i>
+                        <a href="/user/{{ auth()->user()->id }}" class="citycard-icon icon-profile">
+                            User Profile
                         </a>
                     </li> 
                 @endif                         

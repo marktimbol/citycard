@@ -225,13 +225,39 @@ header {
     	    margin-left: 30px;
     	    a {
     	    	color: #333;
-    	    	&:hover {
-    	    		color: #333;
-    	    		text-decoration: none;
-    	    	}
+				display: block;
+				overflow: hidden;
+				text-indent: 110%;
+				white-space: nowrap;
+				&:hover {
+					cursor: pointer;
+				}
     	    }
 	    }		
 	}
+}
+
+.citycard-icon {
+	width: 24px;	
+	height: 24px;
+	background-image: url('/images/sprites.png');
+	background-size: 352px 311px; 	
+}
+
+.icon-calendar {
+	background-position: -252px -223px;
+}
+
+.icon-discover {
+	background-position: -26px -224px;	
+}
+
+.icon-heart {
+    background-position: -176px -224px;
+}
+
+.icon-profile {
+    background-position: -127px -225px;
 }
 
 .Company__content--container {

@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('pageTitle', 'Posts')
+
 @section('bodyClass', 'Posts')
 
 @section('content')
