@@ -7,32 +7,12 @@
 	}
 }
 
-@media (max-width: 320px) {
+@media (max-width: 414px) {
 	@include mobileQueries();
 
 	.Explore__content--outlet-profile {
 		h3 {
-			max-width: 90px;
-		}
-	}
-}
-
-@media (max-width: 360px) {
-	@include mobileQueries();
-
-	.Explore__content--outlet-profile {
-		h3 {
-			max-width: 130px;
-		}
-	}
-}
-
-@media (max-width: 375px) {
-	@include mobileQueries();
-
-	.Explore__content--outlet-profile {
-		h3 {
-			max-width: 140px;
+			max-width: 170px;
 		}
 	}
 }
@@ -47,6 +27,35 @@
 	}
 }
 
+@media (max-width: 375px) {
+	@include mobileQueries();
+
+	.Explore__content--outlet-profile {
+		h3 {
+			max-width: 140px;
+		}
+	}
+}
+
+@media (max-width: 360px) {
+	@include mobileQueries();
+
+	.Explore__content--outlet-profile {
+		h3 {
+			max-width: 130px;
+		}
+	}
+}
+
+@media (max-width: 320px) {
+	@include mobileQueries();
+
+	.Explore__content--outlet-profile {
+		h3 {
+			max-width: 90px;
+		}
+	}
+}
 
 @media (max-width: 495px) {
 	.Search--container {
