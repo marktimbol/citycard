@@ -9819,7 +9819,13 @@ footer {
     flex-direction: column; }
   .Features .Feature__title {
     font-size: 16px;
-    margin-top: 10px; } }
+    margin-top: 10px; }
+  .Explore__content--outlet-profile .Flex {
+    -webkit-box-orient: horizontal;
+    -webkit-box-direction: normal;
+    flex-direction: row; }
+  .Explore__content--outlet-profile h3 {
+    max-width: 220px; } }
 
 @media (max-width: 785px) {
   .PhoneMockup--container {
