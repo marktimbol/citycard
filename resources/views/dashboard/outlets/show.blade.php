@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">{{ $outlet->name }}
+		<h1 class="Heading__title">Outlet: {{ $outlet->name }}
 			@can('update', $outlet)
 				<small>
 					<a href="{{ route('dashboard.merchants.outlets.edit', [$outlet->merchant->id, $outlet->id]) }}">
@@ -59,8 +59,6 @@
 		</a>
 	</div>
 
-	@include('dashboard.merchants._posts')
-
 	{{-- @include('dashboard.outlets.clerks._all') --}}
 	@include('dashboard.merchants._clerks', [
 		'clerks'	=> $outletClerks
@@ -69,6 +67,8 @@
 	@include('dashboard.outlets.items-for-reservation._all', [
 		'items'	=> $itemsForReservation
 	])
+
+	@include('dashboard.merchants._posts')
 
 	@include('dashboard.outlets._upload-outlet-gallery')
 	@include('dashboard.outlets._select-existing-clerks')
@@ -80,6 +80,7 @@
 @endsection
 
 @section('footer_scripts')
+	<script src="{{ elixir('js/MerchantPosts.js') }}"></script>
 	<script src="{{ elixir('js/OutletSettings.js') }}"></script>
 	<script src="{{ elixir('js/CreateItemForReservation.js') }}"></script>
 	<script src="{{ elixir('js/ItemsForReservation.js') }}"></script>

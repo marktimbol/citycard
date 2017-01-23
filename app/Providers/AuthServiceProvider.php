@@ -16,13 +16,13 @@ class AuthServiceProvider extends ServiceProvider
      * @var array
      */
     protected $policies = [
-        App\Merchant::class => App\Policies\MerchantPolicy::class,
-        App\Outlet::class => App\Policies\OutletPolicy::class,
-        App\Clerk::class => App\Policies\ClerkPolicy::class,
-        App\Post::class => App\Policies\PostPolicy::class,
-        App\Faq::class => App\Policies\FaqPolicy::class,
-        App\Reservation::class => App\Policies\UserReservationPolicy::class,
-        App\OutletReservation::class => App\Policies\OutletReservationPolicy::class,
+        'App\Merchant' => 'App\Policies\MerchantPolicy',
+        'App\Outlet' => 'App\Policies\OutletPolicy',
+        'App\Clerk' => 'App\Policies\ClerkPolicy',
+        'App\Post' => 'App\Policies\PostPolicy',
+        'App\Faq' => 'App\Policies\FaqPolicy',
+        'App\Reservation' => 'App\Policies\UserReservationPolicy',
+        'App\OutletReservation' => 'App\Policies\OutletReservationPolicy',
     ];
 
     /**

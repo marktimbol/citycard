@@ -7,7 +7,7 @@
 		$area = $merchant->areas->first();
 	?>
 	<div class="Heading">
-		<h1 class="Heading__title">{{ $merchant->name }}
+		<h1 class="Heading__title">Merchant: {{ $merchant->name }}
 			@can('update', $merchant)		
 				<small>
 					<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}">
@@ -86,12 +86,11 @@
 		Change Password
 	</a>
 
-	
-	@include('dashboard.merchants._posts')
-
 	@include('dashboard.merchants._outlets')
 
 	@include('dashboard.merchants._clerks')
+
+	@include('dashboard.merchants._posts')
 
 	@if( adminCan('update', $merchant) )
 		@include('dashboard._delete', [

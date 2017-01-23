@@ -41,6 +41,8 @@ class MerchantOutletsController extends Controller
             'outlet_id' => $outlet->id,
             'admin_path'    => adminPath(),
             'itemsForReservation'   => $itemsForReservation,
+
+            'posts'   => $posts,
             
             'has_reservation'   => $outlet->has_reservation,
             'has_messaging'   => $outlet->has_messaging,
