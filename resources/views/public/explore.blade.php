@@ -19,12 +19,16 @@
 						<div class="Explore__content">
 							<div class="Explore__content--outlet">
 								<div class="Explore__content--outlet-profile">
-									<img src="{{ $outlet->merchant->logo !== null ? getPhotoPath($outlet->merchant->logo) : '/images/tmp/outlet-photo.jpg' }}" width="30" height="30" alt="{{ $outlet->name }}" title="{{ $outlet->name }}" class="img-responsive img-circle" />
+									<img src="{{ $outlet->merchant->logo !== null ? getPhotoPath($outlet->merchant->logo) : '/images/tmp/outlet-photo.jpg' }}" alt="{{ $outlet->name }}" title="{{ $outlet->name }}" class="img-responsive img-circle" />
 									<div>
 										<h3>{{ $outlet->name }}</h3>
 										<p>
 											<small>
-												{{ sprintf('%s, %s', $outlet->address1, $outlet->address2) }}
+												@forelse($outlet->merchant->subcategories as $subcategory )
+													{{ $subcategory->name }},
+												@empty
+
+												@endforelse
 											</small>
 										</p>
 									</div>
@@ -34,7 +38,7 @@
 							<div class="Explore__content--posts">
 								@foreach( $outlet->posts as $post )
 									<div class="Explore__content--post">
-										<img src="{{ getPhotoPath($post->photos->first()->url) }}" alt="{{ $post->title }}" title="{{ $post->title }}" class="img-responsive" />
+										<img src="{{ $post->photos->count() > 0 ? getPhotoPath($post->photos->first()->url) : '/images/tmp/outlet-post.jpg' }}" alt="{{ $post->title }}" title="{{ $post->title }}" class="img-responsive" />
 									</div>
 								@endforeach
 							</div>
@@ -42,6 +46,8 @@
 						@endforeach
 					</div>
 				</div>
+
+				{{ $outlets->links() }}
 			</div>
 		</div>
 	</div>

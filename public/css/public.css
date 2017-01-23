@@ -9632,6 +9632,8 @@ footer {
   -webkit-box-pack: center;
   justify-content: center; }
   .Explore__content--outlet-profile img {
+    width: 30px;
+    height: 30px;
     margin-right: 13px; }
   .Explore__content--outlet-profile h3 {
     margin: 0;

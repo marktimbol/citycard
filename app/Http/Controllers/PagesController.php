@@ -19,9 +19,9 @@ class PagesController extends Controller
 
     public function explore()
     {
-        $outlets = Outlet::with(['merchant', 'posts' => function($query) {
+        $outlets = Outlet::with(['merchant.subcategories', 'posts' => function($query) {
             return $query->with('photos')->latest()->take(3)->get();
-        }])->latest()->take(10)->get();
+        }])->latest()->paginate(config('pagination.count'));
 
         // dd($outlets->toArray());
 
