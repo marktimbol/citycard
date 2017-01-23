@@ -9643,9 +9643,8 @@ footer {
     margin-right: 13px; }
   .Explore__content--outlet-profile h3 {
     margin: 0;
-    display: -webkit-box;
-    display: flex;
     font-size: 15px;
+    max-width: 320px;
     line-height: 18px; }
   .Explore__content--outlet-profile p {
     margin: 0;
