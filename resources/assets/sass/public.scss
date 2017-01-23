@@ -245,10 +245,10 @@ header {
 }
 
 .icon-calendar {
-	background-position: -252px -223px;
+	background-position: -251px -223px;
 }
 
-.icon-discover {
+.icon-explore {
 	background-position: -26px -224px;	
 }
 
@@ -338,6 +338,7 @@ footer {
 @import 'components/Card';
 @import 'components/Posts';
 @import 'components/Events';
+@import 'components/Explore';
 @import 'components/About';
 @import 'components/PublicOverwrite';
 @import 'components/MediaQueries';

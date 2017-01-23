@@ -22,8 +22,8 @@
                     </a>
                 </li>
                 <li>
-                    <a href="#explore" class="citycard-icon icon-discover">
-                        Discover
+                    <a href="/explore" class="citycard-icon icon-explore">
+                        Explore Merchants
                     </a>
                 </li>
                 <li>

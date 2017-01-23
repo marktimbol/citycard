@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\User;
-use App\Clerk;
+use App\Outlet;
 use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 
@@ -18,24 +17,15 @@ class PagesController extends Controller
     	return view('public.home');
     }
 
-    public function events()
+    public function explore()
     {
-        return view('public.coming-soon');
-    }   
+        $outlets = Outlet::with(['merchant', 'posts' => function($query) {
+            return $query->with('photos')->latest()->take(3)->get();
+        }])->latest()->take(10)->get();
 
-    public function directory()
-    {
-        return view('public.coming-soon');
-    }
+        // dd($outlets->toArray());
 
-    public function merchants()
-    {
-        return view('public.coming-soon');
-    }
-
-    public function support()
-    {
-        return view('public.coming-soon');
+        return view('public.explore', compact('outlets'));
     }
 
     public function company()
