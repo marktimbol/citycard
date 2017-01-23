@@ -8,6 +8,7 @@
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 require('sweetalert');
+// require('./lqip');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
