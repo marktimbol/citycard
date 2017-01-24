@@ -9,6 +9,8 @@
 		<div class="row">
 			<div class="col-md-12">
 				<h1>Hello {{ auth()->user()->name }}</h1>
+				<p>Email: {{ auth()->user()->email }}</p>
+				
 				<form method="POST" action="/logout">
 					{{ csrf_field() }}
 					<div class="form-group">

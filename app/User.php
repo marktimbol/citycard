@@ -67,7 +67,7 @@ class User extends Authenticatable
 
     public function outlets()
     {
-        return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id');
+        return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id')->withTimestamps();;
     }
 
     public function invitations()

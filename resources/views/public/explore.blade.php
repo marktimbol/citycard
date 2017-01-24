@@ -14,6 +14,8 @@
 					<div class="Explore__title--container">
 						<h1 class="Explore__title">Discover Merchants</h1>
 					</div>
+					<div id="ExploreMerchants"></div>
+					<?php /*
 					<div class="Explore__content--container">
 						@foreach( $outlets as $outlet )
 						<div class="Explore__content">
@@ -48,10 +50,13 @@
 						</div>
 						@endforeach
 					</div>
+					*/ ?>
 				</div>
-
-				{{ $outlets->links() }}
 			</div>
 		</div>
 	</div>
+@endsection
+
+@section('footer_scripts')
+	<script src="{{ elixir('js/ExploreMerchants.js') }}"></script>
 @endsection

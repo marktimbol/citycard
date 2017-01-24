@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Outlet;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Outlet;
+use App\Transformers\UserOutletTransformer;
+use Illuminate\Http\Request;
 
 class OutletFollowersController extends Controller
 {
@@ -23,6 +24,7 @@ class OutletFollowersController extends Controller
 
     	return response()->json([
     		'success'	=> true,
+            'user_outlets'  => UserOutletTransformer::transform($user->outlets),
     	]);
     }
 
@@ -33,6 +35,7 @@ class OutletFollowersController extends Controller
 
         return response()->json([
             'success'   => true,
+            'user_outlets'  => UserOutletTransformer::transform($user->outlets),
         ]); 
     }
 }

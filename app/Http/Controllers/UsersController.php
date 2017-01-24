@@ -8,7 +8,7 @@ use Illuminate\Http\Request;
 class UsersController extends Controller
 {
     public function show(User $user)
-    {
+    {    	
     	return view('public.users.show', compact('user'));
     }
 }

@@ -43,6 +43,8 @@ elixir(mix => {
       .webpack('components/ItemsForReservation.js')
       .webpack('components/DashboardPosts.js', 'public/js/DashboardPosts.js')
 
+      .webpack('components/ExploreMerchants.js')
+
       .styles([
           modulesPath + 'froala-editor/css/froala_editor.min.css',
           modulesPath + 'froala-editor/css/froala_style.min.css',
@@ -107,5 +109,6 @@ elixir(mix => {
           'public/css/datepicker.css',
           'public/js/CreateItemForReservation.js',
           'public/js/ItemsForReservation.js',
+          'public/js/ExploreMerchants.js',
       ]);
 });
