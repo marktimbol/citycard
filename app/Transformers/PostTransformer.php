@@ -35,15 +35,13 @@ class PostTransformer extends AbstractTransformer
 
         $output['for_reservation'] = $forReservation;
 
-        if( $forReservation )
-        {
+        if( $forReservation ) {
             $output['for_reservation_id'] = $item_id;
         }
 
         $output['is_favourited'] = false;
         
-        if( auth()->guard('user_api')->check() )
-        {
+        if( auth()->guard('user_api')->check() ) {
             $user = auth()->guard('user_api')->user();
             $user = $user->load('favourites');
             

@@ -14,7 +14,9 @@
 					<div class="Explore__title--container">
 						<h1 class="Explore__title">Discover Merchants</h1>
 					</div>
-					<div id="ExploreMerchants"></div>
+					<div className="Explore__content--container">
+						<div id="ExploreMerchants"></div>
+					</div>
 					<?php /*
 					<div class="Explore__content--container">
 						@foreach( $outlets as $outlet )
