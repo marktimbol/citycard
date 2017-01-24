@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('pageTitle', 'About CityCard')
+
 @section('bodyClass', 'About')
 
 @section('content')
@@ -42,15 +44,15 @@
 							<div class="Column-6">
 								<h2 class="About__subtitle">About Our App</h2>
 								<p class="lead">
-									Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas faucibus, nunc consequat cursus cursus, urna diam euismod arcu, et iaculis turpis sapien quis velit. Nam maximus lectus eu consequat pulvinar. Duis porttitor euismod.
+									CityCard is a unique loyalty program designed to bring more pleasure to your retail and dining experience. Avid shoppers will get the opportunity to earn points from a wide variety of outlets and redeem rewards in the form of cash back, discounts and free merchandise.
 								</p>
 								<p class="lead">
-									Donec nulla est, rutrum in dui eget, ultricies mollis leo. Duis non diam sodales, tristique enim vitae, lacinia mauris.
+									CityCard has partnered up with a diverse range of outlets to ensure that customers are rewarded, no matter their preference.
 								</p>
 								<p>&nbsp;</p>
-								<p>
+{{-- 								<p>
 									<button class="btn btn-lg btn-primary">Watch demo</button>
-								</p>
+								</p> --}}
 							</div>
 							<div class="Column-6">
 								<img src="/images/home-phones-mockup.png" 
@@ -72,37 +74,34 @@
 						<div class="Features">
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-html5 fa-2x"></i>
+									<i class="fa fa-newspaper-o fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">User Friendly</h3>
+									<h3 class="Feature__title">Newsfeed</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										We provide merchants with a newsfeed system enabling each individual outlet to broadcast their latest news, collections, special offers and in-store events. 
 									</p>
 								</div>
 							</div>
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-desktop fa-2x"></i>
+									<i class="fa fa-address-book-o fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">Fully Responsive</h3>
+									<h3 class="Feature__title">Directory</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										We offer shoppers a comprehensive directory of merchants, which will include up-to-date store information. 
 									</p>
 								</div>
 							</div>	
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-diamond fa-2x"></i>
+									<i class="fa fa-comments-o fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">24/7 Support</h3>
+									<h3 class="Feature__title">Messaging</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										Customers can communicate directly with merchants through our centralized messaging platform.
 									</p>
 								</div>
 							</div>													
@@ -111,39 +110,36 @@
 						<div class="Features">
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-heart-o fa-2x"></i>
+									<i class="fa fa-photo fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">Notifications</h3>
+									<h3 class="Feature__title">Shopfront</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										Customers can view shopfronts and displays in real-time, uploaded by the merchants.
 									</p>
 								</div>
 							</div>
 
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-headphones fa-2x"></i>
+									<i class="fa fa-calendar-check-o fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">Accessibility</h3>
+									<h3 class="Feature__title">Resevations</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										Shoppers can reserve items directly from their store of choice.
 									</p>
 								</div>
 							</div>
 
 							<div class="Feature Column-4">
 								<div class="Column-1">
-									<i class="fa fa-wechat fa-2x"></i>
+									<i class="fa fa-handshake-o fa-2x"></i>
 								</div>
 								<div class="Column-9">
-									<h3 class="Feature__title">Chat with Clerks</h3>
+									<h3 class="Feature__title">Rewards</h3>
 									<p>
-										Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-										tempor incididunt.
+										Earn rewards points and redeem as cash back, offers or free merchandise from any participating outlet.
 									</p>
 								</div>
 							</div>														
