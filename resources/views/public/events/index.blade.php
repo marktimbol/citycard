@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('pageTitle', 'Events')
+
 @section('content')
 	@include('layouts.public._nav')
 

@@ -1,25 +1,9 @@
-
 // Variables
 @import "variables";
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
-
-@font-face {
-    font-family: 'ProximaRegular';
-    src: url('../../fonts/proximanova-regular-webfont.woff2') format('woff2'),
-        url('../../fonts/proximanova-regular-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'ProximaBold';
-    src: url('../../fonts/proximanova-bold-webfont.woff2') format('woff2'),
-        url('../../fonts/proximanova-bold-webfont.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-}
+@import 'components/Fonts';
 
 body {
 	background: #fafafa;
@@ -63,212 +47,6 @@ h1, h2, h3, h4, h5, h6 {
     border: 1px solid #efefef;
 }
 
-.Home {
-	main {
-		width: 100%;
-		max-width: 935px;
-		margin: 15px auto 0;
-	}
-
-	.PhoneMockup {
-		height: 618px;
-
-		position: relative;
-		background: url('/images/home-phones-mockup.png') no-repeat;
-		background-position: 0 0;
-		background-size: 454px 618px;	
-	}
-
-	.Authentication {
-		height: 100%;
-	    display: flex;
-	    flex-direction: column;		
-	}
-
-	.Social__login {
-		.btn-danger {
-			background: #d34836 !important;
-			border-color: #d34836 !important;
-		}
-	}
-	.Registration {
-		flex: 0.9;
-	    margin-bottom: 10px;		
-	    h1 {
-	    	color: #333;
-	    	margin-top: 0;
-	    	font-weight: bold;
-	    	text-transform: uppercase;
-	    	img {
-	    		margin: 0 auto;
-	    		width: 80%;
-	    	}
-	    }
-
-	    p.lead {
-	    	font-size: 14px;
-		    color: #999;
-		    font-weight: 600;
-	    }
-
-	    form {
-	    	.Accept-terms {
-	    		margin-top: 20px;
-	    	}
-	    }
-
-	    .btn i {
-	    	font-size: 14px !important;
-	    }
-	}
-
-	.Login {
-	    flex: .1;
-	    padding: 20px;
-
-	    display: flex;
-	    align-items: center;
-	    justify-content: center;		
-	    p {
-		    margin: 0;
-	    }
-	}
-
-	.Download-app {
-		p {
-			color: #262626;
-			text-align: center;
-		}
-		ul {
-		    list-style: none;
-		    padding-left: 0;
-
-		    display: flex;	
-		    justify-content: center;
-		}
-		li {
-		    margin: 0 10px	
-		}
-		img {
-			max-height: 40px;
-		}
-	}
-}
-
-.or--divider {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 20px 0px;
-
-    .or__line {
-	    flex: 1;    	
-	    height: 1px;
-	    background-color: #c7c7c7;
-    }
-
-    .or__text {
-		color: #999;    	
-		font-size: 13px;
-		margin: 0 18px;
-		line-height: 15px;
-		text-transform: uppercase;
-    }
-}
-
-header {
-    height: 77px;
-    display: flex;
-    background-color: #fff;
-    justify-content: center;
-    border-bottom: 1px solid #dbdbdb;
-}
-
-.Header__content {
-	width: 100%;
-	max-width: 935px;
-	padding: 0 20px;
-	
-    display: flex;
-    align-items: center;
-    justify-content: space-between;	
-}
-
-.Logo--container {
-	h1 {
-		margin: 0;
-	}
-	a {
-		color: #333;
-		&:hover, &:focus, &:active {
-			text-decoration: none;
-		}
-	}
-}
-
-.Search--container {
-    .form-group {
-    	margin-bottom: 0;
-    	input {
-    		text-align: center;
-    	}
-    }
-}
-
-.Menus--container {
-	ul {
-	    display: flex;
-	    padding-left: 0;
-	    margin-bottom: 0;
-	    list-style: none;
-	    li {
-    	    margin-left: 30px;
-    	    a {
-    	    	color: #333;
-				&:hover {
-					cursor: pointer;
-				}
-    	    }
-	    }		
-	}
-}
-
-.citycard-icon {
-	width: 24px;	
-	height: 24px;
-
-    display: block;
-    overflow: hidden;
-    text-indent: 110%;
-    white-space: nowrap;
-
-	background-image: url('/images/sprites.png');
-	background-size: 352px 311px; 	
-}
-
-.icon-calendar {
-	background-position: -251px -223px;
-}
-
-.icon-explore {
-	background-position: -26px -224px;	
-}
-
-.icon-heart {
-    background-position: -176px -224px;
-}
-
-.icon-profile {
-    background-position: -127px -225px;
-}
-
-.icon-verified {
-	width: 18px;	
-	height: 18px;
-    margin-left: 5px;
-    background-position: -60px -273px;
-}
-
 .Company__content--container {
     margin: 40px 0px;
     border-radius: 3px;
@@ -307,48 +85,17 @@ header {
 	padding: 20px 40px;
 }
 
-.Footer--container {
-	margin-top: 30px;
-}
-
-footer {
-	display: flex;
-	justify-content: space-between;
-	ul {
-	    padding-left: 0;
-	    display: flex;
-	    list-style: none;   
-	    margin-bottom: 0; 		
-		li {
-		    margin-right: 16px;    
-		    &.copyright {
-			    color: #999;
-			    font-size: 12px;
-			    font-weight: bold;
-			    text-transform: uppercase;
-		    }			
-			a {
-				color: #003567;
-			    font-size: 12px;
-			    font-weight: bold;				
-				text-transform: uppercase;
-				text-decoration: none;
-				&:hover {
-					color: #003567;
-					text-decoration: none;
-				}
-			}
-		}
-	}
-}
-
 @import 'components/Grid';
+@import 'components/Header';
+@import 'components/Icons';
+@import 'components/Home';
 @import 'components/HomeMobile';
+@import 'components/Authentication';
 @import 'components/Card';
 @import 'components/Posts';
 @import 'components/Events';
 @import 'components/Explore';
 @import 'components/About';
-// @import 'components/BlurredImageEffect';
+@import 'components/Footer';
 @import 'components/PublicOverwrite';
 @import 'components/MediaQueries';

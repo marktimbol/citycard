@@ -1,0 +1,36 @@
+.Home {
+	main {
+		width: 100%;
+		max-width: 935px;
+		margin: 15px auto 0;
+	}
+
+	.PhoneMockup {
+		height: 618px;
+
+		position: relative;
+		background: url('/images/home-phones-mockup.png') no-repeat;
+		background-position: 0 0;
+		background-size: 454px 618px;	
+	}
+
+	.Download-app {
+		p {
+			color: #262626;
+			text-align: center;
+		}
+		ul {
+		    list-style: none;
+		    padding-left: 0;
+
+		    display: flex;	
+		    justify-content: center;
+		}
+		li {
+		    margin: 0 10px	
+		}
+		img {
+			max-height: 40px;
+		}
+	}
+}

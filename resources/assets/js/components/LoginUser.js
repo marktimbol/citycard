@@ -101,12 +101,17 @@ class LoginUser extends React.Component
 						</div>
 						
 						<div className="form-group">
-							<input type="password" 
-								name="password" 
-								className="form-control" 
-								value={this.state.password}
-								onChange={this.handleChange}
-								placeholder="Password" />
+							<div className="forgot-password--container">
+								<input type="password" 
+									name="password" 
+									className="form-control" 
+									value={this.state.password}
+									onChange={this.handleChange}
+									placeholder="Password" />
+									<small>
+										<a href="#" onClick={this.props.showForgotPassword}>Forgot?</a>
+									</small>
+							</div>
 						</div>	
 						
 						<div className="form-group">

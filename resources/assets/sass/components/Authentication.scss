@@ -1,0 +1,95 @@
+.Home {
+	.Authentication {
+		height: 100%;
+	    display: flex;
+	    flex-direction: column;		
+	}
+
+	.Social__login {
+		.btn-danger {
+			background: #d34836 !important;
+			border-color: #d34836 !important;
+		}
+	}
+	.Registration {
+		flex: 0.9;
+	    margin-bottom: 10px;		
+	    h1 {
+	    	color: #333;
+	    	margin-top: 0;
+	    	font-weight: bold;
+	    	text-transform: uppercase;
+	    	img {
+	    		margin: 0 auto;
+	    		width: 80%;
+	    	}
+	    }
+
+	    p.lead {
+	    	font-size: 14px;
+		    color: #999;
+		    font-weight: 600;
+	    }
+
+	    form {
+	    	.Accept-terms {
+	    		margin-top: 20px;
+	    	}
+	    }
+
+	    .btn i {
+	    	font-size: 14px !important;
+	    }
+	}
+
+	.Login {
+	    flex: .1;
+	    padding: 20px;
+
+	    display: flex;
+	    align-items: center;
+	    justify-content: center;		
+	    p {
+		    margin: 0;
+	    }
+	}
+
+	.forgot-password--container {
+	    position: relative;
+	    display: flex;
+	    align-items: center;
+	    justify-content: flex-end;		
+
+	    small {
+		    right: 10px;	    	
+		    position: absolute;
+	    }
+
+	    a {
+	    	&:hover {
+	    		text-decoration: none;
+	    	}
+	    }
+	}
+}
+
+.or--divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+
+    .or__line {
+	    flex: 1;    	
+	    height: 1px;
+	    background-color: #c7c7c7;
+    }
+
+    .or__text {
+		color: #999;    	
+		font-size: 13px;
+		margin: 0 18px;
+		line-height: 15px;
+		text-transform: uppercase;
+    }
+}

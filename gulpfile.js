@@ -32,7 +32,7 @@ elixir(mix => {
    		], 'public/css/app.css')
 
       .webpack('app.js')
-      .webpack('components/HomeAuthentication.js')
+      .webpack('components/Authentication.js')
       .webpack('components/CreateOutlet.js')
       .webpack('components/EditOutlet.js')
       .webpack('components/CreatePost.js')

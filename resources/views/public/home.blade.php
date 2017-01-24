@@ -1,5 +1,7 @@
 @extends('layouts.public')
 
+@section('pageTitle', 'Home')
+
 @section('bodyClass', 'Home')
 
 @section('content')
@@ -16,7 +18,7 @@
 				</div>
 			</div>
 			<div class="Column-6 max-350">
-				<div id="HomeAuthentication"></div>
+				<div id="Authentication"></div>
 			</div>					
 		</article>
 
@@ -63,5 +65,5 @@
 @endsection
 
 @section('footer_scripts')
-	<script src="{{ elixir('js/HomeAuthentication.js') }}"></script>
+	<script src="{{ elixir('js/Authentication.js') }}"></script>
 @endsection

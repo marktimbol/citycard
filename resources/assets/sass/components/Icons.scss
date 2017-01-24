@@ -1,0 +1,35 @@
+.citycard-icon {
+	width: 24px;	
+	height: 24px;
+
+    display: block;
+    overflow: hidden;
+    text-indent: 110%;
+    white-space: nowrap;
+
+	background-image: url('/images/sprites.png');
+	background-size: 352px 311px; 	
+}
+
+.icon-calendar {
+	background-position: -251px -223px;
+}
+
+.icon-explore {
+	background-position: -26px -224px;	
+}
+
+.icon-heart {
+    background-position: -176px -224px;
+}
+
+.icon-profile {
+    background-position: -127px -225px;
+}
+
+.icon-verified {
+	width: 18px;	
+	height: 18px;
+    margin-left: 5px;
+    background-position: -60px -273px;
+}
