@@ -17,42 +17,6 @@
 					<div className="Explore__content--container">
 						<div id="ExploreMerchants"></div>
 					</div>
-					<?php /*
-					<div class="Explore__content--container">
-						@foreach( $outlets as $outlet )
-						<div class="Explore__content">
-							<div class="Explore__content--outlet">
-								<div class="Explore__content--outlet-profile">
-									<img src="{{ $outlet->merchant->logo !== null ? getPhotoPath($outlet->merchant->logo) : '/images/tmp/outlet-photo.jpg' }}" alt="{{ $outlet->name }}" title="{{ $outlet->name }}" class="img-responsive img-circle" />
-									<div>
-										<div class="Flex">
-											<h3 class="text-ellipsis">{{ $outlet->name }}</h3>
-											<span class="citycard-icon icon-verified"></span>
-										</div>
-										<p>
-											<small>
-												@forelse($outlet->merchant->subcategories as $subcategory )
-													{{ $subcategory->name }},
-												@empty
-
-												@endforelse
-											</small>
-										</p>
-									</div>
-								</div>
-								<button class="btn btn-primary btn-follow">Join</button>
-							</div>
-							<div class="Explore__content--posts">
-								@foreach( $outlet->posts as $post )
-									<div class="Explore__content--post">
-										<img src="{{ $post->photos->count() > 0 ? getPhotoPath($post->photos->first()->url) : '/images/tmp/outlet-post.jpg' }}" alt="{{ $post->title }}" title="{{ $post->title }}" class="img-responsive" />
-									</div>
-								@endforeach
-							</div>
-						</div>
-						@endforeach
-					</div>
-					*/ ?>
 				</div>
 			</div>
 		</div>

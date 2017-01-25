@@ -20,46 +20,7 @@
 			<div class="Column-6 max-350">
 				<div id="Authentication"></div>
 			</div>					
-		</article>
-
-		<div class="Flex Flex--center Footer--container">
-			<div class="Column-6">
-				<footer>
-{{-- 					<ul>
-						<li><a href="/posts">Deals</a></li>
-						<li><a href="/events">Events</a></li>
-						<li><a href="/directory">Directory</a></li>
-					</ul> --}}
-					<ul>
-						<li><a href="/about">About Us</a></li>
-						<li><a href="#">Merchants</a></li>
-						<li><a href="/about/faq">FAQs</a></li>
-					</ul>
-					<ul>
-						<li class="copyright text-center">
-							&copy; 2017 City Card
-						</li>
-					</ul>					
-				</footer>
-			</div>
-
-			<div class="Column-6">
-				<div class="Download-app">
-					<ul>
-						<li>
-							<a href="#">
-								<img src="/images/app-store.png" alt="Download on the App Store" title="Download on the App Store" class="img-responsive" />
-							</a>
-						</li>
-						<li>
-							<a href="#">
-								<img src="/images/google-play.png" alt="Get it on the Google Play" title="Get it on the Google Play" class="img-responsive" />
-							</a>
-						</li>								
-					</ul>
-				</div>
-			</div>
-		</div>			
+		</article>	
 	</main>
 
 @endsection

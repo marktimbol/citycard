@@ -1,6 +1,6 @@
 @extends('layouts.public')
 
-@section('pageTitle', 'FAQ')
+@section('pageTitle', 'Terms and Conditions')
 
 @section('bodyClass', 'Company--page')
 
@@ -20,20 +20,12 @@
 			<div class="col-md-12">
 				<div class="Company__content--container white-bg">
 					<div class="Row">
-						@include('public.about._nav')					
+						@include('public.about._nav')				
 						<div class="Company__content">
 							<div class="row">
 								<div class="col-md-12">
-									<h1>FAQ</h1>
-
-									<p>This is a short list of our most frequently asked questions. For more information about CityCard, or if you need support, please visit our support center.</p>
-
-									@forelse( $faqs as $faq )
-										<h3>{{ $faq->question }}</h3>
-										{!! $faq->answer !!}
-									@empty
-
-									@endforelse
+									<h1>Terms</h1>
+									{!! $company->terms !!}								
 								</div>
 							</div>
 						</div>

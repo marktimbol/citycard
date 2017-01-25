@@ -1,5 +1,21 @@
-.Footer--container {
-	margin-top: 30px;
+body:not(.Home) {
+	.Footer--container {
+		.Download-app {
+			display: flex;
+			justify-content: flex-end;
+			li:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+}
+
+.Home {
+	.Footer--container {
+		width: 100%;
+	    max-width: 935px;
+	    margin: 30px auto 30px;
+	}
 }
 
 footer {
@@ -30,5 +46,25 @@ footer {
 				}
 			}
 		}
+	}
+}
+
+.Download-app {
+	p {
+		color: #262626;
+		text-align: center;
+	}
+	ul {
+	    list-style: none;
+	    padding-left: 0;
+
+	    display: flex;	
+	    justify-content: center;
+	}
+	li {
+	    margin: 0 10px	
+	}
+	img {
+		max-height: 40px;
 	}
 }

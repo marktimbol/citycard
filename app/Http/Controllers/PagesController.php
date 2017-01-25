@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Faq;
 use App\Outlet;
+use App\Company;
 use JavaScript;
 use Illuminate\Http\Request;
 use App\Transformers\UserOutletTransformer;
@@ -60,6 +62,19 @@ class PagesController extends Controller
     
     public function faqs()
     {
-        return view('public.about.faqs');
-    }                 
+        $faqs = Faq::latest()->get();
+        return view('public.about.faqs', compact('faqs'));
+    }   
+
+    public function terms()
+    {
+        $company = Company::first();
+        return view('public.about.terms', compact('company'));
+    } 
+
+    public function privacy()
+    {
+        $company = Company::first();
+        return view('public.about.privacy', compact('company'));
+    }                     
 }

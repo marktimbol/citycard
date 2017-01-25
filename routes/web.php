@@ -21,6 +21,9 @@ Route::get('/events', ['as' => 'events', 'uses' => 'EventsController@index']);
 Route::get('/explore', 'PagesController@explore');
 Route::get('/about/company', 'PagesController@company');
 Route::get('/about/faq', 'PagesController@faqs');
+Route::get('/about/terms', 'PagesController@terms');
+Route::get('/about/privacy', 'PagesController@privacy');
+Route::get('/jobs', 'JobsController@index');
 
 Auth::routes();
 Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');
