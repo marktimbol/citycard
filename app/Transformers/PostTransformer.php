@@ -11,7 +11,7 @@ class PostTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'type', 'title', 'desc', 'isExternal', 'created_at', 'updated_at'
+    		'id', 'type', 'title', 'slug', 'desc', 'isExternal', 'created_at', 'updated_at'
     	]);
 
         if( $item->type == 'events' )
