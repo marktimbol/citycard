@@ -89,11 +89,13 @@ class ExploreMerchant extends React.Component
 			let featured_image = '/images/tmp/outlet-post.jpg';
 			if( post.photos.length > 0 ) {
 				featured_image = app.s3_bucket_url + post.photos[0].url
-			}
-
+			}			
+			let url = '/posts/' + post.slug;
 			return (
 				<div className="Explore__content--post" key={post.id}>
-					<img src={featured_image} alt={post.title} title={post.title} className="img-responsive" />
+					<a href={url}>
+						<img src={featured_image} alt={post.title} title={post.title} className="img-responsive" />
+					</a>
 				</div>
 			)
 		})

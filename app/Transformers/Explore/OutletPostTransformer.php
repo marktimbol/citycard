@@ -12,7 +12,7 @@ class OutletPostTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'type', 'title', 'isExternal', 'created_at', 'updated_at'
+    		'id', 'type', 'title', 'slug', 'isExternal', 'created_at', 'updated_at'
     	]);
 
         if( $item->type == 'events' )

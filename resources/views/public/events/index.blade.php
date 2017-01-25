@@ -18,15 +18,19 @@
 										<div class="Event__image">
 											@if( $event->photos->count() > 0 )
 											<?php $photo = $event->photos->first(); ?>
-												<img src="{{ getPhotoPath($photo->url) }}"
-													alt="{{ $event->title }}" 
-													title="{{ $event->title }}" 
-													class="img-responsive" />
+												<a href="/posts/{{$event->slug}}">
+													<img src="{{ getPhotoPath($photo->url) }}"
+														alt="{{ $event->title }}" 
+														title="{{ $event->title }}" 
+														class="img-responsive" />
+												</a>
 											@else
-												<img src="/images/event-cover.png" 
-													alt="{{ $event->title }}" 
-													title="{{ $event->title }}" 
-													class="img-responsive" />
+												<a href="/posts/{{$event->slug}}">
+													<img src="/images/event-cover.png" 
+														alt="{{ $event->title }}" 
+														title="{{ $event->title }}" 
+														class="img-responsive" />
+												</a>
 											@endif
 										</div>
 									</div>
