@@ -24,7 +24,6 @@ Route::get('/about/faq', 'PagesController@faqs');
 Route::get('/about/terms', 'PagesController@terms');
 Route::get('/about/privacy', 'PagesController@privacy');
 Route::get('/jobs', 'JobsController@index');
-Route::get('/uuid', 'PagesController@uuid');
 
 Auth::routes();
 Route::get('/register/confirm/{token}', 'Auth\User\ConfirmEmailController@confirm');
