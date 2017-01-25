@@ -23,7 +23,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
      * @return \Illuminate\Foundation\Application
      */
     public function createApplication()
-    {
+    {        
         $app = require __DIR__.'/../bootstrap/app.php';
 
         $app->make(Illuminate\Contracts\Console\Kernel::class)->bootstrap();
@@ -37,7 +37,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     }
 
     protected function adminSignIn($attributes = [])
-    {
+    {        
         $this->actingAsAdmin($attributes);
     }
 
@@ -68,6 +68,7 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function actingAsClerk($attributes=[])
     {
         $this->clerk = $this->createClerk($attributes);
+
         $this->actingAs($this->clerk, 'clerk_api');
     }        
 

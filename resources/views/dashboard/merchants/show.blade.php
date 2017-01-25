@@ -83,10 +83,6 @@
 		</div>
 	</div>
 
-	<a href="#" class="btn btn-sm btn-primary">
-		Change Password
-	</a>
-
 	@include('dashboard.merchants._outlets')
 
 	@include('dashboard.merchants._clerks')

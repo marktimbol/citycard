@@ -9,7 +9,7 @@ class ClerkCanChangePasswordTest extends TestCase
 	use DatabaseMigrations;
 
 	public function setUp()
-	{
+	{        
 		parent::setUp();
 
 		$this->actingAsClerk([
@@ -19,7 +19,7 @@ class ClerkCanChangePasswordTest extends TestCase
 	}
 
     public function test_clerk_can_change_password_with_valid_credentials()
-    {
+    {        
     	$endpoint = '/api/clerk/change-password';
     	$request = $this->put($endpoint, [
     		'old_password'	=> 'oldpassword',

@@ -18,6 +18,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
     static $password;
 
     return [
+        'uuid' => $faker->uuid,
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
@@ -105,10 +106,11 @@ $factory->define(App\ItemForReservation::class, function (Faker\Generator $faker
     ];
 });
 
-$factory->define(App\Clerk::class, function (Faker\Generator $faker) {
+$factory->define(App\Clerk::class, function (Faker\Generator $faker) {    
     static $password;
 
     return [
+        'uuid' => $faker->uuid,
         'merchant_id'   => function() {
             return factory(App\Merchant::class)->create()->id;
         },

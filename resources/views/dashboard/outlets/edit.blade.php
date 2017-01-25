@@ -8,7 +8,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Update Outlet: {{ $outlet->name }}</h1>
+		<h1 class="Heading__title">Update Outlet</h1>
 	</div>
 
 	<div id="EditOutlet"></div>

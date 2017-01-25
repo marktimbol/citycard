@@ -188,6 +188,14 @@ class EditOutlet extends Component
 						value={merchant.name}
 						className="form-control"
 						disabled />
+				</div>			
+				<div className="form-group">
+					<label htmlFor="merchant">Name</label>
+					<input
+						type="text"
+						value={outlet.name}
+						className="form-control"
+						disabled />
 				</div>
 
 				<div className="form-group">

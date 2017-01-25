@@ -74,9 +74,6 @@
 		<button class="btn btn-sm btn-primary btn-has-icon" data-toggle="modal" data-target="#UploadOutletGallery">
 			<i class="fa fa-file-photo-o"></i> Manage Shop Front
 		</button>
-		<a href="#" class="btn btn-sm btn-primary btn-has-icon">
-			<i class="fa fa-key"></i> Change Password
-		</a>
 	</div>
 
 	{{-- @include('dashboard.outlets.clerks._all') --}}
