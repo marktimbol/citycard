@@ -7,16 +7,7 @@
 		$area = $merchant->areas->first();
 	?>
 	<div class="Heading">
-		<h1 class="Heading__title">Merchant: {{ $merchant->name }}
-			@can('update', $merchant)		
-				<small>
-					<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}">
-						<i class="fa fa-pencil"></i>
-					</a>
-				</small>
-			@endcan
-		</h1>
-		@include('dashboard._go-back')
+		<h1 class="Heading__title">Merchant</h1>
 	</div>
 
 	<div class="row">
@@ -60,6 +51,16 @@
 		<div class="col-md-10">
 			<ul class="list-group">
 				<li class="list-group-item">
+					Name: {{ $merchant->name }}
+					@can('update', $merchant)		
+						<small>
+							<a href="{{ route('dashboard.merchants.edit', $merchant->id) }}">
+								<i class="fa fa-pencil"></i>
+							</a>
+						</small>
+					@endcan					
+				</li>
+				<li class="list-group-item">
 					eMail: {{ $merchant->email }} <label class="label label-danger">Not Verified</label>
 				</li>
 				<li class="list-group-item">
@@ -92,6 +93,8 @@
 
 	@include('dashboard.merchants._posts')
 
+	<h3>Billing</h3>
+	
 	@if( adminCan('update', $merchant) )
 		@include('dashboard._delete', [
 			'route'	=> route('dashboard.merchants.destroy', $merchant->id)

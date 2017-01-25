@@ -15,6 +15,7 @@ class Authentication extends React.Component
 			showRegister: true,
 			showLogin: false,
 			showForgotPassword: false,
+			test: false,
 		}
 
 		this.showLogin = this.showLogin.bind(this);

@@ -4,49 +4,69 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Outlet: {{ $outlet->name }}
-			@can('update', $outlet)
-				<small>
-					<a href="{{ route('dashboard.merchants.outlets.edit', [$outlet->merchant->id, $outlet->id]) }}">
-						<i class="fa fa-pencil"></i>
-					</a>
-				</small>
-			@endcan
-		</h1>
-		@include('dashboard._go-back')
+		<h1 class="Heading__title">Outlet</h1>
 	</div>
 
-	<ul class="list-group">
-		<li class="list-group-item">
-			Merchant: 
-			<a href="{{ route('dashboard.merchants.show', $outlet->merchant->id) }}">
-				{{ $outlet->merchant->name }}
-			</a>
-		</li>
-		<li class="list-group-item">
-			eMail: {{ $outlet->email }} <label class="label label-danger">Not Verified</label>
-		</li>
-		<li class="list-group-item">
-			Phone: {{ $outlet->phone }} <label class="label label-danger">Not Verified</label>
-		</li>
-	</ul>
-	<ul class="list-group">
-		<li class="list-group-item">
-			Address: {{ sprintf('%s %s', $outlet->address1, $outlet->address2) }}
-		</li>
-		<li class="list-group-item">
-			Latitude / Longitude: {{ sprintf('%s, %s', $outlet->latitude, $outlet->longitude) }}
-		</li>
-		<li class="list-group-item">
-			Area:  {{ $outlet->getLocation() }}
-		</li>
-	</ul>
+	<div class="col-md-2">
+		<?php
+			$logo = 'http://placehold.it/150x150';
+			if( $outlet->merchant->logo !== null ) {
+				$logo = getPhotoPath($outlet->merchant->logo);
+			}
+		?>
+		<div class="has-camera-icon">
+			<img src="{{ $logo }}"
+				alt="{{ $outlet->name }}"
+				title="{{ $outlet->name }}"
+				class="img-responsive img-circle" />
+			<button class="btn btn-sm btn-link" data-toggle="modal" data-target="#ChangeMerchantPhoto">
+				<i class="fa fa-camera fa-2x"></i>
+			</button>
+		</div>
+	</div>
+	<div class="col-md-10">
+		<ul class="list-group">
+			<li class="list-group-item">
+				Name: {{ $outlet->name }}
+				@can('update', $outlet)
+					<small>
+						<a href="{{ route('dashboard.merchants.outlets.edit', [$outlet->merchant->id, $outlet->id]) }}">
+							<i class="fa fa-pencil"></i>
+						</a>
+					</small>
+				@endcan			
+			</li>
+			<li class="list-group-item">
+				Merchant: 
+				<a href="{{ route('dashboard.merchants.show', $outlet->merchant->id) }}">
+					{{ $outlet->merchant->name }}
+				</a>
+			</li>
+			<li class="list-group-item">
+				eMail: {{ $outlet->email }} <label class="label label-danger">Not Verified</label>
+			</li>
+			<li class="list-group-item">
+				Phone: {{ $outlet->phone }} <label class="label label-danger">Not Verified</label>
+			</li>
+		</ul>
+		<ul class="list-group">
+			<li class="list-group-item">
+				Address: {{ sprintf('%s %s', $outlet->address1, $outlet->address2) }}
+			</li>
+			<li class="list-group-item">
+				Latitude / Longitude: {{ sprintf('%s, %s', $outlet->latitude, $outlet->longitude) }}
+			</li>
+			<li class="list-group-item">
+				Area:  {{ $outlet->getLocation() }}
+			</li>
+		</ul>
 
-	<ul class="list-group">
-		<li class="list-group-item">
-			Currency: {{ $outlet->currency }}
-		</li>
-	</ul>
+		<ul class="list-group">
+			<li class="list-group-item">
+				Currency: {{ $outlet->currency }}
+			</li>
+		</ul>
+	</div>
 
 	<div id="OutletSettings"></div>
 	

@@ -1,4 +1,4 @@
-<h2>Items For Resevation
+<h2>Reservation Settings
 	<small>
 		<button class="btn btn-sm btn-default" data-toggle="modal" data-target="#addNewItemForReservation">
 			Add New

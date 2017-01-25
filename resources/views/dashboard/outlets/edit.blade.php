@@ -9,7 +9,6 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Outlet: {{ $outlet->name }}</h1>
-		@include('dashboard._go-back')
 	</div>
 
 	<div id="EditOutlet"></div>

@@ -24,7 +24,7 @@
 						<div class="Company__content">
 							<div class="row">
 								<div class="col-md-12">
-									<h1>Terms</h1>
+									<h1>Terms &amp; Conditions</h1>
 									{!! $company->terms !!}								
 								</div>
 							</div>

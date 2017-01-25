@@ -9,7 +9,6 @@
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Clerk</h1>
-		@include('dashboard._go-back')
 	</div>
 
 	<form method="POST" action="{{ route('dashboard.merchants.clerks.update', [$merchant->id, $clerk->id]) }}">
