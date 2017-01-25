@@ -46,4 +46,11 @@ class PostsController extends Controller
 
     	return view('public.posts.index', compact('posts'));
     }
+
+    public function show(Post $post)
+    {
+        $post->load('merchant');
+        
+        return view('public.posts.show', compact('post'));
+    }
 }

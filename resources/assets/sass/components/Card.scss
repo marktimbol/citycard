@@ -55,12 +55,18 @@
 }
 
 .Card__description {
-   padding: 24px 24px 15px; 
-   h3, p, li, a  {
+    padding: 24px 24px 15px; 
+    h3, p, li, a  {
         line-height: 24px;
         letter-spacing: .5px;
-   }
-   h3 {
+    }
+    h3 {
         margin-top: 0px;
-   }
+        a {
+            color: #636b6f;
+            &:hover {
+                text-decoration: none;
+            }
+        }        
+    }
 }

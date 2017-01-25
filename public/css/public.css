@@ -9485,6 +9485,10 @@ header {
     letter-spacing: .5px; }
   .Card__description h3 {
     margin-top: 0px; }
+    .Card__description h3 a {
+      color: #636b6f; }
+      .Card__description h3 a:hover {
+        text-decoration: none; }
 
 .Posts--container {
   display: -webkit-box;

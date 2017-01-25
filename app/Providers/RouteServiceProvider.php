@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Post;
 use App\Outlet;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
@@ -25,6 +26,13 @@ class RouteServiceProvider extends ServiceProvider
     public function boot()
     {
         parent::boot();
+
+        $this->bind('post',function($id) {
+            if ($this->getCurrentRoute()->getPrefix() === '/dashboard') {
+                return Post::findOrFail($id);
+            }
+            return Post::whereSlug($id)->first();
+        });        
     }
 
     /**

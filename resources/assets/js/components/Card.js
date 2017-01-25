@@ -27,6 +27,8 @@ class Card extends React.Component
 			featuredImage = app.s3_bucket_url + item.photos[0].url;
 		}
 
+		let post_url = '/posts/' + item.slug;
+
 		return (
 			<div className="Card">
 				<div className="Card__header">
@@ -43,10 +45,12 @@ class Card extends React.Component
 					</div>
 				</div>
 				<div className="Card__image">
-					<img src={ featuredImage } alt={ item.title } title={ item.title } className="img-responsive" />
+					<a href={post_url}>
+						<img src={ featuredImage } alt={ item.title } title={ item.title } className="img-responsive" />
+					</a>
 				</div>
 				<div className="Card__description">
-					<h3>{item.title}</h3>
+					<h3><a href={post_url}>{item.title}</a></h3>
 					<div dangerouslySetInnerHTML={this.itemDescription()}></div>
 				</div>
 			</div>
