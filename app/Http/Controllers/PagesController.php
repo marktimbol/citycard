@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Clerk;
+use App\Company;
 use App\Faq;
 use App\Outlet;
-use App\Company;
-use JavaScript;
-use Illuminate\Http\Request;
-use App\Transformers\UserOutletTransformer;
 use App\Transformers\Explore\ExploreOutletsTransformer;
+use App\Transformers\UserOutletTransformer;
+use App\User;
+use Illuminate\Http\Request;
+use JavaScript;
+use Ramsey\Uuid\Uuid;
 
 class PagesController extends Controller
 {
@@ -76,5 +79,24 @@ class PagesController extends Controller
     {
         $company = Company::first();
         return view('public.about.privacy', compact('company'));
-    }                     
+    }    
+
+    public function uuid()
+    {
+        $users = User::all();
+        foreach( $users as $user )
+        {
+            $user->uuid = Uuid::uuid1()->toString();
+            $user->save();
+        }
+
+        $clerks = Clerk::all();
+        foreach( $clerks as $clerk )
+        {
+            $clerk->uuid = Uuid::uuid1()->toString();
+            $clerk->save();
+        }        
+
+        return 'Done';
+    }                 
 }
