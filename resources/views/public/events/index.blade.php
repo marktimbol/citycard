@@ -19,17 +19,27 @@
 											@if( $event->photos->count() > 0 )
 											<?php $photo = $event->photos->first(); ?>
 												<a href="/posts/{{$event->slug}}">
-													<img src="{{ getPhotoPath($photo->url) }}"
-														alt="{{ $event->title }}" 
-														title="{{ $event->title }}" 
-														class="img-responsive" />
+													<div
+														class="placeholder"
+														data-large="{{ getPhotoPath($photo->url) }}"
+													>
+															<img
+																src="https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20"
+																class="img-small" /> 
+															<div class="aspect-ratio-fill"></div> 
+													</div>
 												</a>
 											@else
 												<a href="/posts/{{$event->slug}}">
-													<img src="/images/event-cover.png" 
-														alt="{{ $event->title }}" 
-														title="{{ $event->title }}" 
-														class="img-responsive" />
+													<div
+														class="placeholder"
+														data-large="/images/event-cover.png"
+													>
+															<img
+																src="https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20"
+																class="img-small" /> 
+															<div class="aspect-ratio-fill"></div> 
+													</div>
 												</a>
 											@endif
 										</div>

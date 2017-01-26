@@ -276,6 +276,10 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
+blurry-image-load:
+  version "0.0.0"
+  resolved "https://registry.yarnpkg.com/blurry-image-load/-/blurry-image-load-0.0.0.tgz#e82e4874b0af952529e3ae8e5aaea8d88d7458da"
+
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.6"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"

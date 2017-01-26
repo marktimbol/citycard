@@ -1,16 +1,24 @@
-.lqip-img {
-	width: 0px;
-	height: 0px;
+.placeholder {
+	background-color: #f6f6f6;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
+	overflow: hidden;
+} 
+ 
+.placeholder img {
+	position: absolute; 
+	opacity: 0;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	transition: opacity 1s linear;
+}
+.placeholder img.loaded {
+	opacity: 1;
 }
 
-.lqip {
-	height: 170px;
-	min-width: 278.84px;
-	display: block;
-	filter: blur(15px);
-	position: absolute;
-}
-
-.noblur {
-	filter: blur(0px);
+.img-small {
+	filter: blur(50px);
 }

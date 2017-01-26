@@ -26,8 +26,15 @@ class PagesController extends Controller
 
     public function explore()
     {
-        $currentUser = auth()->guard('user')->user();
-        $currentUser->load(['outlets']);
+        $currentUserOutlets = [];
+
+        if( auth()->guard('user')->check() )
+        {        
+            $currentUser = auth()->guard('user')->user();
+            $currentUser->load('outlets');
+
+            $currentUserOutlets = UserOutletTransformer::transform($currentUser->outlets);
+        }
 
         $outlets = Outlet::with(['merchant.subcategories', 'posts' => function($query) {
             return $query->with('photos')->latest()->take(3)->get();
@@ -43,7 +50,7 @@ class PagesController extends Controller
         
         JavaScript::put([
             // User's token to Follow/unfollow an Outlet
-            'api_token' => auth()->guard('user')->user()->api_token,
+            'api_token' => auth()->guard('user')->check() ? auth()->guard('user')->user()->api_token : '',
             // S3 url
             's3_bucket_url' => getS3BucketUrl(),
             // Infinite scroll
@@ -52,7 +59,7 @@ class PagesController extends Controller
             // Explore Outlets
             'outlets' => ExploreOutletsTransformer::transform($outlets->getCollection()),
             // User outlets
-            'user_outlets'  => UserOutletTransformer::transform($currentUser->outlets),
+            'user_outlets'  => $currentUserOutlets
         ]);     
 
         return view('public.explore', compact('outlets'));

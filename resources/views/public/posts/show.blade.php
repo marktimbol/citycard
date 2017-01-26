@@ -23,7 +23,15 @@
 					</div>
 				</div>
 				<div class="Card__image">
-					<img src="{{ getPhotoPath($post->photos()->first()->url) }}" alt="{{ $post->title }}" title="{{ $post->title }}" class="img-responsive" />
+					<div
+						class="placeholder"
+						data-large="{{ getPhotoPath($post->photos()->first()->url) }}"
+					>
+							<img
+								src="https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20"
+								class="img-small" /> 
+							<div class="aspect-ratio-fill"></div> 
+					</div>				
 				</div>
 				<div class="Card__description">
 					<h3>{{ $post->title }}</h3>

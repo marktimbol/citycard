@@ -8,7 +8,7 @@
 window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 require('sweetalert');
-// require('./lqip');
+require('./lib/BlurredImageEffect');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
