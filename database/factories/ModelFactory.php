@@ -222,3 +222,21 @@ $factory->define(App\Permission::class, function (Faker\Generator $faker) {
         'label' => $faker->word,
     ];
 });
+
+$factory->define(App\Album::class, function (Faker\Generator $faker) {
+    return [
+        'outlet_id' => function() {
+            return factory(App\Outlet::class)->create()->id;
+        },
+        'title' => $faker->word,
+    ];
+});
+
+$factory->define(App\AlbumPhoto::class, function (Faker\Generator $faker) {
+    return [
+        'album_id' => function() {
+            return factory(App\Album::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});

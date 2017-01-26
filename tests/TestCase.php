@@ -159,4 +159,14 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         return factory(App\Subcategory::class)->create($attributes);
     } 
+
+    protected function createAlbum($attributes = [])
+    {
+        return factory(App\Album::class)->create($attributes);
+    }
+
+    protected function createAlbumPhoto($attributes = [])
+    {
+        return factory(App\AlbumPhoto::class)->create($attributes);
+    }
 }

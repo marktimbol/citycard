@@ -42,5 +42,15 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 		'only'	=> ['update', 'destroy']
 	]);
 
+	// Outlet Albums
+	Route::resource('outlets.albums', 'Api\Clerk\OutletAlbumsController', [
+		'only'	=> ['index', 'show', 'store', 'update', 'destroy']
+	]);	
+
+	// Album Photos
+	Route::resource('albums.photos', 'Api\Clerk\AlbumPhotosController', [
+		'only'	=> ['index', 'store', 'destroy']
+	]);		
+
 	Route::get('users/{user}', 'Api\Clerk\UsersController@show');
 });
