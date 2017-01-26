@@ -82,6 +82,10 @@ elixir(mix => {
         modulesPath  + 'react-datepicker/dist/react-datepicker.css',
       ], 'public/css/datepicker.css')
 
+      .scripts([
+        '/lib/BlurredImageEffect.js'
+      ], 'public/js/BlurredImageEffect.js')
+
       .copy('node_modules/font-awesome/fonts/', 'public/build/fonts')
       .copy('node_modules/intl-tel-input/build/img', 'public/build/img')
 

@@ -1,6 +1,7 @@
 // ExploreMerchant.js
 import React from 'react';
 import axios from 'axios';
+import ProgressiveMedia from './ProgressiveMedia';
 
 class ExploreMerchant extends React.Component
 {
@@ -91,15 +92,12 @@ class ExploreMerchant extends React.Component
 				featured_image = app.s3_bucket_url + post.photos[0].url
 			}			
 			let url = '/posts/' + post.slug;
-			let small_image = 'https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20';
+			let small_image = '/images/blurred-image.jpeg';
 			
 			return (
 				<div className="Explore__content--post" key={post.id}>
 					<a href={url}>
-						<div className="placeholder" data-large={featured_image}>
-							<img src={small_image} className="img-small" /> 
-							<div className="aspect-ratio-fill"></div> 
-						</div>		
+						<ProgressiveMedia featuredImage={featured_image}></ProgressiveMedia>	
 					</a>
 				</div>
 			)

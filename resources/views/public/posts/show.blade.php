@@ -28,7 +28,7 @@
 						data-large="{{ getPhotoPath($post->photos()->first()->url) }}"
 					>
 							<img
-								src="https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20"
+								src="/images/blurred-image.jpeg"
 								class="img-small" /> 
 							<div class="aspect-ratio-fill"></div> 
 					</div>				
@@ -43,5 +43,5 @@
 @endsection
 
 @section('footer_scripts')
-
+	<script src="/js/BlurredImageEffect.js"></script>
 @endsection

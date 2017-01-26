@@ -1,5 +1,6 @@
 import React from 'react';
 import TimeAgo from 'react-timeago';
+import ProgressiveMedia from './ProgressiveMedia';
 import moment from 'moment';
 
 class Card extends React.Component
@@ -28,7 +29,7 @@ class Card extends React.Component
 		}
 
 		let post_url = '/posts/' + item.slug;
-		let small_image = 'https://cdn-images-1.medium.com/freeze/max/30/1*XtTMZ5cZ2KWWVFATIr3dpQ.png?q=20';
+		let small_image = '/images/blurred-image.jpeg';
 
 		return (
 			<div className="Card">
@@ -47,10 +48,7 @@ class Card extends React.Component
 				</div>
 				<div className="Card__image">
 					<a href={post_url}>
-						<div className="placeholder" data-large={featuredImage}>
-							<img src={small_image} className="img-small" /> 
-							<div className="aspect-ratio-fill"></div> 
-						</div>					
+						<ProgressiveMedia featuredImage={featuredImage}></ProgressiveMedia>
 					</a>
 				</div>
 				<div className="Card__description">
