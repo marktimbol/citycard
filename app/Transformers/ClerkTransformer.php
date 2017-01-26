@@ -16,12 +16,36 @@ class ClerkTransformer extends AbstractTransformer
         // Get clerk profile
         if( auth()->guard('clerk')->check() ) {
             $clerk = auth()->guard('clerk')->user();
+
+            // Temporary only
+            $output['permissions'] = [
+                'messaging'   => true,
+                'transactions'   => true,
+                'view_reservations'   => true,
+                'manage_reservations'   => true,
+                'manage_photo_albums'   => true,
+                'manage_shop_fronts'   => true,
+                'manage_menus'   => true,
+            ];
+
             $output['api_token'] =$clerk->api_token;
         } 
 
         // Get clerk profile
         if( auth()->guard('clerk_api')->check() ) {
             $clerk = auth()->guard('clerk_api')->user();
+
+            // Temporary only
+            $output['permissions'] = [
+                'messaging'   => true,
+                'transactions'   => true,
+                'view_reservations'   => true,
+                'manage_reservations'   => true,
+                'manage_photo_albums'   => true,
+                'manage_shop_fronts'   => true,
+                'manage_menus'   => true,
+            ];
+
             $output['api_token'] = $clerk->api_token;
         } 
 
