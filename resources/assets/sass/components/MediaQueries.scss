@@ -5,6 +5,12 @@
 			flex-direction: row;
 		}
 	}
+
+	.Card__header {
+		.Flex {
+			flex-direction: row;
+		}
+	}
 }
 
 @media (max-width: 414px) {
