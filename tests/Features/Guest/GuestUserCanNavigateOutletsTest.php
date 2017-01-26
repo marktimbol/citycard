@@ -62,7 +62,7 @@ class GuestUserCanNavigateOutletsTest extends TestCase
 				->see($post->title);
     }
 
-    public function test_guest_can_view_certai_post_of_an_outlet()
+    public function test_guest_can_view_sigle_post_of_an_outlet()
     {
     	$outlet = $this->createOutlet([
     		'name'	=> 'McDonalds',
@@ -76,8 +76,8 @@ class GuestUserCanNavigateOutletsTest extends TestCase
 
     	$url = sprintf('/api/outlets/%s/posts/%s', $outlet->id, $post->id);
 
-		$this->json('GET', $url)
-			->see($post->title);	
+		$request = $this->json('GET', $url);
+		$this->see($post->title);	
     }
 
     public function test_guest_cannot_purchase_an_offer_from_an_outlet()

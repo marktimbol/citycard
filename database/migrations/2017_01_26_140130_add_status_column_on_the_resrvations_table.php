@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class DropUuidColumnInUsersTable extends Migration
+class AddStatusColumnOnTheResrvationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,13 +13,9 @@ class DropUuidColumnInUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('uuid');
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->string('status')->default('pending')->after('confirmed');
         });
-
-        Schema::table('clerks', function (Blueprint $table) {
-            $table->dropColumn('uuid');
-        });        
     }
 
     /**
@@ -29,8 +25,8 @@ class DropUuidColumnInUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            //
+        Schema::table('reservations', function (Blueprint $table) {
+            $table->dropColumn('status');
         });
     }
 }

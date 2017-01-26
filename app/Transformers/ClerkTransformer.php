@@ -22,7 +22,7 @@ class ClerkTransformer extends AbstractTransformer
         // Get clerk profile
         if( auth()->guard('clerk_api')->check() ) {
             $clerk = auth()->guard('clerk_api')->user();
-            $output['api_token'] =$clerk->api_token;
+            $output['api_token'] = $clerk->api_token;
         } 
 
         $output['online'] = 1;

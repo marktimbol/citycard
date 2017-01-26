@@ -48,6 +48,7 @@ class UserReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => true,
+            'status'    => 'confirmed'
         ]);
 
         $pendingReservationDate = Carbon::today()->toDateTimeString();
@@ -61,6 +62,7 @@ class UserReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => false,
+            'status'    => 'pending'
         ]);
 
         $outlet->reservations()->attach([$confirmedReservation->id, $pendingReservation->id]);
@@ -75,6 +77,7 @@ class UserReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => true,
+            'status'    => 'confirmed'
         ])
             ->seeInDatabase('outlet_reservations', [
                 'outlet_id' => $outlet->id,

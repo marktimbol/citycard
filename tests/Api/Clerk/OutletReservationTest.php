@@ -47,6 +47,7 @@ class OutletReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => true,
+            'status'    => 'confirmed',
         ]);
 
         $pendingReservationDate = Carbon::tomorrow()->toDateTimeString();
@@ -60,6 +61,7 @@ class OutletReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => false,
+            'status'    => 'pending',
         ]);        
 
     	// Attach the user reservation on the outlet
@@ -107,6 +109,7 @@ class OutletReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => true,
+            'status'    => 'confirmed'
         ]);
 
         $pendingReservationDate = Carbon::tomorrow()->toDateTimeString();
@@ -120,6 +123,7 @@ class OutletReservationTest extends TestCase
             'option'    => 'VIP',
             'note'  => 'Reservation note',
             'confirmed' => false,
+            'status'    => 'pending'
         ]);        
 
         // Attach the user reservation on the outlet

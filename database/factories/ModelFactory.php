@@ -92,7 +92,8 @@ $factory->define(App\Reservation::class, function (Faker\Generator $faker) {
         'option'    => 'Silver',
         'quantity'  => 2,
         'note'  => 'The note',
-        'confirmed' => false
+        'confirmed' => false,
+        'status'    => 'pending',
     ];
 });
 

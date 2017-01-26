@@ -29,8 +29,7 @@ class AnAdminCanManagePostPhotosTest extends TestCase
 
     	$endpoint = sprintf(adminPath() . '/dashboard/posts/%s/photos/%s', $post->id, $photo->id);
 
-    	$request = $this->delete($endpoint);
-        
+    	$request = $this->delete($endpoint);        
 		$this->dontSeeInDatabase('photos', [
 			'url'	=> $photo->url,
 			'imageable_id'	=> $post->id,

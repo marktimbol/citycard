@@ -71,6 +71,7 @@ class ModifyUserReservationTest extends TestCase
     		'option'	=> 'VIP',
     		'note'	=> 'Updated reservation',
     		'confirmed'	=> false,
+            'status'    => 'modified',
     	]);
     }
 }

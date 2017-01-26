@@ -15,7 +15,8 @@ class ConfirmUserReservationController extends Controller
 	 */
     public function update(Outlet $outlet, Reservation $reservation)
     {
-    	$reservation->confirmed = true;
+        $reservation->confirmed = true;
+    	$reservation->status = 'confirmed';
     	$reservation->save();
 
 		event( new ReservationWasConfirmed($outlet, $reservation) );

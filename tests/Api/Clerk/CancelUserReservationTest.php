@@ -55,10 +55,11 @@ class CancelUserReservationTest extends TestCase
     	$request = $this->delete($endpoint, [
     		'message'	=> 'Sorry, your reservation has been cancelled due to some reasons.'
     	]);
-
+        
         $this->seeInDatabase('reservations', [
             'id'    => $reservation->id,
             'confirmed' => false,
+            'status'    => 'cancelled',
         ])
         	->seeInDatabase('cancelled_reservations', [
         		'outlet_id'	=> $outlet->id,

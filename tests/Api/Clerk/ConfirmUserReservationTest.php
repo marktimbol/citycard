@@ -58,6 +58,7 @@ class ConfirmUserReservationTest extends TestCase
     	$this->seeInDatabase('reservations', [
     		'id'	=> $reservation->id,
     		'confirmed'	=> true,
+            'status'    => 'confirmed'
     	]);
     }  
 }

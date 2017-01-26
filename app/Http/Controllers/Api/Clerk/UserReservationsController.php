@@ -16,6 +16,7 @@ class UserReservationsController extends Controller
     public function update(Request $request, Outlet $outlet, Reservation $reservation)
     {
     	$reservation->confirmed = false;
+        $reservation->status = 'modified';
     	$reservation->save();
 
         $reservation->update($request->all());
@@ -32,6 +33,7 @@ class UserReservationsController extends Controller
     public function destroy(Request $request, Outlet $outlet, Reservation $reservation)
     {    	
         $reservation->confirmed = false;
+        $reservation->status = 'cancelled';
         $reservation->save();
 
         $outlet->cancelledReservations()->attach($reservation, [

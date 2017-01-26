@@ -14,11 +14,15 @@ class AddUuidInUsersAndClerksTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->uuid('uuid')->after('id');
+            $table->uuid('uuid')->nullable()
+                ->default('uuid')
+                ->after('id');
         });
 
         Schema::table('clerks', function (Blueprint $table) {
-            $table->uuid('uuid')->after('id');
+            $table->uuid('uuid')->nullable()
+                ->default('uuid')
+                ->after('id');
         });        
     }
 
@@ -29,12 +33,12 @@ class AddUuidInUsersAndClerksTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('uuid');
-        });
+        // Schema::table('users', function (Blueprint $table) {
+        //     $table->dropColumn('uuid');
+        // });
 
-        Schema::table('clerks', function (Blueprint $table) {
-            $table->dropColumn('uuid');
-        });        
+        // Schema::table('clerks', function (Blueprint $table) {
+        //     $table->dropColumn('uuid');
+        // });        
     }
 }

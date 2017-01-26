@@ -6,7 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Reservation extends Model
 {
-    protected $fillable = ['item_id', 'date', 'time', 'flexible_dates', 'quantity', 'option', 'note'];
+    protected $fillable = [
+        'item_id', 'date', 'time', 'flexible_dates', 'quantity', 'option', 'note', 'status'
+    ];
 
     protected $dates = ['date'];
     
@@ -33,11 +35,11 @@ class Reservation extends Model
 
     public function scopeConfirmed($query)
     {
-        return $query->where('confirmed', true);
+        return $query->where('confirmed', true)->where('status', 'confirmed');
     }
 
     public function scopePending($query)
     {
-        return $query->where('confirmed', false);
-    }    
+        return $query->where('confirmed', false)->where('status', 'pending');
+    }
 }

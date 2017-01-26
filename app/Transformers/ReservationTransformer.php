@@ -12,7 +12,7 @@ class ReservationTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-            'id', 'date', 'time', 'flexible_dates', 'quantity', 'option', 'note', 'confirmed'
+            'id', 'date', 'time', 'flexible_dates', 'quantity', 'option', 'note', 'confirmed', 'status'
     	]);
 
     	if( $this->isRelationshipLoaded($item, 'item') ) {
