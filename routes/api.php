@@ -21,6 +21,9 @@ Route::group([
 });
 
 Route::group(['as' => 'api.'], function() {
+
+	Route::post('/layer/identity_token', 'Api\LayerIdentityTokenController@store');	
+
 	// User Authentication
 	Route::post('login', 'Api\Auth\User\LoginController@login');
 	Route::post('password/email', 'Api\Auth\User\ForgotPasswordController@sendResetLinkEmail');
