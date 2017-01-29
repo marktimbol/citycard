@@ -2,12 +2,13 @@
 
 namespace App;
 
+use Ramsey\Uuid\Uuid;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use CanSendMessage, Notifiable, Uuids;
+    use CanSendMessage, Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -38,6 +39,7 @@ class User extends Authenticatable
         parent::boot();
 
         static::creating(function($user) {
+            $user->uuid = Uuid::uuid1()->toString();
             // Email confirmation token
             $user->token = str_random(30);
             // Mobile verification code
