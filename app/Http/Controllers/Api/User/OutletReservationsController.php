@@ -17,6 +17,7 @@ class OutletReservationsController extends Controller
     {
     	$user = auth()->guard('user_api')->user();
 
+        $request['status'] = 'pending';
     	$reservation = $user->reservations()->create($request->all());
 
     	$outlet->reservations()->attach($reservation->id);
@@ -33,6 +34,7 @@ class OutletReservationsController extends Controller
     public function update(Request $request, Outlet $outlet, Reservation $reservation)
     {        
         $reservation->confirmed = false;
+        $reservation->status = 'pending';
         $reservation->save();
 
         $reservation->update($request->all());

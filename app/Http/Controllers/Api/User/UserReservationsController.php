@@ -15,7 +15,9 @@ class UserReservationsController extends Controller
         $user->load('reservations');
 
         $userReservations = $user->reservations()->confirmed()->get();
-        if( request()->has('show') && request()->show == 'pending' ) {
+
+        if( request()->has('show') && request()->show == 'pending' )
+        {
             $userReservations = $user->reservations()->pending()->get();
         }
 
