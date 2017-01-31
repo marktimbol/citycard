@@ -15,11 +15,8 @@ class OutletsController extends Controller
         $outlets = Outlet::with('merchant')->latest();
 
         if( request()->has('lat') && request()->has('lng') ) {
-            $outlets = $outlets->byDistance(request()->lat, request()->lng);
-            $outlet_ids = $outlets->pluck('id');
-
-            $outlets = Outlet::with('merchant')->latest()->whereIn('id', $outlet_ids)->get();
-            return OutletTransformer::transform($outlets);
+            $outlet_ids = $outlets->byDistance(request()->lat, request()->lng)->pluck('id');
+            $outlets = $outlets->whereIn('id', $outlet_ids);
         }
 
         return OutletTransformer::transform($outlets->get());
