@@ -27,6 +27,7 @@ class UpdateOutletRequest extends FormRequest
             'name'  => 'required|min:3',
 			'phone'	=> 'required',
             'email' => 'required|email',
+            'currency'  => 'required',
         ];
     }
 }

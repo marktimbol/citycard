@@ -18,7 +18,8 @@ class EditOutlet extends Component
 			name: outlet.name,
 			phone: outlet.phone,
 			email: outlet.email,
-			
+			currency: outlet.currency,
+
 			errors: [],
 		}
 
@@ -47,6 +48,7 @@ class EditOutlet extends Component
 	    		name: that.state.name,
 	    		phone: that.state.phone,
 	    		email: that.state.email,
+	    		currency: that.state.currency,
 	    	}
 	    }).then(function(response) {
 	    	console.log('EditOutlet response', response.data);
@@ -86,6 +88,7 @@ class EditOutlet extends Component
 	render()
 	{
 		let outlet = app.outlet;
+		let errors = this.state.errors;
 
 		return (
 			<form method="POST" id="EditOutletForm" onSubmit={this.onSubmit.bind(this)}>
@@ -97,16 +100,19 @@ class EditOutlet extends Component
 						className="form-control"
 						disabled />
 				</div>			
-				<div className="form-group">
+				<div className={errors.hasOwnProperty('name') ? 'form-group has-error' : 'form-group'}>
 					<label>Name</label>
 					<input type="text"
 						name="name"
 						value={this.state.name}
 						onChange={this.handleChange}
 						className="form-control" />
+					<span className="help-block">
+						{ errors.hasOwnProperty('name') ? errors['name'] : '' }
+					</span>
 				</div>
 
-				<div className="form-group">
+				<div className={errors.hasOwnProperty('phone') ? 'form-group has-error' : 'form-group'}>
 					<label htmlFor="phone" className="label-block">Phone</label>
 					<input type="tel"
 						name="phone"
@@ -114,11 +120,32 @@ class EditOutlet extends Component
 						value={this.state.phone}
 						onChange={this.handleChange}
 						className="form-control" />
+					<span className="help-block">
+						{ errors.hasOwnProperty('phone') ? errors['phone'] : '' }
+					</span>						
+				</div>
+
+				<h3>What is your preferred currency?</h3>
+				<div className="row">
+					<div className="col-md-4">
+						<div className={errors.hasOwnProperty('currency') ? 'form-group has-error' : 'form-group'}>
+							<label htmlFor="currency" className="control-label">Currency</label>
+							<input type="text"
+								name="currency"
+								id="currency"
+								value={this.state.currency}
+								onChange={this.handleChange}
+								className="form-control" />
+							<span className="help-block">
+								{ errors.hasOwnProperty('currency') ? errors['currency'] : '' }
+							</span>								
+						</div>	
+					</div>
 				</div>
 
 				<h2>Account Details</h2>
 
-				<div className="form-group">
+				<div className={errors.hasOwnProperty('email') ? 'form-group has-error' : 'form-group'}>
 					<label htmlFor="email">Email</label>
 					<input type="email"
 						name="email"
@@ -126,6 +153,9 @@ class EditOutlet extends Component
 						value={this.state.email}
 						onChange={this.handleChange}
 						className="form-control" />
+					<span className="help-block">
+						{ errors.hasOwnProperty('email') ? errors['email'] : '' }
+					</span>						
 				</div>
 
 				<div className="form-group">
