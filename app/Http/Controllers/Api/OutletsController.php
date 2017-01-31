@@ -7,19 +7,20 @@ use App\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\OutletTransformer;
+use App\Transformers\OutletNearMeTransformer;
 
 class OutletsController extends Controller
 {
     public function index()
     {
-        $outlets = Outlet::with('merchant')->latest();
+        $outlets = Outlet::with('merchant', 'categories')->latest();
 
         if( request()->has('lat') && request()->has('lng') ) {
             $outlet_ids = $outlets->byDistance(request()->lat, request()->lng)->pluck('id');
             $outlets = $outlets->whereIn('id', $outlet_ids);
         }
 
-        return OutletTransformer::transform($outlets->get());
+        return OutletNearMeTransformer::transform($outlets->get());
     }
 
     public function show(Outlet $outlet)

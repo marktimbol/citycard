@@ -67,7 +67,11 @@ class OutletTransformer extends AbstractTransformer
 
         if( $this->isRelationshipLoaded($item, 'clerks') ) {
             $output['clerks'] = ClerkTransformer::transform($item->clerks);
-        }                
+        }   
+
+        if( $this->isRelationshipLoaded($item, 'categories') ) {
+            $output['categories'] = CategoryTransformer::transform($item->categories);
+        }                        
 
         return $output; 
     }
