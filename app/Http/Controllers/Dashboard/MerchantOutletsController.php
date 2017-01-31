@@ -48,6 +48,8 @@ class MerchantOutletsController extends Controller
             'has_messaging'   => $outlet->has_messaging,
             'has_menus'   => $outlet->has_menus,
             'is_open'   => $outlet->is_open,
+
+            'countries' => Country::orderBy('name', 'asc')->get(),
         ]);
 
         return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'outletClerks', 'merchantClerks', 'itemsForReservation'));

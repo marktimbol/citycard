@@ -75,6 +75,9 @@ Route::group([
 		'only'	=> ['store', 'destroy']
 	]);
 
+	// Update Outlet Location
+	Route::put('outlets/{outlet}/location', 'Dashboard\OutletLocationController@update');
+
 	Route::resource('outlets', 'Dashboard\OutletsController', [
 		'only'	=> ['show']
 	]);

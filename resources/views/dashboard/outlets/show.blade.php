@@ -2,6 +2,11 @@
 
 @section('pageTitle', 'Outlet - '. $outlet->name)
 
+@section('header_styles')
+	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
+@endsection
+
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Outlet</h1>
@@ -53,6 +58,17 @@
 		<ul class="list-group">
 			<li class="list-group-item">
 				Address: {{ $outlet->address }}
+				@can('update', $outlet)
+					<small>
+						<button 
+							class="btn btn-sm btn-link"
+							data-toggle="modal"
+							data-target="#UpdateOutletAddressModal"
+						>					
+							<i class="fa fa-pencil"></i>
+						</button>
+					</small>
+				@endcan					
 			</li>
 			<li class="list-group-item">
 				Area:  {{ $outlet->getLocation() }}
@@ -100,6 +116,7 @@
 
 	@include('dashboard.merchants._posts')
 
+	@include('dashboard.outlets._update-outlet-address')
 	@include('dashboard.outlets._upload-outlet-gallery')
 	@include('dashboard.outlets._select-existing-clerks')
 
@@ -110,8 +127,10 @@
 @endsection
 
 @section('footer_scripts')
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2a80giA7UX_NMcPudNvxfibPRktPEIg&libraries=places"></script>
 	<script src="{{ elixir('js/MerchantPosts.js') }}"></script>
 	<script src="{{ elixir('js/OutletSettings.js') }}"></script>
 	<script src="{{ elixir('js/CreateItemForReservation.js') }}"></script>
 	<script src="{{ elixir('js/ItemsForReservation.js') }}"></script>
+	<script src="{{ elixir('js/UpdateOutletAddress.js') }}"></script>
 @endsection
