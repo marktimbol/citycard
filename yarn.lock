@@ -276,10 +276,6 @@ block-stream@*:
   dependencies:
     inherits "~2.0.0"
 
-blurry-image-load:
-  version "0.0.0"
-  resolved "https://registry.yarnpkg.com/blurry-image-load/-/blurry-image-load-0.0.0.tgz#e82e4874b0af952529e3ae8e5aaea8d88d7458da"
-
 bn.js@^4.0.0, bn.js@^4.1.0, bn.js@^4.1.1, bn.js@^4.4.0:
   version "4.11.6"
   resolved "https://registry.yarnpkg.com/bn.js/-/bn.js-4.11.6.tgz#53344adb14617a13f6e8dd2ce28905d1c0ba3215"
@@ -478,7 +474,7 @@ cipher-base@^1.0.0, cipher-base@^1.0.1:
   dependencies:
     inherits "^2.0.1"
 
-classnames@^2.2.4, classnames@^2.2.5:
+classnames, classnames@^2.2.4, classnames@^2.2.5:
   version "2.2.5"
   resolved "https://registry.yarnpkg.com/classnames/-/classnames-2.2.5.tgz#fb3801d453467649ef3603c7d61a02bd129bde6d"
 
@@ -2881,6 +2877,12 @@ react-onclickoutside@^5.7.1:
   dependencies:
     object-assign "^4.0.1"
 
+react-places-autocomplete:
+  version "2.8.0"
+  resolved "https://registry.yarnpkg.com/react-places-autocomplete/-/react-places-autocomplete-2.8.0.tgz#33dc72ddddf16eca28d815ea004a22126a20c954"
+  dependencies:
+    react "15.4.2"
+
 react-select:
   version "1.0.0-rc.2"
   resolved "https://registry.yarnpkg.com/react-select/-/react-select-1.0.0-rc.2.tgz#9fc11b149a3dc1ac831289d21b40a59742f82f8d"
@@ -2891,6 +2893,14 @@ react-select:
 react-timeago:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/react-timeago/-/react-timeago-3.1.3.tgz#8ebefed9757dd48eb0c64642ae4f94930b579d9f"
+
+react@15.4.2:
+  version "15.4.2"
+  resolved "https://registry.yarnpkg.com/react/-/react-15.4.2.tgz#41f7991b26185392ba9bae96c8889e7e018397ef"
+  dependencies:
+    fbjs "^0.8.4"
+    loose-envify "^1.1.0"
+    object-assign "^4.1.0"
 
 read-pkg-up@^1.0.1:
   version "1.0.1"

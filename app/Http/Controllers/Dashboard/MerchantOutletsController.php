@@ -77,7 +77,7 @@ class MerchantOutletsController extends Controller
 
     public function edit(Merchant $merchant, Outlet $outlet)
     {
-		$outlet->load('areas.city.country');
+		$outlet->load('categories', 'subcategories', 'areas.city.country');  
 		$area = $outlet->areas->first();
 
 		$countries = Country::orderBy('name', 'asc')->get();
@@ -93,12 +93,7 @@ class MerchantOutletsController extends Controller
 
     public function update(UpdateOutletRequest $request, Merchant $merchant, Outlet $outlet)
     {
-		$area = Area::findOrFail($request->area);
-		$request['name'] = sprintf('%s - %s', $merchant->name, $area->name);
         $outlet->update($request->all());
-
-		$outlet->areas()->detach();
-		$outlet->areas()->attach($request->area);
 
 		return $outlet;
     }

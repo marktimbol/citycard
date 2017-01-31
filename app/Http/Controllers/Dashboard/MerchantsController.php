@@ -10,8 +10,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests;
 use App\Http\Requests\CreateMerchantRequest;
 use App\Merchant;
+use App\MerchantSubcategory;
+use App\OutletSubcategory;
 use App\Subcategory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 use JavaScript;
 use Maatwebsite\Excel\Excel;
 
@@ -68,61 +71,52 @@ class MerchantsController extends Controller
     }
 
     public function store(CreateMerchantRequest $request)
-    {
-		// dd($request->all());
-
+    {        
+        // Create the Merchant
         $merchant = Merchant::create($request->all());
 
-		if( is_numeric($request->area) ) {
-			$area = Area::findOrFail($request->area);
-		} else {
-			$city = City::findOrFail($request->city);
-            $area = $city->areas()->create([
-                'name'  => $request->area,
-            ]);
-		}
+        // Find the existing Area {$request->area},
+        // if the record does not exists, then create it.
+        $area = Area::firstOrCreate([
+            'city_id'   => $request->city,
+            'name'  => $request->area
+        ]);
 
-        // Store merchant in area
-		$area->merchants()->attach($merchant);
-        // Store the category of a merchant
-		$category = Category::findOrFail($request->category);
-		$merchant->categories()->attach($category);
-
-		$subcategories = collect(explode(',', $request->subcategories));
-        $subcategories = $subcategories->partition(function($value) {
-            return is_numeric($value);
-        });
-
-        // User selected categories
-        if( $subcategories[0]->count() > 0 ) {
-            $merchant->subcategories()->attach($subcategories[0]->all());
-        }
-
-        // User typed categories
-        if( $subcategories[1]->count() > 0 )
-		{
-            foreach( $subcategories[1]->all() as $subcategory ) {
-				$subcategory = $category->subcategories()->create([
-					'name'	=> $subcategory
-				]);
-            	$merchant->subcategories()->attach($subcategory);
-            }
-        }
-
+        // Create Outlet
         $outlet = $merchant->outlets()->create([
-            'name'  => sprintf('%s - %s', $request->name, $area->name),
+            'name'  => sprintf('%s - %s', $request->name, $area->name), // Zara - Al Rigga
             'email'  => $request->email,
             'password'  => $request->password,
             'phone'  => $request->phone,
             'currency'  => $request->currency,
-            'address1'  => '',
-            'address2'  => '',
-            'latitude'  => '',
-            'longitude'  => '',
+            'address'  => $request->address,
+            'lat'  => $request->lat,
+            'lng'  => $request->lng,
         ]);
 
-		$outlet->areas()->attach($area);
+        // Attach Merchant & Outlet on the selected area
+        $area->merchants()->attach($merchant);
+		$area->outlets()->attach($outlet);
 
+        // Store the category on Merchant & Outlet
+        $merchant->categories()->attach($request->category);
+		$outlet->categories()->attach($request->category);
+
+        $subcategories = collect($request->subcategories);  
+        $subcategories->map(function($item) use ($request, $merchant, $outlet) {
+            // Find the existing Subcategory {$item},
+            // if the record does not exists, then create it.
+            $subcategory = Subcategory::firstOrCreate([
+                'category_id'   => $request->category,
+                'name'  => $item['value']
+            ]);
+
+            // Store Merchant & Outlet Subcategory
+            $merchant->subcategories()->attach($subcategory);
+            $outlet->subcategories()->attach($subcategory);
+        });
+
+        // User Report
         auth()->guard('admin')->user()->merchants()->attach($merchant->id);
         auth()->guard('admin')->user()->outlets()->attach($outlet->id);
 
@@ -136,11 +130,24 @@ class MerchantsController extends Controller
 
     public function update(Request $request, Merchant $merchant)
     {
+        $validator = Validator::make($request->all(), [
+            'name'  => 'required|min:3',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'currency'  => 'required'
+        ]);
+
+        $validator->sometimes(['password'], 'required|min:6|confirmed', function($input) {
+            return $input->password != '';
+        });
+
+        $validator->validate();
+
         $merchant->update($request->all());
 
         flash()->success('A merchant information has been successfully updated.');
 
-        return back();
+        return redirect()->route('dashboard.merchants.show', $merchant->id);
     }
 
     public function destroy(Merchant $merchant)

@@ -33,10 +33,10 @@ elixir(mix => {
 
       .webpack('app.js')
       .webpack('components/Authentication.js')
-      .webpack('components/CreateOutlet.js')
-      .webpack('components/EditOutlet.js')
+      .webpack('components/Outlet/CreateOutlet.js')
+      .webpack('components/Outlet/EditOutlet.js')
       .webpack('components/CreatePost.js')
-      .webpack('components/CreateMerchant.js')
+      .webpack('components/Merchant/CreateMerchant.js')
       .webpack('components/MerchantPosts.js')
       .webpack('components/OutletSettings.js')
       .webpack('components/CreateItemForReservation.js')
@@ -93,7 +93,7 @@ elixir(mix => {
           // Front end
           'public/css/public.css',
           'public/js/public.js',
-          'public/js/HomeAuthentication.js',
+          'public/js/Authentication.js',
 
           // Back end
           'public/css/app.css',
@@ -106,6 +106,7 @@ elixir(mix => {
           'public/js/CreateMerchant.js',
           'public/js/MerchantPosts.js',
           'public/js/CreateOutlet.js',
+          'public/js/EditOutlet.js',
           'public/js/CreatePost.js',
           'public/js/DashboardPosts.js',
           'public/js/OutletSettings.js',

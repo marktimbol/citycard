@@ -16,7 +16,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'email', 'password', 'phone', 'currency', 'address1', 'address2', 'latitude', 'longitude',
+	    'name', 'email', 'password', 'phone', 'currency', 'address', 'lat', 'lng',
 	];
 
 	/**
@@ -75,6 +75,16 @@ class Outlet extends Authenticatable
     {
         return $this->belongsToMany(Area::class, 'area_outlets', 'outlet_id', 'area_id');
     }
+
+	public function categories()
+	{
+		return $this->belongsToMany(Category::class, 'outlet_categories', 'outlet_id', 'category_id');
+	}
+
+	public function subcategories()
+	{
+		return $this->belongsToMany(Subcategory::class, 'outlet_subcategories', 'outlet_id', 'subcategory_id');
+	}
 
     public function reservations()
     {

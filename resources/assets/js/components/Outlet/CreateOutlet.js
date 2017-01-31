@@ -1,7 +1,7 @@
-// CreateOutlet.js
+// component/CreateOutlet.js
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Countries from './Countries';
+import Countries from '../Countries';
 
 class CreateOutlet extends Component
 {

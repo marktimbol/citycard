@@ -354,7 +354,7 @@ class CreatePost extends Component
 							{ errors.hasOwnProperty('source') ?
 								<span className="help-block">{ errors['source'] }</span>
 								: <span></span>
-							}								
+							}				
 						</div>
 					</div>
 					<div className="col-md-8">
@@ -371,7 +371,7 @@ class CreatePost extends Component
 										{ errors.hasOwnProperty('source_from') ?
 											<span className="help-block">{ errors['source_from'] }</span>
 											: <span></span>
-										}												
+										}										
 									</div>
 								</div>
 								<div className="col-md-6">

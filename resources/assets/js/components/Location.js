@@ -1,9 +1,9 @@
 import React from 'react';
+import axios from 'axios';
 import Select, { Creatable } from 'react-select';
 import PlacesAutocomplete from 'react-places-autocomplete';
-import { geocodeByAddress } from 'react-places-autocomplete';
 
-class Countries extends React.Component
+class Location extends React.Component
 {
     constructor(props)
     {
@@ -13,11 +13,8 @@ class Countries extends React.Component
             selectedCountry: '',
             selectedCity: '',
             selectedArea: '',
-            customArea: false,
 
             address: '',
-            lat: '',
-            lng: '',            
 
             availableCities: [],
             availableAreas: [],
@@ -33,35 +30,28 @@ class Countries extends React.Component
     }
 
     handleAddressChange(address) {
-        let that = this;
-        this.setState({ address })
-        
-        geocodeByAddress(address, (err, { lat, lng }) => {
-            that.setState({ lat, lng })
+        this.setState({
+            address
         })
+        this.props.handleAddressChange(address);
     }
 
     handleCountryChange(e) {
         let selectedCountry = e.value;
-
         this.setState({ selectedCountry });
         this.fetchCities(selectedCountry);
     }
 
     fetchCities(country) {
-        this.setState({
-            isFetchingCities: true
-        })
+        this.setState({ isFetchingCities: true })
 
         let that = this;
-		let url = '/api/countries/'+country+'/cities';
-
-        axios.get(url)
+        axios.get('/api/countries/'+country+'/cities')
             .then(function(response) {
                 that.setState({
                     availableCities: response.data,
                     isFetchingCities: false,
-                });   
+                });
             })
 	}
 
@@ -70,17 +60,15 @@ class Countries extends React.Component
 
         this.setState({ selectedCity })
 		this.fetchAreas(selectedCity);
+
+        this.props.handleCityChange(selectedCity);
 	}
 
 	fetchAreas(city) {
-        this.setState({
-            isFetchingAreas: true
-        })
+        this.setState({ isFetchingAreas: true })
 
         let that = this;
-		let url = '/api/cities/'+city+'/areas';
-
-        axios.get(url)
+        axios.get('/api/cities/'+city+'/areas')
             .then(function(response) {
                 that.setState({
                     availableAreas: response.data,
@@ -89,26 +77,22 @@ class Countries extends React.Component
             })
 	}
 
-	handleAreaChange(value) {        
-        if( isNaN(value.value) ) {
-            // User typed the area
-            this.setState({
-                customArea: true
-            })
-        } else {
-            // User select from the area
-            this.setState({
-                customArea: false
-            })
-        }
-
+	handleAreaChange(value) {  
 		this.setState({
             selectedArea: value
         });
+
+        this.props.handleAreaChange(value);
 	}
 
     render()
     {
+        let errors = this.props.errors;
+        let formGroup = 'form-group';
+        let hasError = formGroup + ' has-error';
+
+        let areaInputClass = errors.hasOwnProperty('area') ? hasError : formGroup;
+
         let availableCountries = app.countries.map(country => {
             return {
                 value: country.id,
@@ -125,15 +109,17 @@ class Countries extends React.Component
 
         let availableAreas = this.state.availableAreas.map(area => {
             return {
-                value: area.id,
+                value: area.name,
                 label: area.name
             }
 		});
 
         const addressSuggestions = ({ suggestion }) => (<div><i className="fa fa-map-marker"/>{suggestion}</div>)
+        let formGroupClass = 'form-group ' + this.props.addressClass;
+
         const addressInputClasses = {
-            root: 'form-group',
-            label: 'form-label',
+            root: formGroupClass,
+            label: 'form-label control-label',
             input: 'form-control',
         }
 
@@ -169,15 +155,15 @@ class Countries extends React.Component
                 </div>
 
                 <div className="col-md-4">
-                    <div className="form-group">
-                        <label htmlFor="area">Area</label>
-                        <input type="hidden" name="custom_area" value={this.state.customArea} />
+                    <div className={areaInputClass}>
+                        <label htmlFor="area" className="control-label">Area</label>
                         <Creatable
                             name="area"
                             value={this.state.selectedArea}
                             options={availableAreas}
                             isLoading={this.state.isFetchingAreas}
                             onChange={this.handleAreaChange} />
+                        <span className="help-block">{ errors.hasOwnProperty('area') ? errors['area'] : '' }</span>
                     </div>
                 </div>
             </div>
@@ -185,4 +171,4 @@ class Countries extends React.Component
     }
 }
 
-export default Countries;
+export default Location;

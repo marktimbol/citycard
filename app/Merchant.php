@@ -17,7 +17,7 @@ class Merchant extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'phone', 'email', 'password', 'currency', 'logo'
+	    'name', 'phone', 'email', 'password', 'address', 'lat', 'lng', 'currency', 'logo'
 	];
 
 	/**

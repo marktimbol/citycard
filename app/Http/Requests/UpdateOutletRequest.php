@@ -24,9 +24,9 @@ class UpdateOutletRequest extends FormRequest
     public function rules()
     {
         return [
-            'area' => 'required',
-			'email'	=> 'required|email',
+            'name'  => 'required|min:3',
 			'phone'	=> 'required',
+            'email' => 'required|email',
         ];
     }
 }

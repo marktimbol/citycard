@@ -55,30 +55,35 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     {
 		$endpoint = adminPath() . '/dashboard/merchants';
 
-		$city = $this->createCity([
-			'name'	=> 'Dubai'
+		$country = $this->createCountry([
+			'name'	=> 'United Arab Emirates'
 		]);
 
-		// $area = $this->createArea([
-		// 	'city_id'	=> $city->id,
-		// 	'name'	=> 'Al Barsha'
-		// ]);
+		$city = $this->createCity([
+			'country_id'	=> $country->id,
+			'name'	=> 'Dubai'
+		]);
 
 		$category = $this->createCategory([
 			'name'	=> 'Food'
 		]);
 
-		$this->createSubCategory([
+		$brunch = $this->createSubCategory([
 			'category_id'	=> $category->id,
 			'name'	=> 'Brunch'
 		]);
 
-		$this->seeInDatabase('subcategories', [
-			'id'	=> 1,
-			'category_id'	=> 1,
-			'name'	=> 'Brunch'
-		]);
-
+		$subcategories = [
+			0 => [
+				'value'	=> 'Brunch',
+				'label'	=> 'Brunch'
+			],
+			1 => [
+				'value'	=> 'Buffet',
+				'label'	=> 'Buffet'
+			]			
+		];
+		
 		$request = $this->post($endpoint, [
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
@@ -86,66 +91,85 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
 
+			'address'	=> 'Dubai - United Arab Emirates',
+			'lat'	=> '1.2',
+			'lng'	=> '2.3',
+
 			'city'	=> $city->id,
 			'area'	=> 'Al Rigga',
 
 			'category'	=> $category->id,
-			'subcategories'	=> '1,Buffet',
+			'subcategories'	=> $subcategories,
 
 			'currency'	=> 'AED'
 		]);
+
+		dd($request);
 
 		$this->seeInDatabase('merchants', [
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
+
+			'address'	=> 'Dubai - United Arab Emirates',
+			'lat'	=> '1.2',
+			'lng'	=> '2.3',	
+					
 			'currency'	=> 'AED'
 		]);
+
+        $this->seeInDatabase('outlets', [
+            'merchant_id'   => 1,
+            'name'  => 'Zara - Al Rigga',
+			'phone' => '0563759865',
+            'email' => 'john@example.com',
+
+			'address'	=> 'Dubai - United Arab Emirates',
+			'lat'	=> '1.2',
+			'lng'	=> '2.3',
+
+			'currency'	=> 'AED',
+        ]);  
 
 		$this->seeInDatabase('merchant_categories', [
 			'merchant_id'	=> 1,
 			'category_id'	=> $category->id,
 		])
+			->seeInDatabase('merchant_subcategories', [
+				'merchant_id'	=> 1,
+				'subcategory_id'	=> 1,
+			])
 
-		->seeInDatabase('subcategories', [
-			'category_id'	=> 1,
+			->seeInDatabase('merchant_subcategories', [
+				'merchant_id'	=> 1,
+				'subcategory_id'	=> 2,
+			]);
+
+		$this->seeInDatabase('outlet_categories', [
+			'outlet_id'	=> 1,
+			'category_id'	=> $category->id,
+		])
+			->seeInDatabase('outlet_subcategories', [
+				'outlet_id'	=> 1,
+				'subcategory_id'	=> 1,
+			])
+
+			->seeInDatabase('outlet_subcategories', [
+				'outlet_id'	=> 1,
+				'subcategory_id'	=> 2,
+			]);
+
+		$this->seeInDatabase('subcategories', [
+			'category_id'	=> $category->id,
 			'name'	=> 'Buffet'
-		])
-
-		->seeInDatabase('merchant_subcategories', [
-			'merchant_id'	=> 1,
-			'subcategory_id'	=> 1,
-		])
-
-		->seeInDatabase('merchant_subcategories', [
-			'merchant_id'	=> 1,
-			'subcategory_id'	=> 2,
-		]);
-
-		$this->seeInDatabase('area_merchants', [
-			'area_id'	=> 1,
-			'merchant_id'	=> 1,
-		])
-
-        ->seeInDatabase('outlets', [
-            'merchant_id'   => 1,
-            'name'  => 'Zara - Al Rigga',
-			'phone' => '0563759865',
-            'email' => 'john@example.com',
-			'currency'	=> 'AED'
-        ])
-
-		->seeInDatabase('area_outlets', [
+		]);      
+		
+		$this->seeInDatabase('area_outlets', [
 			'area_id'	=> 1,
 			'outlet_id'	=> 1,
 		]);
 
-		$this->seeInDatabase('admin_merchants', [
-			'admin_id'	=> 1,
-			'merchant_id'	=> 1,
-		])
-
-		->seeInDatabase('admin_outlets', [
+		$this->seeInDatabase('admin_outlets', [
 			'admin_id'	=> 1,
 			'outlet_id'	=> 1,
 		]);
@@ -170,13 +194,20 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 		$request = $this->post($endpoint, [
 			'city'	=> $city->id,
 			'area'	=> 'Al Rigga',
+
 			'category'	=> $food->id,
-			'subcategories'	=> '1,Buffet',
+			'subcategories'	=> 'Filipino Food,Buffet',
+			
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',
 			'email'	=> 'john@example.com',
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
+
+			'address'	=> 'Dubai - United Arab Emirates',
+			'lat'	=> '1.2',
+			'lng'	=> '2.3',
+
 			'currency'	=> 'AED'
 		]);
 

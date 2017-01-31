@@ -24,14 +24,15 @@ class CreateMerchantRequest extends FormRequest
     public function rules()
     {
         return [
-            'area' => 'required',
-            'name'	=> 'required|unique:merchants',
-			'email'	=> 'required|email|unique:merchants',
+            'name'  => 'required|unique:merchants',
+            'email' => 'required|email|unique:merchants',
             'phone'  => 'required',
+            'address'  => 'required',
             'currency'  => 'required',
             'category'  => 'required',
             'subcategories' => 'required',
-			'password'	=> 'required|min:6|confirmed',
+            'password'  => 'required|min:6|confirmed',
+            'area' => 'required',
         ];
     }
 }

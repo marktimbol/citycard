@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import Select, { Creatable } from 'react-select';
 
 class Categories extends React.Component
@@ -8,6 +9,8 @@ class Categories extends React.Component
         super(props);
 
         this.state = {
+            selectedCategory: '',
+            selectedSubcategories: [],
             availableSubcategories: [],
             isFetchingSubcategories: false,
         }
@@ -17,8 +20,9 @@ class Categories extends React.Component
     }
 
     handleCategoryChange(e) {
-        this.setState({ 
-            isFetchingSubcategories: true 
+        this.setState({
+            selectedCategory: e.value,
+            isFetchingSubcategories: true,
         });
         
         this.props.handleCategoryChange(e.value);
@@ -27,17 +31,22 @@ class Categories extends React.Component
     }
 
     fetchSubcategories(selectedCategory) {
+        let that = this;
         let url = '/api/categories/'+selectedCategory+'/subcategories';
 
-        $.get(url, function(response) {
-            this.setState({
-                availableSubcategories: response,
-                isFetchingSubcategories: false
-            });
-        }.bind(this))
+        axios.get(url)
+            .then(function(response) {
+                that.setState({
+                    availableSubcategories: response.data,
+                    isFetchingSubcategories: false
+                });
+            })
     }
 
     handleSubcategoryChange(value) {
+        this.setState({
+            selectedSubcategories: value
+        })
         this.props.handleSubcategoryChange(value);        
     }
 
@@ -53,14 +62,17 @@ class Categories extends React.Component
 
         let availableSubcategories = this.state.availableSubcategories.map(subcategory => {
             return {
-                value: subcategory.id,
+                value: subcategory.name,
                 label: subcategory.name
             }
         })
 
         let errors = this.props.errors;
-        let categoryClass = errors.hasOwnProperty('category') ? 'form-group has-error' : 'form-group';
-        let subcategoryClass = errors.hasOwnProperty('subcategories') ? 'form-group has-error' : 'form-group';
+        let formGroup = 'form-group';
+        let hasError = formGroup + ' has-error';
+
+        let categoryClass = errors.hasOwnProperty('category') ? hasError : formGroup;
+        let subcategoryClass = errors.hasOwnProperty('subcategories') ? hasError : formGroup;
 
         return (
             <div className="row">
@@ -69,13 +81,10 @@ class Categories extends React.Component
                         <label htmlFor="category" className="control-label">Category</label>
                         <Select
                             name="category"
-                            value={this.props.selectedCategory}
+                            value={this.state.selectedCategory}
                             options={availableCategories}
                             onChange={this.handleCategoryChange} />
-                        { errors.hasOwnProperty('category') ?
-                            <span className="help-block">{ errors['category'] }</span>
-                            : <span></span>
-                        }                               
+                        <span className="help-block">{ errors.hasOwnProperty('category') ? errors['category'] : ''}</span>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -83,16 +92,13 @@ class Categories extends React.Component
                         <label htmlFor="category" className="control-label">Subcategories</label>
                         <Creatable
                             name="subcategories"
-                            value={this.props.selectedSubcategories}
+                            value={this.state.selectedSubcategories}
                             options={availableSubcategories}
                             isLoading={this.state.isFetchingSubcategories}
                             multi={true}
                             joinValues
                             onChange={this.handleSubcategoryChange} />
-                        { errors.hasOwnProperty('subcategories') ?
-                            <span className="help-block">{ errors['subcategories'] }</span>
-                            : <span></span>
-                        }                              
+                        <span className="help-block">{ errors.hasOwnProperty('subcategories') ? errors['subcategories'] : ''}</span>                          
                     </div>
                 </div>
             </div>

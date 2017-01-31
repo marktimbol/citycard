@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Area extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['city_id', 'name'];
 
     public function setNameAttribute($name)
     {

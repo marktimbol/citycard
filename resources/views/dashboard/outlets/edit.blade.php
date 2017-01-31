@@ -4,6 +4,7 @@
 
 @section('header_styles')
 	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
+	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')
@@ -16,6 +17,7 @@
 @endsection
 
 @section('footer_scripts')
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2a80giA7UX_NMcPudNvxfibPRktPEIg&libraries=places"></script>
 	<script src="{{ elixir('js/telephone.js') }}"></script>
-	<script src="/js/EditOutlet.js"></script>
+	<script src="{{ elixir('js/EditOutlet.js') }}"></script>
 @endsection

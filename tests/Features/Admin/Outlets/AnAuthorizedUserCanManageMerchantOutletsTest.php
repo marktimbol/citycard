@@ -57,10 +57,9 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		$response = $this->post($endpoint, [
 			'area'	=> $area->id,
 			'phone'	=> '0563759865',
-			'address1'	=> 'Address 1',
-			'address2'	=> 'Address 2',
-			'latitude'	=> '1',
-			'longitude'	=> '2',
+			'address'	=> 'Building 13 - Dubai - United Arab Emirates',
+			'lat'	=> '25.1421058',
+			'lng'	=> '55.25091150000003',
 			'email'	=> 'john@example.com',
 			'password'	=> 'secret',
 			'password_confirmation'	=> 'secret',
@@ -70,10 +69,9 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 			'merchant_id'	=> $merchant->id,
 			'name'	=> 'Zara - Deira',
 			'phone'	=> '0563759865',
-			'address1'	=> 'Address 1',
-			'address2'	=> 'Address 2',
-			'latitude'	=> '1',
-			'longitude'	=> '2',
+			'address'	=> 'Building 13 - Dubai - United Arab Emirates',
+			'lat'	=> '25.1421058',
+			'lng'	=> '55.25091150000003',
 			'email'	=> 'john@example.com',
 		]);
 

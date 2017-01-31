@@ -49,17 +49,30 @@
 				Phone: {{ $outlet->phone }} <label class="label label-danger">Not Verified</label>
 			</li>
 		</ul>
+
 		<ul class="list-group">
 			<li class="list-group-item">
-				Address: {{ sprintf('%s %s', $outlet->address1, $outlet->address2) }}
-			</li>
-			<li class="list-group-item">
-				Latitude / Longitude: {{ sprintf('%s, %s', $outlet->latitude, $outlet->longitude) }}
+				Address: {{ $outlet->address }}
 			</li>
 			<li class="list-group-item">
 				Area:  {{ $outlet->getLocation() }}
 			</li>
 		</ul>
+
+		<ul class="list-group">
+			<li class="list-group-item">
+				Categories: 
+				@foreach( $outlet->categories as $category )
+					<span class="label label-success">{{ $category->name }}</span>
+				@endforeach
+			</li>
+			<li class="list-group-item">
+				Sub-categories:
+				@foreach( $outlet->subcategories as $category )
+					<span class="label label-success">{{ $category->name }}</span>
+				@endforeach				
+			</li>
+		</ul>		
 
 		<ul class="list-group">
 			<li class="list-group-item">
