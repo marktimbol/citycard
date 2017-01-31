@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 
 class Outlet extends Authenticatable
@@ -16,7 +17,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'email', 'password', 'phone', 'currency', 'address', 'lat', 'lng',
+	    'name', 'email', 'password', 'phone', 'currency', 'address', 'lat', 'lng'
 	];
 
 	/**
@@ -113,4 +114,14 @@ class Outlet extends Authenticatable
 		}
 		return '';
 	}
+
+	public function scopeByDistance($query, $lat, $lng)
+	{
+		$distance = config('distance.km');
+
+		return collect(DB::select(
+			DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(lat) ) ) ) AS distance FROM outlets HAVING distance < ' . $distance . ' ORDER BY distance'
+			)
+		));
+	}	
 }

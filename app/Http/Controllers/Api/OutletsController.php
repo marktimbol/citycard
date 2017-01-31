@@ -12,7 +12,17 @@ class OutletsController extends Controller
 {
     public function index()
     {
-    	return Outlet::latest()->get();
+        $outlets = Outlet::with('merchant')->latest();
+
+        if( request()->has('lat') && request()->has('lng') ) {
+            $outlets = $outlets->byDistance(request()->lat, request()->lng);
+            $outlet_ids = $outlets->pluck('id');
+
+            $outlets = Outlet::with('merchant')->latest()->whereIn('id', $outlet_ids)->get();
+            return OutletTransformer::transform($outlets);
+        }
+
+        return OutletTransformer::transform($outlets->get());
     }
 
     public function show(Outlet $outlet)
