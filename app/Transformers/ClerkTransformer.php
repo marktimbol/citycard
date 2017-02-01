@@ -10,12 +10,18 @@ class ClerkTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
         $output = array_only($item->toArray(), [
-            'id', 'uuid', 'first_name', 'last_name', 'email', 'phone', 'photo',
-        ]);    
+            'id', 'first_name', 'last_name', 'email', 'phone', 'photo',
+        ]);
+
+        if( auth()->guard('user_api')->check() ) {
+            $output['uuid'] = $item->uuid;
+        }
 
         // Get clerk profile
         if( auth()->guard('clerk')->check() ) {
             $clerk = auth()->guard('clerk')->user();
+
+            $output['uuid'] = $item->uuid;
 
             // Temporary only
             $output['permissions'] = [
@@ -34,6 +40,8 @@ class ClerkTransformer extends AbstractTransformer
         // Get clerk profile
         if( auth()->guard('clerk_api')->check() ) {
             $clerk = auth()->guard('clerk_api')->user();
+
+            $output['uuid'] = $item->uuid;
 
             // Temporary only
             $output['permissions'] = [
