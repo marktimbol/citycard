@@ -16,7 +16,7 @@ class GeneratePostThumbnailPhotos implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    protected $photos;
+    public $photos;
 
     /**
      * Create a new job instance.
