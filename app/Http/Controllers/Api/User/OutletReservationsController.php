@@ -6,6 +6,7 @@ use App\Outlet;
 use App\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Events\User\UserReservedAnItem;
 use App\Transformers\ItemsForReservationTransformer;
 
 class OutletReservationsController extends Controller
@@ -21,6 +22,8 @@ class OutletReservationsController extends Controller
     	$reservation = $user->reservations()->create($request->all());
 
     	$outlet->reservations()->attach($reservation->id);
+
+        event( new UserReservedAnItem($reservation, $outlet) );
 
     	return response()->json([
     		'success'	=> true,

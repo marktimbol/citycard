@@ -24,6 +24,12 @@ class EventServiceProvider extends ServiceProvider
             'App\Listeners\User\SendInvitation',
         ],      
 
+        'App\Events\User\UserReservedAnItem' => [
+            'App\Listeners\Reservation\SendPushNotificationToOutletReservationManagers',
+            // 'App\Listeners\Reservation\SendReservationInformationToOutletReservationManagers',
+            // 'App\Listeners\Reservation\SendReservationInformationToUser',
+        ],
+
         'App\Events\Reservation\ReservationWasConfirmed' => [
             'App\Listeners\Reservation\SendPushNotificationToUser',
             'App\Listeners\Reservation\SendEmailConfirmedReservation',
