@@ -178,7 +178,8 @@ return [
         Stevebauman\Location\LocationServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         NotificationChannels\PusherPushNotifications\PusherPushNotificationsServiceProvider::class,
-        
+        Intervention\Image\ImageServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -240,6 +241,7 @@ return [
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];

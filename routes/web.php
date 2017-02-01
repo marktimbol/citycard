@@ -1,5 +1,8 @@
 <?php
 
+use App\Photo;
+use App\Jobs\GeneratePostThumbnailPhotos;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -10,6 +13,15 @@
 | to using a Closure or controller method. Build something great!
 |
 */
+
+Route::get('/photo-resize', function() {
+
+	$photos = Photo::latest()->get();
+
+	dispatch( new GeneratePostThumbnailPhotos($photos) );
+
+	return 'Processing...';
+});
 
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
