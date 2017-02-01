@@ -24,9 +24,7 @@ class ProfileController extends Controller
 
     	$user = auth()->guard('user_api')->user();
 
-    	$user->update([
-    		'name'	=> $request->name,
-    	]);
+    	$user->update($request->all());
 
 		return response()->json([
 			'success'	=> true,
