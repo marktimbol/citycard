@@ -88,6 +88,7 @@ class RegisterController extends Controller
         }
 
         $user = $this->create($request->all());
+        $user->load('photos', 'qrcode', 'reservations');
         
         event( new UserRegistered($user, $request->password) );
         

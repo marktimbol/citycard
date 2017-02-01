@@ -57,7 +57,7 @@ class LoginController extends Controller
             
         if( $attempt ) {
             $user = auth()->guard('user')->user();
-            $user->load('photos', 'qrcode');
+            $user->load('photos', 'qrcode', 'reservations');
 
             return response()->json([
                 'authenticated' => true,

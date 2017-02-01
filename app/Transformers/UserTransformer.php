@@ -40,6 +40,10 @@ class UserTransformer extends AbstractTransformer
             }
         }
 
+        if( $this->isRelationshipLoaded($item, 'reservations') ) {
+            $output['pending_reservations'] = $item->reservations()->pending()->count();
+        }        
+
     	return $output;	
     }
 }
