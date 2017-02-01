@@ -50,7 +50,7 @@ class UserReservationInformation extends Notification
             $this->reservation->option,
             $this->reservation->quantity,
             $this->reservation->date,
-            $this->reservation->time,
+            $this->reservation->time
         );
 
         return PusherMessage::create()

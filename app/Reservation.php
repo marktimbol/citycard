@@ -42,4 +42,9 @@ class Reservation extends Model
     {
         return $query->where('confirmed', false)->where('status', 'pending');
     }
+
+    public function scopeCancelled($query)
+    {
+        return $query->where('status', 'cancelled');
+    }    
 }
