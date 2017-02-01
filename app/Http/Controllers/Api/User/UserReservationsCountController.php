@@ -12,8 +12,8 @@ class UserReservationsCountController extends Controller
     	$user = auth()->guard('user_api')->user();
 
     	return response()->json([
-    		'pending_reservations'	=> $user->reservations()->pending()->count()
-    		'confirmed_reservations'	=> $user->reservations()->confirmed()->count()
+    		'pending_reservations'	=> $user->reservations()->pending()->count(),
+    		'confirmed_reservations'	=> $user->reservations()->confirmed()->count(),
     		'cancelled_reservations'	=> $user->reservations()->cancelled()->count()
     	]);		
 	}
