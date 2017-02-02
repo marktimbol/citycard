@@ -13,9 +13,10 @@ class SearchUsersController extends Controller
     {
     	$key = request()->key;
 
-    	$users = User::where('email', $key)
-    		->orWhere('mobile', $key)
-    		->get();
+    	$users = User::where('name', 'LIKE', "%$key%")
+    		->orWhere('email', 'LIKE', "%$key%")
+    		->orWhere('mobile', 'LIKE', "%$key%")
+    		->get();    	
 
     	return UserTransformer::transform($users);
     }
