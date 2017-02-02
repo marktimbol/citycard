@@ -104,8 +104,6 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
 			'currency'	=> 'AED'
 		]);
 
-		dd($request);
-
 		$this->seeInDatabase('merchants', [
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',

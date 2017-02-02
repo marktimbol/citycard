@@ -52,6 +52,16 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 		'only'	=> ['index', 'store', 'destroy']
 	]);		
 
+	// Outlet Menus
+	Route::resource('outlets.menus', 'Api\Clerk\OutletMenusController', [
+		'only'	=> ['index', 'store', 'destroy']
+	]);
+
+	// Outlet Shop Front
+	Route::resource('outlets.shop_fronts', 'Api\Clerk\OutletShopFrontsController', [
+		'only'	=> ['index', 'store', 'destroy']
+	]);	
+
 	Route::get('users/search/{key}', 'Api\Clerk\SearchUsersController@index');
 	Route::get('users/{user}', 'Api\Clerk\UsersController@show');
 });

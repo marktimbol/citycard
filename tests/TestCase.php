@@ -169,4 +169,14 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     {
         return factory(App\AlbumPhoto::class)->create($attributes);
     }
+
+    protected function createOutletMenu($attributes = [])
+    {
+        return factory(App\OutletMenu::class)->create($attributes);
+    }
+
+    protected function createOutletShopFront($attributes = [])
+    {
+        return factory(App\ShopFront::class)->create($attributes);
+    }
 }

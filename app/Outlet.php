@@ -107,6 +107,16 @@ class Outlet extends Authenticatable
     	return $this->hasMany(Album::class);
     }    
 
+    public function menus()
+    {
+    	return $this->hasMany(OutletMenu::class);
+    }
+
+    public function shop_fronts()
+    {
+    	return $this->hasMany(ShopFront::class);
+    }    
+
 	public function getLocation()
 	{
 		if( count($this->areas) > 0 ) {

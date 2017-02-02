@@ -239,3 +239,23 @@ $factory->define(App\AlbumPhoto::class, function (Faker\Generator $faker) {
         'url' => $faker->url,
     ];
 });
+
+$factory->define(App\OutletMenu::class, function (Faker\Generator $faker) {
+    return [
+        'outlet_id' => function() {
+            return factory(App\Outlet::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
+$factory->define(App\ShopFront::class, function (Faker\Generator $faker) {
+    return [
+        'outlet_id' => function() {
+            return factory(App\Outlet::class)->create()->id;
+        },
+        'url' => $faker->url,
+    ];
+});
+
+
