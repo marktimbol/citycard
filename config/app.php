@@ -237,11 +237,11 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Location' => Stevebauman\Location\Facades\Location::class,
+        'Location' => Stevebauman\Location\aFacades\Location::class,
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'Image' => Intervention\Image\Facades\Image::class
+        'Image' => Intervention\Image\Facdes\Image::class
     ],
 
 ];

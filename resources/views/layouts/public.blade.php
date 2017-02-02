@@ -24,9 +24,9 @@
     </script>
 </head>
     <body class="public @yield('bodyClass')">
-
-        @yield('content')
-
+        <div class="Main__content">
+            @yield('content')
+        </div>
         <script src="{{ elixir('js/public.js') }}"></script>
         @include('layouts.public._footer')
     </body>

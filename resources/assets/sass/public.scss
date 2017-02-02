@@ -6,8 +6,16 @@
 @import 'components/Fonts';
 
 body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+
 	background: #fafafa;
 	font-family: 'ProximaRegular', 'Montserrat', sans-serif;
+}
+
+.Main__content {
+    flex: 1;
 }
 
 .container {
