@@ -1,8 +1,9 @@
 <?php
 
-use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Carbon\Carbon;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithoutMiddleware;
 
 class AnAdminCanManageMerchantPostsTest extends TestCase
 {
@@ -527,53 +528,152 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
     public function test_an_admin_can_update_a_post_information()
     {
-        $merchant = $this->createMerchant();
+        $starbucks = $this->createMerchant([
+            'name'  => 'Starbucks'
+        ]);
+
+        $outlet = $this->createOutlet([
+            'merchant_id'   => $starbucks->id,
+            'name'  => 'Starbucks - Al Ghurair Centre'
+        ]);
+
+        $cobone = $this->createSource([
+            'name'  => 'Cobone'
+        ]);
+
+        $food = $this->createCategory([
+            'name'  => 'Food'
+        ]);
+
+        $tea = $this->createSubcategory([
+            'category_id'   => $food->id,
+            'name'  => 'Tea'
+        ]);
 
         $post = $this->createPost([
-            'merchant_id'   => $merchant->id,
-            'title' => 'Buy 1 take 1',
+            'merchant_id'   => $starbucks->id,
+            'category_id'   => $food->id,
+            'type'  => 'deals',
+            'title' => 'Buy 1 get 1 coffee',
+            'slug'  => 'buy-1-get-1-coffee',
+            'desc'  => 'Buy 1 get 1 coffee offer',
+            'isExternal'    => false,
         ]);
 
-        $marinaBranch = $this->createOutlet([
-            'merchant_id'   => $merchant->id,
+        $post->outlets()->attach($outlet);
+        $post->subcategories()->attach($tea);
+        $post->sources()->attach($cobone, [
+            'link'  => 'http://cobone.com/starbucks'
         ]);
 
-        $jltBranch = $this->createOutlet([
-            'merchant_id'   => $merchant->id,
+        $dcc_branch = $this->createOutlet([
+            'merchant_id'   => $starbucks->id,
+            'name'  => 'Starbucks - City Centre Deira'
         ]);
 
-        $post->outlets()->attach($jltBranch);
+        $event_date = Carbon::tomorrow()->toDateTimeString();
 
-        $this->seeInDatabase('outlet_posts', [
-            'outlet_id' => $jltBranch->id,
-            'post_id'   => $post->id
+        $request = $this->put(adminPath() . "/dashboard/merchants/$starbucks->id/posts/$post->id", [
+            'title' => 'Buy 2 get 1',
+            'desc'  => 'Updated: Buy 2 get 1',
+            // Update Source (from cobone to groupon)
+            'source_from'   => 'Groupon',
+            'source_link'    => 'http://groupon.ae/starbucks',
+            // Update Post Type
+            'type'  => 'events',
+            'event_date'    => $event_date,
+            'event_time'    => '9:00 pm',
+            'event_location'    => 'Dubai - United Arab Emirates',
+            'outlets'   => [
+                0   => [
+                    'value' => $outlet->id,
+                ],
+                1   => [
+                    'value' => $dcc_branch->id,
+                ]
+            ],            
+            // Update Post categories
+            'category'  => 'Coffee Shop',
+            'subcategories' => [
+                0 => [
+                    'value' => 'Coffee',
+                ],
+                1 => [
+                    'value' => 'Cake',
+                ]
+            ],
         ]);
 
-        $url = sprintf(adminPath() . '/dashboard/merchants/%s/posts/%s/edit', $merchant->id, $post->id);
-        $this->visit($url)
-            ->select('offer', 'type')
-            ->select($marinaBranch->id, 'outlet_ids')
-            ->type('Buy 2 take 1', 'title')
-            ->type('The new description', 'desc')
-            ->press('Update')
-
-            ->seeInDatabase('posts', [
-                'id'    => $post->id,
-                'merchant_id'   => $merchant->id,
-                'type'  => 'offer',
-                'title' => 'Buy 2 take 1',
-                'desc'   => 'The new description',
+        $this->seeInDatabase('posts', [
+            'id'    => $post->id,
+            'title' => 'Buy 2 get 1',
+            'desc'  => 'Updated: Buy 2 get 1',
+            'type'  => 'events',
+            'event_date'    => $event_date,
+            'event_time'    => '9:00 pm',
+            'event_location'    => 'Dubai - United Arab Emirates',            
+        ]);
+        // We have to remove the existing source
+        // from the post since we selected different
+        // source during update.
+        $this->dontSeeInDatabase('source_posts', [
+            'source_id' => $cobone->id,
+            'post_id'   => $post->id,
+        ])
+            // We should see the newly created
+            // source (groupon) in our database.
+            ->seeInDatabase('sources', [
+                'name'  => 'Groupon'
             ])
-
-            ->dontSeeInDatabase('outlet_posts', [
-                'outlet_id' => $jltBranch->id,
-                'post_id'   => $post->id
-            ])
-
-            ->seeInDatabase('outlet_posts', [
-                'outlet_id' => $marinaBranch->id,
-                'post_id'   => $post->id
+            // We have to update as well
+            // the source of the post
+            ->seeInDatabase('source_posts', [
+                'source_id' => 2,
+                'post_id'   => $post->id,
+                'link'  => 'http://groupon.ae/starbucks'
             ]);
+
+        // Update outlets
+        $this->seeInDatabase('outlet_posts', [
+            'outlet_id' => $outlet->id,
+            'post_id'   => $post->id,
+        ])       
+            // New Outlet     
+            ->seeInDatabase('outlet_posts', [
+                'outlet_id' => $dcc_branch->id,
+                'post_id'   => $post->id,
+            ]);
+
+        // Update category & subcategories
+        $this->seeInDatabase('categories', [
+            'name'  => 'Coffee Shop'
+        ])
+            ->seeInDatabase('posts', [
+                'id'   => $post->id,
+                'category_id'    => 2, // Coffee Shop
+            ]);
+
+        $this->seeInDatabase('subcategories', [
+            'category_id'   => 2, // Coffee Shop
+            'name'  => 'Coffee'
+        ])
+            ->seeInDatabase('subcategories', [
+                'category_id'   => 2, // Coffee Shop
+                'name'  => 'Cake'
+            ])
+            ->seeInDatabase('subcategory_posts', [
+                'subcategory_id'    => 2, // Coffee
+                'post_id'    => $post->id,
+            ])
+            ->seeInDatabase('subcategory_posts', [
+                'subcategory_id'    => 3, // Cake
+                'post_id'    => $post->id,
+            ])
+            ->dontSeeInDatabase('subcategory_posts', [
+                'subcategory_id'    => $tea->id, // Tea
+                'post_id'   => $post->id,
+            ]);
+
     }
 
     public function test_an_authorized_can_remove_a_post_information()

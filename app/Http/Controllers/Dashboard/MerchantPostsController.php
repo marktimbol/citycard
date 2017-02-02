@@ -140,13 +140,56 @@ class MerchantPostsController extends Controller
     {
         $post->update($request->all());
 
-        if( $request->has('outlet_ids') ) {
-            $post->outlets()->sync(request('outlet_ids'));
+        if( $request->has('source_from') )
+        {
+            $source = Source::firstOrCreate([
+                'name'  => $request->source_from
+            ]);
+
+            $post->sources()->detach();
+            $post->sources()->attach($source, [
+                'link'  => $request->source_link,
+            ]);
         }
 
-        flash()->success('Post information has been successfully updated.');
+        if( $request->has('category') )
+        {
+            $category = Category::firstOrCreate([
+                'name'  => $request->category
+            ]);
 
-        return redirect()->route('dashboard.merchants.posts.show', [$merchant->id, $post->id]);
+            $post->update([
+                'category_id'   => $category->id,
+            ]);
+
+            $subcategories = collect([]);
+            foreach( $request->subcategories as $item )
+            {
+                $subcategories->push(Subcategory::firstOrCreate([
+                    'category_id'   => $category->id,
+                    'name'  => $item['value']
+                ]));
+            }
+
+            $post->subcategories()->sync($subcategories->pluck('id'));
+
+        }
+
+        if( $request->has('outlets') ) {
+            $outlets = collect([]);
+            foreach( $request->outlets as $outlet ) {
+                $outlets->push($outlet['value']);
+            }
+            $post->outlets()->sync($outlets);
+        }
+
+        return response()->json([
+            'success'   => true,
+            'post'  => $post
+        ]);
+
+        // flash()->success('Post information has been successfully updated.');
+        // return redirect()->route('dashboard.merchants.posts.show', [$merchant->id, $post->id]);
     }
 
     public function destroy(Merchant $merchant, Post $post)
