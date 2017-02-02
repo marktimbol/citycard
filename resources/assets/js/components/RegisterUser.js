@@ -177,7 +177,7 @@ class RegisterUser extends React.Component
 							</div>
 							<p className="Accept-terms text-center">
 								By signing up, you agree to our<br />
-								<a href=''>Terms</a> &amp; <a href="#">Privacy Policy</a>.
+								<a href='/about/terms'>Terms</a> &amp; <a href="/about/privacy">Privacy Policy</a>.
 							</p>
 						</form>
 					</div>

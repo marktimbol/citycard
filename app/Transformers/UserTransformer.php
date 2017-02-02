@@ -10,21 +10,26 @@ class UserTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'uuid', 'name', 'email', 'mobile',
+    		'id', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status', 'profession',
     	]);
 
     	if( auth()->guard('user')->check() ) {
             $user = auth()->guard('user')->user();
 
+            $output['uuid'] =$user->uuid;                        
             $output['api_token'] =$user->api_token;                        
     	}
 
         // Get user profile
         if( auth()->guard('user_api')->check() ) {
             $user = auth()->guard('user_api')->user();
-
+            $output['uuid'] =$user->uuid;
             $output['api_token'] =$user->api_token;
-        }        
+        }
+
+        if( auth()->guard('clerk_api')->check() ) {
+            $output['uuid'] = $item->uuid;
+        }
 
         if( $this->isRelationshipLoaded($item, 'photos') ) {
             $output['photo'] = '';
