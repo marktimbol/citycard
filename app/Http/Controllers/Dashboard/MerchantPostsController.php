@@ -146,7 +146,7 @@ class MerchantPostsController extends Controller
 
         flash()->success('Post information has been successfully updated.');
 
-        return back();
+        return redirect()->route('dashboard.merchants.posts.show', [$merchant->id, $post->id]);
     }
 
     public function destroy(Merchant $merchant, Post $post)
