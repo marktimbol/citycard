@@ -2,27 +2,37 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Photo;
 use App\Post;
+use App\Photo;
 use App\Http\Requests;
 use Illuminate\Http\Request;
+use App\CityCard\UploadedPhoto;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Storage;
 
 class PostPhotosController extends Controller
 {
+    protected $selectedPhoto;
+
+    public function __construct(UploadedPhoto $selectedPhoto)
+    {
+        $this->selectedPhoto = $selectedPhoto;
+    }
+
     public function store(Request $request, Post $post)
     {
-    	$merchant = $post->load('merchant');
+    	$post->load('merchant');
 
-	    $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($post->merchant->name), $post->id);
-	    $file = $request->file->store($uploadPath, 's3');
+        $filename = $this->selectedPhoto->upload($request->file, str_slug($post->merchant->name), $post->id);
+        $thumbnail = $this->selectedPhoto->createThumbnail(
+            $request->file, str_slug($post->merchant->name), $post->id
+        );
 
-    	$photo = $post->photos()->create([
-    		'url'	=> $file
-    	]);
+        $photo = $post->photos()->create([
+            'url'   => $filename,
+            'thumbnail' => $thumbnail,
+        ]);
 
-    	return redirect()->route('dashboard.merchants.show', $post->merchant->id);
+        return $photo;
     }
 
     public function destroy(Post $post, Photo $photo)
