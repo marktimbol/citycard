@@ -2,14 +2,15 @@
 
 namespace App;
 
-use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
+use Laravel\Scout\Searchable;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Outlet extends Authenticatable
 {
-	use Notifiable;
+	use Notifiable, Searchable;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -46,6 +47,35 @@ class Outlet extends Authenticatable
     {
     	$this->attributes['password'] = bcrypt($password);
     }
+
+    /**
+     * Get the indexable data array for the model.
+     *
+     * @return array
+     */
+    public function toSearchableArray()
+    {
+        $array = [];
+        $array = $this->toArray();
+
+        $array = [
+            'id'    => $this->id,
+            'name' => $this->name,
+            'address'	=> $this->address,
+        ];
+
+        return $array;
+    }
+
+    /**
+     * Get the index name for the model.
+     *
+     * @return string
+     */
+    public function searchableAs()
+    {
+        return 'dev_citycard_outlets';
+    }      
 
 	public function merchant()
 	{
