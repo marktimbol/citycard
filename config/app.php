@@ -169,13 +169,11 @@ return [
          * Package Service Providers...
          */
         Laravel\Scout\ScoutServiceProvider::class,
-        Maatwebsite\Excel\ExcelServiceProvider::class,
         Laracasts\Flash\FlashServiceProvider::class,
         Laracasts\Utilities\JavaScript\JavaScriptServiceProvider::class,
         Themsaid\Transformers\TransformersServiceProvider::class,
         Laravel\Socialite\SocialiteServiceProvider::class,
         Aloha\Twilio\Support\Laravel\ServiceProvider::class,
-        Stevebauman\Location\LocationServiceProvider::class,
         Bugsnag\BugsnagLaravel\BugsnagServiceProvider::class,
         NotificationChannels\PusherPushNotifications\PusherPushNotificationsServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
@@ -236,12 +234,10 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        'Excel' => Maatwebsite\Excel\Facades\Excel::class,
-        'Location' => Stevebauman\Location\aFacades\Location::class,
         'Twilio' => Aloha\Twilio\Support\Laravel\Facade::class,
         'Socialite' => Laravel\Socialite\Facades\Socialite::class,
         'Bugsnag' => Bugsnag\BugsnagLaravel\Facades\Bugsnag::class,
-        'Image' => Intervention\Image\Facdes\Image::class
+        'Image' => Intervention\Image\Facades\Image::class
     ],
 
 ];
