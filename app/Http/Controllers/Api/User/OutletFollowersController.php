@@ -20,7 +20,7 @@ class OutletFollowersController extends Controller
     	$user->merchants()->attach($merchant->id);
 
     	// User follows all the merchant's outlets
-    	$user->outlets()->attach($merchant->outlets);
+        $user->follows($merchant->outlets);
 
     	return response()->json([
     		'success'	=> true,
@@ -31,7 +31,8 @@ class OutletFollowersController extends Controller
     public function destroy(Outlet $outlet)
     {
         $user = auth()->guard('user_api')->user();
-        $user->outlets()->detach($outlet);
+
+        $user->unfollow($outlet);
 
         return response()->json([
             'success'   => true,

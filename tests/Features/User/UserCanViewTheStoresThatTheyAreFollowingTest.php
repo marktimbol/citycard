@@ -24,8 +24,8 @@ class UserCanViewTheStoresThatTheyAreFollowingTest extends TestCase
     		'name'	=> 'Starbucks - Al Ghurair Centre'
     	]);
 
-    	$this->user->outlets()->attach($outlet);
-
+    	$this->user->follows($outlet);
+    	
     	$request = $this->json('GET', '/api/user/outlets/following');
     	
 		$this->seeJson([

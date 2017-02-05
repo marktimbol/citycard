@@ -74,6 +74,16 @@ class User extends Authenticatable
         return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id')->withTimestamps();;
     }
 
+    public function follows($outlet)
+    {
+        $this->outlets()->attach($outlet);
+    }
+
+    public function unfollow($outlet)
+    {
+        $this->outlets()->detach($outlet);
+    }
+
     public function invitations()
     {
         return $this->hasMany(Invitation::class);

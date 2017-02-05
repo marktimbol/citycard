@@ -23,7 +23,7 @@ class UserCanUnfollowAnOutletTest extends TestCase
     		'name'	=> 'Zara'
     	]);
 
-    	$this->user->outlets()->attach($outlet);
+        $this->user->follows($outlet);
 
     	$this->json('GET', '/api/outlets/1')
     		->seeJson([
