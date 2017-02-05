@@ -20,19 +20,9 @@ class PostPhotosController extends Controller
 
     public function store(Request $request, Post $post)
     {
-    	$post->load('merchant');
-
-        $filename = $this->selectedPhoto->upload($request->file, str_slug($post->merchant->name), $post->id);
-        $thumbnail = $this->selectedPhoto->createThumbnail(
-            $request->file, str_slug($post->merchant->name), $post->id
-        );
-
-        $photo = $post->photos()->create([
-            'url'   => $filename,
-            'thumbnail' => $thumbnail,
-        ]);
-
-        return $photo;
+        return $this->selectedPhoto->upload($request->file, $post)
+            ->createThumbnail()
+            ->save();
     }
 
     public function destroy(Post $post, Photo $photo)

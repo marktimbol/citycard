@@ -73,11 +73,6 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'name'	=> 'Buffet'
 		]);
 
-		$brunch = $this->createSubcategory([
-			'category_id'	=> $category->id,
-			'name'	=> 'Brunch'
-		]);
-
         $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
 		$request = $this->post($endpoint, [
             'source'    => 'external',
@@ -86,18 +81,25 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'source_link'	=> 'http://google.com',
 
 			'category'	=> 1,
-			'subcategories'	=> '1,2',
-
-			'type'	=> 'newsfeed',
+			'subcategories'	=> [
+                0 => [
+                    'value' => 'Buffet',
+                ],
+                1 => [
+                    'value' => 'Custom subcategory'
+                ]
+            ],
+			'type'	=> 'deals',
 			'outlet_ids'	=> '1,2',
 			'title'	=> 'The Title',
 			'desc'	=> 'The description',
 		]);
 
         $this->seeInDatabase('posts', [
+            'id'    => 1,
             'merchant_id'   => $merchant->id,
             'category_id'   => $category->id,
-            'type'  => 'newsfeed',
+            'type'  => 'deals',
             'title' => 'The Title',
             'slug'  => 'the-title',
             'desc'=> 'The description',
@@ -105,13 +107,21 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'published'  => true
         ]);
 
+        $this->seeInDatabase('subcategories', [
+            'category_id'   => $category->id,
+            'name'  => 'Buffet'
+        ])
+            ->seeInDatabase('subcategories', [
+                'category_id'   => $category->id,
+                'name'  => 'Custom subcategory'
+            ]);
+
 		$this->seeInDatabase('subcategory_posts', [
 			'subcategory_id'	=> $buffet->id,
 			'post_id'	=> 1,
 		])
-
     		->seeInDatabase('subcategory_posts', [
-    			'subcategory_id'	=> $brunch->id,
+    			'subcategory_id'	=> 2,
     			'post_id'	=> 1
     		]);
 
@@ -321,190 +331,6 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'admin_id'  => 1,
             'post_id'   => 1,
         ]);
-    }
-
-    public function test_an_admin_can_add_an_external_post_to_a_merchant_with_custom_options()
-    {
-        $area = $this->createArea([
-            'name'  => 'Al Barsha'
-        ]);
-
-        $merchant = $this->createMerchant([
-            'name'  => 'McDonalds'
-        ]);
-
-        $area->merchants()->attach($merchant);
-
-        $outlet = $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
-
-        $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
-
-        $source = $this->createSource([
-            'name'  => 'Cobone'
-        ]);
-
-        $category = $this->createCategory([
-            'name'  => 'Food',
-        ]);
-
-        $this->createSubcategory([
-            // 'id'    => 1,
-            'category_id'   => $category->id,
-            'name'  => 'Buffet'
-        ]);
-
-        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
-        $request = $this->post($endpoint, [
-            'source'    => 'external',
-            'isExternal'    => true,
-            'source_from'   => $source->id,
-            'source_link'   => 'http://google.com',
-
-            'category'  => 1,
-            'subcategories' => '1,Brunch',
-
-            'type'  => 'notification',
-            'outlet_ids'    => '1,2',
-            'title' => 'The Title',
-            'desc'  => 'The description',
-        ]);
-
-        $this->seeInDatabase('posts', [
-            'merchant_id'   => $merchant->id,
-            'category_id'   => $category->id,
-            'type'  => 'notification',
-            'title' => 'The Title',
-            'slug'  => 'the-title',
-            'desc'=> 'The description',
-            'isExternal'    => true,
-            'published'  => true
-        ]);
-
-        $this->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => 1,
-            'post_id'   => 1,
-        ])
-
-        ->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => 2,
-            'post_id'   => 1
-        ]);
-
-        $this->seeInDatabase('source_posts', [
-            'source_id' => $source->id,
-            'post_id'   => 1,
-            'link'  => 'http://google.com'
-        ]);
-
-        $this->seeInDatabase('outlet_posts', [
-            'outlet_id' => 1,
-            'post_id'   => 1
-        ]);
-
-        // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
-    }
-
-    public function test_an_admin_can_add_an_external_post_to_a_merchant_with_more_custom_options()
-    {
-        $area = $this->createArea([
-            'name'  => 'Al Barsha'
-        ]);
-
-        $merchant = $this->createMerchant([
-            'name'  => 'McDonalds'
-        ]);
-
-        $area->merchants()->attach($merchant);
-
-        $outlet = $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
-
-        $this->createOutlet([
-            'merchant_id'   => $merchant->id
-        ]);
-
-        $source = $this->createSource([
-            'name'  => 'Cobone'
-        ]);
-
-        $category = $this->createCategory([
-            'name'  => 'Food',
-        ]);
-
-        $endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/posts', $merchant->id);
-        $request = $this->post($endpoint, [
-            'source'    => 'external',
-            'isExternal'    => true,
-            'source_from'   => $source->id,
-            'source_link'   => 'http://google.com',
-
-            'category'  => 1,
-            'subcategories' => 'Filipino Food,Indian Food,Italian Food',
-
-            'type'  => 'notification',
-            'outlet_ids'    => '1,2',
-            'title' => 'The Title',
-            'desc'  => 'The description',
-        ]);
-
-        $this->seeInDatabase('posts', [
-            'merchant_id'   => $merchant->id,
-            'category_id'   => $category->id,
-            'type'  => 'notification',
-            'title' => 'The Title',
-            'slug'  => 'the-title',
-            'desc'=> 'The description',
-            'isExternal'    => true,
-            'published'  => true
-        ])
-
-        ->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => 1,
-            'post_id'   => 1,
-        ])
-
-        ->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => 2,
-            'post_id'   => 1
-        ])
-
-        ->seeInDatabase('subcategory_posts', [
-            'subcategory_id'    => 3,
-            'post_id'   => 1
-        ])
-
-        ->seeInDatabase('subcategories', [
-            'id'    => 1,
-            'name'  => 'Filipino Food',
-        ])
-
-        ->seeInDatabase('subcategories', [
-            'id'    => 2,
-            'name'  => 'Indian Food',
-        ])
-
-        ->seeInDatabase('subcategories', [
-            'id'    => 3,
-            'name'  => 'Italian Food',
-        ])
-
-        ->seeInDatabase('source_posts', [
-            'source_id' => $source->id,
-            'post_id'   => 1,
-            'link'  => 'http://google.com'
-        ])
-
-        ->seeInDatabase('outlet_posts', [
-            'outlet_id' => 1,
-            'post_id'   => 1
-        ]);
-
-        // ->seePageIs('/dashboard/merchants/'.$merchant->id.'/posts/1');
     }
 
     public function test_an_admin_can_view_the_post_of_a_merchant()

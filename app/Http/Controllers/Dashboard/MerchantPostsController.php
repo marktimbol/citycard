@@ -52,7 +52,7 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {                             
+    {                                     
         $this->validateRequest($request);
 
         $merchant->load('areas.city.country');
@@ -61,29 +61,16 @@ class MerchantPostsController extends Controller
         $area = $merchant->areas->first();
 
         $request['category_id'] = $request->category;
-
     	$post = $merchant->posts()->create($request->all());
 
-        // Store Sub Categories
-        $category = Category::findOrFail($request->category);
-        $subcategories = collect(explode(',', $request->subcategories));
-        $subcategories = $subcategories->partition(function($value) {
-            return is_numeric($value);
-        });
+        foreach( $request->subcategories as $item )
+        {
+            $subcategory = Subcategory::firstOrCreate([
+                'category_id'   => $request->category,
+                'name'  => $item['value']
+            ]);
 
-        // User selected categories
-        if( $subcategories[0]->count() > 0 ) {
-            $post->subcategories()->attach($subcategories[0]->all());
-        }
-
-        // User typed categories
-        if( $subcategories[1]->count() > 0 ) {
-            foreach( $subcategories[1]->all() as $subcategory ) {
-                $subcategory = $category->subcategories()->create([
-                    'name'  => $subcategory
-                ]);
-                $post->subcategories()->attach($subcategory);
-            }
+            $post->subcategories()->attach($subcategory);
         }
 
         // Attach the post on the selected outlets
@@ -116,14 +103,15 @@ class MerchantPostsController extends Controller
 
         // Need to process this in background
         // Upload Photo to S3
-        $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($merchant->name), $post->id);
-        foreach( $request->file as $file )
-        {  
-            $path = $file->store($uploadPath, 's3');
-            $photo = $post->photos()->create([
-                'url'   => $path
-            ]);        
-        }
+        
+        // $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($merchant->name), $post->id);
+        // foreach( $request->file as $file )
+        // {  
+        //     $path = $file->store($uploadPath, 's3');
+        //     $photo = $post->photos()->create([
+        //         'url'   => $path
+        //     ]);        
+        // }
 
         return $post;
     }
