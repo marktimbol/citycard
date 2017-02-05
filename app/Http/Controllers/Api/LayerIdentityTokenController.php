@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Layer\LayerIdentityTokenProvider;
+use App\CityCard\Layer\LayerIdentityTokenProvider;
 
 class LayerIdentityTokenController extends Controller
 {
@@ -18,7 +18,10 @@ class LayerIdentityTokenController extends Controller
     public function store(Request $request)
     {
 		return response()->json([
-			'identity_token'	=> $this->layerIdentityTokenProvider->generateIdentityToken($request->uuid, $request->nonce)
+			'identity_token'	=> $this->layerIdentityTokenProvider->generateIdentityToken(
+				$request->uuid, $request->nonce, $request->first_name,
+				$request->last_name, $request->display_name, $request->avatar_url
+			)
 		]);
     }
 }
