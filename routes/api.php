@@ -32,7 +32,8 @@ Route::group(['as' => 'api.'], function() {
 	Route::post('clerk/password/email', 'Api\Auth\Clerk\ForgotPasswordController@sendResetLinkEmail');
 
 	Route::get('outlets/search/{key}', 'Api\SearchOutletsController@index');
-	
+	Route::get('posts/search/{key}', 'Api\SearchPostsController@index');
+
 	Route::resource('outlets', 'Api\OutletsController', [
 		'only'	=> ['index', 'show']
 	]);
