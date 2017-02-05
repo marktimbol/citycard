@@ -24,6 +24,8 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
+	Route::get('user/outlets/following', 'Api\User\FollowingOutletsController@index');
+
 	// Get all User reservations
 	Route::get('user/reservations', 'Api\User\UserReservationsController@index');
 
