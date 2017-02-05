@@ -125,13 +125,15 @@ class Outlet extends Authenticatable
 		return '';
 	}
 
-	public function scopeByDistance($query, $lat, $lng)
+	/**
+	 * Near me outlets
+	 */
+	public function scopeByDistance($query, $lat, $lng, $distance = 1) // 1 km
 	{
-		$distance = config('distance.km');
-
 		return collect(DB::select(
 			DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(lat) ) ) ) AS distance FROM outlets HAVING distance < ' . $distance . ' ORDER BY distance'
 			)
 		));
-	}	
+	}
+
 }

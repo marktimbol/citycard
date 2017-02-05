@@ -2,10 +2,11 @@
 
 namespace App;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Notifications\Notifiable;
 use App\Notifications\Clerk\ResetPasswordNotification;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Hash;
 
 class Clerk extends Authenticatable
 {
@@ -59,6 +60,22 @@ class Clerk extends Authenticatable
 	public function assignTo(Outlet $outlet)
 	{
 		return $this->outlets()->attach($outlet);
+	}
+
+	/**
+	 * Check whether the clerk is nearby the Outlet
+	 /* Clerk's lat & lng
+	 */
+	public function isInOutletRange(Outlet $outlet, $lat, $lng)
+	{
+		$distance = config('distance.outlet_range');
+
+		$result = collect(DB::select(
+			DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(lat) ) ) ) AS distance FROM outlets WHERE id = '. $outlet->id.' HAVING distance < ' . $distance . ' ORDER BY distance'
+			)
+		));
+		
+		return $result->count() > 0  ? true : false;
 	}
 
 	/**

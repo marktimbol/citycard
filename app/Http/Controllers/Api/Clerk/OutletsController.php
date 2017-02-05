@@ -20,14 +20,21 @@ class OutletsController extends Controller
 
     public function show(Outlet $outlet)
     {
-        // $outlet->load(
-        //     'clerks', 'posts.sources', 'posts.outlets:id,name',
-        //     'posts.category', 'posts.photos',
-        //     'itemsForReservation', 'reservations.item', 'reservations.user'            
-        // );  
+        $clerk = auth()->guard('clerk_api')->user();
 
-        $outlet->load('posts', 'reservations', 'photos');            	
-        
-    	return OutletTransformer::transform($outlet);
+        if( $clerk->isInOutletRange($outlet, request()->lat, request()->lng) )
+        {
+            $outlet->load('posts', 'reservations', 'photos');
+            return response()->json([
+                'nearby'  => true,
+                'outlet'    => OutletTransformer::transform($outlet)
+            ]);
+        }
+
+        return response()->json([
+            'nearby'  => false,
+            'message'   => 'You are far away from the Outlet.'
+        ]);
+
     }
 }

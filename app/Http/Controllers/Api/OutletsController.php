@@ -15,8 +15,14 @@ class OutletsController extends Controller
     {
         $outlets = Outlet::with('merchant', 'categories')->latest();
 
-        if( request()->has('lat') && request()->has('lng') ) {
-            $outlet_ids = $outlets->byDistance(request()->lat, request()->lng)->pluck('id');
+        if( request()->has('lat') && request()->has('lng') )
+        {
+            $outlet_ids = $outlets->byDistance(
+                request()->lat, 
+                request()->lng, 
+                config('distance.km')
+            )->pluck('id');
+
             $outlets = $outlets->whereIn('id', $outlet_ids);
         }
 
