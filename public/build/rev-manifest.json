@@ -13,6 +13,7 @@
   "js/CreatePost.js": "js/CreatePost-030c49b176.js",
   "js/DashboardPosts.js": "js/DashboardPosts-452598f5bc.js",
   "js/EditOutlet.js": "js/EditOutlet-4014bcec6b.js",
+  "js/EditPost.js": "js/EditPost-e0e1ca8117.js",
   "js/ExploreMerchants.js": "js/ExploreMerchants-3df9c5de43.js",
   "js/ItemsForReservation.js": "js/ItemsForReservation-989c46f471.js",
   "js/MerchantPosts.js": "js/MerchantPosts-04b6448b50.js",

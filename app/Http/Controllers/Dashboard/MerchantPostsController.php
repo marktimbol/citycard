@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use App\Category;
-use App\Http\Controllers\Controller;
-use App\Http\Requests;
-use App\Http\Requests\CreateMerchantPostRequest;
-use App\ItemForReservation;
-use App\Merchant;
 use App\Post;
 use App\Source;
-use App\Subcategory;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
 use JavaScript;
+use App\Category;
+use App\Merchant;
+use App\Subcategory;
+use App\Http\Requests;
+use App\ItemForReservation;
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Validator;
+use App\Http\Requests\CreateMerchantPostRequest;
 
 class MerchantPostsController extends Controller
 {
@@ -117,9 +117,17 @@ class MerchantPostsController extends Controller
     }
 
     public function edit(Merchant $merchant, Post $post)
-    {
-        $post->load('outlets');
+    {        
+        $post->load('outlets', 'sources', 'category');        
         $outlets = $merchant->outlets;
+        
+        JavaScript::put([
+            'post'  => $post,
+            'merchant'  => $merchant,
+            'outlets'   => $merchant->outlets,
+            'sources'   => Source::orderBy('name', 'asc')->get(),
+            'categories'    => Category::orderBy('name', 'asc')->get(),
+        ]);
 
         return view('dashboard.merchants.posts.edit', compact('merchant', 'outlets', 'post'));
     }
