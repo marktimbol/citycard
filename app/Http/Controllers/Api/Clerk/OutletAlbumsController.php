@@ -12,7 +12,7 @@ class OutletAlbumsController extends Controller
 {
     public function index(Outlet $outlet)
     {
-    	$outlet->load('albums.photos');
+    	$outlet->load('albums');
 
     	return AlbumTransformer::transform($outlet->albums);
     }
