@@ -5,6 +5,7 @@
 @section('header_styles')
 	<link href="{{ elixir('css/editor.css') }}" rel="stylesheet">
 	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
+	<link href="{{ elixir('css/datepicker.css') }}" rel="stylesheet">
 @endsection
 
 @section('content')

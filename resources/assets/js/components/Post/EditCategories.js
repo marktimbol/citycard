@@ -7,10 +7,9 @@ class EditCategories extends React.Component
     constructor(props)
     {
         super(props);
-        console.log('EditCategory props', props);
         
         this.state = {
-            category: props.currentCategory,
+            category: '',
             subcategories: [],
 
             availableSubcategories: [],
@@ -19,6 +18,21 @@ class EditCategories extends React.Component
 
         this.handleCategoryChange = this.handleCategoryChange.bind(this);
         this.handleSubcategoryChange = this.handleSubcategoryChange.bind(this);        
+    }
+
+    componentDidMount() {
+        let category = this.props.currentCategory;
+        let subcategories = [];
+        
+        this.props.currentSubcategories.map(subcategory => {
+            subcategories.push({
+                value: subcategory.name,
+                label: subcategory.name,
+            })
+        })
+
+        this.setState({ category, subcategories })
+        this.fetchSubcategories(category);
     }
 
     handleCategoryChange(e) {
@@ -84,7 +98,6 @@ class EditCategories extends React.Component
                             value={this.state.category}
                             options={availableCategories}
                             onChange={this.handleCategoryChange} />
-                        <span className="help-block">{ errors.hasOwnProperty('category') ? errors['category'] : ''}</span>
                     </div>
                 </div>
                 <div className="col-md-6">
@@ -98,7 +111,6 @@ class EditCategories extends React.Component
                             multi={true}
                             joinValues
                             onChange={this.handleSubcategoryChange} />
-                        <span className="help-block">{ errors.hasOwnProperty('subcategories') ? errors['subcategories'] : ''}</span>                          
                     </div>
                 </div>
             </div>

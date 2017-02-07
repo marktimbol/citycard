@@ -115,7 +115,7 @@ class CreatePost extends Component
 					})
 
 			        swal({
-			            title: "City Card",
+			            title: "CityCard",
 			            text: "You have successfully created a post.",
 			            type: "success",
 			            showConfirmButton: true
@@ -277,7 +277,7 @@ class CreatePost extends Component
 		})
 
 		let availableSources = [
-			{ value: 'citycard', label: 'City Card' },
+			{ value: 'citycard', label: 'CityCard' },
 			{ value: 'external', label: 'External' }
 		]
 

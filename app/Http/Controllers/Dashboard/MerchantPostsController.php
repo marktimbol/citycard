@@ -11,6 +11,7 @@ use App\Subcategory;
 use App\Http\Requests;
 use App\ItemForReservation;
 use Illuminate\Http\Request;
+use App\Http\Requests\UpdatePost;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use App\Http\Requests\CreateMerchantPostRequest;
@@ -118,7 +119,7 @@ class MerchantPostsController extends Controller
 
     public function edit(Merchant $merchant, Post $post)
     {        
-        $post->load('outlets', 'sources', 'category');        
+        $post->load('outlets:id,name', 'sources', 'category', 'subcategories:category_id,name');        
         $outlets = $merchant->outlets;
         
         JavaScript::put([
@@ -132,8 +133,11 @@ class MerchantPostsController extends Controller
         return view('dashboard.merchants.posts.edit', compact('merchant', 'outlets', 'post'));
     }
 
-    public function update(Request $request, Merchant $merchant, Post $post)
+    public function update(UpdatePost $request, Merchant $merchant, Post $post)
     {
+        $request->validate();
+        
+        $request['category_id'] = $request->category;
         $post->update($request->all());
 
         if( $request->has('source_from') )
@@ -148,44 +152,29 @@ class MerchantPostsController extends Controller
             ]);
         }
 
-        if( $request->has('category') )
-        {
-            $category = Category::firstOrCreate([
-                'name'  => $request->category
-            ]);
-
-            $post->update([
+        // Update Categories
+        $category = Category::findOrFail($request->category);
+        $subcategories = collect([]);
+        foreach( $request->subcategories as $item ) {
+            $subcategories->push(Subcategory::firstOrCreate([
                 'category_id'   => $category->id,
-            ]);
-
-            $subcategories = collect([]);
-            foreach( $request->subcategories as $item )
-            {
-                $subcategories->push(Subcategory::firstOrCreate([
-                    'category_id'   => $category->id,
-                    'name'  => $item['value']
-                ]));
-            }
-
-            $post->subcategories()->sync($subcategories->pluck('id'));
-
+                'name'  => $item['value']
+            ]));
         }
 
-        if( $request->has('outlets') ) {
-            $outlets = collect([]);
-            foreach( $request->outlets as $outlet ) {
-                $outlets->push($outlet['value']);
-            }
-            $post->outlets()->sync($outlets);
-        }
+        $post->subcategories()->sync($subcategories->pluck('id'));
 
+        // Update Outlets
+        $outlets = collect([]);
+        foreach( $request->outlets as $outlet ) {
+            $outlets->push($outlet['value']);
+        }
+        $post->outlets()->sync($outlets);
+    
         return response()->json([
             'success'   => true,
             'post'  => $post
         ]);
-
-        // flash()->success('Post information has been successfully updated.');
-        // return redirect()->route('dashboard.merchants.posts.show', [$merchant->id, $post->id]);
     }
 
     public function destroy(Merchant $merchant, Post $post)

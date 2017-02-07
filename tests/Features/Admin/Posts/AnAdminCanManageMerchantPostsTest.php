@@ -399,6 +399,10 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 
         $event_date = Carbon::tomorrow()->toDateTimeString();
 
+        $coffee_shop = $this->createCategory([
+            'name'  => 'Coffee Shop'
+        ]);
+
         $request = $this->put(adminPath() . "/dashboard/merchants/$starbucks->id/posts/$post->id", [
             'title' => 'Buy 2 get 1',
             'desc'  => 'Updated: Buy 2 get 1',
@@ -419,7 +423,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
                 ]
             ],            
             // Update Post categories
-            'category'  => 'Coffee Shop',
+            'category'  => $coffee_shop->id,
             'subcategories' => [
                 0 => [
                     'value' => 'Coffee',

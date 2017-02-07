@@ -23,6 +23,7 @@ Route::group([
 Route::group(['as' => 'api.'], function() {
 
 	Route::post('/layer/identity_token', 'Api\LayerIdentityTokenController@store');	
+	Route::post('/clerk/layer/identity_token', 'Api\ClerkLayerIdentityTokenController@store');	
 
 	// User Authentication
 	Route::post('login', 'Api\Auth\User\LoginController@login');
