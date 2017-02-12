@@ -95,5 +95,5 @@
 @endsection
 
 @section('footer_scripts')
-
+	<script src="/js/BlurredImageEffect.js"></script>
 @endsection
