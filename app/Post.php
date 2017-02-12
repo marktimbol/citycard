@@ -78,6 +78,7 @@ class Post extends Model
             $array = [
                 'id'    => $this->id,
                 'title' => $this->title,
+                'type' => $this->type,
                 'outlet' => OutletTransformer::transform($this->outlets)
             ];
         } else {
