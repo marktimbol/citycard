@@ -67,16 +67,6 @@ class Outlet extends Authenticatable
         return $array;
     }
 
-    /**
-     * Get the index name for the model.
-     *
-     * @return string
-     */
-    public function searchableAs()
-    {
-        return 'dev_citycard_outlets';
-    }      
-
 	public function merchant()
 	{
 		return $this->belongsTo(Merchant::class);
