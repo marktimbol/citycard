@@ -33,26 +33,16 @@
 									@if( $item->photos->count() > 0 )
 									<?php $photo = $item->photos->first(); ?>
 										<a href="/posts/{{$item->slug}}">
-											<div
-												class="placeholder"
-												data-large="{{ getPhotoPath($photo->url) }}"
-											>
-													<img
-														src="/images/blurred-image.jpeg"
-														class="img-small" /> 
-													<div class="aspect-ratio-fill"></div> 
+											<div class="placeholder" data-large="{{ getPhotoPath($photo->url) }}">
+												<img src="/images/blurred-image.jpeg" class="img-small" /> 
+												<div class="aspect-ratio-fill"></div> 
 											</div>
 										</a>
 									@else
 										<a href="/posts/{{$item->slug}}">
-											<div
-												class="placeholder"
-												data-large="/images/event-cover.png"
-											>
-													<img
-														src="/images/blurred-image.jpeg"
-														class="img-small" /> 
-													<div class="aspect-ratio-fill"></div> 
+											<div class="placeholder" data-large="/images/event-cover.png">
+												<img src="/images/blurred-image.jpeg" class="img-small" /> 
+												<div class="aspect-ratio-fill"></div> 
 											</div>
 										</a>
 									@endif
@@ -109,21 +99,18 @@
 											</div>
 										</div>
 										<div class="Card__image">
-											<a href="#">
-												<div
-													class="placeholder"
-													data-large="/images/event-cover.png"
-												>
-														<img
-															src="/images/blurred-image.jpeg"
-															class="img-small" /> 
-														<div class="aspect-ratio-fill"></div> 
+											<a href="/posts/{{$item->slug}}">
+												<div class="placeholder" data-large="/images/event-cover.png">
+													<img src="/images/blurred-image.jpeg" class="img-small" /> 
+													<div class="aspect-ratio-fill"></div> 
 												</div>
 											</a>
 										</div>
 										<div class="Card__description">
-											<h3><a href="#">{{ $item->title }}</a></h3>
-											{!! str_limit($item->desc, 300) !!}
+											<h3>
+												<a href="/posts/{{$item->slug}}">{{ $item->title }}</a>
+											</h3>
+											{{-- {{ str_limit($item->desc, 300) }} --}}
 										</div>
 									</div>
 								</div>
