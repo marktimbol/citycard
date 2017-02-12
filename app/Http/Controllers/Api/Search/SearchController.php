@@ -25,25 +25,25 @@ class SearchController extends Controller
 	            ->latest()
 	            ->whereIn('id', $post_results->pluck('id'))
 	            ->whereType('newsfeed')
-	            ->take(10)
+	            ->take(9)
 	            ->get();
 
 	    $deals = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
 	            ->latest()
 	            ->whereIn('id', $post_results->pluck('id'))
 	            ->whereType('deals')
-	            ->take(10)
+	            ->take(9)
 	            ->get();
 
 	    $events = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
 	            ->upcomingEvents()
 	            ->whereIn('id', $post_results->pluck('id'))
-	            ->take(10)
+	            ->take(9)
 	            ->get();
 
 	    $outlets = Outlet::with('photos', 'merchant')
 	    	->whereIn('id', $outlet_results->pluck('id'))
-	            ->take(10)
+	            ->take(9)
 	            ->get();
 
 	    if( request()->wantsJson() )

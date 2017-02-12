@@ -26,13 +26,13 @@
 		    		<div class="col-md-12">
 		    			<h3>Events</h3>
 		    		</div>
-			    	@forelse( $events as $event )
+			    	@forelse( $events as $item )
 						<div class="Event Column-4">
 							<div class="Event__header">
 								<div class="Event__image">
-									@if( $event->photos->count() > 0 )
-									<?php $photo = $event->photos->first(); ?>
-										<a href="/posts/{{$event->slug}}">
+									@if( $item->photos->count() > 0 )
+									<?php $photo = $item->photos->first(); ?>
+										<a href="/posts/{{$item->slug}}">
 											<div
 												class="placeholder"
 												data-large="{{ getPhotoPath($photo->url) }}"
@@ -44,7 +44,7 @@
 											</div>
 										</a>
 									@else
-										<a href="/posts/{{$event->slug}}">
+										<a href="/posts/{{$item->slug}}">
 											<div
 												class="placeholder"
 												data-large="/images/event-cover.png"
@@ -61,16 +61,16 @@
 							<div class="Event__content">
 								<div class="Event__date">
 									<span class="Event__date--month">
-										{{ $event->event_date ? date('M', $event->event_date->timestamp) : '' }}
+										{{ $item->event_date ? date('M', $item->event_date->timestamp) : '' }}
 									</span>
 									<span class="Event__date--day">
-										{{ $event->event_date ? date('d', $event->event_date->timestamp) : '' }}
+										{{ $item->event_date ? date('d', $item->event_date->timestamp) : '' }}
 									</span>
 								</div>
 								<div class="Event__info">
-									<h3 class="Event__title text-ellipsis">{{ $event->title }}</h3>
-									<small>{{ $event->event_time or '09:00 - 18:00' }}</small>
-									<p class="text-ellipsis">{{ $event->event_location or 'Dubai, United Arab Emirates' }}</p>
+									<h3 class="Event__title text-ellipsis">{{ $item->title }}</h3>
+									<small>{{ $item->event_time or '09:00 - 18:00' }}</small>
+									<p class="text-ellipsis">{{ $item->event_location or 'Dubai, United Arab Emirates' }}</p>
 								</div>
 							</div>
 						</div>
@@ -80,17 +80,61 @@
 			</div>
 		</div>
 
-		<div class="_Search--results">
-			<div class="Search__events">
-			
-			</div>
-		</div>
-
 		<div class="row">
 			<div class="col-md-12">
-
+		    	<div class="Offers--results row">
+		    		<div class="col-md-12">
+		    			<h3>Offers</h3>
+		    		</div>
+			    	@forelse( $deals->chunk(2) as $items )
+			    		<div class="Row">
+			    			@foreach( $items as $item )			    	
+								<div class="Offer Column-6">
+									<div class="Card">
+										<div class="Card__header">
+											<div class="Flex Flex--center">
+												<img src="/images/avatar.jpg" 
+													alt="{{ $item->merchant->name }}" 
+													title="{{ $item->merchant->name }}" 
+													class="img-circle Card__logo" 
+													width="30" height="30" />
+												<h4 class="Card__title">
+													<a href="#">{{ $item->merchant->name }}</a>
+												</h4>
+											</div>
+											<div>
+												<span class="timeago">
+													{{ $item->created_at->diffForHumans() }}
+												</span>
+											</div>
+										</div>
+										<div class="Card__image">
+											<a href="#">
+												<div
+													class="placeholder"
+													data-large="/images/event-cover.png"
+												>
+														<img
+															src="/images/blurred-image.jpeg"
+															class="img-small" /> 
+														<div class="aspect-ratio-fill"></div> 
+												</div>
+											</a>
+										</div>
+										<div class="Card__description">
+											<h3><a href="#">{{ $item->title }}</a></h3>
+											{!! $item->desc !!}
+										</div>
+									</div>
+								</div>
+							@endforeach
+						</div>
+				    @empty
+				    @endforelse
+		    	</div>
 			</div>
-		</div>
+		</div>		
+
 	</div>
 @endsection
 
