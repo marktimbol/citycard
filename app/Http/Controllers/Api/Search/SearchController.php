@@ -36,9 +36,8 @@ class SearchController extends Controller
 	            ->get();
 
 	    $events = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-	            ->latest()
+	            ->upcomingEvents()
 	            ->whereIn('id', $post_results->pluck('id'))
-	            ->whereType('events')
 	            ->take(10)
 	            ->get();
 
