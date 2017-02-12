@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Search;
 
 use App\Outlet;
 use Illuminate\Http\Request;

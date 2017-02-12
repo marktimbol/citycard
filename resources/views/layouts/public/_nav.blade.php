@@ -8,9 +8,9 @@
             </h1>
         </div>
         <div class="Search--container">
-            <form method="GET">
+            <form method="GET" action="{{ route('search') }}">
                 <div class="form-group">
-                    <input type="text" name="s" class="form-control input-sm" placeholder="Search" />
+                    <input type="text" name="key" class="form-control input-sm" placeholder="Search" />
                 </div>
             </form>
         </div>
