@@ -2,16 +2,16 @@
 
 namespace App\Http\Controllers;
 
-use App\Clerk;
-use App\Company;
 use App\Faq;
-use App\Outlet;
-use App\Transformers\Explore\ExploreOutletsTransformer;
-use App\Transformers\UserOutletTransformer;
 use App\User;
-use Illuminate\Http\Request;
+use App\Clerk;
+use App\Outlet;
 use JavaScript;
+use App\Company;
 use Ramsey\Uuid\Uuid;
+use Illuminate\Http\Request;
+use App\Transformers\UserOutletTransformer;
+use App\Transformers\Explore\ExploreOutletsTransformer;
 
 class PagesController extends Controller
 {

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Search;
 
 use App\Post;
 use App\Outlet;
@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 use App\Transformers\OutletTransformer;
 use App\Transformers\SearchPostsTransformer;
 
-class SearchDealsController extends Controller
+class SearchEventsController extends Controller
 {
 	public function index()
 	{	
@@ -20,7 +20,7 @@ class SearchDealsController extends Controller
 	    $results = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
 	    		->latest()
 	            ->whereIn('id', $post_results->pluck('id'))
-	            ->where('type', 'deals')
+	            ->where('type', 'events')
 	            ->paginate(config('pagination.count'));
 
 	    return SearchPostsTransformer::transform($results->getCollection());

@@ -1,20 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\Search;
 
 use App\Post;
 use App\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\OutletTransformer;
 use App\Transformers\SearchPostsTransformer;
+use App\Transformers\SearchOutletTransformer;
 
 class SearchController extends Controller
 {
 	public function index()
 	{	
-		$key = request()->key;
-		
+		$key = request()->key;		
 	    $post_results = Post::search($key)->get();
 	    $outlet_results = Outlet::search($key)->get();
 
@@ -48,11 +47,21 @@ class SearchController extends Controller
 	            ->take(10)
 	            ->get();
 
-	    return response()->json([
-	    	'newsfeeds'	=> SearchPostsTransformer::transform($newsfeeds),
-	    	'deals'	=> SearchPostsTransformer::transform($deals),
-	    	'events' => SearchPostsTransformer::transform($events),
-	    	'outlets' => OutletTransformer::transform($outlets),
-	    ]);
+	    $newsfeeds = SearchPostsTransformer::transform($newsfeeds);
+	    $deals = SearchPostsTransformer::transform($deals);
+	    $events = SearchPostsTransformer::transform($events);
+	    $outlets = SearchOutletTransformer::transform($outlets);
+
+	    if( request()->wantsJson() )
+	    {    	
+		    return response()->json([
+		    	'newsfeeds'	=> $newsfeeds,
+		    	'deals'	=> $deals,
+		    	'events' => $events,
+		    	'outlets' => $outlets,
+		    ]);
+	    }
+
+	    return view('public.search.index', compact('newsfeeds', 'deals', 'events', 'outlets', 'key'));
 	}
 }
