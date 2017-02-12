@@ -6,8 +6,8 @@ use App\Post;
 use App\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\OutletTransformer;
 use App\Transformers\SearchPostsTransformer;
+use App\Transformers\SearchOutletTransformer;
 
 class SearchController extends Controller
 {
@@ -52,7 +52,7 @@ class SearchController extends Controller
 	    	'newsfeeds'	=> SearchPostsTransformer::transform($newsfeeds),
 	    	'deals'	=> SearchPostsTransformer::transform($deals),
 	    	'events' => SearchPostsTransformer::transform($events),
-	    	'outlets' => OutletTransformer::transform($outlets),
+	    	'outlets' => SearchOutletTransformer::transform($outlets),
 	    ]);
 	}
 }
