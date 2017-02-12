@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Outlet;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\OutletTransformer;
+use App\Transformers\SearchOutletTransformer;
 
 class SearchOutletsController extends Controller
 {
@@ -15,11 +15,11 @@ class SearchOutletsController extends Controller
 
     	$results = Outlet::search($key)->get();
 
-    	$outlets = Outlet::with(['merchant', 'categories', 'photos'])
+    	$outlets = Outlet::with(['merchant', 'photos'])
     		->latest()
     		->whereIn('id', $results->pluck('id'))
     		->paginate(config('pagination.count'));
 
-    	return OutletTransformer::transform($outlets->getCollection());
+    	return SearchOutletTransformer::transform($outlets->getCollection());
     }
 }
