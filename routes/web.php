@@ -4,7 +4,7 @@ use App\Photo;
 use App\Jobs\GeneratePostThumbnailPhotos;
 
 \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
-	Log::info($query->sql);
+	// Log::info($query->sql);
 });
 /*
 |--------------------------------------------------------------------------

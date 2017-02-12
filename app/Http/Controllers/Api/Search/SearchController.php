@@ -47,21 +47,16 @@ class SearchController extends Controller
 	            ->take(10)
 	            ->get();
 
-	    $newsfeeds = SearchPostsTransformer::transform($newsfeeds);
-	    $deals = SearchPostsTransformer::transform($deals);
-	    $events = SearchPostsTransformer::transform($events);
-	    $outlets = SearchOutletTransformer::transform($outlets);
-
 	    if( request()->wantsJson() )
 	    {    	
 		    return response()->json([
-		    	'newsfeeds'	=> $newsfeeds,
-		    	'deals'	=> $deals,
-		    	'events' => $events,
-		    	'outlets' => $outlets,
+		    	'newsfeeds'	=> SearchPostsTransformer::transform($newsfeeds),
+		    	'deals'	=> SearchPostsTransformer::transform($deals),
+		    	'events' => SearchPostsTransformer::transform($events),
+		    	'outlets' => SearchOutletTransformer::transform($outlets),
 		    ]);
 	    }
 
-	    return view('public.search.index', compact('newsfeeds', 'deals', 'events', 'outlets', 'key'));
+	    return view('public.search.index', compact('events', 'newsfeeds', 'deals', 'outlets', 'key'));
 	}
 }
