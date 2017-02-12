@@ -123,7 +123,7 @@
 										</div>
 										<div class="Card__description">
 											<h3><a href="#">{{ $item->title }}</a></h3>
-											{!! $item->desc !!}
+											{!! str_limit($item->desc, 300) !!}
 										</div>
 									</div>
 								</div>

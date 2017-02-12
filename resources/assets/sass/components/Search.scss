@@ -6,4 +6,8 @@
 .Offers--results {
 	display: flex;
 	flex-direction: column;
+
+	.Offer {
+		margin: 0 5px;
+	}
 }
