@@ -72,8 +72,6 @@ class SearchController extends Controller
 		    ]);
 	    }
 
-	    dd($deals->toArray());
-
 	    return view('public.search.index', compact('events', 'newsfeeds', 'deals', 'outlets', 'key'));
 	}
 }
