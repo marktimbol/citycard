@@ -56,7 +56,7 @@ class Event extends React.Component
 							{ item.event_time ? item.event_time : '09:00 - 18:00' }
 						</small>
 						<p className="text-ellipsis">
-							{ item.event_location ? item.location : 'Dubai, United Arab Emirates' }
+							{ item.event_location ? item.event_location : 'Dubai, United Arab Emirates' }
 						</p>
 					</div>
 				</div>
