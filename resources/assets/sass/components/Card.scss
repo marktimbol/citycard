@@ -20,7 +20,7 @@
     border: 1px solid #efefef;
 }
 
-.Card__title {
+.Card__outlet {
     a {
     	color: #262626;
 	    font-size: 15px;
@@ -61,6 +61,7 @@
         letter-spacing: .5px;
     }
     h3 {
+        font-size: 16px;
         margin-top: 0px;
         a {
             color: #636b6f;
@@ -69,4 +70,8 @@
             }
         }        
     }
+}
+
+.Card__title {
+    font-size: 18px;
 }

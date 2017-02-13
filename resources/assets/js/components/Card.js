@@ -36,7 +36,7 @@ class Card extends React.Component
 				<div className="Card__header">
 					<div className="Flex Flex--center">
 						<img src={logo} alt={item.merchant.name} title={item.merchant.name} className="img-circle Card__logo" width="30" height="30" />
-						<h4 className="Card__title">
+						<h4 className="Card__outlet">
 							<a href="#">{item.merchant.name}</a>
 						</h4>
 					</div>
@@ -52,7 +52,7 @@ class Card extends React.Component
 					</a>
 				</div>
 				<div className="Card__description">
-					<h3><a href={post_url}>{item.title}</a></h3>
+					<h3 className="Card__title"><a href={post_url}>{item.title}</a></h3>
 					<div dangerouslySetInnerHTML={this.itemDescription()}></div>
 				</div>
 			</div>
