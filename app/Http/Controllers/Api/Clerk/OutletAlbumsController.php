@@ -14,14 +14,26 @@ class OutletAlbumsController extends Controller
     {
     	$outlet->load('albums');
 
-    	return AlbumTransformer::transform($outlet->albums);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet Albums',
+            'data'  => [
+                'albums'    => AlbumTransformer::transform($outlet->albums)
+            ]
+        ]);
     }
 
     public function show(Outlet $outlet, Album $album)
     {
     	$album->load('photos');
 
-    	return AlbumTransformer::transform($album);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Showing an Album',
+            'data'  => [
+                'album'    => AlbumTransformer::transform($album)
+            ]    
+        ]);
     }
 
     public function store(Request $request, Outlet $outlet)
@@ -31,7 +43,11 @@ class OutletAlbumsController extends Controller
         ]);
 
         return response()->json([
-            'success'   => true,
+            'status'    => 1,
+            'message'   => 'An Outlet album has been successfully saved.',
+            'data'  => [
+                'album' => AlbumTransformer::transform($album)
+            ]
         ]);
     }
 
@@ -42,7 +58,11 @@ class OutletAlbumsController extends Controller
         ]);
 
         return response()->json([
-            'success'   => true,
+            'status'    => 1,
+            'message'   => 'An Outlet album has been successfully updated.',
+            'data'  => [
+                'album' => AlbumTransformer::transform($album)
+            ]
         ]);
     }
 
@@ -51,7 +71,11 @@ class OutletAlbumsController extends Controller
         $album->delete();
 
         return response()->json([
-            'success'   => true,
-        ]);        
+            'status'    => 1,
+            'message'   => 'An Outlet album has been successfully deleted.',
+            'data'  => [
+                'deleted_album' => AlbumTransformer::transform($album)
+            ]
+        ]);
     }
 }

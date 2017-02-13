@@ -12,6 +12,11 @@ class ClerksController extends Controller
     {
     	$clerk = auth()->guard('clerk_api')->user();
 
-    	return ClerkTransformer::transform($clerk);
+    	return response()->json([
+    		'status'	=> 1,
+    		'data'	=> [
+    			'clerk'	=> ClerkTransformer::transform($clerk)
+    		]
+    	]);
     }
 }

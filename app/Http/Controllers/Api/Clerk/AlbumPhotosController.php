@@ -3,20 +3,28 @@
 namespace App\Http\Controllers\Api\Clerk;
 
 use App\Album;
-use App\AlbumPhoto;
-use App\Http\Controllers\Controller;
 use App\Outlet;
-use App\Transformers\Outlet\AlbumOutletMerchantTransformer;
-use App\Transformers\Outlet\AlbumPhotosTransformer;
+use App\AlbumPhoto;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Transformers\PhotosTransformer;
 use Illuminate\Support\Facades\Storage;
+use App\Transformers\Outlet\AlbumPhotosTransformer;
+use App\Transformers\Outlet\AlbumOutletMerchantTransformer;
 
 class AlbumPhotosController extends Controller
 {
     public function index(Album $album)
     {
     	$album->load('photos');
-    	return AlbumPhotosTransformer::transform($album->photos);
+
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Showing album photos',
+            'data'  => [
+                'photos'    => AlbumPhotosTransformer::transform($album->photos)
+            ]
+        ]);
     }
 
     public function store(Request $request, Album $album)
@@ -40,9 +48,13 @@ class AlbumPhotosController extends Controller
     		'url'	=> $file
     	]);
 
-    	return response()->json([
-    		'success'	=> true,
-    	]);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Photo was successfully uploaded in ' . $uploadPath,
+            'data'  => [
+                'photo'    => PhotosTransformer::transform($photo)
+            ]
+        ]);
     }
 
     public function destroy(Album $album, AlbumPhoto $photo)
@@ -50,8 +62,12 @@ class AlbumPhotosController extends Controller
     	$photo->delete();
     	Storage::delete($photo->url);
     
-    	return response()->json([
-    		'success'	=> true,
-    	]);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Photo was successfully deleted.',
+            'data'  => [
+                'deleted_photo'    => PhotosTransformer::transform($photo)
+            ]
+        ]);
     }
 }

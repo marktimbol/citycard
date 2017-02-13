@@ -13,7 +13,13 @@ class OutletShopFrontsController extends Controller
 {
     public function index(Outlet $outlet)
     {
-    	return OutletShopFrontsTransformer::transform($outlet->shop_fronts);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet Shop fronts',
+            'data'  => [
+                'shop_fronts'   => OutletShopFrontsTransformer::transform($outlet->shop_fronts)
+            ]
+        ]);
     }
 
     public function store(Request $request, Outlet $outlet)
@@ -23,9 +29,17 @@ class OutletShopFrontsController extends Controller
 	    $uploadPath = sprintf('merchants/%s/outlets/%s/shop_fronts', str_slug($outlet->merchant->name), $outlet->id);
 	    $file = $request->file->store($uploadPath, 's3');
 
-    	return $outlet->shop_fronts()->create([
+    	$shop_front = $outlet->shop_fronts()->create([
     		'url'	=> $file
     	]);
+
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet Shop Front has been successfully saved.',
+            'data'  => [
+                'shop_front'   => OutletShopFrontsTransformer::transform($shop_front)
+            ]
+        ]);
     }
 
     public function destroy(Outlet $outlet, ShopFront $shop_front)
@@ -34,7 +48,11 @@ class OutletShopFrontsController extends Controller
         $shop_front->delete();
 
         return response()->json([
-        	'success'	=> true,
+            'status'    => 1,
+            'message'   => 'Outlet Shop Front has been successfully deleted.',
+            'data'  => [
+                'deleted_shop_front'   => OutletShopFrontsTransformer::transform($shop_front)
+            ]
         ]);
     }   
 }

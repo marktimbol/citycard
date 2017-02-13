@@ -11,6 +11,12 @@ class UsersController extends Controller
 {
     public function show(User $user)
     {
-    	return UserTransformer::transform($user);
+    	return response()->json([
+    		'status'	=> 1,
+    		'message'	=> 'Showing user information.',
+    		'data'	=> [
+    			'user'	=> UserTransformer::transform($user)
+    		]
+    	]);
     }
 }

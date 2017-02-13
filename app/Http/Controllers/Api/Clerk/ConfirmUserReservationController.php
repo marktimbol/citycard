@@ -21,9 +21,12 @@ class ConfirmUserReservationController extends Controller
 
 		event( new ReservationWasConfirmed($outlet, $reservation) );
 
-    	return response()->json([
-    		'success'	=> true,
-    		'message'	=> 'The reservation has been successfully confirmed.'
-    	]);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'The reservation has been successfully confirmed',
+            'data'  => [
+                'reservation'   => $reservation,
+            ]
+        ]);
     }
 }

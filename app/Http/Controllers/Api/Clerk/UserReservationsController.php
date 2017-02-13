@@ -6,7 +6,7 @@ use App\Outlet;
 use App\Reservation;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Events\Reservation\ReservationWasConfirmed;
+use App\Transformers\ReservationTransformer;
 
 class UserReservationsController extends Controller
 {
@@ -21,10 +21,13 @@ class UserReservationsController extends Controller
 
         $reservation->update($request->all());
     	
-    	return response()->json([
-    		'success'	=> true,
-    		'message'	=> 'The reservation has been successfully updated.'
-    	]);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'The reservation has been successfully updated.',
+            'data'  => [
+                'reservation'   => ReservationTransformer::transform($reservation)
+            ]
+        ]);
     }
 
     /**
@@ -41,8 +44,11 @@ class UserReservationsController extends Controller
         ]);
 
         return response()->json([
-            'success'   => true,
-            'message'	=> 'The reservation has been successfully cancelled.'
+            'status'    => 1,
+            'message'   => 'The reservation has been successfully cancelled.',
+            'data'  => [
+                'cancelled_reservation'   => ReservationTransformer::tranform($reservation)
+            ]
         ]);
     }       
 }

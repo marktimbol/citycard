@@ -14,6 +14,12 @@ class OutletCancelledReservationsController extends Controller
         $reservations = $outlet->cancelledReservations;
         $reservations->load('item', 'user');
 
-    	return ReservationTransformer::transform($reservations);		
+        return response()->json([
+        	'success'	=> 1,
+        	'message'	=> sprintf('%s cancelled reservations', $outlet->name),
+        	'data'	=> [
+        		'reservations'	=> ReservationTransformer::transform($reservations)
+        	]
+        ]);
 	}
 }

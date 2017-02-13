@@ -59,17 +59,21 @@ class LoginController extends Controller
             $clerk->load('outlets');
 
             return response()->json([
-                'authenticated' => true,
-                'message'   => 'success',
-                'auto_logout' => false,
-                'clerk'  => ClerkTransformer::transform($clerk)
-            ]);
+                'status'    => 1,
+                'auto_logout'   => 1,
+                'message'   => 'You have successfully login.',
+                'data'  => [
+                    'clerk' => ClerkTransformer::transform($clerk)
+                ]
+            ]);            
         }
 
         return response()->json([
-            'authenticated' => false,
-            'message' => 'Invalid email or password.',
-            'clerk'  => []
+            'status'    => 0,
+            'message'   => 'Invalid email or password',
+            'data'  => [
+                'clerk' => []
+            ]
         ]);
     }
 }

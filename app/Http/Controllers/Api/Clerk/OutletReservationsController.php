@@ -20,13 +20,25 @@ class OutletReservationsController extends Controller
 
         $reservations->load('item', 'user');
 
-    	return ReservationTransformer::transform($reservations);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet reservations',
+            'data'  => [
+                'reservations'  => ReservationTransformer::transform($reservations)
+            ]
+        ]);
     }
 
     public function show(Outlet $outlet, Reservation $reservation)
     {    	
     	$reservation->load('item', 'user');
     	
-    	return ReservationTransformer::transform($reservation);  	
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Showing a single reservation',
+            'data'  => [
+                'reservation'   => ReservationTransformer::transform($reservation)
+            ]
+        ]);
     }
 }

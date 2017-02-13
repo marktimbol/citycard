@@ -13,7 +13,13 @@ class OutletMenusController extends Controller
 {
     public function index(Outlet $outlet)
     {
-    	return OutletMenusTransformer::transform($outlet->menus);
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet Menus',
+            'data'  => [
+                'menus' => OutletMenusTransformer::transform($outlet->menus)
+            ]
+        ]);
     }
 
     public function store(Request $request, Outlet $outlet)
@@ -23,9 +29,17 @@ class OutletMenusController extends Controller
 	    $uploadPath = sprintf('merchants/%s/outlets/%s/menus', str_slug($outlet->merchant->name), $outlet->id);
 	    $file = $request->file->store($uploadPath, 's3');
 
-    	return $outlet->menus()->create([
+    	$menu = $outlet->menus()->create([
     		'url'	=> $file
     	]);
+
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'Outlet Menu has been successfully created.',
+            'data'  => [
+                'menu' => OutletMenusTransformer::transform($menu)
+            ]
+        ]);        
     }
 
     public function destroy(Outlet $outlet, OutletMenu $menu)
@@ -34,7 +48,11 @@ class OutletMenusController extends Controller
         $menu->delete();
 
         return response()->json([
-        	'success'	=> true,
+            'status'    => 1,
+            'message'   => 'Outlet Menu has been successfully deleted.',
+            'data'  => [
+                'deleted_menu' => OutletMenusTransformer::transform($menu)
+            ]
         ]);
     }    
 }

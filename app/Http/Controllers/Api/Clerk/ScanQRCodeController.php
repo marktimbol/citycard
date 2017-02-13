@@ -11,7 +11,23 @@ class ScanQRCodeController extends Controller
 {
     public function show()
     {
-    	$user = User::where('uuid', request()->uuid)->first();
-    	return UserTransformer::transform($user);
+    	if( $user = User::where('uuid', request()->uuid)->first() )
+    	{
+	    	return response()->json([
+	    		'status'	=> 1,
+	    		'message'	=> 'User was found.',
+	    		'data'	=> [
+	    			'user'	=> UserTransformer::transform($user)
+	    		]
+	    	]);	
+    	}
+
+    	return response()->json([
+    		'status'	=> 0,
+    		'message'	=> 'User does not exist.',
+    		'data'	=> [
+    			'user'	=> []
+    		]
+    	]);    	
     }
 }
