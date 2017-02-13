@@ -74,7 +74,7 @@
 			<div class="col-md-12">
 		    	<div class="Offers--results row">
 		    		<div class="col-md-12">
-		    			<h3>Offers</h3>
+		    			<h3>Offers / Deals</h3>
 		    		</div>
 			    	@forelse( $deals->chunk(2) as $items )
 			    		<div class="Row">
@@ -88,7 +88,7 @@
 													title="{{ $item->merchant->name }}" 
 													class="img-circle Card__logo" 
 													width="30" height="30" />
-												<h4 class="Card__title">
+												<h4 class="Card__outlet">
 													<a href="#">{{ $item->merchant->name }}</a>
 												</h4>
 											</div>
@@ -100,14 +100,14 @@
 										</div>
 										<div class="Card__image">
 											<a href="/posts/{{$item->slug}}">
-												<div class="placeholder" data-large="/images/event-cover.png">
+												<div class="placeholder" data-large="{{ getPhotoPath($item->photos()->first()->url) }}">
 													<img src="/images/blurred-image.jpeg" class="img-small" /> 
 													<div class="aspect-ratio-fill"></div> 
 												</div>
 											</a>
 										</div>
 										<div class="Card__description">
-											<h3>
+											<h3 class="Card__title">
 												<a href="/posts/{{$item->slug}}">{{ $item->title }}</a>
 											</h3>
 											{{-- {{ str_limit($item->desc, 300) }} --}}

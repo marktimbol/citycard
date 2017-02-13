@@ -12,6 +12,7 @@ class PhotosTransformer extends AbstractTransformer
     	return [
     		'id'	=> $item->id,
     		'url'	=> $item->url,
+    		'thumbnail'	=> $item->thumbnail,
     	];
     }
 }

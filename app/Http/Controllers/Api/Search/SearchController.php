@@ -17,31 +17,47 @@ class SearchController extends Controller
 	    $post_results = Post::search($key)->get();
 	    $outlet_results = Outlet::search($key)->get();
 
-	    $all = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-	            ->whereIn('id', $post_results->pluck('id'))
-	            ->get();
+	    $all = Post::with([
+	    	'category', 'outlets:id,name', 'merchant',
+	    	'photos:id,url,thumbnail,imageable_id,imageable_type',
+	    	'sources'
+	    ])
+            ->whereIn('id', $post_results->pluck('id'))
+            ->get();
 
-	    $newsfeeds = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-	            ->latest()
-	            ->whereIn('id', $post_results->pluck('id'))
-	            ->whereType('newsfeed')
-	            ->take(9)
-	            ->get();
+	    $newsfeeds = Post::with([
+	    	'category', 'outlets:id,name', 'merchant',
+	    	'photos:id,url,thumbnail,imageable_id,imageable_type',
+	    	'sources'
+	    ])
+            ->latest()
+            ->whereIn('id', $post_results->pluck('id'))
+            ->whereType('newsfeed')
+            ->take(9)
+            ->get();
 
-	    $deals = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-	            ->latest()
-	            ->whereIn('id', $post_results->pluck('id'))
-	            ->whereType('deals')
-	            ->take(9)
-	            ->get();
+	    $deals = Post::with([
+	    	'category', 'outlets:id,name', 'merchant',
+	    	'photos:id,url,thumbnail,imageable_id,imageable_type',
+	    	'sources'
+	    ])
+            ->latest()
+            ->whereIn('id', $post_results->pluck('id'))
+            ->whereType('deals')
+            ->take(9)
+            ->get();
 
-	    $events = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
-	            ->upcomingEvents()
-	            ->whereIn('id', $post_results->pluck('id'))
-	            ->take(9)
-	            ->get();
+	    $events = Post::with([
+	    	'category', 'outlets:id,name', 'merchant',
+	    	'photos:id,url,thumbnail,imageable_id,imageable_type',
+	    	'sources'
+	    ])
+            ->upcomingEvents()
+            ->whereIn('id', $post_results->pluck('id'))
+            ->take(9)
+            ->get();
 
-	    $outlets = Outlet::with('photos', 'merchant')
+	    $outlets = Outlet::with('photos:id,url,thumbnail,imageable_id,imageable_type', 'merchant')
 	    	->whereIn('id', $outlet_results->pluck('id'))
 	            ->take(9)
 	            ->get();
@@ -55,6 +71,8 @@ class SearchController extends Controller
 		    	'outlets' => SearchOutletTransformer::transform($outlets),
 		    ]);
 	    }
+
+	    dd($deals->toArray());
 
 	    return view('public.search.index', compact('events', 'newsfeeds', 'deals', 'outlets', 'key'));
 	}
