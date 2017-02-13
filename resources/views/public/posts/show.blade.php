@@ -12,7 +12,7 @@
 				<div class="Card__header">
 					<div class="Flex Flex--center">
 						<img src="{{ $post->merchant->logo != null ? getPhotoPath($post->merchant->logo) : 'http://placehold.it/28x28' }}" alt="{{ $post->merchant->name }}" title="{{ $post->merchant->name }}" class="img-circle Card__logo" width="30" height="30" />
-						<h4 class="Card__title">
+						<h4 class="Card__outlet">
 							<a href="#">{{ $post->merchant->name }}</a>
 						</h4>
 					</div>
@@ -34,7 +34,7 @@
 					</div>				
 				</div>
 				<div class="Card__description">
-					<h3>{{ $post->title }}</h3>
+					<h3 class="Card__title">{{ $post->title }}</h3>
 					{!! $post->desc !!}
 				</div>
 			</div>
