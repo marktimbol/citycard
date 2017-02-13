@@ -26,12 +26,14 @@ class OutletsController extends Controller
         {
             $outlet->load('posts', 'reservations', 'photos');
             return response()->json([
+                'status'    => true,
                 'nearby'  => true,
                 'outlet'    => OutletTransformer::transform($outlet)
             ]);
         }
 
         return response()->json([
+            'status'    => false,
             'nearby'  => false,
             'message'   => 'You are far away from the Outlet.'
         ]);

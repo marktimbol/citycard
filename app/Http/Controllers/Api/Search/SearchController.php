@@ -72,6 +72,13 @@ class SearchController extends Controller
 		    ]);
 	    }
 
+	    // dd(
+	    // 	'events', $events->toArray(), 
+	    // 	'newsfeeds', $newsfeeds->toArray(), 
+	    // 	'deals', $deals->toArray(), 
+	    // 	'outlets', $outlets->toArray()
+	    // );
+
 	    return view('public.search.index', compact('events', 'newsfeeds', 'deals', 'outlets', 'key'));
 	}
 }

@@ -10,7 +10,7 @@
 		<div class="row">
 			<div class="col-md-12">
 				<p></p>
-				<div class="btn-group Flex Flex--center">
+				<div class="btn-group Flex Flex--center Search--filters">
 					<a href="/search/{{ $key }}" class="btn btn-default">All</a>
 					<a href="/search/newsfeeds/{{ $key }}" class="btn btn-default">Posts</a>
 					<a href="/search/deals/{{ $key }}" class="btn btn-default">Offers</a>
@@ -22,10 +22,8 @@
 
 		<div class="row">
 			<div class="col-md-12">
+    			<h3>Events</h3>
 		    	<div class="Events row">
-		    		<div class="col-md-12">
-		    			<h3>Events</h3>
-		    		</div>
 			    	@forelse( $events as $item )
 						<div class="Event Column-4">
 							<div class="Event__header">
@@ -100,7 +98,7 @@
 										</div>
 										<div class="Card__image">
 											<a href="/posts/{{$item->slug}}">
-												<div class="placeholder" data-large="{{ getPhotoPath($item->photos()->first()->url) }}">
+												<div class="placeholder" data-large="{{ $item->photos->count() > 0 ? getPhotoPath($item->photos()->first()->url) : 'http://placehold.it/600x500' }}">
 													<img src="/images/blurred-image.jpeg" class="img-small" /> 
 													<div class="aspect-ratio-fill"></div> 
 												</div>
