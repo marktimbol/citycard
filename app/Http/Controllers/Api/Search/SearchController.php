@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api\Search;
 
 use App\Post;
 use App\Outlet;
+use JavaScript;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Transformers\SearchPostsTransformer;
@@ -65,6 +66,7 @@ class SearchController extends Controller
 	    if( request()->wantsJson() )
 	    {    	
 		    return response()->json([
+		    	// 'all'	=> SearchPostsTransformer::transform($all),
 		    	'newsfeeds'	=> SearchPostsTransformer::transform($newsfeeds),
 		    	'deals'	=> SearchPostsTransformer::transform($deals),
 		    	'events' => SearchPostsTransformer::transform($events),
@@ -78,6 +80,17 @@ class SearchController extends Controller
 	    // 	'deals', $deals->toArray(), 
 	    // 	'outlets', $outlets->toArray()
 	    // );
+
+	    JavaScript::put([
+	    	's3_bucket_url'	=> getS3BucketUrl(),
+	    	'data'	=> [
+	    		'results'	=> SearchPostsTransformer::transform($all),
+	    		'outlets'	=> [],
+	    		'events'	=> [],
+	    		'deals'	=> [],
+	    		'newsfeeds'	=> [],
+	    	],
+	    ]);
 
 	    return view('public.search.index', compact('events', 'newsfeeds', 'deals', 'outlets', 'key'));
 	}

@@ -1,7 +1,6 @@
 import React from 'react';
-import TimeAgo from 'react-timeago';
-import ProgressiveMedia from './ProgressiveMedia';
 import moment from 'moment';
+import ProgressiveMedia from './ProgressiveMedia';
 
 class Card extends React.Component
 {
@@ -42,7 +41,7 @@ class Card extends React.Component
 					</div>
 					<div>
 						<span className="timeago">
-							<TimeAgo date={moment(item.created_at).format('LLL')} />
+							{moment(item.created_at).fromNow()}
 						</span>
 					</div>
 				</div>

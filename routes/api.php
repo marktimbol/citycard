@@ -48,7 +48,7 @@ Route::group(['as' => 'api.'], function() {
 		'only'	=> ['index']
 	]);
 	Route::resource('posts', 'Api\PostsController', [
-		'only'	=> ['index']
+		'only'	=> ['index', 'show']
 	]);
 	Route::post('posts/{post}/favourite', ['uses' => 'Api\FavouritePostsController@store']);
 	Route::delete('posts/{post}/unfavourite', ['uses' => 'Api\FavouritePostsController@destroy']);

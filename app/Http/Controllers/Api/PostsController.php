@@ -36,4 +36,11 @@ class PostsController extends Controller
 
 		return PostTransformer::transform($paginator->getCollection());
     }
+
+    public function show(Post $post)
+    {
+        $post->load('merchant');
+        
+        return PostTransformer::transform($post);
+    }
 }

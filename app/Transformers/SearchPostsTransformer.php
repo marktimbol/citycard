@@ -21,6 +21,25 @@ class SearchPostsTransformer extends AbstractTransformer
             $output['event_location'] = $item->event_location;
         }
 
+        $post = $item->load('outlets.itemsForReservation');
+
+        $forReservation = false;
+        foreach( $post->outlets as $outlet ) {
+            if( $outlet->has_reservation ) {
+                $result = $outlet->itemsForReservation->where('title', $item->title)->first();
+                if( ! empty($result) ) {
+                    $forReservation = true;
+                    $item_id = $result->id;
+                }
+            }
+        }
+
+        $output['for_reservation'] = $forReservation;
+
+        if( $forReservation ) {
+            $output['for_reservation_id'] = $item_id;
+        }
+        
         $output['is_favourited'] = false;
         
         if( auth()->guard('user_api')->check() ) {

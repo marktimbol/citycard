@@ -14,5 +14,5 @@
 @endsection
 
 @section('footer_scripts')
-	<script src="/js/PostsInfinite.js"></script>
+	<script src="{{ elixir('js/PostsInfinite.js') }}"></script>
 @endsection
