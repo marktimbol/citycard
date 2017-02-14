@@ -13,7 +13,9 @@ class NearMeOutletsController extends Controller
     {
         $outlets = Outlet::with('merchant', 'categories')->latest();
 
-        $near_outlets = $outlets->nearMe(request()->lat, request()->lng)->pluck('id');
+        $distance = request()->has('distance') ? request()->distance : config('distance.near_outlets');
+        $near_outlets = $outlets->nearMe(request()->lat, request()->lng, $distance)->pluck('id');
+
         $outlets = $outlets->whereIn('id', $near_outlets);
 
         return OutletNearMeTransformer::transform($outlets->get());
