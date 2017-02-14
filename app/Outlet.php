@@ -148,8 +148,10 @@ class Outlet extends Authenticatable
 	/**
 	 * Near me outlets
 	 */
-	public function scopeByDistance($query, $lat, $lng, $distance = 1) // 1 km
+	public function scopeNearMe($query, $lat, $lng)
 	{
+		$distance = config('distance.near_outlets');
+		
 		return collect(DB::select(
 			DB::raw('SELECT id, ( 3959 * acos( cos( radians(' . $lat . ') ) * cos( radians( lat ) ) * cos( radians( lng ) - radians(' . $lng . ') ) + sin( radians(' . $lat .') ) * sin( radians(lat) ) ) ) AS distance FROM outlets HAVING distance < ' . $distance . ' ORDER BY distance'
 			)

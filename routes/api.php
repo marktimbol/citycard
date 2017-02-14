@@ -38,6 +38,8 @@ Route::group(['as' => 'api.'], function() {
 	Route::get('search/newsfeeds/{key}', 'Api\Search\SearchNewsFeedsController@index');
 	Route::get('search/outlets/{key}', 'Api\Search\SearchOutletsController@index');
 
+	Route::get('outlets/nearme', 'Api\NearMeOutletsController@index');
+	
 	Route::resource('outlets', 'Api\OutletsController', [
 		'only'	=> ['index', 'show']
 	]);
