@@ -85,7 +85,7 @@ class SearchController extends Controller
 	    	's3_bucket_url'	=> getS3BucketUrl(),
 	    	'data'	=> [
 	    		'results'	=> SearchPostsTransformer::transform($all),
-	    		'outlets'	=> [],
+	    		'outlets'	=> SearchOutletTransformer::transform($outlets),
 	    		'events'	=> [],
 	    		'deals'	=> [],
 	    		'newsfeeds'	=> [],
