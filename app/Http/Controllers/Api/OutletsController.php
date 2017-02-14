@@ -17,13 +17,8 @@ class OutletsController extends Controller
 
         if( request()->has('lat') && request()->has('lng') )
         {
-            $outlet_ids = $outlets->byDistance(
-                request()->lat, 
-                request()->lng, 
-                config('distance.km')
-            )->pluck('id');
-
-            $outlets = $outlets->whereIn('id', $outlet_ids);
+            $near_outlets = $outlets->nearMe(request()->lat, request()->lng)->pluck('id');
+            $outlets = $outlets->whereIn('id', $near_outlets);
         }
 
         return OutletNearMeTransformer::transform($outlets->get());
