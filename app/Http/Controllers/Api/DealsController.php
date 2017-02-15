@@ -12,6 +12,7 @@ class DealsController extends Controller
     public function index(Request $request)
     {
     	$posts = Post::with(['category', 'outlets:id,name', 'merchant', 'photos', 'sources'])
+                    ->latest()
     				->where('type', 'deals')
                     ->paginate(config('pagination.count'));
     				
