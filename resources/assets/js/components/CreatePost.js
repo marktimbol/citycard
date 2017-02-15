@@ -100,7 +100,7 @@ class CreatePost extends Component
 					formData.append('outlet_ids', outlet_ids.join());
 					formData.append('allow_for_reservation', that.state.allow_for_reservation);
 					formData.append('category', that.state.selectedCategory);
-					formData.append('subcategories', subcategories.join());
+					formData.append('subcategories', subcategories);
 
 					that.state.reservationOptions.map(option => {
 						formData.append('reservationOptions[]', option);

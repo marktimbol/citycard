@@ -53,7 +53,7 @@ class MerchantPostsController extends Controller
     }
 
     public function store(Request $request, Merchant $merchant)
-    {                                     
+    {                       
         $this->validateRequest($request);
 
         $merchant->load('areas.city.country');
@@ -64,11 +64,12 @@ class MerchantPostsController extends Controller
         $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());
 
-        foreach( $request->subcategories as $item )
+        $subcategories = explode(',', $request->subcategories);
+        foreach( $subcategories as $item )
         {
             $subcategory = Subcategory::firstOrCreate([
                 'category_id'   => $request->category,
-                'name'  => $item['value']
+                'name'  => $item,
             ]);
 
             $post->subcategories()->attach($subcategory);
@@ -104,15 +105,14 @@ class MerchantPostsController extends Controller
 
         // Need to process this in background
         // Upload Photo to S3
-        
-        // $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($merchant->name), $post->id);
-        // foreach( $request->file as $file )
-        // {  
-        //     $path = $file->store($uploadPath, 's3');
-        //     $photo = $post->photos()->create([
-        //         'url'   => $path
-        //     ]);        
-        // }
+        $uploadPath = sprintf('merchants/%s/posts/%s', str_slug($merchant->name), $post->id);
+        foreach( $request->file as $file )
+        {  
+            $path = $file->store($uploadPath, 's3');
+            $photo = $post->photos()->create([
+                'url'   => $path
+            ]);        
+        }
 
         return $post;
     }
