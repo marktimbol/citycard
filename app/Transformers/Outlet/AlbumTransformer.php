@@ -15,7 +15,7 @@ class AlbumTransformer extends AbstractTransformer
     	]);
 
         $output['photos_count'] = $item->photos()->count();
-        $output['photo'] = $item->photos()->inRandomOrder()->first();
+        $output['photo'] = $item->photos()->inRandomOrder()->first()->url;
 
     	return $output;	
     }
