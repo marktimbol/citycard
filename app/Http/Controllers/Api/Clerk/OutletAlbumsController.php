@@ -12,7 +12,7 @@ class OutletAlbumsController extends Controller
 {
     public function index(Outlet $outlet)
     {
-    	$outlet->load('albums');
+    	$outlet->load('albums.photos');
 
         return response()->json([
             'status'    => 1,
