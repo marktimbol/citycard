@@ -25,8 +25,6 @@ class OutletAlbumsController extends Controller
 
     public function show(Outlet $outlet, Album $album)
     {
-    	$album->load('photos');
-
         return response()->json([
             'status'    => 1,
             'message'   => 'Showing an Album',
