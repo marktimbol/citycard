@@ -121,12 +121,7 @@ class Outlet extends Authenticatable
     {
     	return $this->hasMany(ItemForReservation::class);
     }
-
-    public function albums()
-    {
-    	return $this->hasMany(Album::class);
-    }    
-
+    
     public function menus()
     {
     	return $this->hasMany(OutletMenu::class);
