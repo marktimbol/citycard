@@ -38,9 +38,34 @@ class OutletAlbumsController extends Controller
 
     public function store(Request $request, Outlet $outlet)
     {
+        $outlet->load('merchant');
+
         $album = $outlet->albums()->create([
             'title' => $request->title
         ]);
+
+        $album->load('photos');
+
+        foreach( $request->photos as $photo )
+        {
+            try {          
+                $path = sprintf(
+                    'merchants/%s/outlets/%s/albums/%s/photos',
+                    str_slug($outlet->merchant->name),
+                    str_slug($outlet->name),
+                    $album->id
+                );
+
+                $file = $photo->store($path, 's3');
+
+                $album->photos()->create([
+                    'url'   => $file
+                ]);
+
+            } catch (\Exception $e) {
+                
+            }
+        }
 
         return response()->json([
             'status'    => 1,
