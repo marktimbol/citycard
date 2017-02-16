@@ -50,7 +50,12 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	// Album Photos
 	Route::resource('albums.photos', 'Api\Clerk\AlbumPhotosController', [
 		'only'	=> ['index', 'store', 'destroy']
-	]);		
+	]);
+
+	// Outlet Photos
+	Route::resource('outlets.photos', 'Api\Clerk\OutletPhotosController', [
+		'only'	=> ['index', 'store', 'destroy']
+	]);			
 
 	// Outlet Menus
 	Route::resource('outlets.menus', 'Api\Clerk\OutletMenusController', [

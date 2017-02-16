@@ -12,8 +12,6 @@ class OutletAlbumsController extends Controller
 {
     public function index(Outlet $outlet)
     {
-    	$outlet->load('albums.photos');
-
         return response()->json([
             'status'    => 1,
             'message'   => 'Outlet Albums',
