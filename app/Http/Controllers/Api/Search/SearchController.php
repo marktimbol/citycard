@@ -7,6 +7,7 @@ use App\Outlet;
 use JavaScript;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Transformers\UserOutletTransformer;
 use App\Transformers\SearchPostsTransformer;
 use App\Transformers\SearchOutletTransformer;
 
@@ -74,21 +75,26 @@ class SearchController extends Controller
 		    ]);
 	    }
 
-	    // dd(
-	    // 	'events', $events->toArray(), 
-	    // 	'newsfeeds', $newsfeeds->toArray(), 
-	    // 	'deals', $deals->toArray(), 
-	    // 	'outlets', $outlets->toArray()
-	    // );
+        $currentUserOutlets = [];
+        if( auth()->guard('user')->check() )
+        {        
+            $currentUser = auth()->guard('user')->user();
+            $currentUser->load('outlets');
+
+            $currentUserOutlets = UserOutletTransformer::transform($currentUser->outlets);
+        }
 
 	    JavaScript::put([
+            // User's token to Follow/unfollow an Outlet
+            'api_token' => auth()->guard('user')->check() ? auth()->guard('user')->user()->api_token : '',
 	    	's3_bucket_url'	=> getS3BucketUrl(),
 	    	'data'	=> [
-	    		'results'	=> SearchPostsTransformer::transform($all),
+	    		'posts'	=> SearchPostsTransformer::transform($all),
 	    		'outlets'	=> SearchOutletTransformer::transform($outlets),
 	    		'events'	=> [],
 	    		'deals'	=> [],
 	    		'newsfeeds'	=> [],
+	    		'user_outlets' => $currentUserOutlets
 	    	],
 	    ]);
 

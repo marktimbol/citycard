@@ -25,6 +25,7 @@ class SearchOutletTransformer extends AbstractTransformer
 
         if( $this->isRelationshipLoaded($item, 'merchant') ) {
             $output['logo'] = $item->merchant->logo;
+            $output['merchant'] = MerchantTransformer::transform($item->merchant);
         }      
 
         return $output; 

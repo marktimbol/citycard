@@ -9,7 +9,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12">
-				<p></p>
+				<p>&nbsp;</p>
 				<div class="btn-group Flex Flex--center Search--filters">
 					<a href="/search/{{ $key }}" class="btn btn-default">All</a>
 					<a href="/search/newsfeeds/{{ $key }}" class="btn btn-default">Posts</a>
