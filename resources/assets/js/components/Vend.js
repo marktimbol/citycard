@@ -11,12 +11,14 @@ class Vend extends React.Component
 			params: {			
 				'response_type': 'code',
 				'client_id': 'Zi443rp53eYjLXUkKaygntis5TDbHVAW',
-				'redirect_uri': 'http://citycard.me',
+				'redirect_uri': '	http://citycard.me',
 				'state': ''
 			},
 			headers: {
 				'Accept': 'application/json',
-				'Content-Type': 'application/json'
+				'Content-Type': 'application/json',
+				'Access-Control-Allow-Origin': '*',
+				'Access-Control-Allow-Methods': 'PUT, GET, POST, DELETE, OPTIONS'
 			}
 		}).then(function(response) {
 			console.log('response', response);
