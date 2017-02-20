@@ -7,18 +7,13 @@ import axios from 'axios';
 class Vend extends React.Component
 {
 	componentDidMount() {
-		axios.get('https://secure.vendhq.com/connect', {
-			params: {			
-				'response_type': 'code',
-				'client_id': 'Zi443rp53eYjLXUkKaygntis5TDbHVAW',
-				'redirect_uri': 'http://citycard.me',
-				'state': ''
-			},
+		let endpoint = 'https://arksolutions.vendhq.com/api/products/06bf537b-c7cd-11e6-ff13-f74d7d458d45';
+
+		axios.get(endpoint, {
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				'Access-Control-Allow-Origin': '*',
-				'Access-Control-Allow-Methods': 'PUT, GET, POST, DELETE, OPTIONS'
+				'Authorization': 'Bearer CjOC4V9CKof2GwxORLlcw:eOada7qskzRU9xdCSv'
 			}
 		}).then(function(response) {
 			console.log('response', response);
