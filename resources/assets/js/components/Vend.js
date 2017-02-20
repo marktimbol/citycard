@@ -13,7 +13,8 @@ class Vend extends React.Component
 			headers: {
 				'Accept': 'application/json',
 				'Content-Type': 'application/json',
-				'Authorization': 'Bearer CjOC4V9CKof2GwxORLlcw:eOada7qskzRU9xdCSv'
+				'Authorization': 'Bearer CjOC4V9CKof2GwxORLlcw:eOada7qskzRU9xdCSv',
+				'Access-Control-Allow-Origin': '*'
 			}
 		}).then(function(response) {
 			console.log('response', response);
