@@ -9,7 +9,13 @@ class Vend extends React.Component
 	componentDidMount() {
 		let endpoint = 'https://secure.vendhq.com/connect?response_type=code&client_id=Zi443rp53eYjLXUkKaygntis5TDbHVAW&redirect_uri=http://citycard.me&state=';
 
-		axios.get(endpoint)
+		axios.get({
+			url: endpoint,
+			headers: {
+				'Accept': 'application/json',
+				'Content-Type': 'application/json'
+			},
+		})
 			.then(function(response) {
 				console.log('response', response);
 			}).catch(function(error) {
