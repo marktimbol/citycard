@@ -3,10 +3,9 @@
 namespace App\Http\Controllers\Api\Search;
 
 use App\Post;
-use App\Outlet;
+use JavaScript;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Transformers\OutletTransformer;
 use App\Transformers\SearchPostsTransformer;
 
 class SearchNewsFeedsController extends Controller
@@ -21,8 +20,19 @@ class SearchNewsFeedsController extends Controller
 	    		->latest()
 	            ->whereIn('id', $post_results->pluck('id'))
 	            ->where('type', 'newsfeed')
-	            ->paginate(config('pagination.count'));
+	            ->get();
 
-	    return SearchPostsTransformer::transform($results->getCollection());
+        JavaScript::put([
+            // User's token to Follow/unfollow an Outlet
+            'api_token' => auth()->check() ? auth()->user()->api_token : null,
+            's3_bucket_url' => getS3BucketUrl(),
+            'data'  => [
+                'outlets'   => [],
+                'user_outlets' => [],
+                'posts' => SearchPostsTransformer::transform($results),
+            ],
+        ]);
+
+        return view('public.search.index', compact('key'));  
 	}
 }

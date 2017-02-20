@@ -8,9 +8,9 @@ class SearchResults extends React.Component
 {
 	render()
 	{
-		let outlet_results = app.data.outlets.map((outlet, index) => {
+		let outlet_results = app.data.outlets.map(outlet => {
 			return (
-				<OutletCard outlet={outlet} key={index} />
+				<OutletCard outlet={outlet} key={outlet.id} />
 			)
 		})
 

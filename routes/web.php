@@ -33,10 +33,10 @@ Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
 
 // Search
 Route::get('search/{key?}', ['as' => 'search', 'uses' => 'Api\Search\SearchController@index']);
-Route::get('search/deals/{key}', 'Api\Search\SearchDealsController@index');
-Route::get('search/events/{key}', 'Api\Search\SearchEventsController@index');
-Route::get('search/newsfeeds/{key}', 'Api\Search\SearchNewsFeedsController@index');
-Route::get('search/outlets/{key}', 'Api\Search\SearchOutletsController@index');
+Route::get('search/deals/{key?}', 'Api\Search\SearchDealsController@index');
+Route::get('search/events/{key?}', 'Api\Search\SearchEventsController@index');
+Route::get('search/newsfeeds/{key?}', 'Api\Search\SearchNewsFeedsController@index');
+Route::get('search/outlets/{key?}', 'Api\Search\SearchOutletsController@index');
 
 Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index']);
 Route::get('/posts/{post}', ['as' => 'posts.show', 'uses' => 'PostsController@show']);

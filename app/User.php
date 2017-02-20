@@ -4,6 +4,7 @@ namespace App;
 
 use Ramsey\Uuid\Uuid;
 use Illuminate\Notifications\Notifiable;
+use App\Transformers\UserOutletTransformer;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
@@ -92,5 +93,10 @@ class User extends Authenticatable
     public function qrcode()
     {
         return $this->hasOne(QRCode::class);
+    }
+
+    public function following_outlets()
+    {
+        return UserOutletTransformer::transform($this->outlets);
     }
 }

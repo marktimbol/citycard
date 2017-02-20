@@ -75,18 +75,9 @@ class SearchController extends Controller
 		    ]);
 	    }
 
-        $currentUserOutlets = [];
-        if( auth()->guard('user')->check() )
-        {        
-            $currentUser = auth()->guard('user')->user();
-            $currentUser->load('outlets');
-
-            $currentUserOutlets = UserOutletTransformer::transform($currentUser->outlets);
-        }
-
 	    JavaScript::put([
             // User's token to Follow/unfollow an Outlet
-            'api_token' => auth()->guard('user')->check() ? auth()->guard('user')->user()->api_token : '',
+            'api_token' => auth()->check() ? auth()->user()->api_token : '',
 	    	's3_bucket_url'	=> getS3BucketUrl(),
 	    	'data'	=> [
 	    		'posts'	=> SearchPostsTransformer::transform($all),
@@ -94,7 +85,7 @@ class SearchController extends Controller
 	    		'events'	=> [],
 	    		'deals'	=> [],
 	    		'newsfeeds'	=> [],
-	    		'user_outlets' => $currentUserOutlets
+	    		'user_outlets' => auth()->check() ? auth()->user()->following_outlets() : []
 	    	],
 	    ]);
 
