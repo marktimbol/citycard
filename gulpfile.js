@@ -40,6 +40,9 @@ elixir(mix => {
 		// Search Results
 		.webpack('components/Search/SearchResults.js')
 
+		// Vend
+		.webpack('components/Vend.js')
+
 		.styles([
 			modulesPath + 'froala-editor/css/froala_editor.min.css',
 			modulesPath + 'froala-editor/css/froala_style.min.css',
@@ -114,6 +117,8 @@ elixir(mix => {
 			'public/js/ExploreMerchants.js',
 			// Blurred image
 			'public/js/BlurredImageEffect.js',
+			// Vend
+			'public/js/Vend.js',
 			// Res
 			'public/css/mobile.css',
 			'public/css/datepicker.css',		

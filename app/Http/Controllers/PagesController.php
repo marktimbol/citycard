@@ -105,5 +105,10 @@ class PagesController extends Controller
         }        
 
         return 'Done';
-    }                 
+    } 
+
+    public function vend()
+    {
+        return view('public.vend');
+    }                
 }
