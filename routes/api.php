@@ -13,6 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('webhooks/vend', 'VendWebhooksController@store');
+
 Route::group([
 	'domain' => merchantPath(),
 ], function () {
