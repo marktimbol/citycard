@@ -20,7 +20,7 @@ class CategoryOutletsTransformer extends AbstractTransformer
         {
             $user = auth()->guard('user_api')->user();
             $user = $user->load('outlets');
-            $output['is_following'] = $user->outlets->contains($item->id) ? true : false;
+            $output['is_following'] = $user->outlets->contains($item->id);
         }
 
         $output['posts_count'] = $item->posts->count();
