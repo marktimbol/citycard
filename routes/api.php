@@ -70,6 +70,7 @@ Route::group(['as' => 'api.'], function() {
 	]);
 
 	// Get all the Outlets in a given Category
+	Route::get('categories/only', 'Api\CategoriesOnlyController@index');
 	Route::get('categories/{category}/outlets', 'Api\CategoryOutletsController@index');
 	
 	// Filters
