@@ -17,4 +17,9 @@ class Category extends Model
     {
         return $this->hasMany(Post::class);
     }
+
+	public function outlets()
+	{
+		return $this->belongsToMany(Outlet::class, 'outlet_categories', 'category_id', 'outlet_id');
+	}    
 }

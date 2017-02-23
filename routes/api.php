@@ -68,6 +68,9 @@ Route::group(['as' => 'api.'], function() {
 	Route::resource('posts.purchase', 'Api\PurchasesController', [
 		'only'	=> ['store']
 	]);
+
+	// Get all the Outlets in a given Category
+	Route::get('categories/{category}/outlets', 'Api\CategoryOutletsController@index');
 	
 	// Filters
 	// api/posts/?filter=yes&country=1&cities=1,2,3&categories=1,2,3&distance=&page=1
