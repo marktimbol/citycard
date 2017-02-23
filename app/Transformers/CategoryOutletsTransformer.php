@@ -14,7 +14,8 @@ class CategoryOutletsTransformer extends AbstractTransformer
         ]);    
 
         $output['logo'] = $item->merchant ? $item->merchant->logo : '';
-        
+    
+        $output['is_following'] = false;
         if( auth()->guard('user_api')->check() )
         {
             $user = auth()->guard('user_api')->user();
