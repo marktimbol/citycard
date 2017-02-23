@@ -11,7 +11,7 @@ class CategoriesOnlyController extends Controller
 {
 	public function index()
 	{	
-	    $categories = Category::withCount('outlets')->orderBy('name', 'asc')->get();
+	    $categories = Category::withCount('merchants')->orderBy('name', 'asc')->get();
 
 	    return CategoriesOnlyTransformer::transform($categories);
 	}

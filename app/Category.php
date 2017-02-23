@@ -18,8 +18,13 @@ class Category extends Model
         return $this->hasMany(Post::class);
     }
 
+    public function merchants()
+    {
+        return $this->belongsToMany(Merchant::class, 'merchant_categories', 'category_id', 'merchant_id');
+    }
+
 	public function outlets()
 	{
 		return $this->belongsToMany(Outlet::class, 'outlet_categories', 'category_id', 'outlet_id');
-	}    
+	}
 }

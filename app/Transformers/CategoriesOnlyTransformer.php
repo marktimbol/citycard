@@ -10,7 +10,7 @@ class CategoriesOnlyTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'outlets_count'
+    		'id', 'name', 'merchants_count'
     	]);
 
     	return $output;
