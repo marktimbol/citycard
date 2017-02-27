@@ -72,6 +72,11 @@ class Outlet extends Authenticatable
 		return $this->belongsTo(Merchant::class);
 	}
 
+    public function members()
+    {
+        return $this->belongsToMany(User::class, 'outlet_followers', 'outlet_id', 'user_id');
+    }	
+
 	public function promos()
 	{
 		return $this->belongsToMany(Promo::class, 'outlet_promos', 'outlet_id', 'promo_id');
