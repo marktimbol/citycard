@@ -2,6 +2,10 @@
 
 @section('pageTitle', 'Clerks')
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.clerks.index', $merchant) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Clerks</h1>

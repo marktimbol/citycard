@@ -7,6 +7,10 @@
 	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.create') !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Create Merchant</h1>

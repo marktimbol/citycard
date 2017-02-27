@@ -1,6 +1,11 @@
 @include('layouts.dashboard._header')
     <div class="container-fluid">
         <div class="row">
+            <div class="col-md-12">
+                @yield('breadcrumbs')
+            </div>
+        </div>
+        <div class="row">
             <div class="col-md-3">
                 <h1>Dashboard</h1>
                 <aside>

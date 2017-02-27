@@ -26,7 +26,7 @@ class MerchantPostsController extends Controller
 
     public function show(Merchant $merchant, Post $post)
     {
-        $post->load('outlets', 'photos', 'outlets', 'sources', 'category', 'subcategories');
+        $post->load('outlets', 'photos', 'outlets', 'sources', 'category', 'subcategories', 'merchant:id,name');
         $photos = $post->photos;
 
         JavaScript::put([

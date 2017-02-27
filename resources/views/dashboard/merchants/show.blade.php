@@ -2,6 +2,10 @@
 
 @section('pageTitle', $merchant->name)
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.show', $merchant) !!}
+@endsection
+
 @section('content')
 	<?php
 		$area = $merchant->areas->first();

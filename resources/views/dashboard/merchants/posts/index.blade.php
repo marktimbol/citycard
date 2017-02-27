@@ -2,6 +2,10 @@
 
 @section('pageTitle', sprintf('%s Posts', $merchant->name))
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.posts.index', $merchant) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Posts

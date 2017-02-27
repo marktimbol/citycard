@@ -22,8 +22,10 @@ class MerchantClerksController extends Controller
     public function show(Merchant $merchant, Clerk $clerk)
     {
         $merchant->load('outlets');
-        $clerk->load('outlets');
+        $clerk->load('merchant:id,name', 'outlets');
         $outlets = $clerk->outlets;
+
+        // dd($clerk->toArray());
 
         return view('dashboard.clerks.show', compact('merchant', 'clerk', 'outlets'));
     }
@@ -58,6 +60,8 @@ class MerchantClerksController extends Controller
 
     public function edit(Merchant $merchant, Clerk $clerk)
     {
+        $clerk->load('merchant:id,name', 'outlets');
+        
         return view('dashboard.clerks.edit', compact('merchant', 'clerk'));
     }
 

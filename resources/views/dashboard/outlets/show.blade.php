@@ -6,8 +6,12 @@
 	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.outlets.show', $outlet) !!}
+@endsection
 
 @section('content')
+	
 	<div class="Heading">
 		<h1 class="Heading__title">Outlet</h1>
 	</div>

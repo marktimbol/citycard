@@ -2,6 +2,10 @@
 
 @section('pageTitle', 'Clerk - '. sprintf('%s %s', $clerk->first_name, $clerk->last_name))
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.clerks.show', $clerk) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">

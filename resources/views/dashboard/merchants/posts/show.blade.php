@@ -6,6 +6,10 @@
 	<link rel="stylesheet" href="{{ elixir('css/mobile.css') }}" />
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.posts.show', $post) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">{{ $post->title }}
@@ -17,7 +21,6 @@
 				</small>
 			@endif
 		</h1>
-		@include('dashboard._go-back')
 	</div>
 
 	<p>&nbsp;</p>

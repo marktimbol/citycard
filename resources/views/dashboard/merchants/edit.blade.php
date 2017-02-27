@@ -6,6 +6,10 @@
 	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.edit', $merchant) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Merchant</h1>

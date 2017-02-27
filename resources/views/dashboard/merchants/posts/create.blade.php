@@ -8,6 +8,10 @@
 	<link href="{{ elixir('css/datepicker.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.posts.create', $merchant) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Create Post</h1>

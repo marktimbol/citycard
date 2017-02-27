@@ -7,6 +7,10 @@
 	<link href="{{ elixir('css/select.css') }}" rel="stylesheet">
 @endsection
 
+@section('breadcrumbs')
+	{!! Breadcrumbs::render('merchants.outlets.edit', $outlet) !!}
+@endsection
+
 @section('content')
 	<div class="Heading">
 		<h1 class="Heading__title">Update Outlet</h1>
