@@ -23,6 +23,9 @@ class OutletTransformer extends AbstractTransformer
             $output['is_following'] = $user->outlets->contains($item->id);
         }
 
+        $output['user_points'] = rand(50,200);
+        $output['user_cashback'] = rand(10,100);
+
         if( $this->isRelationshipLoaded($item, 'posts') ) {
             $output['posts_count'] = $item->posts->count();
             $output['posts'] = PostTransformer::transform($item->posts);
