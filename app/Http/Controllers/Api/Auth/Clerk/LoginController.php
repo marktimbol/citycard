@@ -56,6 +56,11 @@ class LoginController extends Controller
 
         if( $attempt ) {
             $clerk = auth()->guard('clerk')->user();
+
+            // Update online status
+            $clerk->is_online = true;
+            $clerk->save();
+
             $clerk->load('outlets');
 
             return response()->json([
@@ -76,4 +81,24 @@ class LoginController extends Controller
             ]
         ]);
     }
+
+    /**
+     * Log the user out of the application.
+     *
+     * @param \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function logout(Request $request)
+    {
+        $clerk = auth()->guard('clerk_api')->user();
+        $clerk->is_online = false;
+        $clerk->save();
+
+        $this->guard('clerk_api')->logout();
+
+        return response()->json([
+            'status'    => 1,
+            'message'   => 'You have logout successfully.'
+        ]);
+    }    
 }

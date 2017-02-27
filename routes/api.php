@@ -20,6 +20,7 @@ Route::group([
 ], function () {
 	// Merchant Authentication
 	Route::post('login', ['as' => 'api.clerk.login', 'uses' => 'Api\Auth\Clerk\LoginController@login']);	
+	Route::delete('logout', ['as' => 'api.clerk.logout', 'uses' => 'Api\Auth\Clerk\LoginController@logout']);	
 });
 
 Route::group(['as' => 'api.'], function() {

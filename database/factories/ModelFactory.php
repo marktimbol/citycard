@@ -119,6 +119,7 @@ $factory->define(App\Clerk::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'phone' => $faker->phoneNumber,
+        'is_online' => false,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
     ];

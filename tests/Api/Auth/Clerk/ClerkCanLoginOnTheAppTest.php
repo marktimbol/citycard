@@ -43,8 +43,14 @@ class ClerkCanLoginOnTheAppTest extends TestCase
     		'password'	=> 'secret',
     	]);
 
+        $this->seeInDatabase('clerks', [
+            'id'    => $clerk->id,
+            'is_online' => true,
+        ]);
+        
     	$this->seeJson([
-    		'authenticated'	=> true,
+    		'status'	=> 1,
+            'message'   => 'You have successfully login.',
     	]);
     }
 }

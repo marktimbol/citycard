@@ -43,7 +43,11 @@
 				</span>
 			</td>			
 			<td>
-				<span class="label label-danger">Offline</span>
+				@if( $clerk->is_online )
+					<label class="label label-success">Online</label>
+				@else
+					<label class="label label-danger">Offline</label>
+				@endif
 			</td>
 			<td>{{ \Carbon\Carbon::yesterday()->diffForHumans() }}</td>
 		</tr>
