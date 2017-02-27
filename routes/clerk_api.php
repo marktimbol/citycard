@@ -32,6 +32,9 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	
 	Route::get('/outlets/{outlet}/reservations/cancelled', 'Api\Clerk\OutletCancelledReservationsController@index');
 	
+	// Add User as a Member of the Outlet
+	Route::post('/outlets/{outlet}/members', 'Api\Clerk\OutletMembersController@store');
+
 	// Outlet Reservations
 	Route::resource('outlets.reservations', 'Api\Clerk\OutletReservationsController', [
 		'only'	=> ['index', 'show']
