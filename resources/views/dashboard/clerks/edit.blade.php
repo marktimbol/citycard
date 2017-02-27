@@ -41,6 +41,19 @@
 			</div>
 		</div>
 
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="display_name">Display Name</label>
+					<input type="text"
+						name="display_name"
+						id="display_name"
+						class="form-control"
+						value="{{ old('display_name') ?: $clerk->display_name }}" />
+				</div>
+			</div>
+		</div>		
+
 		<div class="form-group">
 			<label for="phone" class="label-block">Phone</label>
 			<input type="tel"

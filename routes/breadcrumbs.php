@@ -72,7 +72,9 @@ Breadcrumbs::register('merchants.clerks.create', function($breadcrumbs, $merchan
 // Show Clerk
 Breadcrumbs::register('merchants.clerks.show', function($breadcrumbs, $clerk) {
 	$breadcrumbs->parent('merchants.clerks.index', $clerk->merchant);
-	$breadcrumbs->push($clerk->fullName(), '#');
+	$breadcrumbs->push($clerk->fullName(), route('dashboard.merchants.clerks.show', [
+		$clerk->merchant->id, $clerk->id
+	]));
 });
 
 // Edit Clerk

@@ -28,6 +28,8 @@
 					>
 						{{ $clerk->fullName() }}
 					</a>
+					<br />
+					Display Name: {{ $clerk->display_name }}
 				</td>
 				<td>{{ $clerk->email }}</td>
 				<td>

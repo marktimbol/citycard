@@ -56,6 +56,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
         $request = $this->post(adminPath() . '/dashboard/merchants/'.$merchant->id.'/clerks', [
             'first_name'    => 'John',
             'last_name' => 'Doe',
+            'display_name'  => 'BB8',
             'email' => 'john@example.com',
             'phone' => '0568207189',
             'password'  => 'secret',
@@ -67,6 +68,7 @@ class AnAuthorizedUserCanManageMerchantClerksTest extends TestCase
 			'merchant_id'	=> $merchant->id,
 			'first_name'	=> 'John',
 			'last_name'	=> 'Doe',
+            'display_name'  => 'BB8',
 			'email'	=> 'john@example.com',
 			'phone'	=> '0568207189',
 		])

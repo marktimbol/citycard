@@ -10,7 +10,7 @@ class ClerkTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
         $output = array_only($item->toArray(), [
-            'id', 'first_name', 'last_name', 'email', 'phone', 'photo', 'is_online'
+            'id', 'first_name', 'last_name', 'display_name', 'email', 'phone', 'photo', 'is_online'
         ]);
 
         if( auth()->guard('user_api')->check() ) {

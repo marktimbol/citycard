@@ -18,8 +18,8 @@ class Clerk extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'uuid', 'merchant_id', 'first_name', 
-	    'last_name', 'email', 'password', 'phone'
+	    'uuid', 'merchant_id', 'first_name', 'last_name',
+	    'display_name', 'email', 'password', 'phone'
 	];
 
 	/**

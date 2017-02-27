@@ -1,6 +1,6 @@
 @extends('layouts.dashboard')
 
-@section('pageTitle', 'Add New Clerk')
+@section('pageTitle', 'Create Clerk')
 
 @section('header_styles')
 	<link href="{{ elixir('css/telephone.css') }}" rel="stylesheet">
@@ -44,6 +44,19 @@
 						id="last_name"
 						class="form-control"
 						value="{{ old('last_name') }}" />
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-md-6">
+				<div class="form-group">
+					<label for="display_name">Display Name</label>
+					<input type="text"
+						name="display_name"
+						id="display_name"
+						class="form-control"
+						value="{{ old('display_name') }}" />
 				</div>
 			</div>
 		</div>

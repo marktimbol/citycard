@@ -73,6 +73,9 @@
 					@endcan					
 				</li>
 				<li class="list-group-item">
+					Display Name: {{ $clerk->display_name }}
+				</li>				
+				<li class="list-group-item">
 					eMail: {{ $clerk->email }}
 				</li>
 				<li class="list-group-item">
