@@ -10,10 +10,12 @@ use App\Transformers\UserTransformer;
 
 class SearchUsersController extends Controller
 {
+    /**
+     * Search members-only of the Outlet
+     */
     public function index()
     {
     	$key = request()->key;
-        // Search only the members of the Outlet
         $outlet = Outlet::findOrFail(request()->outlet_id);
     	$users = $outlet->members()
             ->where('name', 'LIKE', "%$key%")

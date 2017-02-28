@@ -259,4 +259,16 @@ $factory->define(App\ShopFront::class, function (Faker\Generator $faker) {
     ];
 });
 
+$factory->define(App\OutletUserNotes::class, function (Faker\Generator $faker) {
+    return [
+        'outlet_id' => function() {
+            return factory(App\Outlet::class)->create()->id;
+        },
+        'user_id' => function() {
+            return factory(App\User::class)->create()->id;
+        },        
+        'notes' => $faker->paragraph,
+    ];
+});
+
 

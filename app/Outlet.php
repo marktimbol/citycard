@@ -87,6 +87,12 @@ class Outlet extends Authenticatable
 		return $this->belongsToMany(Clerk::class, 'outlet_clerks', 'outlet_id', 'clerk_id');
 	}
 
+	public function userNote()
+	{
+		return $this->hasOne(OutletUserNotes::class, 'outlet_id');
+		// return $this->belongsToMany(User::class, 'outlet_user_notes', 'outlet_id', 'user_id')->withTimestamps();
+	}
+
 	public function posts()
 	{
 		return $this->belongsToMany(Post::class, 'outlet_posts', 'outlet_id', 'post_id');

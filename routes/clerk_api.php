@@ -63,4 +63,9 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	Route::get('scan/{uuid}', 'Api\Clerk\ScanQRCodeController@show');
 	Route::get('users/search/{key}', 'Api\Clerk\SearchUsersController@index');
 	Route::get('users/{user}', 'Api\Clerk\UsersController@show');
+
+	// Outlet User Notes
+	Route::post('outlets/{outlet}/users/{user}/notes', 'Api\Clerk\OutletUserNotesController@store');
+	Route::put('outlets/{outlet}/users/{user}/update-notes', 'Api\Clerk\OutletUserNotesController@update');
+	Route::delete('outlets/{outlet}/users/{user}/delete-notes', 'Api\Clerk\OutletUserNotesController@destroy');
 });
