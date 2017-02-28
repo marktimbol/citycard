@@ -5,9 +5,9 @@ namespace App\Notifications\Clerk;
 use App\Reservation;
 use Illuminate\Bus\Queueable;
 use Illuminate\Notifications\Notification;
+use App\CityCard\Pusher\ClerkPusherChannel;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use NotificationChannels\PusherPushNotifications\PusherChannel;
 use NotificationChannels\PusherPushNotifications\PusherMessage;
 
 class UserReservationInformation extends Notification
@@ -34,7 +34,7 @@ class UserReservationInformation extends Notification
      */
     public function via($notifiable)
     {
-        return [PusherChannel::class];
+        return [ClerkPusherChannel::class];
     }
 
     /**

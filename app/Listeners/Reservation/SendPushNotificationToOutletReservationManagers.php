@@ -29,6 +29,8 @@ class SendPushNotificationToOutletReservationManagers
     {
         foreach( $event->outlet->clerks as $clerk )
         { 
+            // TODO: Check first if the clerk has a role of reservation manager.
+            // If so, then send the notification to him/her
             $clerk->notify(new UserReservationInformation($event->reservation));
         }
     }

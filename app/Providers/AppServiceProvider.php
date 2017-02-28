@@ -2,9 +2,11 @@
 
 namespace App\Providers;
 
-use App\CityCard\Contracts\MessagingInterface;
+use Pusher;
 use App\CityCard\TwilioSMS;
 use Illuminate\Support\ServiceProvider;
+use App\CityCard\Pusher\ClerkPusherChannel;
+use App\CityCard\Contracts\MessagingInterface;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -16,6 +18,18 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->app->bind(MessagingInterface::class, TwilioSMS::class);
+
+        $this->app->when(ClerkPusherChannel::class)
+            ->needs(Pusher::class)
+            ->give(function () {
+                $pusher = config('broadcasting.connections.pusher_clerk');
+
+                return new Pusher(
+                    $pusher['key'],
+                    $pusher['secret'],
+                    $pusher['app_id']
+                );
+            });        
     }
 
     /**

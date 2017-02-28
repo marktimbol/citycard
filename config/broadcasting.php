@@ -40,6 +40,16 @@ return [
             ],
         ],
 
+        'pusher_clerk' => [
+            'driver' => 'pusher',
+            'key' => env('CLERK_PUSHER_KEY'),
+            'secret' => env('CLERK_PUSHER_SECRET'),
+            'app_id' => env('CLERK_PUSHER_APP_ID'),
+            'options' => [
+                //
+            ],
+        ],        
+
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',
