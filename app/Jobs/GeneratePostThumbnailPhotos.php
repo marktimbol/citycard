@@ -42,8 +42,7 @@ class GeneratePostThumbnailPhotos implements ShouldQueue
                 ->select('id', 'merchant_id')
                 ->first();
 
-            $photo_url = Storage::disk('s3')->get($photo->url);
-            $thumbnail_28_x_28 = Image::make($photo_url)->fit(28,28)->stream();
+            $thumbnail_28_x_28 = Image::make(getPhotoPath($photo->url))->fit(28,28)->stream();
 
             $filename = sprintf(
                 'merchants/%s/posts/%s/thumbs/%s',
