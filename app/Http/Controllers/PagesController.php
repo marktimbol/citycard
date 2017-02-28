@@ -114,15 +114,15 @@ class PagesController extends Controller
 
     public function generateClerkDisplayName()
     {
-        $clerks = Clerk::with('merchant:id,name')
-            ->select('id','merchant_id','first_name','last_name','display_name')
-            ->get();
+        // $clerks = Clerk::with('merchant:id,name')
+        //     ->select('id','merchant_id','first_name','last_name','display_name')
+        //     ->get();
 
-        foreach( $clerks as $clerk )
-        {
-            $clerk->display_name = sprintf('%s: %s', $clerk->merchant->name, $clerk->first_name);
-            $clerk->save();
-        }
+        // foreach( $clerks as $clerk )
+        // {
+        //     $clerk->display_name = sprintf('%s: %s', $clerk->merchant->name, $clerk->first_name);
+        //     $clerk->save();
+        // }
 
         return 'Done';
 
