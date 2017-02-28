@@ -9,6 +9,7 @@ use App\Outlet;
 use JavaScript;
 use App\Company;
 use Illuminate\Http\Request;
+use App\Jobs\ChangeClerkPassword;
 use App\Transformers\UserOutletTransformer;
 use App\Transformers\Explore\ExploreOutletsTransformer;
 
@@ -89,16 +90,7 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        $clerks = Clerk::all();
-
-        foreach( $clerks->chunk(300) as $clerks )
-        {
-            foreach( $clerks as $clerk )
-            {            
-                $clerk->password = bcrypt('citycard');
-                $clerk->save();
-            }
-        }
+        dispatch(new ChangeClerkPassword(Clerk::all()));
 
         return 'Done';
     }         
