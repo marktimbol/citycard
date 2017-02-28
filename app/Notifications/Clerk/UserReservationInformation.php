@@ -58,6 +58,8 @@ class UserReservationInformation extends Notification
                 ->badge(1)
                 ->sound('success')
                 ->title('CityCard')
-                ->body($body);
+                ->body($body)
+                ->setOption('key', 'reservation.pending')
+                ->setOption('reservation_id', $this->reservation->id);                
     }
 }

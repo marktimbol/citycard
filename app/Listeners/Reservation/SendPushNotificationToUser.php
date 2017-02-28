@@ -29,6 +29,6 @@ class SendPushNotificationToUser
         $reservation = $event->reservation->load('user');
         $user = $reservation->user;
         
-        $user->notify(new ConfirmedReservation($event->outlet));
+        $user->notify(new ConfirmedReservation($event->outlet, $event->reservation));
     }
 }

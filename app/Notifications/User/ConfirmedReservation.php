@@ -3,10 +3,11 @@
 namespace App\Notifications\User;
 
 use App\Outlet;
+use App\Reservation;
 use Illuminate\Bus\Queueable;
+use Illuminate\Notifications\Notification;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Notifications\Messages\MailMessage;
-use Illuminate\Notifications\Notification;
 use NotificationChannels\PusherPushNotifications\PusherChannel;
 use NotificationChannels\PusherPushNotifications\PusherMessage;
 
@@ -14,15 +15,17 @@ class ConfirmedReservation extends Notification
 {
 
     public $outlet;
+    public $reservation;
 
     /**
      * Create a new notification instance.
      *
      * @return void
      */
-    public function __construct(Outlet $outlet)
+    public function __construct(Outlet $outlet, Reservation $reservation)
     {
         $this->outlet = $outlet;
+        $this->reservation = $reservation;
     }
 
     /**
@@ -38,6 +41,7 @@ class ConfirmedReservation extends Notification
 
     /**
      * Get the iOS push notification representation of the notification.
+     * Get the iOS push notification representation of the notification.
      *
      * @param  mixed  $notifiable
      * @return \Illuminate\Notifications\Messages\MailMessage
@@ -52,6 +56,8 @@ class ConfirmedReservation extends Notification
                 ->badge(1)
                 ->sound('success')
                 ->title('CityCard')
-                ->body($body);
+                ->body($body)
+                ->setOption('key', 'reservation.confirmed')
+                ->setOption('reservation_id', $this->reservation->id);
     }
 }
