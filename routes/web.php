@@ -17,20 +17,22 @@ use App\Jobs\GeneratePostThumbnailPhotos;
 |
 */
 
-Route::get('/photo-resize', function() {
+// Route::get('/photo-resize', function() {
 
-	$photos = Photo::latest()->get();
+// 	$photos = Photo::latest()->get();
 
-	dispatch( new GeneratePostThumbnailPhotos($photos) );
+// 	dispatch( new GeneratePostThumbnailPhotos($photos) );
 
-	return 'Processing...';
-});
+// 	return 'Processing...';
+// });
 
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
 
-Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
-// Route::get('/generate-display-name', 'PagesController@generateClerkDisplayName');
+Route::get('/', [
+	'as' => 'home', 
+	'uses' => 'PagesController@home'
+]);
 
 // Search
 Route::get('search/{key?}', ['as' => 'search', 'uses' => 'Api\Search\SearchController@index']);
