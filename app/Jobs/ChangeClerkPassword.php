@@ -30,7 +30,7 @@ class ChangeClerkPassword implements ShouldQueue
      */
     public function handle()
     {
-        foreach( $clerks as $clerk )
+        foreach( $this->clerks as $clerk )
         {
             $clerk->password = bcrypt('citycard');
             $clerk->save();
