@@ -30,7 +30,7 @@ Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
 
 Route::get('/', ['as' => 'home', 'uses' => 'PagesController@home']);
-Route::get('/vend', 'PagesController@vend');
+Route::get('/generate-display-name', 'PagesController@generateClerkDisplayName');
 
 // Search
 Route::get('search/{key?}', ['as' => 'search', 'uses' => 'Api\Search\SearchController@index']);
