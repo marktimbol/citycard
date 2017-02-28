@@ -42,30 +42,22 @@ class GeneratePostThumbnailPhotos implements ShouldQueue
                 ->select('id', 'merchant_id')
                 ->first();
 
-            if( Storage::disk('s3')->exists($photo->url) )
-            {
-                Log::info($photo->url .' YEY.');
+            $photo_url = Storage::disk('s3')->get($photo->url);
+            $thumbnail_28_x_28 = Image::make($photo_url)->fit(28,28)->stream();
 
-                $photo_url = Storage::disk('s3')->get($photo->url);
-                $thumbnail_28_x_28 = Image::make($photo_url)->fit(28,28)->stream();
+            $filename = sprintf(
+                'merchants/%s/posts/%s/thumbs/%s',
+                str_slug($post->merchant->name),
+                $post->id,
+                Uuid::uuid1()->toString() . '.jpeg'
+            );
 
-                $filename = sprintf(
-                    'merchants/%s/posts/%s/thumbs/%s',
-                    str_slug($post->merchant->name),
-                    $post->id,
-                    Uuid::uuid1()->toString() . '.jpeg'
-                );
+            Storage::disk('s3')->put($filename, $thumbnail_28_x_28->__toString());
 
-                Storage::disk('s3')->put($filename, $thumbnail_28_x_28->__toString());
-
-                $photo->thumbnail = $filename;
-                $photo->save();
-
-            } else {
-                Log::info($photo->url . ' NAH.');
-            }
+            $photo->thumbnail = $filename;
+            $photo->save();
         }
 
-        return 'Done';
+        return 'GeneratePostThumbnailPhotos. Done.';
     }
 }

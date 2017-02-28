@@ -1,11 +1,9 @@
 <?php
 
-use App\Photo;
-use App\Jobs\GeneratePostThumbnailPhotos;
-
 \Event::listen('Illuminate\Database\Events\QueryExecuted', function ($query) {
 	// Log::info($query->sql);
 });
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -17,14 +15,7 @@ use App\Jobs\GeneratePostThumbnailPhotos;
 |
 */
 
-// Route::get('/photo-resize', function() {
-
-// 	$photos = Photo::latest()->get();
-
-// 	dispatch( new GeneratePostThumbnailPhotos($photos) );
-
-// 	return 'Processing...';
-// });
+Route::get('generate-thumbnails', 'ThumbnailGeneratorController@index');
 
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');
