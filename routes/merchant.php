@@ -3,16 +3,12 @@
 Route::group([
 	'domain' => merchantPath(),
 ], function () {
-	Route::get('/', function() {
-		return 'Hello from Merchant';
-	});
+	Route::get('/', 'Merchants\DashboardController@index');
 });
 
 Route::group(['prefix' => 'merchants', 'as' => 'merchants.', 'middleware' => 'auth:merchant'], function() {
 
-	Route::get('/', function() {
-		return 'Merchant Dashboard';
-	});
+	Route::get('/', 'Merchants\DashboardController@index');
 
 	Route::resource('posts', 'Merchants\MerchantPostsController', [
 		'only'	=> ['index', 'create', 'store']
