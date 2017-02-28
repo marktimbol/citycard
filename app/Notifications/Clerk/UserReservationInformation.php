@@ -59,9 +59,6 @@ class UserReservationInformation extends Notification
                 ->sound('success')
                 ->title('CityCard')
                 ->body($body)
-                ->setOption('payload', [
-                    'type'  => 'reservation.pending',
-                    'reservation_id'    => $this->reservation->id,
-                ]);
+                ->setOption('type', 'reservation.pending');
     }
 }
