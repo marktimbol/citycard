@@ -33,9 +33,9 @@ class ChangeClerkPassword implements ShouldQueue
     {
         foreach( $this->clerks as $clerk )
         {
-            $clerk->password = bcrypt('citycard');
+            $clerk->password = 'citycard';
             $clerk->save();
         }
-        Log::info("Clerk's password are now updated.");
+        Log::info("Clerk's password are now updated v2.");
     }
 }
