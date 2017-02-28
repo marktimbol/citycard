@@ -86,45 +86,18 @@ class PagesController extends Controller
     {
         $company = Company::first();
         return view('public.about.privacy', compact('company'));
-    }    
-
-    public function uuid()
-    {
-        $users = User::all();
-        foreach( $users as $user )
-        {
-            $user->uuid = Uuid::uuid1()->toString();
-            $user->save();
-        }
-
-        $clerks = Clerk::all();
-        foreach( $clerks as $clerk )
-        {
-            $clerk->uuid = Uuid::uuid1()->toString();
-            $clerk->save();
-        }        
-
-        return 'Done';
-    } 
-
-    public function vend()
-    {
-        return view('public.vend');
     }
 
-    public function generateClerkDisplayName()
+    public function updateClerkPassword()
     {
-        // $clerks = Clerk::with('merchant:id,name')
-        //     ->select('id','merchant_id','first_name','last_name','display_name')
-        //     ->get();
+        $clerks = Clerk::all();
 
-        // foreach( $clerks as $clerk )
-        // {
-        //     $clerk->display_name = sprintf('%s: %s', $clerk->merchant->name, $clerk->first_name);
-        //     $clerk->save();
-        // }
+        foreach( $clerks as $clerk )
+        {
+            $clerk->password = bcrypt('citycard');
+            $clerk->save();
+        }
 
         return 'Done';
-
     }         
 }
