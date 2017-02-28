@@ -57,7 +57,9 @@ class ConfirmedReservation extends Notification
                 ->sound('success')
                 ->title('CityCard')
                 ->body($body)
-                ->setOption('key', 'reservation.confirmed')
-                ->setOption('reservation_id', $this->reservation->id);
+                ->setOption('payload', [
+                    'type'  => 'reservation.confirmed',
+                    'reservation_id'    => $this->reservation->id,
+                ]);
     }
 }
