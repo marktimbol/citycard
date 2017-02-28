@@ -45,7 +45,7 @@ Route::get('/posts', ['as' => 'posts.index', 'uses' => 'PostsController@index'])
 Route::get('/posts/{post}', ['as' => 'posts.show', 'uses' => 'PostsController@show']);
 Route::get('/events', ['as' => 'events', 'uses' => 'EventsController@index']);
 
-Route::get('/explore', 'PagesController@explore');
+Route::get('/explore', 'ExploresController@index');
 Route::get('/about/company', 'PagesController@company');
 Route::get('/about/faq', 'PagesController@faqs');
 Route::get('/about/terms', 'PagesController@terms');

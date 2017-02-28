@@ -8,7 +8,6 @@ use App\Clerk;
 use App\Outlet;
 use JavaScript;
 use App\Company;
-use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Transformers\UserOutletTransformer;
 use App\Transformers\Explore\ExploreOutletsTransformer;
@@ -92,10 +91,13 @@ class PagesController extends Controller
     {
         $clerks = Clerk::all();
 
-        foreach( $clerks as $clerk )
+        foreach( $clerks->chunk(300) as $clerks )
         {
-            $clerk->password = bcrypt('citycard');
-            $clerk->save();
+            foreach( $clerks as $clerk )
+            {            
+                $clerk->password = bcrypt('citycard');
+                $clerk->save();
+            }
         }
 
         return 'Done';
