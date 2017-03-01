@@ -1,5 +1,5 @@
-<nav class="navbar navbar-default navbar-static-top">
-    <div class="container">
+<nav class="navbar navbar-static-top">
+    <div class="container-fluid">
         <div class="col-md-12">
             <div class="navbar-header">
                 <!-- Collapsed Hamburger -->
@@ -12,7 +12,7 @@
 
                 <!-- Branding Image -->
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    <img src="/images/logo.svg" alt="{{ config('app.name') }}" title="{{ config('app.name') }}" width="175" height="51" />
                 </a>
             </div>
 

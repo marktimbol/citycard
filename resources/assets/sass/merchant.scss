@@ -1,0 +1,48 @@
+// Variables
+@import "variables";
+
+// Bootstrap
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+// Dropzone
+@import "node_modules/dropzone/src/dropzone";
+
+@font-face {
+    font-family: 'ProximaRegular';
+    src: url('../../fonts/proximanova-regular-webfont.woff2') format('woff2'),
+        url('../../fonts/proximanova-regular-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+	font-family: 'ProximaRegular', 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+	font-weight: 300;
+}
+
+// Overwrite
+.dropzone {
+	display: flex;
+	margin-top: 20px;
+	align-items: center;
+	justify-content: center;
+    flex-wrap: wrap;
+	border: 2px dashed rgba(0, 0, 0, 0.3);
+}
+
+.navbar {
+    height: 77px;
+    background-color: #fff;
+    border-bottom: 1px solid #dbdbdb;
+}
+
+.Heading__title {
+    font-size: 36px;
+}
+
+@import 'components/Grid';
+@import 'components/Helpers';
+@import 'components/Overwrite';

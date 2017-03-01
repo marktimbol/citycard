@@ -12,6 +12,14 @@ elixir(mix => {
 		.webpack('public.js')
 		.webpack('components/PostsInfinite.js');
 
+	mix.sass('merchant.scss', 'resources/assets/css/merchant.css')
+		.styles([
+			modulesPath + 'font-awesome/css/font-awesome.css',
+			modulesPath + 'sweetalert/dist/sweetalert.css',
+			'merchant.css',
+		], 'public/css/merchant.css')
+		.webpack('merchant.js');
+
 	mix.sass('app.scss', 'resources/assets/css/app.css')
 		.styles([
 			modulesPath + 'font-awesome/css/font-awesome.css',
@@ -96,6 +104,8 @@ elixir(mix => {
 			'public/css/app.css',
 			'public/js/app.js',
 			// Merchant
+			'public/js/merchant.js',
+			'public/css/merchant.css',
 			'public/js/CreateMerchant.js',
 			'public/js/MerchantPosts.js',
 			// Outlet

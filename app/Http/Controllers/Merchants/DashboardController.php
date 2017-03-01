@@ -9,6 +9,9 @@ class DashboardController extends Controller
 {
     public function index()
     {
-		return 'Hello from Merchant';
+    	$clerk = auth()->guard('clerk')->user();
+    	$clerk->load('merchant.clerks', 'outlets');
+    	
+		return view('merchants.dashboard', compact('clerk'));
     }
 }

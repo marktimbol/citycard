@@ -30,7 +30,11 @@
 			<td>{{ $outlet->email }}</td>
 			<td>{{ $outlet->phone }}</td>
 			<td>
-				<label class="label label-danger">Close</label>
+				@if( $outlet->is_open )
+					<label class="label label-success">Open</label>
+				@else
+					<label class="label label-danger">Close</label>
+				@endif				
 			</td>
 		</tr>
 

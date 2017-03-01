@@ -1,33 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
-    <link href="/css/app.css" rel="stylesheet">
-
-    <!-- Scripts -->
-    <script>
-        window.Laravel = <?php echo json_encode([
-            'csrfToken' => csrf_token(),
-        ]); ?>
-    </script>
-</head>
-<body>
-    @include('layouts._nav')
+@include('merchants.header')
 
     <div class="container-fluid">
-        @yield('content')
+        <div class="row">
+            @if( auth()->check() )
+                <div class="col-md-3">
+                    <h2 class="Heading__title">Hi, {{ auth()->user()->first_name }}</h2>
+                    <ul class="list-group">
+                        <a href="{{ route('clerk.dashboard') }}" class="list-group-item">Dashboard</a>
+                        <a href="http://citycard.me" target="_blank" class="list-group-item">Visit Website</a>
+                    </ul>
+                </div>
+            @endif
+            <div class="col-md-9">    
+                @yield('content')
+            </div>
+        </div>
     </div>
 
-    <!-- Scripts -->
-    <script src="/js/app.js"></script>
-</body>
-</html>
+@include('merchants.footer')

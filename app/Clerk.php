@@ -31,6 +31,8 @@ class Clerk extends Authenticatable
 	    'password', 'remember_token'
 	];
 
+	protected $dates = ['last_logged_in'];
+
     public function setEmailAttribute($email)
     {
         $this->attributes['email'] = $email;

@@ -44,6 +44,7 @@ class MerchantOutletsController extends Controller
 
             'posts'   => $posts,
             
+            'update_settings_route' => sprintf('/dashboard/outlets/%s/settings', $outlet->id),
             'has_reservation'   => $outlet->has_reservation,
             'has_messaging'   => $outlet->has_messaging,
             'has_menus'   => $outlet->has_menus,

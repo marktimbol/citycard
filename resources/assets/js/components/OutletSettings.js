@@ -32,8 +32,6 @@ class OutletSettings extends React.Component
 		})
 
 		let that = this;
-		let url = '/dashboard/outlets/' + app.outlet_id + '/settings';
-
 		let data = {
 			'has_reservation': that.state.has_reservation,
 			'has_messaging': that.state.has_messaging,
@@ -41,24 +39,21 @@ class OutletSettings extends React.Component
 			'is_open': that.state.is_open
 		}
 
-		$.ajax({
-			type: 'PUT',
-			url: url,
-			headers: {
-				'X-CSRF-Token': App.csrfToken,
-			},
-			data: data,
-			success: function(response) {
-				that.setState({
-					has_reservation: response.has_reservation,
-					has_messaging: response.has_messaging,
-					has_menus: response.has_menus,
-					is_open: response.is_open,
-					isUpdating: false,
-					updateButtonText: 'Update'						
-				});
-			}
-		});
+		axios.put(app.update_settings_route, {
+			has_reservation: that.state.has_reservation,
+			has_messaging: that.state.has_messaging,
+			has_menus: that.state.has_menus,
+			is_open: that.state.is_open				
+		}).then(function(response) {
+			that.setState({
+				has_reservation: response.has_reservation,
+				has_messaging: response.has_messaging,
+				has_menus: response.has_menus,
+				is_open: response.is_open,
+				isUpdating: false,
+				updateButtonText: 'Update'						
+			});
+		})
 	}
 
 	toggleReservation() {
@@ -99,8 +94,6 @@ class OutletSettings extends React.Component
 							</label>
 						</div>
 					</li>	
-				</ul>
-				<ul className="list-group">
 					<li className="list-group-item">
 						<div className="checkbox-inline">
 							<label>

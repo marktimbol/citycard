@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api\Auth\Clerk;
 
 use App\Clerk;
+use Carbon\Carbon;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 use App\Transformers\ClerkTransformer;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
@@ -59,6 +60,7 @@ class LoginController extends Controller
 
             // Update online status
             $clerk->is_online = true;
+            $clerk->last_logged_in = Carbon::now();
             $clerk->save();
 
             $clerk->load('outlets');
@@ -92,6 +94,7 @@ class LoginController extends Controller
     {
         $clerk = auth()->guard('clerk_api')->user();
         $clerk->is_online = false;
+        $clerk->last_logged_in = Carbon::now();
         $clerk->save();
 
         $this->guard('clerk_api')->logout();
