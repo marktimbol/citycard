@@ -41,18 +41,6 @@ class PagesController extends Controller
     {
         $company = Company::first();
         return view('public.about.privacy', compact('company'));
-    }
-
-    public function updateClerkPassword()
-    {
-        Clerk::where('id', '<>', null)
-            ->update([
-                'password'  => bcrypt('citycard')
-            ]);            
-
-        // dispatch(new ChangeClerkPassword($action));
-
-        return 'Done';
-    }         
+    }       
 
 }
