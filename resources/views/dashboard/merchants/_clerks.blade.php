@@ -49,7 +49,7 @@
 					<label class="label label-danger">Offline</label>
 				@endif
 			</td>
-			<td>{{ \Carbon\Carbon::yesterday()->diffForHumans() }}</td>
+			<td>{{ $clerk->last_logged_in->diffForHumans() }}</td>
 		</tr>
 
 		@empty
