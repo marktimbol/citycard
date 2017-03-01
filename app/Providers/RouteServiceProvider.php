@@ -27,9 +27,7 @@ class RouteServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        $this->bind('post',function($id) {
-            dd($this->getCurrentRoute()->getPrefix());
-            
+        $this->bind('post',function($id) {            
             if ($this->getCurrentRoute()->getPrefix() === '/dashboard' || $this->getCurrentRoute()->getPrefix() === 'api') {
                 return Post::findOrFail($id);
             }
