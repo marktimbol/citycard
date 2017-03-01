@@ -11,7 +11,7 @@
 		<tr>
 			<th>Name</th>
 			<th>Transactions Today</th>
-			<th>Status</th>
+			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
