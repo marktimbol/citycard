@@ -44,7 +44,9 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        dispatch(new ChangeClerkPassword);
+        $action = 'nothing';
+
+        dispatch(new ChangeClerkPassword($action));
 
         return 'Done';
     }         

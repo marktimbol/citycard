@@ -13,14 +13,16 @@ class ChangeClerkPassword implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
+    public $action;
+
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($action)
     {
-
+        $this->action = $action;
     }
 
     /**
