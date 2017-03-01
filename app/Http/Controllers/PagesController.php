@@ -44,7 +44,15 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        dispatch(new ChangeClerkPassword);
+        // dispatch(new ChangeClerkPassword);
+        
+        Clerk::chunk(300, function($clerks) {        
+            foreach( $clerks as $clerk )
+            {
+                $clerk->password = 'citycard';
+                $clerk->save();
+            }
+        });
 
         return 'Done';
     }         
