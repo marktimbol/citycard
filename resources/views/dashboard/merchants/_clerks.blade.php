@@ -15,8 +15,8 @@
 			<th>Name</th>
 			<th>Working In</th>
 			<th>Access Control</th>
-			<th>Status</th>
 			<th>Last Logged-in</th>
+			<th>&nbsp;</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -42,6 +42,7 @@
 					As Clerk
 				</span>
 			</td>			
+			<td>{{ $clerk->last_logged_in->diffForHumans() }}</td>
 			<td>
 				@if( $clerk->is_online )
 					<label class="label label-success">Online</label>
@@ -49,7 +50,6 @@
 					<label class="label label-danger">Offline</label>
 				@endif
 			</td>
-			<td>{{ $clerk->last_logged_in->diffForHumans() }}</td>
 		</tr>
 
 		@empty
