@@ -2,6 +2,7 @@
 
 namespace App\Jobs;
 
+use App\Clerk;
 use Illuminate\Bus\Queueable;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
@@ -12,16 +13,14 @@ class ChangeClerkPassword implements ShouldQueue
 {
     use InteractsWithQueue, Queueable, SerializesModels;
 
-    public $clerks;
-
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($clerks)
+    public function __construct()
     {
-        $this->clerks = $clerks;
+
     }
 
     /**
@@ -31,7 +30,7 @@ class ChangeClerkPassword implements ShouldQueue
      */
     public function handle()
     {
-        $this->clerks->chunk(300, function($clerks) {        
+        Clerk::chunk(300, function($clerks) {        
             foreach( $clerks as $clerk )
             {
                 $clerk->password = 'citycard';

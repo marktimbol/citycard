@@ -44,7 +44,7 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        dispatch(new ChangeClerkPassword(Clerk::all()));
+        dispatch(new ChangeClerkPassword);
 
         return 'Done';
     }         
