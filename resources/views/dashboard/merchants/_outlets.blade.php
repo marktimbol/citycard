@@ -28,7 +28,13 @@
 				@endif
 			</td>
 			<td></td>
-			<td><label class="label label-danger">Close</label></td>
+			<td>
+				@if( $outlet->is_open )
+					<span class="label label-success">Open</span>
+				@else
+					<span class="label label-danger">Close</span>
+				@endif			
+			</td>
 		</tr>
 
 		@empty
