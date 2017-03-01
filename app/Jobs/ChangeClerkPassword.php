@@ -34,7 +34,7 @@ class ChangeClerkPassword implements ShouldQueue
     {
         Log::info("Changing clerk's password...");
 
-        Clerk::chunk(300, function($clerks) {        
+        Clerk::chunk(50, function($clerks) {        
             foreach( $clerks as $clerk )
             {
                 $clerk->password = 'citycard';

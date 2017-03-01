@@ -7,6 +7,7 @@ use App\Clerk;
 use App\Company;
 use Illuminate\Http\Request;
 use App\Jobs\ChangeClerkPassword;
+use Illuminate\Support\Facades\Log;
 
 class PagesController extends Controller
 {
@@ -44,10 +45,16 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        $action = 'nothing';
+        Clerk::chunk(50, function($clerks) {        
+            foreach( $clerks as $clerk )
+            {
+                Log::info($clerk->fullName());
+            }
+        });
 
-        dispatch(new ChangeClerkPassword($action));
+        // dispatch(new ChangeClerkPassword($action));
 
         return 'Done';
     }         
+
 }
