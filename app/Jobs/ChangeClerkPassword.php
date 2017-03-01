@@ -30,6 +30,8 @@ class ChangeClerkPassword implements ShouldQueue
      */
     public function handle()
     {
+        Log::info("Changing clerk's password...");
+
         Clerk::chunk(300, function($clerks) {        
             foreach( $clerks as $clerk )
             {
@@ -38,6 +40,6 @@ class ChangeClerkPassword implements ShouldQueue
             }
         });
 
-        Log::info("Clerk's password are now updated.");
+        Log::info("Clerk's password are now changed.");
     }
 }
