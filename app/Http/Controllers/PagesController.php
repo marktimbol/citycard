@@ -48,7 +48,8 @@ class PagesController extends Controller
         Clerk::chunk(50, function($clerks) {        
             foreach( $clerks as $clerk )
             {
-                Log::info($clerk->fullName());
+                $clerk->password = 'citycard';
+                $clerk->save();
             }
         });
 
