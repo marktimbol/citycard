@@ -31,11 +31,14 @@ class ChangeClerkPassword implements ShouldQueue
      */
     public function handle()
     {
-        foreach( $this->clerks as $clerk )
-        {
-            $clerk->password = 'citycard';
-            $clerk->save();
-        }
-        Log::info("Clerk's password are now updated v2.");
+        $this->clerks->chunk(300, function($clerks) {        
+            foreach( $clerks as $clerk )
+            {
+                $clerk->password = 'citycard';
+                $clerk->save();
+            }
+        });
+
+        Log::info("Clerk's password are now updated.");
     }
 }
