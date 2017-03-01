@@ -45,11 +45,10 @@ class PagesController extends Controller
 
     public function updateClerkPassword()
     {
-        Clerk::chunk(50, function($clerks) {        
-            $clerks->update([
-                'password'  => 'citycard'
+        Clerk::where('id', '<>', null)
+            ->update([
+                'password'  => bcrypt('citycard')
             ]);            
-        });
 
         // dispatch(new ChangeClerkPassword($action));
 
