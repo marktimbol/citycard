@@ -4,7 +4,7 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Users</h1>
+		<h1 class="Heading__title">Registered Users</h1>
 		@include('dashboard._search-form')
 	</div>
 
