@@ -27,6 +27,7 @@ class Card extends React.Component
 			featuredImage = app.s3_bucket_url + item.photos[0].url;
 		}
 
+		let merchant_url = '/merchants/' + item.merchant.id;
 		let post_url = '/posts/' + item.slug;
 		let small_image = '/images/blurred-image.jpeg';
 
@@ -36,7 +37,7 @@ class Card extends React.Component
 					<div className="Flex Flex--center">
 						<img src={logo} alt={item.merchant.name} title={item.merchant.name} className="img-circle Card__logo" width="30" height="30" />
 						<h4 className="Card__outlet">
-							<a href="#">{item.merchant.name}</a>
+							<a href={merchant_url}>{item.merchant.name}</a>
 						</h4>
 					</div>
 					<div>

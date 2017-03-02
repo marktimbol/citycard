@@ -77,6 +77,7 @@ class ExploreMerchant extends React.Component
 	{
 		let outlet = this.props.outlet;
 
+		let outlet_url = '/outlets/' + outlet.id;
 		let outlet_logo = '/images/tmp/outlet-photo.jpg';
 		if( outlet.merchant.logo != null ) {
 			outlet_logo = app.s3_bucket_url + outlet.merchant.logo;
@@ -119,7 +120,11 @@ class ExploreMerchant extends React.Component
 						<img src={outlet_logo} alt={outlet.name} title={outlet.name} className="img-responsive img-circle" />
 						<div>
 							<div className="Flex">
-								<h3 className="text-ellipsis">{outlet.name}</h3>
+								<h3 className="text-ellipsis">
+									<a href={outlet_url}>
+										{outlet.name}
+									</a>
+								</h3>
 								<span className="citycard-icon icon-verified"></span>
 							</div>
 							<p>{subcategories}</p>

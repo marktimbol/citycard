@@ -25,6 +25,11 @@ Route::get('/', [
 	'uses' => 'PagesController@home'
 ]);
 
+// View Merchant Profile
+Route::get('merchants/{merchant}', 'MechantsController@show');
+// View Outlet Profile
+Route::get('outlets/{outlet}', 'OutletsController@show');
+
 // Search
 Route::get('search/{key?}', ['as' => 'search', 'uses' => 'Api\Search\SearchController@index']);
 Route::get('search/deals/{key?}', 'Api\Search\SearchDealsController@index');
