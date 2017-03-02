@@ -16,11 +16,6 @@
 						<div class="Column-6">
 							<h1>{{ auth()->user()->name }}</h1>
 
-							<p class="lead_">
-								Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-								tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam.
-							</p>
-
 							<form method="POST" action="/logout">
 								{{ csrf_field() }}
 								<div class="form-group">
