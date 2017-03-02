@@ -104,6 +104,7 @@
 		</div>
 
 		@if( $merchantOutlets->count() > 0 )
+			<h3>Assign To</h3>
 			<div class="form-group">
 				@foreach( $merchantOutlets as $outlet )
 				<div class="checkbox">
