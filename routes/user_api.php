@@ -23,6 +23,7 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::get('user/profile', 'Api\User\ProfileController@index');
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
+	Route::post('user/rewards', 'Api\User\UserRewardsController@store');
 
 	Route::get('user/outlets/following', 'Api\User\FollowingOutletsController@index');
 

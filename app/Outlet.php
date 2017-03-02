@@ -98,6 +98,11 @@ class Outlet extends Authenticatable
 		return $this->belongsToMany(Post::class, 'outlet_posts', 'outlet_id', 'post_id');
 	}
 
+	public function rewards()
+	{
+		return $this->belongsToMany(Reward::class, 'outlet_rewards', 'outlet_id', 'reward_id');
+	}
+
 	public function photos()
 	{
 	    return $this->morphMany(Photo::class, 'imageable');

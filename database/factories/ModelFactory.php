@@ -122,6 +122,7 @@ $factory->define(App\Clerk::class, function (Faker\Generator $faker) {
         'is_online' => false,
         'api_token' => str_random(60),
         'remember_token' => str_random(10),
+        'last_logged_in' => Carbon::now(),
     ];
 });
 
@@ -141,6 +142,20 @@ $factory->define(App\Post::class, function (Faker\Generator $faker) {
         'desc'   => $faker->paragraph,
         'isExternal'   => 0,
         'published'  => 1,
+    ];
+});
+
+$factory->define(App\Reward::class, function (Faker\Generator $faker) {
+    return [
+        'id'    => $faker->uuid,
+        'merchant_id'   => function() {
+            return factory(App\Merchant::class)->create()->id;
+        },
+        'title' => $faker->sentence,
+        'slug'  => $faker->slug,
+        'quantity'  => $faker->randomNumber(2),
+        'required_points'   => $faker->randomNumber(2),
+        'desc'   => $faker->paragraph,
     ];
 });
 

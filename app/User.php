@@ -72,7 +72,8 @@ class User extends Authenticatable
 
     public function outlets()
     {
-        return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id')->withTimestamps();
+        return $this->belongsToMany(Outlet::class, 'outlet_followers', 'user_id', 'outlet_id')
+            ->withTimestamps();
     }
 
     public function follows($outlet)
@@ -98,5 +99,15 @@ class User extends Authenticatable
     public function following_outlets()
     {
         return UserOutletTransformer::transform($this->outlets);
+    }
+
+    public function rewards()
+    {
+        return $this->belongsToMany(Reward::class, 'user_rewards', 'user_id', 'reward_id');
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
     }
 }

@@ -14,7 +14,7 @@ class AddLastLoggedInColumnInClerksTable extends Migration
     public function up()
     {
         Schema::table('clerks', function (Blueprint $table) {
-            $table->timestamp('last_logged_in')->after('is_online');
+            $table->timestamp('last_logged_in')->nullable()->after('is_online');
         });
     }
 
