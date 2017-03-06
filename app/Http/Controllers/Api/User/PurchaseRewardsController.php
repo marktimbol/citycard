@@ -44,7 +44,7 @@ class PurchaseRewardsController extends Controller
             
         	return response()->json([
         		'status'	=> 1,
-                'remaining_points'  => $user->points,
+                'remaining_points'  => $user->getAvailablePoints(),
                 'message'   => 'You have successfully purchased the reward.',
         	]);
         }
