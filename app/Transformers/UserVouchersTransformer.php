@@ -15,6 +15,7 @@ class UserVouchersTransformer extends AbstractTransformer
         ]);    
 
         if( $this->isRelationshipLoaded($item, 'reward') ) {
+            $item->reward->load('photos');
             $output['reward'] = RewardsTransformer::transform($item->reward);
         }  
 

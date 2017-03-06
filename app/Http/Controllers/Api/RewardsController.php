@@ -18,7 +18,7 @@ class RewardsController extends Controller
 
     public function show(Reward $reward)
     {
-    	$reward->load('outlets');
+    	$reward->load('photos', 'outlets');
 
     	return RewardsTransformer::transform($reward);
     }
