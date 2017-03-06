@@ -7,9 +7,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class Voucher extends Model
 {
-    protected $fillable = ['user_id', 'reward_id', 'verification_code'];
+    protected $fillable = ['reward_id', 'verification_code', 'redeemed'];
 
     public $incrementing = false;
+
+    protected $casts = [
+        'redeemed'  => 'boolean'
+    ];
 
     protected static function boot()
     {
@@ -20,13 +24,14 @@ class Voucher extends Model
         });
     }
 
-    public function user()
-    {
-    	return $this->belongsTo(User::class);
-    }
-
     public function reward()
     {
         return $this->belongsTo(Reward::class);
+    }
+
+    // Well, this should only return 1 result
+    public function owners()
+    {
+        return $this->belongsToMany(User::class, 'user_vouchers', 'voucher_id', 'user_id');
     }
 }

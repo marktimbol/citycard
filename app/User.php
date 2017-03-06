@@ -9,7 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use CanSendMessage, Notifiable;
+    use Notifiable;
 
     /**
      * The attributes that are mass assignable.
@@ -17,9 +17,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uuid', 'name', 'email', 'mobile',
-        'dob', 'gender', 'marital_status',
-        'profession', 'password', 'verification_code',
+        'uuid', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status',
+        'profession', 'password', 'verification_code', 'points'
     ];
 
     /**
@@ -108,6 +107,6 @@ class User extends Authenticatable
 
     public function vouchers()
     {
-        return $this->hasMany(Voucher::class);
+        return $this->belongsToMany(Voucher::class, 'user_vouchers', 'user_id', 'voucher_id');
     }
 }

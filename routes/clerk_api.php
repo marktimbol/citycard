@@ -68,4 +68,7 @@ Route::group(['as' => 'api.', 'prefix' => 'clerk', 'middleware' => 'auth:clerk_a
 	Route::post('outlets/{outlet}/users/{user}/notes', 'Api\Clerk\OutletUserNotesController@store');
 	Route::put('outlets/{outlet}/users/{user}/update-notes', 'Api\Clerk\OutletUserNotesController@update');
 	Route::delete('outlets/{outlet}/users/{user}/delete-notes', 'Api\Clerk\OutletUserNotesController@destroy');
+
+	// Redeem voucher for the User
+	Route::put('outlets/{outlet}/vouchers/redeem', 'Api\Clerk\RedeemVouchersController@update');
 });

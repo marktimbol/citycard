@@ -18,7 +18,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $fillable = [
-	    'name', 'email', 'password', 'phone', 'currency', 'address', 'lat', 'lng'
+	    'name', 'email', 'phone', 'currency', 'address', 'lat', 'lng'
 	];
 
 	/**
@@ -27,7 +27,7 @@ class Outlet extends Authenticatable
 	 * @var array
 	 */
 	protected $hidden = [
-	    'password', 'remember_token', 'api_token'
+	    'remember_token', 'api_token'
 	];
 
 	protected $casts = [
@@ -41,11 +41,6 @@ class Outlet extends Authenticatable
     {
         $this->attributes['email'] = $email;
         $this->attributes['api_token'] = str_random(60);
-    }
-
-    public function setPasswordAttribute($password)
-    {
-    	$this->attributes['password'] = bcrypt($password);
     }
 
     /**
@@ -101,6 +96,11 @@ class Outlet extends Authenticatable
 	public function rewards()
 	{
 		return $this->belongsToMany(Reward::class, 'outlet_rewards', 'outlet_id', 'reward_id');
+	}
+
+	public function vouchers()
+	{
+		return $this->belongsToMany(Voucher::class, 'outlet_vouchers', 'outlet_id', 'voucher_id');
 	}
 
 	public function photos()

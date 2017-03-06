@@ -1,7 +1,8 @@
 // component/CreateOutlet.js
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import Countries from '../Countries';
+import Location from '../Location';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
 class CreateOutlet extends Component
 {
@@ -12,17 +13,20 @@ class CreateOutlet extends Component
 		this.state = {
 			isSubmitted: false,
 			submitButtonText: 'Save',
-			phone: '',
-			address1: '',
-			address2: '',
-			latitude: '',
-			longitude: '',
 			email: '@citycard.me',
-			password: '',
-			password_confirmation: '',
+			phone: '',
+			address: '',
+			city: '',
+			lat: '',
+			lng: '',
+
+			errors: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleAddressChange = this.handleAddressChange.bind(this);
+		this.handleCityChange = this.handleCityChange.bind(this);
+		this.handleAreaChange = this.handleAreaChange.bind(this);  		
 	}
 
 	handleChange(e) {
@@ -31,52 +35,60 @@ class CreateOutlet extends Component
 		});
 	}
 
+    handleAddressChange(address) {
+        let that = this;
+        this.setState({ address })
+        
+        geocodeByAddress(address, (err, { lat, lng }) => {
+            that.setState({ lat, lng })
+        })
+    }
+
+	handleCityChange(city) {  
+		this.setState({ city });
+	}
+
+	handleAreaChange(area) {  
+		this.setState({ area: area.value });
+	}	
+
 	onSubmit(e) {
 		e.preventDefault();
 		this.isSubmitting();
 
+		let that = this;
 		let merchant = app.merchant;
-		let url = '/dashboard/merchants/' + merchant.id + '/outlets';
 
-		$.ajax({
-		    url: url,
-		    type: 'POST',
-		    data: $('#CreateOutletForm').serialize(),
-		    headers: { 'X-CSRF-Token': App.csrfToken },
-		    success: function(response) {
+		axios.post('/dashboard/merchants/' + merchant.id + '/outlets', {
+			email: this.state.email,
+			phone: this.state.phone,
+			address: this.state.address,
+			city: this.state.city,
+			area: this.state.area,
+			lat: this.state.lat,
+			lng: this.state.lng,
+		}).then(function(response) {
+			console.log('response', response);
 
-				this.setState({
-					submitButtonText: 'Save',
-					isSubmitted: false
-				})
+			that.setState({
+				submitButtonText: 'Save',
+				isSubmitted: false
+			})
 
-		        swal({
-		            title: "City Card",
-		            text: "You have successfully created a new Outlet",
-		            type: "success",
-		            showConfirmButton: true
-		        }, function() {
-					window.location = '/dashboard/merchants/' + merchant.id + '/outlets/' + response.id;
-				});
+	        swal({
+	            title: "CityCard",
+	            text: "You have successfully created a new Outlet",
+	            type: "success",
+	            showConfirmButton: true
+	        });
 
-		    }.bind(this),
-		    error: function(error) {
-		    	this.resetSubmitButton();
-				let errors = error.responseJSON;
-				let errorMessage = '';
-				
-		        $.each(errors, function(index, value) {
-		        	errorMessage += value[0] + '\n';
-		        });		
-
-		        swal({
-		            title: "City Card",
-		            text: errorMessage,
-		            type: "error",
-		            showConfirmButton: true
-		        });	
-		    }.bind(this)
-		});
+		}).catch(function(error) {
+			console.log('error', error)
+			that.setState({
+				submitButtonText: 'Save',
+				isSubmitted: false
+			})
+		})
 	}
 
 	isSubmitting() {
@@ -108,6 +120,16 @@ class CreateOutlet extends Component
 				</div>
 
 				<div className="form-group">
+					<label htmlFor="email">Email</label>
+					<input type="email"
+						name="email"
+						id="email"
+						value={this.state.email}
+						onChange={this.handleChange}
+						className="form-control" />
+				</div>				
+
+				<div className="form-group">
 					<label htmlFor="phone" className="label-block">Phone</label>
 					<input type="tel"
 						name="phone"
@@ -117,96 +139,13 @@ class CreateOutlet extends Component
 						className="form-control" />
 				</div>
 
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address1">Address 1</label>
-							<input type="text"
-								name="address1"
-								id="address1"
-								value={this.state.address1}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="address2">Address 2</label>
-							<input type="text"
-								name="address2"
-								id="address2"
-								value={this.state.address2}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="latitude">Latitude</label>
-							<input type="text"
-								name="latitude"
-								id="latitude"
-								value={this.state.latitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="longitude">Longitude</label>
-							<input type="text"
-								name="longitude"
-								id="longitude"
-								value={this.state.longitude}
-								onChange={this.handleChange}
-								className="form-control" />
-						</div>
-					</div>
-				</div>
-
-				<Countries />
-
-				<h2>Account Details</h2>
-
-				<div className="form-group">
-					<label htmlFor="email">Email</label>
-					<input type="email"
-						name="email"
-						id="email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						className="form-control" />
-				</div>
-
-				<div className="row">
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="password">Password</label>
-							<input type="password"
-								name="password"
-								id="password"
-								className="form-control"
-								value={this.state.password}
-								onChange={this.handleChange} />
-						</div>
-					</div>
-					<div className="col-md-6">
-						<div className="form-group">
-							<label htmlFor="password_confirmation">Password Confirmation</label>
-							<input type="password"
-								name="password_confirmation"
-								id="password_confirmation"
-								className="form-control"
-								value={this.state.password_confirmation}
-								onChange={this.handleChange} />
-						</div>
-					</div>
-				</div>
+				<Location 
+					errors={this.state.errors}
+					address=''
+					addressClass={this.state.errors.hasOwnProperty('address') ? 'has-error' : ''}
+					handleAddressChange={this.handleAddressChange}
+					handleCityChange={this.handleCityChange}
+					handleAreaChange={this.handleAreaChange} />
 
 				<div className="form-group">
 					<button

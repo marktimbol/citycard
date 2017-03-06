@@ -49,27 +49,32 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     	$merchant = $this->createMerchant([
 			'name'	=> 'Zara'
 		]);
+
+		$city = $this->createCity([
+			'name'	=> 'Dubai',
+		]);
+
 		$area = $this->createArea([
+			'city_id'	=> $city->id,
 			'name'	=> 'Deira'
 		]);
 
 		$endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/outlets', $merchant->id);
-		$response = $this->post($endpoint, [
-			'area'	=> $area->id,
+		$request = $this->post($endpoint, [
+			'city'	=> $city->id,
+			'area'	=> 'Deira',
 			'phone'	=> '0563759865',
-			'address'	=> 'Building 13 - Dubai - United Arab Emirates',
+			'address'	=> 'Building 13 - Dubai, United Arab Emirates',
 			'lat'	=> '25.1421058',
 			'lng'	=> '55.25091150000003',
 			'email'	=> 'john@example.com',
-			'password'	=> 'secret',
-			'password_confirmation'	=> 'secret',
 		]);
 
 		$this->seeInDatabase('outlets', [
 			'merchant_id'	=> $merchant->id,
 			'name'	=> 'Zara - Deira',
 			'phone'	=> '0563759865',
-			'address'	=> 'Building 13 - Dubai - United Arab Emirates',
+			'address'	=> 'Building 13 - Dubai, United Arab Emirates',
 			'lat'	=> '25.1421058',
 			'lng'	=> '55.25091150000003',
 			'email'	=> 'john@example.com',

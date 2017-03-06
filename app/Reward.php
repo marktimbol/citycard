@@ -23,11 +23,21 @@ class Reward extends Model
     public function setTitleAttribute($title)
     {
         $this->attributes['title'] = $title;
-        $this->attributes['slug'] = sprintf('%s-%s', str_slug($title), $this->id);
+        $this->attributes['slug'] = str_slug($title);
     }
 
     public function outlets()
     {
     	return $this->belongsToMany(Outlet::class, 'outlet_rewards', 'reward_id', 'outlet_id');
+    }
+
+    public function vouchers()
+    {
+        return $this->hasMany(Voucher::class);
+    }
+
+    public function photos()
+    {
+        return $this->hasMany(RewardPhotos::class);
     }
 }

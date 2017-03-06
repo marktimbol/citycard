@@ -1,5 +1,6 @@
 <?php
 
+use App\Reward;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -28,13 +29,13 @@ class ManageRewardsTest extends TestCase
 
     	$reward = factory(App\Reward::class)->create([
     		'merchant_id'	=> $merchant->id,
-    		'title'	=> 'Buy this offer for 10 points'
+    		'title'	=> 'Free coffee'
     	]);
 
     	$outlet->rewards()->attach($reward);
 
     	$this->visit(adminPath() . '/dashboard/rewards')
-    		->see('Buy this offer for 10 points');
+    		->see('Free coffee');
     }
 
     public function test_an_admin_can_create_a_reward()
@@ -56,27 +57,39 @@ class ManageRewardsTest extends TestCase
     	$endpoint = adminPath() . '/dashboard/rewards';
     	$request = $this->post($endpoint, [
     		'merchant_id'	=> $merchant->id,
-    		'outlets'	=> '1,2',
-    		'title'	=> 'Buy this offer for 10 points',
+    		// 'outlets'	=> [
+      //           0 => [
+      //               'value' => $caribou_internetCity->id,
+      //               'label' => $caribou_internetCity->name,
+      //           ],
+      //           1 => [
+      //               'value' => $caribou_alRigga->id,
+      //               'label' => $caribou_alRigga->name,
+      //           ]                
+      //       ],
+            'outlets'   => '1,2',
+    		'title'	=> 'Free coffee',
     		'quantity'	=> 10,
     		'required_points'	=> 100,
     		'desc'	=> 'As the title says.',
     	]);
 
+        $created_reward = Reward::first();
+
     	$this->seeInDatabase('rewards', [
     		'merchant_id'	=> $merchant->id,
-    		'title'	=> 'Buy this offer for 10 points',
+    		'title'	=> 'Free coffee',
     		'quantity'	=> 10,
     		'required_points'	=> 100,
     		'desc'	=> 'As the title says.',
     	])
     		->seeInDatabase('outlet_rewards', [
     			'outlet_id'	=> $caribou_internetCity->id,
-    			// 'reward_id'	=> $request->id,
+    			'reward_id'	=> $created_reward->id,
     		])
     		->seeInDatabase('outlet_rewards', [
     			'outlet_id'	=> $caribou_alRigga->id,
-    			// 'reward_id'	=> $request->id,
+    			'reward_id'	=> $created_reward->id,
     		]);
     }
 }

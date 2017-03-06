@@ -4,7 +4,13 @@
 
 @section('content')
 	<div class="Heading">
-		<h1 class="Heading__title">Rewards</h1>
+		<h1 class="Heading__title">Rewards
+			<small>
+				<a href="{{ route('dashboard.rewards.create') }}" class="btn btn-sm btn-primary">
+					Create New
+				</a>
+			</small>
+		</h1>
 	</div>
 
 	<table class="table table-bordered">

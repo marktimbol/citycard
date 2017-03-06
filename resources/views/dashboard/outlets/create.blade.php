@@ -21,6 +21,7 @@
 @endsection
 
 @section('footer_scripts')
+	<script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDU2a80giA7UX_NMcPudNvxfibPRktPEIg&libraries=places"></script>
 	<script src="/js/telephone.js"></script>
 	<script src="{{ elixir('js/CreateOutlet.js') }}"></script>
 @endsection

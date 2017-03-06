@@ -23,6 +23,7 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'mobile' => '+971 56 820 7189',
+        'points' => 100,
         'api_token' => str_random(60),
         'mobile_verified' => true,
         'email_verified' => true,
@@ -65,7 +66,6 @@ $factory->define(App\Outlet::class, function (Faker\Generator $faker) {
         },
         'name' => ucfirst($faker->word),
         'email' => $faker->unique()->safeEmail,
-        'password' => $password ?: $password = bcrypt('secret'),
         'phone' => $faker->phoneNumber,
         'currency' => 'AED',
         'address'  => $faker->address,
@@ -156,6 +156,17 @@ $factory->define(App\Reward::class, function (Faker\Generator $faker) {
         'quantity'  => $faker->randomNumber(2),
         'required_points'   => $faker->randomNumber(2),
         'desc'   => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Voucher::class, function (Faker\Generator $faker) {
+    return [
+        'id'    => $faker->uuid,
+        'reward_id'   => function() {
+            return factory(App\Reward::class)->create()->id;
+        },
+        'verification_code' => str_random(7),
+        'redeemed'  => false,
     ];
 });
 

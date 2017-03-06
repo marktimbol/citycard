@@ -47,6 +47,8 @@ elixir(mix => {
 		.webpack('components/CreateItemForReservation.js')
 		// Search Results
 		.webpack('components/Search/SearchResults.js')
+		// Rewards
+		.webpack('components/Rewards/CreateReward.js')
 
 		// Vend
 		.webpack('components/Vend.js')
@@ -125,6 +127,8 @@ elixir(mix => {
 			'public/js/ItemsForReservation.js',
 			// Explore Merchants
 			'public/js/ExploreMerchants.js',
+			// Rewards
+			'public/js/CreateReward.js',
 			// Blurred image
 			'public/js/BlurredImageEffect.js',
 			// Vend

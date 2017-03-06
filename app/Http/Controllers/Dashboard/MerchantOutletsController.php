@@ -23,6 +23,7 @@ class MerchantOutletsController extends Controller
     public function index(Merchant $merchant)
     {
     	$outlets = $merchant->outlets;
+
     	return view('dashboard.outlets.index', compact('merchant', 'outlets'));
     }
 
@@ -69,10 +70,17 @@ class MerchantOutletsController extends Controller
 
     public function store(CreateOutletRequest $request, Merchant $merchant)
     {
-		$area = Area::findOrFail($request->area);
-		$request['name'] = sprintf('%s - %s', $merchant->name, $area->name);
-    	$outlet = $merchant->outlets()->create($request->all());
+        // Find the existing Area {$request->area},
+        // if the record does not exists, then create it.
+        $area = Area::firstOrCreate([
+            'city_id'   => $request->city,
+            'name'  => $request->area
+        ]);
+                
+        $request['name'] = sprintf('%s - %s', $merchant->name, $area->name);
+        $request['currency'] = 'AED';
 
+    	$outlet = $merchant->outlets()->create($request->all());
 		$area->outlets()->attach($outlet);
 
 		return $outlet;

@@ -38,6 +38,9 @@ Route::group(['as' => 'api.'], function() {
 	Route::get('search/newsfeeds/{key}', 'Api\Search\SearchNewsFeedsController@index');
 	Route::get('search/outlets/{key}', 'Api\Search\SearchOutletsController@index');
 
+	// Get Merchant Outlets
+	Route::get('merchants/{merchant}/outlets', 'Api\MerchantOutletsController@index');
+	
 	Route::get('outlets/nearme', 'Api\NearMeOutletsController@index');
 	
 	Route::resource('outlets', 'Api\OutletsController', [
@@ -67,6 +70,10 @@ Route::group(['as' => 'api.'], function() {
 		'only'	=> ['store']
 	]);
 
+	// Get all the rewards
+	Route::get('rewards', 'Api\RewardsController@index');
+	Route::get('rewards/{reward}', 'Api\RewardsController@show');
+	
 	// Get all the Outlets in a given Category
 	Route::get('categories/only', 'Api\CategoriesOnlyController@index');
 	Route::get('categories/{category}/outlets', 'Api\CategoryOutletsController@index');

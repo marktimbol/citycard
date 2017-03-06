@@ -27,8 +27,6 @@ class CreateOutletRequest extends FormRequest
             'area' => 'required',
 			'email'	=> 'required|email',
 			'phone'	=> 'required',
-			'password'	=> 'required|min:6|confirmed',
-			'password_confirmation'	=> 'required'
         ];
     }
 }

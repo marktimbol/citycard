@@ -38,7 +38,12 @@
                             <a href="{{ route('dashboard.sources.index') }}" class="list-group-item">
                                 Externals (eg. Groupon)
                             </a>
-                        @endcan
+                        @endcan                        
+                    </ul>
+                    <ul class="list-group">
+                        <a href="{{ route('dashboard.rewards.index') }}" class="list-group-item">
+                            Rewards
+                        </a>
                     </ul>
                     <ul class="list-group">
                         @can('manage_faqs')
