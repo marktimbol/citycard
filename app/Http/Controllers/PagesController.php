@@ -44,22 +44,4 @@ class PagesController extends Controller
         $company = Company::first();
         return view('public.about.privacy', compact('company'));
     }
-
-    public function givePoints()
-    {
-        Point::create([
-            'registration'  => 1000,
-        ]);
-        
-        $registration_points = Point::first()->registration;
-        $description = sprintf('You received %s points upon registration.', $registration_points);
-
-        User::chunk(30, function($users) use ($description, $registration_points) {
-            foreach( $users as $user ) {
-                $user->makeTransaction('credit', $description, $registration_points);
-            }
-        });
-
-        return 'Done';
-    }
 }
