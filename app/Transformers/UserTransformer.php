@@ -10,7 +10,7 @@ class UserTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status', 'profession',
+    		'id', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status', 'profession', 'points',
     	]);
 
     	if( auth()->guard('user')->check() ) {
