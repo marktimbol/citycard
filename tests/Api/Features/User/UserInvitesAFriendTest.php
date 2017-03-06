@@ -23,6 +23,10 @@ class UserInvitesAFriendTest extends TestCase
     {
     	$this->expectsEvents(UserInvitesAFriend::class);
 
+        $point = factory(App\Point::class)->create([
+            'invite_friend' => 50,
+        ]);
+
     	$request = $this->post('/api/user/invites', [
     		'email'	=> 'jane@example.com'
     	]);
@@ -31,6 +35,16 @@ class UserInvitesAFriendTest extends TestCase
     		'user_id'	=> $this->user->id,
     		'email'	=> 'jane@example.com'
     	]);
+
+        // Initially, the user has 100 points,
+        // so we added 50 points when he/she invites a friend.
+        $this->seeInDatabase('transactions', [
+            'user_id'   => $this->user->id,
+            'description'   => sprintf('You received %s points for inviting your friend.', $point->invite_friend),
+            'credit'    => $point->invite_friend,
+            'debit' => 0,
+            'balance'   => 150
+        ]);
 
     	$this->seeJson([
     		'success'	=> true,

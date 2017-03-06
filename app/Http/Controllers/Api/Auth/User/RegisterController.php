@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\Api\Auth\User;
 
+use App\User;
+use App\Point;
+use Validator;
+use Illuminate\Http\Request;
 use App\Events\User\UserRegistered;
 use App\Http\Controllers\Controller;
 use App\Transformers\UserTransformer;
-use App\User;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Http\Request;
-use Validator;
 
 class RegisterController extends Controller
 {
@@ -66,7 +67,7 @@ class RegisterController extends Controller
      * @return User
      */
     protected function create(array $data)
-    {        
+    {
         return User::create([
             'name'  => $data['name'],
             'email' => $data['email'],
@@ -86,8 +87,11 @@ class RegisterController extends Controller
                 'user'  => []
             ]);
         }
-
+        
         $user = $this->create($request->all());
+        $description = sprintf('You received %s points upon registration.', Point::first()->registration);
+        $user->makeTransaction('credit', $description, Point::first()->registration);
+
         $user->load('photos', 'qrcode', 'reservations');
         
         event( new UserRegistered($user, $request->password) );

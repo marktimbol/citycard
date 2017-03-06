@@ -17,7 +17,7 @@ class PurchaseRewardsController extends Controller
         $reward = Reward::findOrFail($request->reward_id);
 
         // If this user has enough points to purchase this reward
-        if( $user->points >= $reward->required_points )
+        if( $user->getAvailablePoints() >= $reward->required_points )
         {   
             $verification_code = str_random(7);
 
@@ -36,7 +36,8 @@ class PurchaseRewardsController extends Controller
             $user->vouchers()->attach($voucher);
 
             // Decrement the points of the user
-            $user->decrement('points', $reward->required_points);
+            $description = sprintf('You purchased a reward for %s points.', $reward->required_points);
+            $user->makeTransaction('debit', $description, $reward->required_points);
 
         	// TODO: Send the 7-digit mobile verification to 
         	// the user's registered mobile

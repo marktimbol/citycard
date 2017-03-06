@@ -23,7 +23,6 @@ $factory->define(App\User::class, function (Faker\Generator $faker) {
         'email' => $faker->unique()->safeEmail,
         'password' => $password ?: $password = bcrypt('secret'),
         'mobile' => '+971 56 820 7189',
-        'points' => 100,
         'api_token' => str_random(60),
         'mobile_verified' => true,
         'email_verified' => true,
@@ -294,6 +293,24 @@ $factory->define(App\OutletUserNotes::class, function (Faker\Generator $faker) {
             return factory(App\User::class)->create()->id;
         },        
         'notes' => $faker->paragraph,
+    ];
+});
+
+$factory->define(App\Point::class, function (Faker\Generator $faker) {
+    return [
+        'registration' => 100,
+    ];
+});
+
+$factory->define(App\Transaction::class, function (Faker\Generator $faker) {
+    return [
+        'user_id' => function() {
+            return factory(App\User::class)->create()->id;
+        },
+        'description'   => 'You received 100 points upon registration.',
+        'credit'    => 0,
+        'debit' => 0,
+        'balance'   => 0, 
     ];
 });
 

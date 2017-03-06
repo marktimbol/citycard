@@ -10,8 +10,11 @@ class UserTransformer extends AbstractTransformer
     public function transformModel(Model $item)
     {
     	$output = array_only($item->toArray(), [
-    		'id', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status', 'profession', 'points',
+    		'id', 'name', 'email', 'mobile', 'dob', 'gender', 'marital_status', 'profession',
     	]);
+
+        $transaction = $item->transactions()->first();
+        $output['points'] = count($transaction) > 0 ? $transaction->balance : 0;
 
     	if( auth()->guard('user')->check() ) {
             $user = auth()->guard('user')->user();

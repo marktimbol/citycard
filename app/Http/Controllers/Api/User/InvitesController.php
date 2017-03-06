@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Events\User\UserInvitesAFriend;
-use App\Http\Controllers\Controller;
+use App\Point;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use App\Events\User\UserInvitesAFriend;
 
 class InvitesController extends Controller
 {
@@ -19,6 +20,9 @@ class InvitesController extends Controller
     	$friend = $user->invitations()->create([
     		'email'	=> $request->email
     	]);
+
+        $description = sprintf('You received %s points for inviting your friend.', Point::first()->invite_friend);
+        $user->makeTransaction('credit', $description, Point::first()->invite_friend);
 
     	$friend->load('user:id,name,email');
 

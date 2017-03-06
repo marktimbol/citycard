@@ -30,6 +30,12 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	// Get all my vouchers
 	Route::get('user/vouchers', 'Api\User\UserVouchersController@index');
 
+	// Get all my transactions
+	Route::get('user/transactions', 'Api\User\UserTransactionsController@index');
+	
+	// Get my total points
+	Route::get('user/points', 'Api\User\UserPointsController@index');
+
 	Route::get('user/outlets/following', 'Api\User\FollowingOutletsController@index');
 
 	// Get all User reservations

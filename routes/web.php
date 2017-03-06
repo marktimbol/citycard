@@ -16,6 +16,7 @@
 */
 
 Route::get('generate-thumbnails', 'ThumbnailGeneratorController@index');
+Route::get('give-points', 'PagesController@givePoints');
 
 Route::get('auth/{provider}', 'Auth\SocialiteAuthController@redirect');
 Route::get('auth/{provider}/callback', 'Auth\SocialiteAuthController@handle');

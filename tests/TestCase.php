@@ -62,6 +62,15 @@ abstract class TestCase extends Illuminate\Foundation\Testing\TestCase
     protected function actingAsUser($attributes=[])
     {
         $this->user = $this->createUser($attributes);
+
+        factory(App\Transaction::class)->create([
+            'user_id'   => $this->user->id,
+            'description'   => 'You received 100 points upon registration.',
+            'credit'    => 100,
+            'debit' => 0,
+            'balance'   => 100,
+        ]);
+
         $this->actingAs($this->user, 'user_api');
     }   
 

@@ -13,9 +13,7 @@ class UserCanPurchaseARewardTest extends TestCase
 	{
 		parent::setUp();
 
-		$this->actingAsUser([
-            'points'    => 10
-        ]);
+		$this->actingAsUser();
 	}
 
     public function test_an_authenticated_user_can_purchase_a_reward_and_make_a_voucher()
@@ -58,10 +56,15 @@ class UserCanPurchaseARewardTest extends TestCase
             'voucher_id' => $created_voucher->id,
         ]);
 
-        $this->seeInDatabase('users', [
-            'id'    => $this->user->id,
-            'points'    => 5,
-        ]);        
+        // Initially, the user has 100 points,
+        // so we deduct 5 points when the reward was purchased
+        $this->seeInDatabase('transactions', [
+            'user_id'   => $this->user->id,
+            'description'   => sprintf('You purchased a reward for %s points.', $reward->required_points),
+            'credit'    => 0,
+            'debit' => $reward->required_points,
+            'balance'   => 95 
+        ]);
     }
 
     public function test_an_authenticated_user_cannot_purchase_a_reward_if_there_is_no_enough_points()
@@ -74,7 +77,7 @@ class UserCanPurchaseARewardTest extends TestCase
         $reward = factory(App\Reward::class)->create([
             'merchant_id'   => $merchant->id,
             'quantity'  => 10,
-            'required_points'   => 50,
+            'required_points'   => 200,
         ]);
 
         $request = $this->post('/api/user/rewards/purchase', [
@@ -82,6 +85,8 @@ class UserCanPurchaseARewardTest extends TestCase
             'reward_id' => $reward->id,
         ]);
 
+        // We should see this because the user has only 100 points.
+        // This reward requires a 200 points in order to redeem it.
         $this->seeJson([
             'status'    => 0,
             'message'   => 'You do not have enough points to purchase this reward.'

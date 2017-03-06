@@ -109,4 +109,29 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(Voucher::class, 'user_vouchers', 'user_id', 'voucher_id');
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
+
+    public function getAvailablePoints()
+    {
+        $transaction = $this->transactions()->latest()->first();
+        return count($transaction) > 0 ? $transaction->balance : 0;  
+    }
+
+    public function makeTransaction($type = 'credit', $description, $points)
+    {
+        $transaction = $this->transactions()->latest()->first();
+        $balance = count($transaction) > 0 ? $transaction->balance : 0;
+
+        return $this->transactions()->create([
+            'description'   => $description,
+            'credit'    => $type === 'credit' ? $points : 0,
+            'debit' => $type === 'debit' ? $points : 0,
+            'balance'   => 
+                $type === 'credit' ? $balance + $points : $balance - $points
+        ]);        
+    }
 }
