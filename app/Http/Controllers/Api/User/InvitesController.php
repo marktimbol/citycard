@@ -10,12 +10,19 @@ use App\Events\User\UserInvitesAFriend;
 class InvitesController extends Controller
 {
     public function store(Request $request)
-    {
+    {        
     	$this->validate($request, [
     		'email'	=> 'required|email'
     	]);
 
     	$user = auth()->guard('user_api')->user();
+        if( $user->alreadyInvited($request->email) )
+        {
+            return response()->json([
+                'status'    => 0,
+                'message'   => 'You already invited this friend.'
+            ]);
+        }
 
     	$friend = $user->invitations()->create([
     		'email'	=> $request->email

@@ -134,4 +134,9 @@ class User extends Authenticatable
                 $type === 'credit' ? $balance + $points : $balance - $points
         ]);        
     }
+
+    public function alreadyInvited($email)
+    {
+        return $this->invitations()->where('email', $email)->count() > 0;      
+    }
 }

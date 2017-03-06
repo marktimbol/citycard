@@ -49,6 +49,21 @@ class UserInvitesAFriendTest extends TestCase
     	$this->seeJson([
     		'success'	=> true,
     	]);
+    }
 
+    public function test_an_authenticated_user_cannot_invite_same_email_address()
+    {
+        $this->post('/api/user/invites', [
+            'email' => 'jane@example.com'
+        ]);
+
+        $request = $this->post('/api/user/invites', [
+            'email' => 'jane@example.com'
+        ]);
+
+        $this->seeJson([
+            'status'   => 0,
+            'message'   => 'You already invited this friend.'
+        ]);
     }
 }
