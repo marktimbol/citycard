@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api\Clerk;
 
+use App\Point;
 use App\Outlet;
 use App\Reservation;
 use Illuminate\Http\Request;
@@ -15,9 +16,16 @@ class ConfirmUserReservationController extends Controller
 	 */
     public function update(Outlet $outlet, Reservation $reservation)
     {
+        $reservation->load('user');
+        
         $reservation->confirmed = true;
     	$reservation->status = 'confirmed';
     	$reservation->save();
+
+        $reservation->user->givePoints(
+            Point::first()->reservation,
+            sprintf('You received %s points because your reservation was approved.', Point::first()->reservation)
+        );
 
 		event( new ReservationWasConfirmed($outlet, $reservation) );
 

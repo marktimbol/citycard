@@ -23,6 +23,10 @@ class ConfirmUserReservationTest extends TestCase
     {
     	$this->expectsEvents(ReservationWasConfirmed::class);
 
+        $points = factory(App\Point::class)->create([
+            'reservation'   => 500,
+        ]);
+
         $outlet = $this->createOutlet([
             'merchant_id'   => $this->clerk->merchant_id
         ]);
@@ -35,6 +39,14 @@ class ConfirmUserReservationTest extends TestCase
         $user = $this->createUser([
             'name'  => 'Jomerie'
         ]);
+
+        factory(App\Transaction::class)->create([
+            'user_id'   => $user->id,
+            'description'   => 'You received 100 points upon registration.',
+            'credit'    => 100,
+            'debit' => 0,
+            'balance'   => 100,
+        ]);        
 
         $reservationDate = Carbon::tomorrow()->toDateTimeString();
         $reservation = $this->createReservation([
@@ -54,11 +66,21 @@ class ConfirmUserReservationTest extends TestCase
         // Confirm user's reservation
         $endpoint = sprintf('/api/clerk/outlets/%s/reservations/%s/confirm', $outlet->id, $reservation->id);
         $request = $this->put($endpoint);
-
+        
     	$this->seeInDatabase('reservations', [
     		'id'	=> $reservation->id,
     		'confirmed'	=> true,
             'status'    => 'confirmed'
     	]);
+
+        // Balance will be 600 because initially, the user has 100 points
+        // and when the reservation was confirmed, the user will received $points->reservation
+        $this->seeInDatabase('transactions', [
+            'user_id'   => $user->id,
+            'credit'    => $points->reservation,
+            'debit' => 0,
+            'balance'   => 600,
+            'description'   => sprintf('You received %s points because your reservation was approved.', $points->reservation)
+        ]);
     }  
 }
