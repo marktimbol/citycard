@@ -13,7 +13,7 @@ class OutletsController extends Controller
 {
     public function index()
     {
-        $outlets = Outlet::with('merchant', 'categories')->latest();
+        $outlets = Outlet::with('merchant', 'categories', 'rewards.photos')->latest();
 
         if( request()->has('lat') && request()->has('lng') )
         {
@@ -29,7 +29,8 @@ class OutletsController extends Controller
         $outlet->load(
             'merchant.outlets', 'clerks', 'posts.sources', 
             'posts.merchant', 'posts.outlets:id,name', 
-            'posts.category', 'posts.photos', 'itemsForReservation'
+            'posts.category', 'posts.photos', 'itemsForReservation',
+            'rewards.photos'
         );        
 
     	return OutletTransformer::transform($outlet);
