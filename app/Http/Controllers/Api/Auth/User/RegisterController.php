@@ -89,8 +89,11 @@ class RegisterController extends Controller
         }
         
         $user = $this->create($request->all());
-        $description = sprintf('You received %s points upon registration.', Point::first()->registration);
-        $user->makeTransaction('credit', $description, Point::first()->registration);
+
+        $user->givePoints(
+            Point::first()->registration,
+            sprintf('You received %s points upon registration.', Point::first()->registration)
+        );
 
         $user->load('photos', 'qrcode', 'reservations');
         

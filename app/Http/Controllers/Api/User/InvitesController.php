@@ -28,8 +28,10 @@ class InvitesController extends Controller
     		'email'	=> $request->email
     	]);
 
-        $description = sprintf('You received %s points for inviting your friend.', Point::first()->invite_friend);
-        $user->makeTransaction('credit', $description, Point::first()->invite_friend);
+        $user->givePoints(
+            Point::first()->invite_friend, 
+            sprintf('You received %s points for inviting your friend.', Point::first()->invite_friend)
+        );
 
     	$friend->load('user:id,name,email');
 

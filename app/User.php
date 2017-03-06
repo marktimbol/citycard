@@ -121,6 +121,36 @@ class User extends Authenticatable
         return count($transaction) > 0 ? $transaction->balance : 0;  
     }
 
+    public function givePoints($points, $description)
+    {
+        $transaction = $this->transactions()->latest()->first();
+        $balance = count($transaction) > 0 ? $transaction->balance : 0;
+
+        return $this->transactions()->create([
+            'description'   => $description,
+            'credit'    => $points,
+            'debit' => 0,
+            'balance'   =>  $balance + $points
+        ]);          
+    }
+
+    public function takePoints($points, $description)
+    {
+        $transaction = $this->transactions()->latest()->first();
+        $balance = count($transaction) > 0 ? $transaction->balance : 0;
+
+        return $this->transactions()->create([
+            'description'   => $description,
+            'credit'    => 0,
+            'debit' => $points,
+            'balance'   =>  $balance - $points
+        ]);          
+    }    
+
+    /**
+     * We will deprecate this soon.
+     * To be replace by givePoints() & takePoints()
+     */
     public function makeTransaction($type = 'credit', $description, $points)
     {
         $transaction = $this->transactions()->latest()->first();

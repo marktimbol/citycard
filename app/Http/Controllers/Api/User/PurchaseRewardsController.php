@@ -36,8 +36,10 @@ class PurchaseRewardsController extends Controller
             $user->vouchers()->attach($voucher);
 
             // Decrement the points of the user
-            $description = sprintf('You purchased a reward for %s points.', $reward->required_points);
-            $user->makeTransaction('debit', $description, $reward->required_points);
+            $user->takePoints(
+                $reward->required_points, 
+                sprintf('You purchased a reward for %s points.', $reward->required_points)
+            );
 
         	// TODO: Send the 7-digit mobile verification to 
         	// the user's registered mobile
