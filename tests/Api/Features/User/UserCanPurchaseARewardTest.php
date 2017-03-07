@@ -18,10 +18,19 @@ class UserCanPurchaseARewardTest extends TestCase
 
     public function test_an_authenticated_user_can_purchase_a_reward_and_make_a_voucher()
     {
-    	$merchant = factory(App\Merchant::class)->create();
-    	$outlet = factory(App\Outlet::class)->create([
-    		'merchant_id'	=> $merchant->id
+    	$merchant = factory(App\Merchant::class)->create([
+            'name'  => 'Caribou'
+        ]);
+
+    	$outlet_internetCity = factory(App\Outlet::class)->create([
+    		'merchant_id'	=> $merchant->id,
+            'name'  => 'Caribou - Dubai Internet City'
     	]);
+
+        $outlet_alRigga = factory(App\Outlet::class)->create([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Caribou - Al Rigga'
+        ]);        
 
     	$reward = factory(App\Reward::class)->create([
     		'merchant_id'	=> $merchant->id,
@@ -29,8 +38,10 @@ class UserCanPurchaseARewardTest extends TestCase
             'required_points'   => 5,
     	]);
 
+        $reward->outlets()->attach($outlet_alRigga);
+        $reward->outlets()->attach($outlet_internetCity);
+
     	$request = $this->post('/api/user/rewards/purchase', [
-            'outlet_id' => $outlet->id,
             'reward_id' => $reward->id,
     	]);
 
@@ -47,9 +58,14 @@ class UserCanPurchaseARewardTest extends TestCase
          ]);
 
         $this->seeInDatabase('outlet_vouchers', [
-            'outlet_id' => $outlet->id,
+            'outlet_id' => $outlet_internetCity->id,
             'voucher_id' => $created_voucher->id,
         ]);
+
+        $this->seeInDatabase('outlet_vouchers', [
+            'outlet_id' => $outlet_alRigga->id,
+            'voucher_id' => $created_voucher->id,
+        ]);        
 
         $this->seeInDatabase('user_vouchers', [
             'user_id'   => $this->user->id,

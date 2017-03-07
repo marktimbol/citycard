@@ -2,23 +2,15 @@
 
 namespace App;
 
-use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class Reward extends Model
 {
-    protected $fillable = ['merchant_id', 'title', 'quantity', 'required_points', 'desc'];
+    use Uuids;
 
     public $incrementing = false;
-
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->id = Uuid::uuid1()->toString();
-        });
-    }
+    
+    protected $fillable = ['merchant_id', 'title', 'quantity', 'required_points', 'desc'];
 
     public function setTitleAttribute($title)
     {

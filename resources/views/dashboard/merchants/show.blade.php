@@ -7,9 +7,6 @@
 @endsection
 
 @section('content')
-	<?php
-		$area = $merchant->areas->first();
-	?>
 	<div class="Heading">
 		<h1 class="Heading__title">Merchant</h1>
 	</div>
@@ -71,7 +68,7 @@
 					Phone: {{ $merchant->phone }} <label class="label label-danger">Not Verified</label>
 				</li>
 				<li class="list-group-item">
-					Address: {{ sprintf('%s - %s, %s', $area->name, $area->city->name, $area->city->country->name) }}
+					Address: {{ $merchant->address }}
 				</li>
 			</ul>
 			<ul class="list-group">

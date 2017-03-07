@@ -189,12 +189,24 @@ class AnAuthorizedUserCanManageMerchantsTest extends TestCase
     		'name'	=> 'Filipino Food'
     	]);
 
+		$subcategories = [
+			0 => [
+				'value'	=> 'Filipino Food',
+				'label'	=> 'Filipino Food'
+			],
+			1 => [
+				'value'	=> 'Buffet',
+				'label'	=> 'Buffet'
+			]			
+		];
+
 		$request = $this->post($endpoint, [
 			'city'	=> $city->id,
 			'area'	=> 'Al Rigga',
 
 			'category'	=> $food->id,
-			'subcategories'	=> 'Filipino Food,Buffet',
+			'subcategories'	=> $subcategories,
+
 			
 			'name'	=> 'Zara',
 			'phone'	=> '0563759865',

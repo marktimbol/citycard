@@ -84,9 +84,11 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'subcategories'	=> [
                 0 => [
                     'value' => 'Buffet',
+                    'label' => 'Buffet',
                 ],
                 1 => [
-                    'value' => 'Custom subcategory'
+                    'value' => 'Custom subcategory',
+                    'label' => 'Custom subcategory'
                 ]
             ],
 			'type'	=> 'deals',
@@ -94,7 +96,7 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
 			'title'	=> 'The Title',
 			'desc'	=> 'The description',
 		]);
-
+        
         $this->seeInDatabase('posts', [
             'id'    => 1,
             'merchant_id'   => $merchant->id,
@@ -193,7 +195,12 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'isExternal'    => false,
 
             'category'  => 1,
-            'subcategories' => 'Visit Dubai',
+            'subcategories' => [
+                0 => [
+                    'value' => 'Visit Dubai',
+                    'label' => 'Visit Dubai',
+                ]
+            ],
 
             'type'  => 'deals',
             'outlet_ids'    => '1',
@@ -278,7 +285,12 @@ class AnAdminCanManageMerchantPostsTest extends TestCase
             'source_link'   => 'http://google.com',
 
             'category'  => 1,
-            'subcategories' => 'Concert',
+            'subcategories' => [
+                0 => [
+                    'value' => 'Concert',
+                    'label' => 'Concert',
+                ]
+            ],
 
             'type'  => 'events',
             'event_date'    => date('Y-m-d'),

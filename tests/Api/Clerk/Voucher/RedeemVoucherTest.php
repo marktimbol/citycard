@@ -21,7 +21,6 @@ class RedeemVoucherTest extends TestCase
     {
     	$customer = factory(App\User::class)->create([
     		'name'	=> 'Jane Doe',
-            'points'    => 100,
     	]);
 
         $outlet = factory(App\Outlet::class)->create([
@@ -66,7 +65,6 @@ class RedeemVoucherTest extends TestCase
     {
         $customer = factory(App\User::class)->create([
             'name'  => 'Jane Doe',
-            'points'    => 100,
         ]);
 
         $outlet = factory(App\Outlet::class)->create([
@@ -107,7 +105,6 @@ class RedeemVoucherTest extends TestCase
     {
         $customer = factory(App\User::class)->create([
             'name'  => 'Jane Doe',
-            'points'    => 100,
         ]);
 
         $outlet = factory(App\Outlet::class)->create([

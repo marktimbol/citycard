@@ -28,7 +28,7 @@ class ClerkCanChangePasswordTest extends TestCase
     	]);
 
     	$this->seeJson([
-    		'success'	=> true,
+    		'status'	=> 1,
     		'message'	=> 'Your password has been successfully updated.'
     	]);
     }
@@ -43,8 +43,8 @@ class ClerkCanChangePasswordTest extends TestCase
     	]);
 
     	$this->seeJson([
-    		'success'	=> false,
-    		'message'	=> 'Incorrect old password.'
+    		'status'	=> 0,
+    		'message'	=> 'Something went wrong. Please try again.'
     	]);
     }    
 }

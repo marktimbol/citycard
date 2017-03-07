@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Api\User;
 
-use App\Outlet;
 use App\Reward;
 use App\Voucher;
 use Illuminate\Http\Request;
@@ -13,8 +12,7 @@ class PurchaseRewardsController extends Controller
     public function store(Request $request)
     {        
         $user = auth()->guard('user_api')->user();
-    	$outlet = Outlet::findOrFail($request->outlet_id);
-        $reward = Reward::findOrFail($request->reward_id);
+        $reward = Reward::with('outlets:id,name')->findOrFail($request->reward_id);
 
         // If this user has enough points to purchase this reward
         if( $user->getAvailablePoints() >= $reward->required_points )
@@ -29,8 +27,8 @@ class PurchaseRewardsController extends Controller
         	// Decrement the quantity of the reward
             $reward->decrement('quantity', 1);
 
-            // Attach the voucher to the Outlet
-            $outlet->vouchers()->attach($voucher);
+            // Make the voucher available on the selected outlets
+            $voucher->outlets()->sync($reward->outlets->pluck('id'));
 
             // Attach the voucher to the User
             $user->vouchers()->attach($voucher);

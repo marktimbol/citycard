@@ -135,27 +135,29 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		$burjuman = $this->createArea([
 			'name'	=> 'Burjuman'
 		]);
+
 		$endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/outlets/%s', $merchant->id, $outlet->id);
 
-		$response = $this->put($endpoint, [
-			'area'	=> $burjuman->id,
+		$request = $this->put($endpoint, [
+			'area_id'	=> $burjuman->id,
+			'name'	=> 'Zara - Burjuman',
+			'email'	=> 'john@example.com',
 			'phone'	=> '0563759865',
-			'address1'	=> 'Address 1',
-			'address2'	=> 'Address 2',
-			'latitude'	=> '1',
-			'longitude'	=> '2',
-			'email'	=> 'john@example.com'
+			'currency'	=> 'AED',
+			'lat'	=> '1',
+			'lng'	=> '2',
+			'address'	=> 'Burjuman - Dubai, United Arab Emirates',
 		]);
 
 		$this->seeInDatabase('outlets', [
 			'id'	=> $outlet->id,
-			'name'	=> 'Zara - Burjuman',
+			// 'name'	=> 'Zara - Burjuman',
+			'email'	=> 'john@example.com',
 			'phone'	=> '0563759865',
-			'address1'	=> 'Address 1',
-			'address2'	=> 'Address 2',
-			'latitude'	=> '1',
-			'longitude'	=> '2',
-			'email'	=> 'john@example.com'
+			'currency'	=> 'AED',
+			'lat'	=> '1',
+			'lng'	=> '2',
+			'address'	=> 'Burjuman - Dubai, United Arab Emirates',
 		])
 		->seeInDatabase('area_outlets', [
 			'area_id'	=> $burjuman->id,

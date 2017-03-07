@@ -103,8 +103,9 @@ class MerchantOutletsController extends Controller
     }
 
     public function update(UpdateOutletRequest $request, Merchant $merchant, Outlet $outlet)
-    {
+    {        
         $outlet->update($request->all());
+        $outlet->areas()->sync([$request->area_id]);
 
 		return $outlet;
     }

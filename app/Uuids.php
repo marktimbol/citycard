@@ -5,7 +5,6 @@ use Ramsey\Uuid\Uuid;
 
 trait Uuids
 {
-
     /**
      * Boot function from laravel.
      */
@@ -14,7 +13,7 @@ trait Uuids
         parent::boot();
 
         static::creating(function ($model) {
-            $model->uuid = Uuid::uuid1()->toString();
+            $model->id = Uuid::uuid1()->toString();
         });
     }
 }

@@ -111,5 +111,4 @@
 
 @section('footer_scripts')
 	<script src="{{ elixir('js/editor.js') }}"></script>
-	<script src="{{ elixir('js/select.js') }}"></script>
 @endsection

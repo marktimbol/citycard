@@ -64,12 +64,13 @@ class MerchantPostsController extends Controller
         $request['category_id'] = $request->category;
     	$post = $merchant->posts()->create($request->all());
 
-        $subcategories = explode(',', $request->subcategories);
+        // $subcategories = explode(',', $request->subcategories);
+        $subcategories = collect($request->subcategories);
         foreach( $subcategories as $item )
         {
             $subcategory = Subcategory::firstOrCreate([
                 'category_id'   => $request->category,
-                'name'  => $item,
+                'name'  => $item['value'],
             ]);
 
             $post->subcategories()->attach($subcategory);

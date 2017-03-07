@@ -22,14 +22,20 @@ class GuestUserCanNavigateOutletsTest extends TestCase
 
     public function test_guest_user_can_view_all_the_available_outlets()
     {
-		$outlets = $this->createOutlets(3);
+        $merchant = $this->createMerchant([
+            'name'  => 'Starbucks'
+        ]);
 
-		$this->json('GET', '/api/outlets');
-		foreach( $outlets as $outlet ) {
-			$this->seeJson([
-				'name'	=> $outlet->name
-			]);
-		}
+		$outlet = $this->createOutlet([
+            'merchant_id'   => $merchant->id,
+            'name'  => 'Starbucks - Al Rigga'
+        ]);
+
+		$request = $this->json('GET', '/api/outlets');
+
+		$this->seeJson([
+			'name'	=> 'Starbucks'
+		]);
     }
 
     public function test_guest_can_view_single_outlet()

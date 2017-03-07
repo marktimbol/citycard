@@ -2,23 +2,15 @@
 
 namespace App;
 
-use Ramsey\Uuid\Uuid;
 use Illuminate\Database\Eloquent\Model;
 
 class RewardPhotos extends Model
 {
-    protected $table = 'reward_photos';
+    use Uuids;
 
-    protected $fillable = ['url', 'thumbnail'];
+    protected $table = 'reward_photos';
 
     public $incrementing = false;
     
-    protected static function boot()
-    {
-        parent::boot();
-
-        static::creating(function ($model) {
-            $model->id = Uuid::uuid1()->toString();
-        });
-    }    
+    protected $fillable = ['url', 'thumbnail'];
 }

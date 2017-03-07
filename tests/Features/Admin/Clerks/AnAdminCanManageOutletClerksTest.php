@@ -25,12 +25,17 @@ class AnAdminCanManageOutletClerksTest extends TestCase
 
     public function test_an_admin_can_store_a_clerk_on_the_outlet()
     {
-    	$merchant = $this->createMerchant();
+    	$merchant = $this->createMerchant([
+            'name'  => 'Starbucks',
+        ]);
+
     	$outlet = $this->createOutlet([
-    		'merchant_id'	=> $merchant->id
+    		'merchant_id'	=> $merchant->id,
+            'name'  => 'Starbucks - Al Rigga'
     	]);
 
     	$url = sprintf(adminPath() . '/dashboard/outlets/%s/clerks/create', $outlet->id);
+
     	$this->visit($url)
 			->type('John', 'first_name')
 			->type('Doe', 'last_name')

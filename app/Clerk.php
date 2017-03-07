@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Ramsey\Uuid\Uuid;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Notifications\Notifiable;
@@ -10,7 +11,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class Clerk extends Authenticatable
 {
-	use CanReplyToAMessage, Notifiable, Uuids;
+	use CanReplyToAMessage, Notifiable;
 
 	/**
 	 * The attributes that are mass assignable.
@@ -19,7 +20,7 @@ class Clerk extends Authenticatable
 	 */
 	protected $fillable = [
 	    'uuid', 'merchant_id', 'first_name', 'last_name',
-	    'display_name', 'email', 'password', 'phone'
+	    'display_name', 'email', 'password', 'phone', 'last_logged_in'
 	];
 
 	/**
@@ -32,6 +33,12 @@ class Clerk extends Authenticatable
 	];
 
 	protected $dates = ['last_logged_in'];
+
+	public function setIdAttribute($id)
+	{
+		$this->attributes['id'] = $id;
+		$this->attributes['uuid'] = Uuid::uuid1()->toString();
+	}
 
     public function setEmailAttribute($email)
     {
