@@ -120,6 +120,14 @@
 
 	@include('dashboard.merchants._posts')
 
+	@include('dashboard.merchants._rewards', [
+		'rewards'	=> $rewards,
+	])
+
+	@include('dashboard.merchants._vouchers', [
+		'vouchers'	=> $vouchers,
+	])
+
 	@include('dashboard.outlets._update-outlet-address')
 	@include('dashboard.outlets._upload-outlet-gallery')
 	@include('dashboard.outlets._select-existing-clerks')

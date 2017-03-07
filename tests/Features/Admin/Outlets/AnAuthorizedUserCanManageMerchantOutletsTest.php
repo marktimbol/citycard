@@ -118,7 +118,12 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
     	$merchant = $this->createMerchant([
 			'name'	=> 'Zara'
 		]);
+		$city = $this->createCity([
+			'name'	=> 'Dubai'
+		]);
+
 		$alRigga = $this->createArea([
+			'city_id'	=> $city->id,
 			'name'	=> 'Al Rigga'
 		]);
     	$outlet = $this->createOutlet([
@@ -133,17 +138,19 @@ class AnAuthorizedUserCanManageMerchantOutletsTest extends TestCase
 		]);
 
 		$burjuman = $this->createArea([
+			'city_id'	=> $city->id,
 			'name'	=> 'Burjuman'
 		]);
 
 		$endpoint = sprintf(adminPath() . '/dashboard/merchants/%s/outlets/%s', $merchant->id, $outlet->id);
 
 		$request = $this->put($endpoint, [
-			'area_id'	=> $burjuman->id,
 			'name'	=> 'Zara - Burjuman',
 			'email'	=> 'john@example.com',
 			'phone'	=> '0563759865',
 			'currency'	=> 'AED',
+			'city'	=> $city->id,
+			'area'	=> 'Burjuman',
 			'lat'	=> '1',
 			'lng'	=> '2',
 			'address'	=> 'Burjuman - Dubai, United Arab Emirates',

@@ -82,9 +82,6 @@
 					Phone: {{ $clerk->phone }}
 				</li>
 				<li class="list-group-item">
-					Address:  {{ sprintf('%s, %s', $clerk->city, $clerk->country) }}
-				</li>
-				<li class="list-group-item">
 					Merchant:
 					<a href="{{ route('dashboard.merchants.show', $merchant->id) }}">
 						{{ $merchant->name }}

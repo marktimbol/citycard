@@ -48,7 +48,7 @@
 
 		@empty
 		<tr>
-			<td colspan="6">No record yet.</td>
+			<td colspan="6">There's no record yet.</td>
 		</tr>
 		@endforelse
 	</tbody>

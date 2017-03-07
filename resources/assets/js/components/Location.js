@@ -14,7 +14,7 @@ class Location extends React.Component
             selectedCity: '',
             selectedArea: '',
 
-            address: '',
+            address: this.props.address,
 
             availableCities: [],
             availableAreas: [],

@@ -90,6 +90,10 @@
 
 	@include('dashboard.merchants._posts')
 
+	@include('dashboard.merchants._rewards', [
+		'rewards'	=> $rewards
+	])
+
 	<h3>Billing</h3>
 	
 	@if( adminCan('update', $merchant) )

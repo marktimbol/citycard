@@ -42,10 +42,11 @@ class MerchantsController extends Controller
 
     public function show(Merchant $merchant)
     {
-		$merchant->load('areas.city.country', 'categories.subcategories');
+		$merchant->load('areas.city.country', 'categories.subcategories', 'rewards.outlets');
         $outlets = $merchant->outlets()->latest()->get();
         $clerks = $merchant->clerks()->latest()->get();
         $posts = $merchant->posts()->latest()->get();
+        $rewards = $merchant->rewards()->latest()->get();
         $categories = $merchant->categories;
 
         JavaScript::put([
@@ -54,7 +55,7 @@ class MerchantsController extends Controller
             'posts' => $posts
         ]);
         
-        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts', 'categories'));
+        return view('dashboard.merchants.show', compact('merchant', 'outlets', 'clerks', 'posts', 'rewards', 'categories'));
     }
 
     public function create()

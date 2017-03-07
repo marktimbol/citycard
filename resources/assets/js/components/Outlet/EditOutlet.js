@@ -2,6 +2,8 @@
 import axios from 'axios';
 import ReactDOM from 'react-dom';
 import React, { Component } from 'react';
+import Location from '../Location';
+import { geocodeByAddress } from 'react-places-autocomplete';
 
 class EditOutlet extends Component
 {
@@ -20,10 +22,19 @@ class EditOutlet extends Component
 			email: outlet.email,
 			currency: outlet.currency,
 
+			address: outlet.address,
+			city: '',
+			area: '',
+			lat: outlet.lat,
+			lng: outlet.lng,
+
 			errors: [],
 		}
 
 		this.handleChange = this.handleChange.bind(this);
+		this.handleAddressChange = this.handleAddressChange.bind(this);
+		this.handleCityChange = this.handleCityChange.bind(this);
+		this.handleAreaChange = this.handleAreaChange.bind(this);  				
 	}
 
 	handleChange(e) {
@@ -31,6 +42,23 @@ class EditOutlet extends Component
 			[e.target.name]: e.target.value
 		});
 	}
+
+    handleAddressChange(address) {
+        let that = this;
+        this.setState({ address })
+        
+        geocodeByAddress(address, (err, { lat, lng }) => {
+            that.setState({ lat, lng })
+        })
+    }
+
+	handleCityChange(city) {  
+		this.setState({ city });
+	}
+
+	handleAreaChange(area) {  
+		this.setState({ area: area.value });
+	}		
 
 	onSubmit(e) {
 		e.preventDefault();
@@ -49,6 +77,11 @@ class EditOutlet extends Component
 	    		phone: that.state.phone,
 	    		email: that.state.email,
 	    		currency: that.state.currency,
+	    		city: that.state.city,
+	    		area: that.state.area,
+	    		address: that.state.address,
+	    		lat: that.state.lat,
+	    		lng: that.state.lng,
 	    	}
 	    }).then(function(response) {
 	    	console.log('EditOutlet response', response.data);
@@ -112,6 +145,19 @@ class EditOutlet extends Component
 					</span>
 				</div>
 
+				<div className={errors.hasOwnProperty('email') ? 'form-group has-error' : 'form-group'}>
+					<label htmlFor="email">Email</label>
+					<input type="email"
+						name="email"
+						id="email"
+						value={this.state.email}
+						onChange={this.handleChange}
+						className="form-control" />
+					<span className="help-block">
+						{ errors.hasOwnProperty('email') ? errors['email'] : '' }
+					</span>						
+				</div>				
+
 				<div className={errors.hasOwnProperty('phone') ? 'form-group has-error' : 'form-group'}>
 					<label htmlFor="phone" className="label-block">Phone</label>
 					<input type="tel"
@@ -125,7 +171,6 @@ class EditOutlet extends Component
 					</span>						
 				</div>
 
-				<h3>What is your preferred currency?</h3>
 				<div className="row">
 					<div className="col-md-4">
 						<div className={errors.hasOwnProperty('currency') ? 'form-group has-error' : 'form-group'}>
@@ -143,20 +188,13 @@ class EditOutlet extends Component
 					</div>
 				</div>
 
-				<h2>Account Details</h2>
-
-				<div className={errors.hasOwnProperty('email') ? 'form-group has-error' : 'form-group'}>
-					<label htmlFor="email">Email</label>
-					<input type="email"
-						name="email"
-						id="email"
-						value={this.state.email}
-						onChange={this.handleChange}
-						className="form-control" />
-					<span className="help-block">
-						{ errors.hasOwnProperty('email') ? errors['email'] : '' }
-					</span>						
-				</div>
+				<Location 
+					errors={this.state.errors}
+					address={this.state.address}
+					addressClass={this.state.errors.hasOwnProperty('address') ? 'has-error' : ''}
+					handleAddressChange={this.handleAddressChange}
+					handleCityChange={this.handleCityChange}
+					handleAreaChange={this.handleAreaChange} />				
 
 				<div className="form-group">
 					<button

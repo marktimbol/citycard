@@ -17,6 +17,7 @@ class CreateOutlet extends Component
 			phone: '',
 			address: '',
 			city: '',
+			area: '',
 			lat: '',
 			lng: '',
 

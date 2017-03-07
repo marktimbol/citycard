@@ -12,11 +12,12 @@ class ClerksOutletsController extends Controller
     {
     	$clerk->load('merchant');
 
+        $clerk->outlets()->detach();
         if( $request->has('outlets') ) {
             $clerk->outlets()->sync($request->outlets);
-            
-	        flash()->success('A Clerk has been successfully assigned on the Outlet.');
         }
+
+        flash()->success('A Clerk has been successfully assigned on the Outlet.');
 
     	return redirect()->route('dashboard.merchants.clerks.show', [
 			$clerk->merchant->id, $clerk->id

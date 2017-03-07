@@ -50,6 +50,11 @@ class Merchant extends Authenticatable
 		return $this->hasMany(Clerk::class);
 	}
 
+	public function rewards()
+	{
+		return $this->hasMany(Reward::class);
+	}
+
 	public function promos()
 	{
 		return $this->hasMany(Promo::class);

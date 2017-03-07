@@ -28,6 +28,8 @@ class UpdateOutletRequest extends FormRequest
 			'phone'	=> 'required',
             'email' => 'required|email',
             'currency'  => 'required',
+            'address'  => 'required',
+            'area'  => 'required',
         ];
     }
 }

@@ -30,9 +30,12 @@ class MerchantOutletsController extends Controller
     public function show(Merchant $merchant, Outlet $outlet)
     {
         $merchant->load('clerks');
-        $outlet->load('posts', 'clerks', 'photos', 'itemsForReservation', 'areas.city.country');
+        $outlet->load('posts', 'clerks', 'rewards.outlets', 'vouchers.reward', 'photos', 'itemsForReservation', 'areas.city.country');
 
         $posts = $outlet->posts()->latest()->get();
+        $rewards = $outlet->rewards()->latest()->get();
+        $vouchers = $outlet->vouchers()->latest()->get();
+
         $outletClerks = $outlet->clerks;
         $merchantClerks = $merchant->clerks->diff($outletClerks);
         $itemsForReservation = $outlet->itemsForReservation()->latest()->get();
@@ -54,7 +57,7 @@ class MerchantOutletsController extends Controller
             'countries' => Country::orderBy('name', 'asc')->get(),
         ]);
 
-        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'outletClerks', 'merchantClerks', 'itemsForReservation'));
+        return view('dashboard.outlets.show', compact('merchant', 'outlet', 'posts', 'rewards', 'vouchers', 'outletClerks', 'merchantClerks', 'itemsForReservation'));
     }
 
     public function create(Merchant $merchant)
@@ -103,9 +106,14 @@ class MerchantOutletsController extends Controller
     }
 
     public function update(UpdateOutletRequest $request, Merchant $merchant, Outlet $outlet)
-    {        
+    {
+        $area = Area::firstOrCreate([
+            'city_id'   => $request->city,
+            'name'  => $request->area,
+        ]);
+
         $outlet->update($request->all());
-        $outlet->areas()->sync([$request->area_id]);
+        $outlet->areas()->sync([$area->id]);
 
 		return $outlet;
     }

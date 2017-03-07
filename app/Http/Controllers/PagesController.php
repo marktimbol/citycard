@@ -7,6 +7,7 @@ use App\User;
 use App\Clerk;
 use App\Point;
 use App\Company;
+use Ramsey\Uuid\Uuid;
 use Illuminate\Http\Request;
 use App\Jobs\ChangeClerkPassword;
 use Illuminate\Support\Facades\Log;
@@ -43,5 +44,10 @@ class PagesController extends Controller
     {
         $company = Company::first();
         return view('public.about.privacy', compact('company'));
+    }
+
+    public function generateUuid()
+    {
+        return Uuid::uuid1()->toString();
     }
 }
