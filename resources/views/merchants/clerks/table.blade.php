@@ -40,7 +40,7 @@
 					As Clerk
 				</span>
 			</td>			
-			<td>{{ $clerk->last_logged_in->diffForHumans() }}</td>
+			<td>{{ $clerk->last_logged_in ? $clerk->last_logged_in->diffForHumans() : '' }}</td>
 			<td>
 				@if( $clerk->is_online )
 					<label class="label label-success">Online</label>
