@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="description" content="CityCard is a unique loyalty program designed to bring more pleasure to your retail and dining experience." />
+    <meta name="keywords" content="loyalty program, points, cashback, rewards, vouchers, messaging" />
+    <meta name="author" content="Ark Solutions" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
