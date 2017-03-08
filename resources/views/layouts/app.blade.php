@@ -7,6 +7,7 @@
     <meta name="description" content="CityCard is a unique loyalty program designed to bring more pleasure to your retail and dining experience." />
     <meta name="keywords" content="loyalty program, points, cashback, rewards, vouchers, messaging" />
     <meta name="author" content="Ark Solutions" />
+    <meta name="google-site-verification" content="eT7zoI94sbljGJMsz72Oi8teqLHD3NX8fcNMKwB_5xk" />
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
