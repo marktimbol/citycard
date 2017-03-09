@@ -10,5 +10,5 @@ class Transaction extends Model
 
 	public $incrementing = false;
 	
-    protected $fillable = ['description', 'debit', 'credit', 'balance'];
+    protected $fillable = ['desc', 'debit', 'credit', 'balance'];
 }

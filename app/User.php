@@ -129,7 +129,7 @@ class User extends Authenticatable
     public function givePoints($points, $description)
     {
         return $this->transactions()->create([
-            'description'   => $description,
+            'desc'   => $description,
             'credit'    => $points,
             'debit' => 0,
             'balance'   =>  $this->getAvailablePoints() + $points
@@ -139,7 +139,7 @@ class User extends Authenticatable
     public function takePoints($points, $description)
     {
         return $this->transactions()->create([
-            'description'   => $description,
+            'desc'   => $description,
             'credit'    => 0,
             'debit' => $points,
             'balance'   =>  $this->getAvailablePoints() - $points
