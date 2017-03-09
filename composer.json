@@ -23,7 +23,8 @@
         "laravel-notification-channels/pusher-push-notifications": "^1.0",
         "layerhq/layer-identity-token-php": "^1.0",
         "intervention/image": "^2.3",
-        "davejamesmiller/laravel-breadcrumbs": "^3.0"
+        "davejamesmiller/laravel-breadcrumbs": "^3.0",
+        "gloudemans/shoppingcart": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

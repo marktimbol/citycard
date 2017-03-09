@@ -115,6 +115,11 @@ class User extends Authenticatable
         return $this->hasMany(Transaction::class);
     }
 
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }    
+
     public function getAvailablePoints()
     {
         $transaction = $this->transactions()->latest()->first();
@@ -145,7 +150,7 @@ class User extends Authenticatable
             'debit' => $points,
             'balance'   =>  $balance - $points
         ]);          
-    }    
+    }
 
     /**
      * We will deprecate this soon.

@@ -24,6 +24,12 @@ Route::group(['as' => 'api.', 'middleware' => 'auth:user_api'], function() {
 	Route::put('user/profile', 'Api\User\ProfileController@update');
 	Route::post('user/invites', 'Api\User\InvitesController@store');
 
+	// User Purchase a Deal
+	Route::post('user/posts/{post}/purchase', 'Api\User\PurchaseDealsController@store');
+
+	// User checkout the order
+	Route::post('user/checkout', 'Api\User\CheckoutController@store');
+
 	// User Purchase a Reward
 	Route::post('user/rewards/purchase', 'Api\User\PurchaseRewardsController@store');
 
