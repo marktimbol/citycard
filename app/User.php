@@ -128,46 +128,22 @@ class User extends Authenticatable
 
     public function givePoints($points, $description)
     {
-        $transaction = $this->transactions()->latest()->first();
-        $balance = count($transaction) > 0 ? $transaction->balance : 0;
-
         return $this->transactions()->create([
             'description'   => $description,
             'credit'    => $points,
             'debit' => 0,
-            'balance'   =>  $balance + $points
+            'balance'   =>  $this->getAvailablePoints() + $points
         ]);          
     }
 
     public function takePoints($points, $description)
     {
-        $transaction = $this->transactions()->latest()->first();
-        $balance = count($transaction) > 0 ? $transaction->balance : 0;
-
         return $this->transactions()->create([
             'description'   => $description,
             'credit'    => 0,
             'debit' => $points,
-            'balance'   =>  $balance - $points
+            'balance'   =>  $this->getAvailablePoints() - $points
         ]);          
-    }
-
-    /**
-     * We will deprecate this soon.
-     * To be replace by givePoints() & takePoints()
-     */
-    public function makeTransaction($type = 'credit', $description, $points)
-    {
-        $transaction = $this->transactions()->latest()->first();
-        $balance = count($transaction) > 0 ? $transaction->balance : 0;
-
-        return $this->transactions()->create([
-            'description'   => $description,
-            'credit'    => $type === 'credit' ? $points : 0,
-            'debit' => $type === 'debit' ? $points : 0,
-            'balance'   => 
-                $type === 'credit' ? $balance + $points : $balance - $points
-        ]);        
     }
 
     public function alreadyInvited($email)
