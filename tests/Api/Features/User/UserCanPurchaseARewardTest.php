@@ -35,6 +35,7 @@ class UserCanPurchaseARewardTest extends TestCase
     	$reward = factory(App\Reward::class)->create([
     		'merchant_id'	=> $merchant->id,
     		'quantity'	=> 10,
+            'title' => 'Free Coffee',
             'required_points'   => 5,
     	]);
 
@@ -76,7 +77,7 @@ class UserCanPurchaseARewardTest extends TestCase
         // so we deduct 5 points when the reward was purchased
         $this->seeInDatabase('transactions', [
             'user_id'   => $this->user->id,
-            'description'   => sprintf('You purchased a reward for %s points.', $reward->required_points),
+            'description'   => "You purchased a reward 'Free Coffee' for 5 points from Caribou.",
             'credit'    => 0,
             'debit' => $reward->required_points,
             'balance'   => 95 

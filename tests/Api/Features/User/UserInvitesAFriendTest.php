@@ -40,7 +40,7 @@ class UserInvitesAFriendTest extends TestCase
         // so we added 50 points when he/she invites a friend.
         $this->seeInDatabase('transactions', [
             'user_id'   => $this->user->id,
-            'description'   => sprintf('You received %s points for inviting your friend.', $point->invite_friend),
+            'description'   => sprintf('You received %s points for inviting your friend jane@example.com.', $point->invite_friend),
             'credit'    => $point->invite_friend,
             'debit' => 0,
             'balance'   => 150

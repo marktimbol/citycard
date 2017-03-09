@@ -30,7 +30,7 @@ class InvitesController extends Controller
 
         $user->givePoints(
             Point::first()->invite_friend, 
-            sprintf('You received %s points for inviting your friend.', Point::first()->invite_friend)
+            sprintf('You received %s points for inviting your friend %s.', Point::first()->invite_friend, $request->email)
         );
 
     	$friend->load('user:id,name,email');

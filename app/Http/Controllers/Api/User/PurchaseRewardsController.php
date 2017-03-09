@@ -12,7 +12,7 @@ class PurchaseRewardsController extends Controller
     public function store(Request $request)
     {        
         $user = auth()->guard('user_api')->user();
-        $reward = Reward::with('outlets:id,name')->findOrFail($request->reward_id);
+        $reward = Reward::with('outlets:id,merchant_id,name')->findOrFail($request->reward_id);
 
         // If this user has enough points to purchase this reward
         if( $user->getAvailablePoints() >= $reward->required_points )
@@ -36,7 +36,10 @@ class PurchaseRewardsController extends Controller
             // Decrement the points of the user
             $user->takePoints(
                 $reward->required_points, 
-                sprintf('You purchased a reward for %s points.', $reward->required_points)
+                sprintf(
+                    "You purchased a reward '%s' for %s points from %s.", 
+                    $reward->title, $reward->required_points, 
+                    $reward->outlets->first()->merchant->name)
             );
 
         	// TODO: Send the 7-digit mobile verification to 
